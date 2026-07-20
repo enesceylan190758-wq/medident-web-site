@@ -1,0 +1,46 @@
+MEDIDENT İSTANBUL — WEB SİTESİ TESLİM PAKETİ
+=============================================
+
+Bu klasör, MediDent İstanbul tek sayfa (landing) web sitesinin
+çalışan tüm dosyalarını içerir. İnternet olmadan da açılır.
+
+KLASÖR İÇERİĞİ
+--------------
+- MediDent Istanbul.dc.html   → Ana sayfa (sitenin kendisi)
+- support.js                  → Sayfanın çalışması için gerekli motor dosyası
+- assets/                     → Tüm görseller (hasta fotoğrafları, logo vb.)
+
+SİTEYİ AÇMAK (bilgisayarda test)
+--------------------------------
+1. Bu klasörü (zip'i) bilgisayara çıkarın.
+2. "MediDent Istanbul.dc.html" dosyasına çift tıklayın.
+3. Site tarayıcıda (Chrome/Safari) açılır. İnternet gerekmez;
+   sadece yazı fontları çevrimiçi yüklenir.
+
+YAYINA ALMAK (internete koymak)
+-------------------------------
+- Bu klasörün TAMAMINI (HTML + support.js + assets) hosting'e /
+  sunucuya yükleyin. Dosya yapısı aynı kalmalı (assets klasörü
+  HTML ile aynı dizinde olmalı).
+- Ana giriş dosyası: MediDent Istanbul.dc.html
+  (İsterseniz index.html olarak yeniden adlandırabilirsiniz.)
+
+DÜZENLEME NOTLARI (geliştirici için)
+------------------------------------
+- Tüm metin ve düzen "MediDent Istanbul.dc.html" içindedir
+  (satır içi stiller kullanılmıştır).
+- Görseller assets/ klasöründedir; değiştirmek için aynı adla
+  üzerine yazın veya HTML'deki src yolunu güncelleyin.
+- Rakam sayaç animasyonu (12.000+, 15+, 50+, 4.9/5) ve
+  öncesi/sonrası kaydırıcı, dosyanın altındaki <script> içindeki
+  sınıf mantığındadır.
+
+GÜNCELLENMESİ GEREKENLER (placeholder)
+--------------------------------------
+- Telefon: +90 212 000 00 00
+- WhatsApp: +90 555 000 00 00
+- E-posta: info@medidentistanbul.com
+- Adres: Nişantaşı, Şişli · İstanbul
+Bu bilgileri gerçek klinik bilgileriyle değiştirin.
+
+Sorular için tasarımı hazırlayan ekibe iletebilirsiniz.
