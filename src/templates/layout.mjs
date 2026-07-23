@@ -174,6 +174,7 @@ function footer(lang) {
           <a href="${url(lang, "yorumlar/")}">${t.nav.reviews}</a>
           <a href="${url(lang, "galeri/")}">${t.nav.gallery}</a>
           <a href="${url(lang, "blog/")}">${t.nav.blog}</a>
+          <a href="${url(lang, "geo/")}">GEO</a>
           <a href="${url(lang, "sss/")}">${t.nav.faq}</a>
         </div>
       </div>

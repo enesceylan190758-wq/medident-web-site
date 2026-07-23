@@ -199,13 +199,15 @@ export function articlePage(lang, article, relatedServiceSlug) {
       headline: article.title,
       description: article.excerpt,
       inLanguage: lang,
+      datePublished: article.publishedAt || undefined,
       author: { "@id": site.domain + "/#organization" },
       publisher: { "@id": site.domain + "/#organization" },
       mainEntityOfPage: site.domain + url(lang, "blog/" + article.slug + "/"),
     },
+    ...(article.faq?.length ? [faqSchema(article.faq)] : []),
     breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
   ];
-  return { body, title: `${article.title} — ${site.brand}`, description: article.excerpt, jsonld };
+  return { body, title: `${article.title} — ${site.brand}`, description: article.metaDescription || article.excerpt, jsonld };
 }
 
 // About
@@ -333,3 +335,70 @@ export function legalPage(lang, kind) {
 
 const miniMinus = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14"></path></svg>`;
 const miniPlus = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>`;
+
+/** GEO index — AI citation packs */
+export function geoIndexPage(lang, packs) {
+  const title = lang === "de" ? "GEO Wissensbank" : lang === "en" ? "GEO knowledge base" : "GEO bilgi bankası";
+  const lead =
+    lang === "de"
+      ? "Kurze, zitierfähige Antworten für KI-Suchmaschinen und Patientenfragen."
+      : lang === "en"
+        ? "Short, citation-ready answers for AI search and patient questions."
+        : "Yapay zekâ arama motorları ve hasta soruları için kısa, alıntılanabilir cevaplar.";
+  const crumbs = [crumbHome(lang), { name: "GEO", href: url(lang, "geo/") }];
+  const row = (p) => `<a href="${url(lang, "geo/" + p.slug + "/")}" class="article-row" style="color:inherit;">
+    <div><h3 style="font-size:20px;margin-bottom:6px;">${p.title || p.question}</h3><p style="font-size:14.5px;color:var(--muted-2);margin:0;">${p.direct_answer.slice(0, 140)}…</p></div>
+    <span class="link-more">${lang === "tr" ? "Oku" : "Read"} ${icons.arrowSm}</span>
+  </a>`;
+  const body = `${pageHero(lang, "GEO", title, lead, crumbs)}
+  <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container" style="max-width:860px;">
+    <div class="article-list">${packs.map(row).join("")}</div>
+  </div></section>`;
+  return {
+    body,
+    title: `${title} — ${site.brand}`,
+    description: lead,
+    jsonld: [breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href })))],
+  };
+}
+
+/** Single GEO pack — answer-first + FAQPage */
+export function geoPackPage(lang, pack) {
+  const crumbs = [
+    crumbHome(lang),
+    { name: "GEO", href: url(lang, "geo/") },
+    { name: pack.title || pack.question, href: url(lang, "geo/" + pack.slug + "/") },
+  ];
+  const links = (pack.internal_links || [])
+    .map((l) => `<a href="${l.href}" class="btn btn-ghost" style="padding:10px 16px;">${l.label}</a>`)
+    .join("");
+  const body = `${pageHero(lang, "GEO", pack.question || pack.title, "", crumbs)}
+  <section class="section" style="padding-top:clamp(24px,3vw,40px);"><div class="container" style="max-width:760px;">
+    <article class="prose">
+      <p><strong>${pack.direct_answer}</strong></p>
+      <h2>${lang === "tr" ? "Öne çıkan noktalar" : "Key points"}</h2>
+      <ul>${(pack.bullets || []).map((b) => `<li>${b}</li>`).join("")}</ul>
+      <h2>${lang === "tr" ? "Sık sorulan sorular" : "FAQ"}</h2>
+      ${(pack.faq || []).map((f) => `<h3>${f.q}</h3><p>${f.a}</p>`).join("")}
+      <div style="margin-top:28px;display:flex;flex-wrap:wrap;gap:10px;">${links}</div>
+    </article>
+  </div></section>`;
+  return {
+    body,
+    title: `${pack.question || pack.title} — ${site.brand}`,
+    description: pack.direct_answer.slice(0, 155),
+    jsonld: [
+      faqSchema(pack.faq || []),
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        name: pack.question || pack.title,
+        description: pack.direct_answer,
+        inLanguage: "tr",
+        isPartOf: { "@type": "WebSite", name: site.brand, url: site.domain },
+      },
+      breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
+    ],
+  };
+}
+

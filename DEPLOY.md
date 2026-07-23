@@ -1,5 +1,25 @@
 # MediDent İstanbul — Yayın Rehberi
 
+## Günlük Blog SEO + GEO (Nefalix modeli)
+
+| | Bugün (ilk) | Sonraki günler |
+|---|------|------|
+| Blog `/blog/:slug/` | **10** | **2** |
+| GEO `/geo/:slug/` | **10** | **2** |
+
+```bash
+npm run content:today   # 10+10 (bir kez)
+npm run content:daily   # 2+2 her gün
+npm run build
+npm run deploy:pages    # önizleme
+```
+
+Konu kuyruğu: `src/content/blog-topics.json`, `geo-topics.json`  
+Durum: `src/content/queue-state.json`  
+Rehber: `directives/daily_blog_geo.md`
+
+---
+
 ## Hızlı önizleme (domain sonra)
 
 Turhost FTP buradan yüklenemediği için site **`gh-pages`** dalına yayınlandı.

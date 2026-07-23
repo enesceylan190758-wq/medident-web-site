@@ -21,11 +21,20 @@ import {
   galleryPage,
   faqPage,
   legalPage,
+  geoIndexPage,
+  geoPackPage,
 } from "./src/templates/pages.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DIST = path.join(__dirname, "dist");
-const ARTICLES = JSON.parse(fs.readFileSync(path.join(__dirname, "src/content/articles.json"), "utf8"));
+const ARTICLES_BASE = JSON.parse(fs.readFileSync(path.join(__dirname, "src/content/articles.json"), "utf8"));
+const GENERATED_BLOG = fs.existsSync(path.join(__dirname, "src/content/generated-blog.json"))
+  ? JSON.parse(fs.readFileSync(path.join(__dirname, "src/content/generated-blog.json"), "utf8"))
+  : [];
+const ARTICLES = [...ARTICLES_BASE, ...GENERATED_BLOG];
+const GEO_PACKS = fs.existsSync(path.join(__dirname, "src/content/geo/packs.json"))
+  ? JSON.parse(fs.readFileSync(path.join(__dirname, "src/content/geo/packs.json"), "utf8"))
+  : [];
 
 const pages = []; // {lang, path, lastmod} for sitemap
 
@@ -95,6 +104,11 @@ function build() {
     emit(lang, "blog/", blogIndexPage(lang, blogList));
     for (const a of byLang) emit(lang, "blog/" + a.slug + "/", articlePage(lang, a, a.service));
 
+    // GEO packs (TR content on all locales for citation; URLs stay under lang prefix for EN/DE)
+    const geoForLang = GEO_PACKS.filter((g) => g.lang === "tr" || g.lang === lang);
+    emit(lang, "geo/", geoIndexPage(lang, geoForLang));
+    for (const g of geoForLang) emit(lang, "geo/" + g.slug + "/", geoPackPage(lang, g));
+
     // Static pages
     emit(lang, "hakkimizda/", aboutPage(lang));
     emit(lang, "iletisim/", contactPage(lang));
@@ -109,8 +123,9 @@ function build() {
   writeRobots();
   writeHtaccess();
   writeExtras();
+  writeLlmsTxt();
 
-  console.log(`Built ${pages.length} pages -> ${DIST}`);
+  console.log(`Built ${pages.length} pages -> ${DIST} (blog gen ${GENERATED_BLOG.length}, geo ${GEO_PACKS.length})`);
 }
 
 function writeSitemap() {
@@ -215,6 +230,42 @@ function writeExtras() {
     `<section class="section" style="text-align:center;"><div class="container"><h1 style="font-size:64px;">404</h1><p class="lead" style="margin:0 auto 24px;">Aradığınız sayfa bulunamadı.</p><a class="btn btn-primary" href="/">Ana sayfa</a></div></section>`
   );
   fs.writeFileSync(path.join(DIST, "404.html"), notFound);
+}
+
+function writeLlmsTxt() {
+  const blogLines = ARTICLES.filter((a) => a.lang === "tr")
+    .slice(0, 30)
+    .map((a) => `- [${a.title}](${site.domain}/blog/${a.slug}/): ${a.excerpt}`)
+    .join("\n");
+  const geoLines = GEO_PACKS.map((g) => `- [${g.question}](${site.domain}/geo/${g.slug}/): ${g.direct_answer}`).join("\n");
+  const txt = `# ${site.brand}
+
+> Diş kliniği — gülüş tasarımı, implantoloji, estetik diş hekimliği. Üsküdar Acıbadem, İstanbul.
+> Diller: TR, EN, DE. Sağlık turizmi paketleri (transfer, konaklama, tercüman).
+
+## Primary
+- Home: ${site.domain}/
+- Services: ${site.domain}/hizmetler/
+- Contact: ${site.domain}/iletisim/
+- Blog: ${site.domain}/blog/
+- GEO knowledge: ${site.domain}/geo/
+- WhatsApp: https://wa.me/${site.whatsappRaw}
+
+## Contact
+- Phone: ${site.phone}
+- Email: ${site.email}
+- Address: ${site.address}
+
+## GEO packs (citation-ready)
+${geoLines || "- (pending)"}
+
+## Blog (selected)
+${blogLines || "- (pending)"}
+
+## Sitemaps
+- ${site.domain}/sitemap.xml
+`;
+  fs.writeFileSync(path.join(DIST, "llms.txt"), txt);
 }
 
 build();
