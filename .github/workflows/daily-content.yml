@@ -1,0 +1,79 @@
+# Daily blog + GEO content → build → GitHub Pages
+
+name: Daily content
+
+on:
+  schedule:
+    # 06:00 UTC daily
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+    inputs:
+      blog:
+        description: "Blog count"
+        default: "2"
+      geo:
+        description: "GEO count"
+        default: "2"
+
+permissions:
+  contents: write
+  pages: write
+
+jobs:
+  generate-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install
+        run: npm ci
+
+      - name: Generate daily content
+        run: |
+          BLOG="${{ github.event.inputs.blog || '2' }}"
+          GEO="${{ github.event.inputs.geo || '2' }}"
+          node scripts/content/generate.mjs --blog "$BLOG" --geo "$GEO"
+
+      - name: Build production
+        run: |
+          SITE_DOMAIN=https://medidentistanbul.com SITE_BASE= node build.mjs
+
+      - name: Commit generated content sources
+        run: |
+          git config user.name "medident-bot"
+          git config user.email "bot@medidentistanbul.com"
+          git add src/content || true
+          if git diff --staged --quiet; then
+            echo "No content changes"
+          else
+            git commit -m "chore: daily blog+GEO content $(date -u +%Y-%m-%d)"
+            git push origin HEAD:main || true
+          fi
+
+      - name: Deploy gh-pages (custom domain)
+        run: |
+          CUSTOM_DOMAIN=medidentistanbul.com \
+          SITE_DOMAIN=https://medidentistanbul.com \
+          SITE_BASE= \
+          node scripts/deploy-pages.mjs
+
+      # Optional Turhost sync when FTP secrets exist (Settings → Secrets)
+      - name: Turhost FTP (optional)
+        if: ${{ secrets.FTP_PASSWORD != '' }}
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST || 'ftp.medidentistanbul.com' }}
+          FTP_USER: ${{ secrets.FTP_USER || 'medident' }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          python3 - <<'PY'
+          import os, ftplib, pathlib
+          # Prefer resilient curl path via existing script when available
+          print("Set FTP_* secrets and run scripts/upload-pages.py from a runner with FTP egress.")
+          print("Host:", os.environ.get("FTP_HOST"))
+          PY

@@ -34,8 +34,9 @@ export const site = {
     gscVerify: "D1pF9pwynq5nBW7V0fFMFIvcgZuTc49glS3A18XsOvw",
     ga4: "", // Yeni GA4 kimliği eklenince buraya yazın (ör. G-XXXXXXX)
   },
-  // Estesof form integration point. Endpoint gelince doldurun; boşsa form
-  // gönderimi WhatsApp'a yönlendirilir (aşağıdaki app.js mantığı).
+  // Estesof form integration point (plan faz 5).
+  // endpoint doluysa site.js JSON POST atar; boşsa WhatsApp fallback.
+  // Bağlamak için: endpoint'i yaz → npm run build → deploy.
   estesof: {
     endpoint: "", // ör. "https://panel.estesof.com/api/leads/xxxx"
     method: "POST",

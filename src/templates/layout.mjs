@@ -2,6 +2,7 @@
 import { site, langPrefix, htmlLang, ogLocale } from "../data/site.mjs";
 import { i18n } from "../data/i18n.mjs";
 import { services } from "../data/content.mjs";
+import { resolveHreflangPaths, hoursLocalized } from "../data/seo.mjs";
 import { icons } from "./icons.mjs";
 
 export const waHref = (text) =>
@@ -24,13 +25,23 @@ export const url = (lang, path = "") => {
 export const absUrl = (lang, path = "") => site.domain + url(lang, path);
 
 // Head with per-page SEO + hreflang alternates + tracking.
-function head({ lang, title, description, path, image, jsonld = [], ogType = "website" }) {
+function head({ lang, title, description, path, image, jsonld = [], ogType = "website", publishedTime }) {
   const t = i18n[lang];
   const canonical = absUrl(lang, path);
   const img = image || site.domain + asset("/assets/img/portrait-a.jpg");
-  const alts = site.languages
-    .map((l) => `<link rel="alternate" hreflang="${htmlLang[l]}" href="${absUrl(l, path)}">`)
+  const hreflangMap = resolveHreflangPaths(lang, path);
+  const alts = Object.entries(hreflangMap)
+    .map(([l, p]) => `<link rel="alternate" hreflang="${htmlLang[l]}" href="${absUrl(l, p)}">`)
     .join("\n    ");
+  const xDefaultPath = hreflangMap[site.defaultLang] || hreflangMap[lang] || path;
+  const ogLocales = site.languages
+    .filter((l) => l !== lang)
+    .map((l) => `<meta property="og:locale:alternate" content="${ogLocale[l]}">`)
+    .join("\n    ");
+  const articleMeta =
+    ogType === "article" && publishedTime
+      ? `<meta property="article:published_time" content="${publishedTime}">`
+      : "";
   const jsonldTags = jsonld
     .map((obj) => `<script type="application/ld+json">${JSON.stringify(obj)}</script>`)
     .join("\n    ");
@@ -54,14 +65,17 @@ function head({ lang, title, description, path, image, jsonld = [], ogType = "we
     ${site.tracking.gscVerify ? `<meta name="google-site-verification" content="${site.tracking.gscVerify}">` : ""}
     <meta name="robots" content="index,follow,max-image-preview:large">
     ${alts}
-    <link rel="alternate" hreflang="x-default" href="${absUrl(site.defaultLang, path)}">
+    <link rel="alternate" hreflang="x-default" href="${absUrl(site.defaultLang, xDefaultPath)}">
     <meta property="og:type" content="${ogType}">
     <meta property="og:site_name" content="${site.brand}">
     <meta property="og:locale" content="${ogLocale[lang]}">
+    ${ogLocales}
     <meta property="og:title" content="${escapeAttr(title)}">
     <meta property="og:description" content="${escapeAttr(description)}">
     <meta property="og:url" content="${canonical}">
     <meta property="og:image" content="${img}">
+    <meta property="og:image:alt" content="${escapeAttr(title)}">
+    ${articleMeta}
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="${escapeAttr(title)}">
     <meta name="twitter:description" content="${escapeAttr(description)}">
@@ -95,8 +109,21 @@ function topbar(lang) {
 }
 
 function langSwitch(lang, path) {
+  const map = resolveHreflangPaths(lang, path);
   return `<div class="lang-switch">${site.languages
-    .map((l) => `<a href="${url(l, path)}" class="${l === lang ? "is-active" : ""}" hreflang="${htmlLang[l]}">${l.toUpperCase()}</a>`)
+    .map((l) => {
+      const target = map[l] || (map[lang] ? null : path);
+      if (!target && !map[l]) {
+        // No alternate for this lang — link to that language's home/blog index
+        const fallback = path.startsWith("blog/")
+          ? "blog/"
+          : path.startsWith("geo/")
+            ? "geo/"
+            : path;
+        return `<a href="${url(l, map[l] || fallback)}" class="${l === lang ? "is-active" : ""}" hreflang="${htmlLang[l]}">${l.toUpperCase()}</a>`;
+      }
+      return `<a href="${url(l, map[l] || path)}" class="${l === lang ? "is-active" : ""}" hreflang="${htmlLang[l]}">${l.toUpperCase()}</a>`;
+    })
     .join("")}</div>`;
 }
 
@@ -185,7 +212,7 @@ function footer(lang) {
           <a href="tel:${site.phoneRaw}">${site.phone}</a>
           <a href="mailto:${site.email}">${site.email}</a>
           <a href="${site.mapsUrl}" target="_blank" rel="noopener">${site.address}</a>
-          <span style="font-size:14px;color:#a89d8b;">${site.hours}</span>
+          <span style="font-size:14px;color:#a89d8b;">${hoursLocalized[lang] || site.hours}</span>
         </div>
       </div>
     </div>
@@ -232,18 +259,20 @@ ${bodyHtml}
 }
 
 // Shared JSON-LD builders
-export function orgSchema(lang) {
+export function orgSchema(lang = "tr") {
   return {
     "@context": "https://schema.org",
     "@type": "Dentist",
     "@id": site.domain + "/#organization",
     name: site.brand,
-    url: site.domain + "/",
+    alternateName: ["MediDent Istanbul", "MediDent İstanbul Dental Clinic"],
+    url: absUrl(lang, ""),
     image: site.domain + asset("/assets/img/portrait-a.jpg"),
     logo: site.domain + asset("/assets/img/logo.png"),
     telephone: site.phone,
     email: site.email,
     priceRange: "$$",
+    availableLanguage: ["Turkish", "English", "German"],
     address: {
       "@type": "PostalAddress",
       streetAddress: "Acıbadem Cd. 195F",
@@ -255,7 +284,18 @@ export function orgSchema(lang) {
     geo: { "@type": "GeoCoordinates", latitude: site.geo.lat, longitude: site.geo.lng },
     hasMap: site.mapsUrl,
     openingHours: site.openingHours,
+    openingHoursSpecification: {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      opens: "09:00",
+      closes: "18:00",
+    },
+    description: hoursLocalized[lang] || hoursLocalized.tr,
     sameAs: [site.social.instagram, site.social.facebook, site.social.youtube],
+    areaServed: [
+      { "@type": "City", name: "Istanbul" },
+      { "@type": "Country", name: "Turkey" },
+    ],
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: site.rating.value,

@@ -38,3 +38,10 @@ node scripts/content/generate.mjs --blog 2 --geo 2
 - `llms.txt` güncel
 
 Cursor / VPS cron ile `npm run content:daily && npm run build` (deploy adımı ayrı).
+
+GitHub Actions: `.github/workflows/daily-content.yml`
+- Her gün 06:00 UTC (`content:daily` → build → `gh-pages`)
+- Elle tetikleme: Actions → Daily content → Run workflow
+- Turhost FTP senkronu için repo Secrets: `FTP_HOST`, `FTP_USER`, `FTP_PASSWORD`
+  (veya cPanel’e `medident-dist.zip` yükleyin — `npm run package`)
+
