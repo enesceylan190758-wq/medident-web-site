@@ -1,0 +1,25 @@
+{
+  "name": "medident-istanbul-web",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "MediDent İstanbul - çok dilli (TR/EN/DE), SEO/GEO uyumlu statik web sitesi",
+  "scripts": {
+    "articles": "node scripts/convert-docx.mjs",
+    "build": "node build.mjs",
+    "build:preview": "SITE_DOMAIN=https://enesceylan190758-wq.github.io SITE_BASE=/medident-web-site node build.mjs",
+    "content:today": "node scripts/content/generate.mjs --blog 10 --geo 10",
+    "content:daily": "node scripts/content/generate.mjs --blog 2 --geo 2",
+    "content:ende": "node scripts/content/write-ende-pack.mjs",
+    "content:topics": "node scripts/content/write-topic-pack.mjs",
+    "package": "node build.mjs && node scripts/package-dist.mjs",
+    "deploy:pages": "node scripts/deploy-pages.mjs",
+    "deploy:domain": "SITE_DOMAIN=https://medidentistanbul.com SITE_BASE= CUSTOM_DOMAIN=medidentistanbul.com node scripts/deploy-pages.mjs",
+    "serve": "node scripts/serve.mjs",
+    "dev": "node build.mjs && node scripts/serve.mjs"
+  },
+  "devDependencies": {
+    "basic-ftp": "^6.0.1",
+    "mammoth": "^1.8.0"
+  }
+}

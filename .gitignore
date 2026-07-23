@@ -1,0 +1,13 @@
+.env
+.env.*
+!.env.example
+secrets/
+*.pem
+.DS_Store
+node_modules/
+npm-debug.log*
+.cache/
+dist/
+medident-dist.zip
+scripts/__pycache__/
+.gh-pages-work/
