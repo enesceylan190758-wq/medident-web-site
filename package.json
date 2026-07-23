@@ -1,0 +1,17 @@
+{
+  "name": "medident-istanbul-web",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "MediDent İstanbul - çok dilli (TR/EN/DE), SEO/GEO uyumlu statik web sitesi",
+  "scripts": {
+    "articles": "node scripts/convert-docx.mjs",
+    "build": "node build.mjs",
+    "package": "node build.mjs && node scripts/package-dist.mjs",
+    "serve": "node scripts/serve.mjs",
+    "dev": "node build.mjs && node scripts/serve.mjs"
+  },
+  "devDependencies": {
+    "mammoth": "^1.8.0"
+  }
+}
