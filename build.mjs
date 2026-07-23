@@ -190,6 +190,9 @@ DirectoryIndex index.html
   # Force www removal (canonical: non-www). Adjust if you prefer www.
   RewriteCond %{HTTP_HOST} ^www\\.(.+)$ [NC]
   RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+  # Missing images → jsDelivr (gh-pages) until full FTP asset sync completes
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^assets/img/(.+)$ https://cdn.jsdelivr.net/gh/enesceylan190758-wq/medident-web-site@gh-pages/assets/img/$1 [L,R=302]
   # Serve pretty URLs: /path -> /path/ (folder with index.html)
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
