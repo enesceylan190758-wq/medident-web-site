@@ -7,12 +7,18 @@ import { icons } from "./icons.mjs";
 export const waHref = (text) =>
   `https://wa.me/${site.whatsappRaw}${text ? `?text=${encodeURIComponent(text)}` : ""}`;
 
+// Prefix absolute site paths with optional preview basePath (GitHub Pages etc.).
+export const asset = (p = "") => {
+  const path = String(p).startsWith("/") ? p : `/${p}`;
+  return `${site.basePath || ""}${path}`;
+};
+
 // Build a localized URL from a path (no language prefix baked in).
 export const url = (lang, path = "") => {
   const p = path.replace(/^\/+/, "");
-  const base = langPrefix[lang] || "";
-  const full = `${base}/${p}`.replace(/\/+/g, "/");
-  return full === "" ? "/" : full;
+  const langBase = langPrefix[lang] || "";
+  const full = `${site.basePath || ""}${langBase}/${p}`.replace(/\/+/g, "/");
+  return full === "" || full === site.basePath ? `${site.basePath || ""}/` || "/" : full;
 };
 
 export const absUrl = (lang, path = "") => site.domain + url(lang, path);
@@ -21,7 +27,7 @@ export const absUrl = (lang, path = "") => site.domain + url(lang, path);
 function head({ lang, title, description, path, image, jsonld = [], ogType = "website" }) {
   const t = i18n[lang];
   const canonical = absUrl(lang, path);
-  const img = image || site.domain + "/assets/img/portrait-a.jpg";
+  const img = image || site.domain + asset("/assets/img/portrait-a.jpg");
   const alts = site.languages
     .map((l) => `<link rel="alternate" hreflang="${htmlLang[l]}" href="${absUrl(l, path)}">`)
     .join("\n    ");
@@ -60,12 +66,12 @@ function head({ lang, title, description, path, image, jsonld = [], ogType = "we
     <meta name="twitter:title" content="${escapeAttr(title)}">
     <meta name="twitter:description" content="${escapeAttr(description)}">
     <meta name="twitter:image" content="${img}">
-    <link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32">
-    <link rel="apple-touch-icon" href="/assets/img/favicon-180.png">
+    <link rel="icon" href="${asset("/assets/img/favicon-32.png")}" sizes="32x32">
+    <link rel="apple-touch-icon" href="${asset("/assets/img/favicon-180.png")}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Jost:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/css/site.css">
+    <link rel="stylesheet" href="${asset("/assets/css/site.css")}">
     ${gtm}
     ${ga4}
     ${pixel}
@@ -112,7 +118,7 @@ function header(lang, path) {
   return `${topbar(lang)}
   <header class="site-header">
     <div class="header-inner">
-      <a href="${url(lang, "")}" class="logo" aria-label="${site.brand}"><img src="/assets/img/logo.png" alt="${site.brand}" width="150" height="44"></a>
+      <a href="${url(lang, "")}" class="logo" aria-label="${site.brand}"><img src="${asset("/assets/img/logo.png")}" alt="${site.brand}" width="150" height="44"></a>
       <nav class="nav">
         ${links.map(([label, href]) => `<a href="${href}">${label}</a>`).join("\n        ")}
       </nav>
@@ -128,7 +134,7 @@ function header(lang, path) {
   <div class="mobile-nav" data-mobile-nav>
     <div class="mobile-panel">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;">
-        <img src="/assets/img/logo.png" alt="${site.brand}" style="height:34px;width:auto;">
+        <img src="${asset("/assets/img/logo.png")}" alt="${site.brand}" style="height:34px;width:auto;">
         <button data-close-nav aria-label="Close" style="width:40px;height:40px;border-radius:10px;border:1px solid rgba(43,35,24,.14);display:flex;align-items:center;justify-content:center;background:#fff;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2B2318" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
       </div>
       ${links.map(([label, href]) => `<a href="${href}">${label}</a>`).join("\n      ")}
@@ -145,7 +151,7 @@ function footer(lang) {
   return `<footer class="site-footer">
     <div class="footer-grid">
       <div>
-        <span class="footer-logo"><img src="/assets/img/logo.png" alt="${site.brand}"></span>
+        <span class="footer-logo"><img src="${asset("/assets/img/logo.png")}" alt="${site.brand}"></span>
         <p style="font-size:14px;line-height:1.6;color:#8A7F6D;margin:0 0 18px;max-width:280px;">${t.footerTag}</p>
         <div class="socials">
           <a href="${waHref()}" aria-label="WhatsApp" target="_blank" rel="noopener">${icons.wa.replace('width="24" height="24"', 'width="19" height="19"')}</a>
@@ -219,7 +225,7 @@ ${bodyHtml}
   ${footer(lang)}
   ${floating(lang)}
   <script>window.__MD_FORM__=${JSON.stringify(formCfg)};</script>
-  <script src="/assets/js/site.js" defer></script>
+  <script src="${asset("/assets/js/site.js")}" defer></script>
 </body>
 </html>`;
 }
@@ -232,8 +238,8 @@ export function orgSchema(lang) {
     "@id": site.domain + "/#organization",
     name: site.brand,
     url: site.domain + "/",
-    image: site.domain + "/assets/img/portrait-a.jpg",
-    logo: site.domain + "/assets/img/logo.png",
+    image: site.domain + asset("/assets/img/portrait-a.jpg"),
+    logo: site.domain + asset("/assets/img/logo.png"),
     telephone: site.phone,
     email: site.email,
     priceRange: "$$",

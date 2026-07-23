@@ -7,11 +7,14 @@
   "scripts": {
     "articles": "node scripts/convert-docx.mjs",
     "build": "node build.mjs",
+    "build:preview": "SITE_DOMAIN=https://enesceylan190758-wq.github.io SITE_BASE=/medident-web-site node build.mjs",
     "package": "node build.mjs && node scripts/package-dist.mjs",
+    "deploy:pages": "node scripts/deploy-pages.mjs",
     "serve": "node scripts/serve.mjs",
     "dev": "node build.mjs && node scripts/serve.mjs"
   },
   "devDependencies": {
+    "basic-ftp": "^6.0.1",
     "mammoth": "^1.8.0"
   }
 }

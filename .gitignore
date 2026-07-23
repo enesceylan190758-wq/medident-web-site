@@ -9,3 +9,5 @@ npm-debug.log*
 .cache/
 dist/
 medident-dist.zip
+scripts/__pycache__/
+.gh-pages-work/

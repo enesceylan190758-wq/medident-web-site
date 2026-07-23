@@ -1,6 +1,12 @@
 // Global site configuration: contact, tracking, social, languages.
+// SITE_DOMAIN / SITE_BASE: önizleme hostu için (ör. GitHub Pages). Boş = üretim (kök domain).
+const previewDomain = process.env.SITE_DOMAIN || "";
+const previewBase = process.env.SITE_BASE || "";
+
 export const site = {
-  domain: "https://medidentistanbul.com",
+  domain: previewDomain || "https://medidentistanbul.com",
+  // Örn. "/medident-web-site" — GitHub Pages proje URL'si. Üretimde boş.
+  basePath: previewBase.replace(/\/$/, ""),
   brand: "MediDent İstanbul",
   // Real clinic contact (Üsküdar branch as primary)
   phone: "+90 549 119 08 19",

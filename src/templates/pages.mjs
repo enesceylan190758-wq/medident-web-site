@@ -9,6 +9,7 @@ import {
   breadcrumbSchema,
   orgSchema,
   faqSchema,
+  asset,
 } from "./layout.mjs";
 import { contactSection } from "./home.mjs";
 
@@ -96,7 +97,7 @@ export function doctorsIndexPage(lang) {
   const t = i18n[lang];
   const crumbs = [crumbHome(lang), { name: t.nav.doctors, href: url(lang, "doktorlar/") }];
   const card = (d) => `<a href="${url(lang, "doktorlar/" + d.slug + "/")}" class="doctor-card" style="display:block;color:inherit;">
-    <div class="photo"><img src="/assets/img/${d.image}" alt="${d.name}"></div>
+    <div class="photo"><img src="${asset(`/assets/img/${d.image}`)}" alt="${d.name}"></div>
     <div class="body"><h3 style="font-size:21px;margin-bottom:4px;">${d.name}</h3><p style="font-size:13.5px;color:var(--gold);font-weight:700;margin:0 0 10px;">${d.titles[lang]}</p><p style="font-size:14px;color:var(--muted-2);margin:0;">${d.bio[lang]}</p></div>
   </a>`;
   const body = `${pageHero(lang, "", t.doctorsTitle, t.doctorsLead, crumbs)}
@@ -122,7 +123,7 @@ export function doctorPage(lang, doctor) {
   const body = `${pageHero(lang, "", doctor.name, doctor.titles[lang], crumbs)}
   <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container">
     <div class="grid-2" style="grid-template-columns:.8fr 1.2fr;align-items:start;">
-      <div style="border-radius:20px;overflow:hidden;aspect-ratio:4/5;background:var(--sand);box-shadow:var(--shadow);"><img src="/assets/img/${doctor.image}" alt="${doctor.name}" style="width:100%;height:100%;object-fit:cover;"></div>
+      <div style="border-radius:20px;overflow:hidden;aspect-ratio:4/5;background:var(--sand);box-shadow:var(--shadow);"><img src="${asset(`/assets/img/${doctor.image}`)}" alt="${doctor.name}" style="width:100%;height:100%;object-fit:cover;"></div>
       <div class="prose" style="margin:0;">
         <p style="font-size:13.5px;color:var(--gold);font-weight:700;text-transform:uppercase;letter-spacing:.1em;">${doctor.titles[lang]}</p>
         <p>${doctor.bio[lang]}</p>
@@ -140,7 +141,7 @@ export function doctorPage(lang, doctor) {
       "@type": "Physician",
       name: doctor.name,
       jobTitle: doctor.titles[lang],
-      image: site.domain + "/assets/img/" + doctor.image,
+      image: site.domain + asset("/assets/img/") + doctor.image,
       worksFor: { "@id": site.domain + "/#organization" },
       url: site.domain + url(lang, "doktorlar/" + doctor.slug + "/"),
     },
@@ -221,7 +222,7 @@ export function aboutPage(lang) {
             .join("")}
         </div>
       </div>
-      <div style="border-radius:24px;overflow:hidden;aspect-ratio:4/5;background:var(--sand);box-shadow:var(--shadow-lg);"><img src="/assets/img/about-portrait.jpg" alt="${site.brand}" style="width:100%;height:100%;object-fit:cover;"></div>
+      <div style="border-radius:24px;overflow:hidden;aspect-ratio:4/5;background:var(--sand);box-shadow:var(--shadow-lg);"><img src="${asset("/assets/img/about-portrait.jpg")}" alt="${site.brand}" style="width:100%;height:100%;object-fit:cover;"></div>
     </div>
   </div></section>
   ${contactSection(lang)}`;
@@ -275,9 +276,9 @@ export function reviewsPage(lang) {
 export function galleryPage(lang) {
   const t = i18n[lang];
   const crumbs = [crumbHome(lang), { name: t.nav.gallery, href: url(lang, "galeri/") }];
-  const imgs = Array.from({ length: 12 }, (_, i) => `/assets/img/gallery-${i + 1}.jpg`).concat([
-    "/assets/img/clinic-1.jpg",
-    "/assets/img/clinic-2.jpg",
+  const imgs = Array.from({ length: 12 }, (_, i) => `${asset(`/assets/img/gallery-${i + 1}.jpg`)}`).concat([
+    asset("/assets/img/clinic-1.jpg"),
+    asset("/assets/img/clinic-2.jpg"),
   ]);
   const body = `${pageHero(lang, "", t.galleryTitle, t.galleryLead, crumbs)}
   <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container">

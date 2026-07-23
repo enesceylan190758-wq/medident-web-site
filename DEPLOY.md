@@ -1,4 +1,23 @@
-# MediDent İstanbul — Turhost Yayın Rehberi
+# MediDent İstanbul — Yayın Rehberi
+
+## Hızlı önizleme (domain sonra)
+
+Turhost FTP’ye erişilemiyorsa site önce **GitHub Pages**’e alınır; domain sonra bağlanır:
+
+```bash
+npm run deploy:pages
+```
+
+Önizleme: https://enesceylan190758-wq.github.io/medident-web-site/
+
+Domain bağlama (sonra):
+1. GitHub → repo → Settings → Pages → Custom domain → `medidentistanbul.com`
+2. DNS’te CNAME / A kayıtlarını GitHub’ın verdiği değerlere yönlendir
+3. Üretim için base path’siz build: `npm run build` (Turhost’a da yüklenebilir)
+
+---
+
+## Turhost (üretim domain)
 
 Bu rehber, `dist/` klasöründeki yeni statik siteyi **medidentistanbul.com** adresine alır ve eski WordPress sitesini güvenli şekilde yedekler.
 
