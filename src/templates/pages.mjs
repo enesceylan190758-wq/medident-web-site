@@ -157,11 +157,12 @@ export function blogIndexPage(lang, articles) {
   const t = i18n[lang];
   const crumbs = [crumbHome(lang), { name: t.nav.blog, href: url(lang, "blog/") }];
   const row = (a) => `<a href="${url(lang, "blog/" + a.slug + "/")}" class="article-row" style="color:inherit;">
+    ${a.coverImage ? `<img class="article-thumb" src="${asset(`/assets/img/${a.coverImage}`)}" alt="" width="160" height="106" loading="lazy">` : ""}
     <div><h3 style="font-size:20px;margin-bottom:6px;">${a.title}</h3><p style="font-size:14.5px;color:var(--muted-2);margin:0;">${a.excerpt}</p></div>
     <span class="link-more">${t.readMore} ${icons.arrowSm}</span>
   </a>`;
   const body = `${pageHero(lang, "", t.blogTitle, t.blogLead, crumbs)}
-  <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container" style="max-width:860px;">
+  <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container" style="max-width:920px;">
     <div class="article-list">${articles.map(row).join("") || `<p>${t.blogLead}</p>`}</div>
   </div></section>
   ${contactSection(lang)}`;
@@ -181,9 +182,19 @@ export function articlePage(lang, article, relatedServiceSlug) {
     { name: article.title, href: url(lang, "blog/" + article.slug + "/") },
   ];
   const svc = services.find((s) => s.slug === relatedServiceSlug);
+  const cover = article.coverImage
+    ? `<figure class="article-cover" style="margin:0 0 28px;"><img src="${asset(`/assets/img/${article.coverImage}`)}" alt="${article.title}" width="1536" height="1024" style="width:100%;height:auto;border-radius:18px;display:block;" loading="eager"></figure>`
+    : "";
+  // Avoid duplicate cover if HTML already embeds one
+  let html = article.html || "";
+  if (article.coverImage && html.includes(article.coverImage)) {
+    /* keep embedded cover from generator */
+  } else if (cover) {
+    html = cover + html;
+  }
   const body = `${pageHero(lang, t.nav.blog, article.title, "", crumbs)}
-  <section class="section" style="padding-top:clamp(30px,4vw,48px);"><div class="container">
-    <article class="prose">${article.html}
+  <section class="section" style="padding-top:clamp(30px,4vw,48px);"><div class="container" style="max-width:820px;">
+    <article class="prose">${html}
       ${svc ? `<p style="margin-top:28px;"><a class="btn btn-ghost" href="${url(lang, "hizmetler/" + svc.slug + "/")}">${svc.titles[lang]} ${icons.arrowSm}</a></p>` : ""}
       <div style="margin-top:24px;display:flex;flex-wrap:wrap;gap:12px;">
         <a href="${url(lang, "iletisim/")}" class="btn btn-primary">${t.bookNow} ${icons.arrow()}</a>
@@ -192,6 +203,7 @@ export function articlePage(lang, article, relatedServiceSlug) {
     </article>
   </div></section>
   ${contactSection(lang)}`;
+  const ogImage = article.coverImage ? site.domain + asset(`/assets/img/${article.coverImage}`) : undefined;
   const jsonld = [
     {
       "@context": "https://schema.org",
@@ -200,6 +212,7 @@ export function articlePage(lang, article, relatedServiceSlug) {
       description: article.excerpt,
       inLanguage: lang,
       datePublished: article.publishedAt || undefined,
+      image: ogImage,
       author: { "@id": site.domain + "/#organization" },
       publisher: { "@id": site.domain + "/#organization" },
       mainEntityOfPage: site.domain + url(lang, "blog/" + article.slug + "/"),
@@ -207,7 +220,13 @@ export function articlePage(lang, article, relatedServiceSlug) {
     ...(article.faq?.length ? [faqSchema(article.faq)] : []),
     breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
   ];
-  return { body, title: `${article.title} — ${site.brand}`, description: article.metaDescription || article.excerpt, jsonld };
+  return {
+    body,
+    title: `${article.title} — ${site.brand}`,
+    description: article.metaDescription || article.excerpt,
+    image: ogImage,
+    jsonld,
+  };
 }
 
 // About
@@ -347,11 +366,12 @@ export function geoIndexPage(lang, packs) {
         : "Yapay zekâ arama motorları ve hasta soruları için kısa, alıntılanabilir cevaplar.";
   const crumbs = [crumbHome(lang), { name: "GEO", href: url(lang, "geo/") }];
   const row = (p) => `<a href="${url(lang, "geo/" + p.slug + "/")}" class="article-row" style="color:inherit;">
+    ${p.coverImage ? `<img class="article-thumb" src="${asset(`/assets/img/${p.coverImage}`)}" alt="" width="160" height="106" loading="lazy">` : ""}
     <div><h3 style="font-size:20px;margin-bottom:6px;">${p.title || p.question}</h3><p style="font-size:14.5px;color:var(--muted-2);margin:0;">${p.direct_answer.slice(0, 140)}…</p></div>
     <span class="link-more">${lang === "tr" ? "Oku" : "Read"} ${icons.arrowSm}</span>
   </a>`;
   const body = `${pageHero(lang, "GEO", title, lead, crumbs)}
-  <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container" style="max-width:860px;">
+  <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container" style="max-width:920px;">
     <div class="article-list">${packs.map(row).join("")}</div>
   </div></section>`;
   return {
@@ -372,9 +392,14 @@ export function geoPackPage(lang, pack) {
   const links = (pack.internal_links || [])
     .map((l) => `<a href="${l.href}" class="btn btn-ghost" style="padding:10px 16px;">${l.label}</a>`)
     .join("");
+  const cover = pack.coverImage
+    ? `<figure class="article-cover" style="margin:0 0 24px;"><img src="${asset(`/assets/img/${pack.coverImage}`)}" alt="${pack.question || pack.title}" width="1536" height="1024" style="width:100%;height:auto;border-radius:18px;display:block;" loading="eager"></figure>`
+    : "";
+  const ogImage = pack.coverImage ? site.domain + asset(`/assets/img/${pack.coverImage}`) : undefined;
   const body = `${pageHero(lang, "GEO", pack.question || pack.title, "", crumbs)}
   <section class="section" style="padding-top:clamp(24px,3vw,40px);"><div class="container" style="max-width:760px;">
     <article class="prose">
+      ${cover}
       <p><strong>${pack.direct_answer}</strong></p>
       <h2>${lang === "tr" ? "Öne çıkan noktalar" : "Key points"}</h2>
       <ul>${(pack.bullets || []).map((b) => `<li>${b}</li>`).join("")}</ul>
@@ -387,6 +412,7 @@ export function geoPackPage(lang, pack) {
     body,
     title: `${pack.question || pack.title} — ${site.brand}`,
     description: pack.direct_answer.slice(0, 155),
+    image: ogImage,
     jsonld: [
       faqSchema(pack.faq || []),
       {
@@ -394,6 +420,7 @@ export function geoPackPage(lang, pack) {
         "@type": "WebPage",
         name: pack.question || pack.title,
         description: pack.direct_answer,
+        image: ogImage,
         inLanguage: "tr",
         isPartOf: { "@type": "WebSite", name: site.brand, url: site.domain },
       },

@@ -1083,14 +1083,53 @@ textarea:focus {
 
 .article-row {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 120px 1fr auto;
   gap: 16px;
   align-items: center;
   background: #fff;
   border-radius: 18px;
-  padding: 24px 26px;
+  padding: 18px 22px;
   border: 1px solid rgba(43, 35, 24, 0.08);
   box-shadow: var(--shadow);
+}
+
+.article-row:not(:has(.article-thumb)) {
+  grid-template-columns: 1fr auto;
+}
+
+.article-thumb {
+  width: 120px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 12px;
+  background: var(--sand);
+}
+
+.article-cover {
+  margin: 0 0 1.25em;
+}
+
+.article-cover img {
+  width: 100%;
+  height: auto;
+  border-radius: 18px;
+  display: block;
+}
+
+.article-cover figcaption {
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--muted-2);
+}
+
+@media (max-width: 640px) {
+  .article-row {
+    grid-template-columns: 1fr;
+  }
+  .article-thumb {
+    width: 100%;
+    height: 160px;
+  }
 }
 
 /* Footer */

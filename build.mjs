@@ -100,7 +100,12 @@ function build() {
     for (const d of doctors) emit(lang, "doktorlar/" + d.slug + "/", doctorPage(lang, d));
 
     // Blog + articles
-    const blogList = byLang.map((a) => ({ slug: a.slug, title: a.title, excerpt: a.excerpt }));
+    const blogList = byLang.map((a) => ({
+      slug: a.slug,
+      title: a.title,
+      excerpt: a.excerpt,
+      coverImage: a.coverImage || null,
+    }));
     emit(lang, "blog/", blogIndexPage(lang, blogList));
     for (const a of byLang) emit(lang, "blog/" + a.slug + "/", articlePage(lang, a, a.service));
 
