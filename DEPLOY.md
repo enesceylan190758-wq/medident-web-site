@@ -2,18 +2,29 @@
 
 ## Hızlı önizleme (domain sonra)
 
-Turhost FTP’ye erişilemiyorsa site önce **GitHub Pages**’e alınır; domain sonra bağlanır:
+Turhost FTP buradan yüklenemediği için site **`gh-pages`** dalına yayınlandı.
+
+### 1) GitHub Pages’i aç (tek seferlik — sizin tıklamanız lazım)
+
+1. Aç: https://github.com/enesceylan190758-wq/medident-web-site/settings/pages  
+2. **Build and deployment → Source**: Deploy from a branch  
+3. Branch: **`gh-pages`** / folder: **`/` (root)** → **Save**
+
+Birkaç dakika sonra site:
+
+**https://enesceylan190758-wq.github.io/medident-web-site/**
+
+Yeniden yayınlamak için:
 
 ```bash
 npm run deploy:pages
 ```
 
-Önizleme: https://enesceylan190758-wq.github.io/medident-web-site/
+### Domain sonra
 
-Domain bağlama (sonra):
-1. GitHub → repo → Settings → Pages → Custom domain → `medidentistanbul.com`
-2. DNS’te CNAME / A kayıtlarını GitHub’ın verdiği değerlere yönlendir
-3. Üretim için base path’siz build: `npm run build` (Turhost’a da yüklenebilir)
+1. Aynı Pages ekranında **Custom domain** → `medidentistanbul.com`  
+2. DNS’i GitHub’ın verdiği A/CNAME kayıtlarına yönlendir  
+3. Üretim (kök path) için: `npm run build` → Turhost’a `dist/` veya `medident-dist.zip` yükle
 
 ---
 

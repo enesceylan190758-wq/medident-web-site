@@ -1,0 +1,43 @@
+// Görseller — MediDent Istanbul.dc.html tasarım paketindeki assets/ adları.
+// WordPress görselleri KULLANILMAZ.
+export const img = {
+  logo: "logo.png",
+  logoWhite: "logo-white.png",
+  logoMark: "logo-mark.png",
+  hero: "portrait-a.jpg",
+  heroBa: "hero-beforeafter.png",
+  before: "aug-17-1.png",
+  after: "aug-17-3.png",
+  about: "about-portrait.jpg",
+  why: "nov-8-4.jpg",
+  cases: [
+    { file: "aug-17-2.png", label: { tr: "Zirkonyum kaplama", en: "Zirconia crowns", de: "Zirkonkronen" } },
+    { file: "sep-27-3.jpg", label: { tr: "Porselen lamina", en: "Porcelain veneers", de: "Porzellanveneers" } },
+    { file: "jun-8-3.jpg", label: { tr: "Hollywood Smile", en: "Hollywood Smile", de: "Hollywood Smile" } },
+    { file: "jul-27-3.jpg", label: { tr: "Gülüş tasarımı", en: "Smile design", de: "Smile Design" } },
+  ],
+  marquee: [
+    "portrait-a.jpg",
+    "aug-17-3.png",
+    "oct-1-3.png",
+    "jul-27-3.jpg",
+    "nov-8-4.jpg",
+    "sep-3-2.png",
+    "apr-6-3.jpg",
+  ],
+  gallery: [
+    "portrait-a.jpg",
+    "aug-17-1.png",
+    "aug-17-2.png",
+    "aug-17-3.png",
+    "sep-27-3.jpg",
+    "jun-8-3.jpg",
+    "jul-27-3.jpg",
+    "oct-1-3.png",
+    "nov-8-4.jpg",
+    "sep-3-2.png",
+    "apr-6-3.jpg",
+    "hero-beforeafter.png",
+    "about-portrait.jpg",
+  ],
+};

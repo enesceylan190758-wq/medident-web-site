@@ -1,6 +1,7 @@
 import { site } from "../data/site.mjs";
 import { i18n } from "../data/i18n.mjs";
 import { services, doctors, serviceFallback } from "../data/content.mjs";
+import { img } from "../data/images.mjs";
 import { icons } from "./icons.mjs";
 import {
   url,
@@ -13,6 +14,7 @@ import {
 } from "./layout.mjs";
 import { contactSection } from "./home.mjs";
 
+const src = (file) => asset(`/assets/img/${file}`);
 const crumbHome = (lang) => ({ name: i18n[lang].breadcrumbHome, href: url(lang, ""), url: site.domain + url(lang, "") });
 
 function pageHero(lang, eyebrow, title, lead, crumbs) {
@@ -222,7 +224,7 @@ export function aboutPage(lang) {
             .join("")}
         </div>
       </div>
-      <div style="border-radius:24px;overflow:hidden;aspect-ratio:4/5;background:var(--sand);box-shadow:var(--shadow-lg);"><img src="${asset("/assets/img/about-portrait.jpg")}" alt="${site.brand}" style="width:100%;height:100%;object-fit:cover;"></div>
+      <div style="border-radius:24px;overflow:hidden;aspect-ratio:4/5;background:var(--sand);box-shadow:var(--shadow-lg);"><img src="${src(img.about)}" alt="${site.brand}" style="width:100%;height:100%;object-fit:cover;"></div>
     </div>
   </div></section>
   ${contactSection(lang)}`;
@@ -276,13 +278,10 @@ export function reviewsPage(lang) {
 export function galleryPage(lang) {
   const t = i18n[lang];
   const crumbs = [crumbHome(lang), { name: t.nav.gallery, href: url(lang, "galeri/") }];
-  const imgs = Array.from({ length: 12 }, (_, i) => `${asset(`/assets/img/gallery-${i + 1}.jpg`)}`).concat([
-    asset("/assets/img/clinic-1.jpg"),
-    asset("/assets/img/clinic-2.jpg"),
-  ]);
+  const imgs = img.gallery.map((f) => src(f));
   const body = `${pageHero(lang, "", t.galleryTitle, t.galleryLead, crumbs)}
   <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container">
-    <div class="gallery-grid">${imgs.map((src) => `<button class="gallery-item" data-lightbox-src="${src}"><img src="${src}" alt="${site.brand}" loading="lazy"></button>`).join("")}</div>
+    <div class="gallery-grid">${imgs.map((href) => `<button class="gallery-item" data-lightbox-src="${href}"><img src="${href}" alt="${site.brand}" loading="lazy"></button>`).join("")}</div>
   </div></section>
   ${contactSection(lang)}`;
   return {

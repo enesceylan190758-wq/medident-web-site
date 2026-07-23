@@ -1,8 +1,11 @@
 import { site } from "../data/site.mjs";
 import { i18n } from "../data/i18n.mjs";
 import { services, homeCards, packages } from "../data/content.mjs";
+import { img } from "../data/images.mjs";
 import { icons } from "./icons.mjs";
 import { url, waHref, orgSchema, faqSchema, breadcrumbSchema, asset } from "./layout.mjs";
+
+const src = (file) => asset(`/assets/img/${file}`);
 
 export function homePage(lang) {
   const t = i18n[lang];
@@ -56,7 +59,7 @@ export function homePage(lang) {
       <div class="faq-a"><p style="margin:0;">${f.a}</p></div>
     </div>`;
 
-  const galleryImgs = Array.from({ length: 8 }, (_, i) => `${asset(`/assets/img/gallery-${i + 1}.jpg`)}`);
+  const galleryImgs = img.marquee.map((f) => src(f));
 
   const body = `
   <section class="hero">
@@ -78,14 +81,14 @@ export function homePage(lang) {
         </div>
         <div class="hero-media" data-reveal>
           <div class="hero-frame">
-            <img src="${asset("/assets/img/portrait-a.jpg")}" alt="${site.brand} — ${h.eyebrow}" width="640" height="800">
+            <img src="${src(img.hero)}" alt="${site.brand} — ${h.eyebrow}" width="640" height="800">
           </div>
           <div class="float-card top-left">
             <div style="width:38px;height:38px;border-radius:10px;background:var(--cream-2);display:flex;align-items:center;justify-content:center;color:var(--gold);"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 6 20.4l1.4-6.8L2.3 9l6.9-.7z"></path></svg></div>
             <div style="line-height:1.15;"><div style="font-weight:800;font-size:15px;color:var(--ink);">4.9 / 5.0</div><div style="font-size:11.5px;color:var(--muted-2);">Google</div></div>
           </div>
-          <button class="float-card bottom-right" data-lightbox-src="${asset("/assets/img/hero-beforeafter.png")}" aria-label="${t.before} / ${t.after}">
-            <span style="border-radius:11px;overflow:hidden;aspect-ratio:3.6/1;background:var(--sand);display:block;"><img src="${asset("/assets/img/hero-beforeafter.png")}" alt="${t.before} & ${t.after}" style="width:100%;height:100%;object-fit:cover;object-position:center top;"></span>
+          <button class="float-card bottom-right" data-lightbox-src="${src(img.heroBa)}" aria-label="${t.before} / ${t.after}">
+            <span style="border-radius:11px;overflow:hidden;aspect-ratio:3.6/1;background:var(--sand);display:block;"><img src="${src(img.heroBa)}" alt="${t.before} & ${t.after}" style="width:100%;height:100%;object-fit:cover;object-position:center top;"></span>
             <span style="padding:9px 6px 4px;display:flex;align-items:center;gap:7px;"><span class="dot"></span><span style="font-size:12.5px;font-weight:700;color:var(--ink);">${lang === "tr" ? "Gerçek MediDent gülüşü" : lang === "de" ? "Echtes MediDent-Lächeln" : "Real MediDent smile"}</span></span>
           </button>
         </div>
@@ -119,8 +122,8 @@ export function homePage(lang) {
         </div>
         <div data-reveal>
           <div class="ba" data-ba>
-            <img src="${asset("/assets/img/after.jpg")}" alt="${t.after}">
-            <img class="ba-before" src="${asset("/assets/img/before.jpg")}" alt="${t.before}">
+            <img src="${src(img.after)}" alt="${t.after}">
+            <img class="ba-before" src="${src(img.before)}" alt="${t.before}">
             <span class="ba-label before">${t.before}</span>
             <span class="ba-label after">${t.after}</span>
             <div class="ba-handle"><div class="ba-knob"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 8L6 12l3.5 4M14.5 8l3.5 4-3.5 4"></path></svg></div></div>
@@ -130,15 +133,17 @@ export function homePage(lang) {
       </div>
       <div style="height:clamp(48px,6vw,72px);"></div>
       <div class="case-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(228px,1fr));gap:18px;">
-        ${[["gallery-1", "Hollywood Smile"], ["gallery-3", "Porselen Lamina"], ["gallery-5", "Zirkonyum"], ["gallery-7", lang === "tr" ? "Gülüş Tasarımı" : "Smile Design"]]
-          .map(
-            ([img, label]) => `<button data-reveal data-lightbox-src="${asset(`/assets/img/${img}.jpg`)}" class="case-card">
-          <img src="${asset(`/assets/img/${img}.jpg`)}" alt="${label} — ${site.brand}">
+        ${img.cases
+          .map((c) => {
+            const label = c.label[lang] || c.label.tr;
+            const href = src(c.file);
+            return `<button data-reveal data-lightbox-src="${href}" class="case-card">
+          <img src="${href}" alt="${label} — ${site.brand}">
           <div class="shade"></div>
           <span class="case-badge">${t.before} &amp; ${t.after}</span>
           <span class="case-title">${label}</span>
-        </button>`
-          )
+        </button>`;
+          })
           .join("")}
       </div>
     </div>
@@ -151,7 +156,7 @@ export function homePage(lang) {
     </div>
     <div class="marquee-wrap">
       <div class="marquee">
-        ${galleryImgs.concat(galleryImgs).map((src) => `<button data-lightbox-src="${src}"><img src="${src}" alt="${site.brand}" loading="lazy"></button>`).join("")}
+        ${galleryImgs.concat(galleryImgs).map((href) => `<button data-lightbox-src="${href}"><img src="${href}" alt="${site.brand}" loading="lazy"></button>`).join("")}
       </div>
     </div>
   </section>
@@ -160,7 +165,7 @@ export function homePage(lang) {
     <div class="container">
       <div class="grid-2" style="grid-template-columns:1fr 1.06fr;">
         <div data-reveal style="position:relative;">
-          <div style="border-radius:26px;overflow:hidden;aspect-ratio:5/6;box-shadow:var(--shadow-lg);background:var(--sand);"><img src="${asset("/assets/img/about-portrait.jpg")}" alt="${site.brand}" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div style="border-radius:26px;overflow:hidden;aspect-ratio:5/6;box-shadow:var(--shadow-lg);background:var(--sand);"><img src="${src(img.why)}" alt="${site.brand}" style="width:100%;height:100%;object-fit:cover;"></div>
         </div>
         <div>
           <div class="eyebrow" data-reveal>${t.whyEyebrow}</div>
@@ -228,7 +233,7 @@ export function homePage(lang) {
           <a href="${url(lang, "hakkimizda/")}" class="btn btn-ghost" data-reveal>${t.nav.about} ${icons.arrowSm}</a>
         </div>
         <div data-reveal style="position:relative;">
-          <div style="border-radius:24px;overflow:hidden;aspect-ratio:4/5;box-shadow:var(--shadow-lg);background:var(--sand);"><img src="${asset("/assets/img/clinic-1.jpg")}" alt="${site.brand}" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div style="border-radius:24px;overflow:hidden;aspect-ratio:4/5;box-shadow:var(--shadow-lg);background:var(--sand);"><img src="${src(img.about)}" alt="${site.brand}" style="width:100%;height:100%;object-fit:cover;"></div>
         </div>
       </div>
     </div>
@@ -258,7 +263,7 @@ export function homePage(lang) {
     title: `${site.brand} — ${lang === "tr" ? "Gülüş Tasarımı & Estetik Diş Hekimliği" : lang === "de" ? "Smile Design & Ästhetische Zahnmedizin" : "Smile Design & Aesthetic Dentistry"}`,
     description: h.lead,
     jsonld,
-    image: site.domain + asset("/assets/img/portrait-a.jpg"),
+    image: site.domain + src(img.hero),
   };
 }
 
