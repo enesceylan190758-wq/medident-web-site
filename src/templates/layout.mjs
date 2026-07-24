@@ -145,7 +145,7 @@ function header(lang, path) {
   return `${topbar(lang)}
   <header class="site-header">
     <div class="header-inner">
-      <a href="${url(lang, "")}" class="logo" aria-label="${site.brand}"><img src="${asset("/assets/img/logo.png")}" alt="${site.brand}" width="150" height="44"></a>
+      <a href="${url(lang, "")}" class="logo" aria-label="${site.brand}"><img src="${asset("/assets/img/logo.png")}" alt="${site.brand}" width="190" height="60"></a>
       <nav class="nav">
         ${links.map(([label, href]) => `<a href="${href}">${label}</a>`).join("\n        ")}
       </nav>
@@ -161,7 +161,7 @@ function header(lang, path) {
   <div class="mobile-nav" data-mobile-nav>
     <div class="mobile-panel">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;">
-        <img src="${asset("/assets/img/logo.png")}" alt="${site.brand}" style="height:34px;width:auto;">
+        <img src="${asset("/assets/img/logo.png")}" alt="${site.brand}" style="height:48px;width:auto;">
         <button data-close-nav aria-label="Close" style="width:40px;height:40px;border-radius:10px;border:1px solid rgba(43,35,24,.14);display:flex;align-items:center;justify-content:center;background:#fff;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2B2318" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
       </div>
       ${links.map(([label, href]) => `<a href="${href}">${label}</a>`).join("\n      ")}
