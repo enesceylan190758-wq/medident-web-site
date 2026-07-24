@@ -30,19 +30,34 @@ function pageHero(lang, eyebrow, title, lead, crumbs) {
   </div></section>`;
 }
 
-// Services index
-export function servicesIndexPage(lang) {
+// Services index — article bodies from MAKALELER are shown on each service detail page
+export function servicesIndexPage(lang, articles = []) {
   const t = i18n[lang];
   const crumbs = [crumbHome(lang), { name: t.nav.services, href: url(lang, "hizmetler/") }];
-  const card = (s) => `<a href="${url(lang, "hizmetler/" + s.slug + "/")}" class="card" style="display:block;color:inherit;">
+  const byService = Object.fromEntries(articles.filter((a) => a.lang === lang && a.service).map((a) => [a.service, a]));
+  const guideLabel = { tr: "Rehber makale", en: "Treatment guide", de: "Behandlungsleitfaden" }[lang];
+  // Prefer services that have uploaded makale content, then the rest (halitosis excluded upstream)
+  const ordered = [
+    ...services.filter((s) => byService[s.slug]),
+    ...services.filter((s) => !byService[s.slug]),
+  ];
+  const card = (s) => {
+    const art = byService[s.slug];
+    const blurb = art?.excerpt || s.short[lang];
+    const badge = art
+      ? `<span style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">${guideLabel}</span>`
+      : "";
+    return `<a href="${url(lang, "hizmetler/" + s.slug + "/")}" class="card" style="display:block;color:inherit;">
     <div class="icon-box">${icons[s.icon] || icons.smile}</div>
+    ${badge}
     <h3>${s.titles[lang]}</h3>
-    <p style="font-size:14.5px;line-height:1.6;color:var(--muted-2);margin:0;">${s.short[lang]}</p>
+    <p style="font-size:14.5px;line-height:1.6;color:var(--muted-2);margin:0;">${blurb}</p>
     <span class="link-more">${t.detail} ${icons.arrowSm}</span>
   </a>`;
+  };
   const body = `${pageHero(lang, t.servicesEyebrow, t.nav.services, t.servicesLead, crumbs)}
   <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container">
-    <div class="grid-auto">${services.map(card).join("")}</div>
+    <div class="grid-auto">${ordered.map(card).join("")}</div>
   </div></section>
   ${contactSection(lang)}`;
   return {

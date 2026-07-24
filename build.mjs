@@ -5,7 +5,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { site, langPrefix } from "./src/data/site.mjs";
-import { services, doctors, legacyBlog } from "./src/data/content.mjs";
+import { services, doctors, legacyBlog, legacyDoctorRedirects } from "./src/data/content.mjs";
 import {
   resolveHreflangPaths,
   sitemapPriority,
@@ -95,8 +95,8 @@ function build() {
     // Home
     emit(lang, "", homePage(lang));
 
-    // Services
-    emit(lang, "hizmetler/", servicesIndexPage(lang));
+    // Services (MAKALELER → articles.json body on matching service pages; no halitosis)
+    emit(lang, "hizmetler/", servicesIndexPage(lang, ARTICLES));
     for (const s of services) {
       const article = byLang.find((a) => a.service === s.slug);
       emit(lang, "hizmetler/" + s.slug + "/", servicePage(lang, s, article));
@@ -105,6 +105,22 @@ function build() {
     // Doctors
     emit(lang, "doktorlar/", doctorsIndexPage(lang));
     for (const d of doctors) emit(lang, "doktorlar/" + d.slug + "/", doctorPage(lang, d));
+    // Soft redirects for renamed doctor profiles (meta refresh pages)
+    for (const r of legacyDoctorRedirects) {
+      const target = site.domain + url(lang, "doktorlar/" + r.to + "/");
+      const html = `<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=${target}"><link rel="canonical" href="${target}"><title>Redirect</title></head><body><p><a href="${target}">Continue</a></p></body></html>`;
+      const dir = path.join(DIST, lang === "tr" ? "" : lang, "doktorlar", r.from);
+      fs.mkdirSync(dir, { recursive: true });
+      fs.writeFileSync(path.join(dir, "index.html"), html);
+    }
+    // Removed halitosis service → hizmetler index
+    {
+      const target = site.domain + url(lang, "hizmetler/");
+      const html = `<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=${target}"><link rel="canonical" href="${target}"><title>Redirect</title></head><body><p><a href="${target}">Continue</a></p></body></html>`;
+      const dir = path.join(DIST, lang === "tr" ? "" : lang, "hizmetler", "halitosis-agiz-kokusu");
+      fs.mkdirSync(dir, { recursive: true });
+      fs.writeFileSync(path.join(dir, "index.html"), html);
+    }
 
     // Blog + articles
     const blogList = byLang.map((a) => ({
@@ -199,9 +215,12 @@ function writeHtaccess() {
   const serviceRedirects = services
     .map((s) => `Redirect 301 /${s.slug}/ ${site.domain}/hizmetler/${s.slug}/`)
     .join("\n");
-  const doctorRedirects = doctors
-    .map((d) => `Redirect 301 /${d.slug}/ ${site.domain}/doktorlar/${d.slug}/`)
-    .join("\n");
+  const doctorRedirects = [
+    ...doctors.map((d) => `Redirect 301 /${d.slug}/ ${site.domain}/doktorlar/${d.slug}/`),
+    ...legacyDoctorRedirects.map(
+      (r) => `Redirect 301 /${r.from}/ ${site.domain}/doktorlar/${r.to}/\nRedirect 301 /doktorlar/${r.from}/ ${site.domain}/doktorlar/${r.to}/`
+    ),
+  ].join("\n");
   const htaccess = `# MediDent İstanbul — Apache config (Turhost/cPanel)
 Options -Indexes
 DirectoryIndex index.html
@@ -237,6 +256,8 @@ DirectoryIndex index.html
 # ---- Legacy WordPress URLs -> new structure (301) ----
 ${serviceRedirects}
 ${doctorRedirects}
+Redirect 301 /halitosis-agiz-kokusu/ ${site.domain}/hizmetler/
+Redirect 301 /hizmetler/halitosis-agiz-kokusu/ ${site.domain}/hizmetler/
 Redirect 301 /musteri-yorumlari/ ${site.domain}/yorumlar/
 Redirect 301 /referanslar/ ${site.domain}/yorumlar/
 Redirect 301 /foto-galeri/ ${site.domain}/galeri/
