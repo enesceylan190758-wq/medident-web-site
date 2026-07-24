@@ -6,6 +6,13 @@ import { img } from "../data/images.mjs";
 import { serviceFaqs } from "../data/seo.mjs";
 import { icons } from "./icons.mjs";
 import {
+  formatArticleHtml,
+  articleCover,
+  blogCopy,
+  defaultArticleFaqs,
+  readingMinutes,
+} from "./article-utils.mjs";
+import {
   url,
   waHref,
   breadcrumb,
@@ -194,19 +201,38 @@ export function doctorPage(lang, doctor) {
   return { body, title: `${doctor.name} — ${site.brand}`, description: `${doctor.name}, ${doctor.titles[lang]} — ${site.brand}`, jsonld };
 }
 
-// Blog index
+// Blog index — visual cards
 export function blogIndexPage(lang, articles) {
   const t = i18n[lang];
+  const b = blogCopy[lang] || blogCopy.en;
   const crumbs = [crumbHome(lang), { name: t.nav.blog, href: url(lang, "blog/") }];
-  const row = (a) => `<a href="${url(lang, "blog/" + a.slug + "/")}" class="article-row" style="color:inherit;">
-    ${a.coverImage ? `<img class="article-thumb" src="${asset(`/assets/img/${a.coverImage}`)}" alt="" width="160" height="106" loading="lazy">` : ""}
-    <div><h3 style="font-size:20px;margin-bottom:6px;">${a.title}</h3><p style="font-size:14.5px;color:var(--muted-2);margin:0;">${a.excerpt}</p></div>
-    <span class="link-more">${t.readMore} ${icons.arrowSm}</span>
-  </a>`;
+  const card = (a) => {
+    const cover = articleCover(a);
+    const href = url(lang, "blog/" + a.slug + "/");
+    return `<a href="${href}" class="blog-card" data-reveal>
+      <span class="blog-card-media"><img src="${asset(`/assets/img/${cover}`)}" alt="${a.title}" loading="lazy" width="640" height="420"></span>
+      <span class="blog-card-body">
+        <span class="blog-card-kicker">${b.eyebrow}</span>
+        <h3>${a.title}</h3>
+        <p>${a.excerpt}</p>
+        <span class="blog-card-cta">${t.readMore} ${icons.arrowSm}</span>
+      </span>
+    </a>`;
+  };
   const body = `${pageHero(lang, "", t.blogTitle, t.blogLead, crumbs)}
-  <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container" style="max-width:920px;">
-    <div class="article-list">${articles.map(row).join("") || `<p>${t.blogLead}</p>`}</div>
-  </div></section>
+  <section class="section section-blog-index" style="padding-top:clamp(36px,4vw,56px);">
+    <div class="container">
+      <div class="blog-grid">${articles.map(card).join("") || `<p>${t.blogLead}</p>`}</div>
+      <div class="blog-index-cta" data-reveal>
+        <h2>${b.endTitle}</h2>
+        <p>${b.endLead}</p>
+        <div class="blog-cta-row">
+          <a href="${url(lang, "iletisim/")}" class="btn btn-primary">${b.indexCta} ${icons.arrow()}</a>
+          <a href="${waHref()}" class="btn btn-ghost" target="_blank" rel="noopener">${icons.wa} WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </section>
   ${contactSection(lang)}`;
   return {
     body,
@@ -218,34 +244,116 @@ export function blogIndexPage(lang, articles) {
 
 export function articlePage(lang, article, relatedServiceSlug) {
   const t = i18n[lang];
+  const b = blogCopy[lang] || blogCopy.en;
   const crumbs = [
     crumbHome(lang),
     { name: t.nav.blog, href: url(lang, "blog/") },
     { name: article.title, href: url(lang, "blog/" + article.slug + "/") },
   ];
-  const svc = services.find((s) => s.slug === relatedServiceSlug);
-  const cover = article.coverImage
-    ? `<figure class="article-cover" style="margin:0 0 28px;"><img src="${asset(`/assets/img/${article.coverImage}`)}" alt="${article.title}" width="1536" height="1024" style="width:100%;height:auto;border-radius:18px;display:block;" loading="eager"></figure>`
-    : "";
-  // Avoid duplicate cover if HTML already embeds one
-  let html = article.html || "";
+  const svc = services.find((s) => s.slug === relatedServiceSlug || s.slug === article.service);
+  const coverFile = articleCover(article);
+  const coverSrc = asset(`/assets/img/${coverFile}`);
+  let html = formatArticleHtml(article.html || "", article.title);
+  // Avoid double-embedding the same cover file inside body
   if (article.coverImage && html.includes(article.coverImage)) {
-    /* keep embedded cover from generator */
-  } else if (cover) {
-    html = cover + html;
+    html = html.replace(new RegExp(`<figure[\\s\\S]*?${article.coverImage.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}[\\s\\S]*?<\\/figure>`, "i"), "");
   }
-  const body = `${pageHero(lang, t.nav.blog, article.title, "", crumbs)}
-  <section class="section" style="padding-top:clamp(30px,4vw,48px);"><div class="container" style="max-width:820px;">
-    <article class="prose">${html}
-      ${svc ? `<p style="margin-top:28px;"><a class="btn btn-ghost" href="${url(lang, "hizmetler/" + svc.slug + "/")}">${svc.titles[lang]} ${icons.arrowSm}</a></p>` : ""}
-      <div style="margin-top:24px;display:flex;flex-wrap:wrap;gap:12px;">
+  const mins = readingMinutes(html);
+  const faqs = article.faq?.length ? article.faq : defaultArticleFaqs(lang, article.title);
+  const faqBlock =
+    faqs.length > 0
+      ? `<div class="blog-faq"><h2>${b.faqTitle}</h2>${faqs
+          .map((f) => `<details class="blog-faq-item"><summary>${f.q}</summary><p>${f.a}</p></details>`)
+          .join("")}</div>`
+      : "";
+
+  const midCta = `<aside class="blog-mid-cta" data-reveal>
+    <div class="blog-mid-cta-inner">
+      <h2>${b.midTitle}</h2>
+      <p>${b.midLead}</p>
+      <div class="blog-cta-row">
+        <a href="${url(lang, "iletisim/")}" class="btn btn-primary">${b.midCta} ${icons.arrow()}</a>
+        <a href="${waHref()}" class="btn btn-ghost" target="_blank" rel="noopener">${icons.wa} ${b.midWa}</a>
+      </div>
+    </div>
+  </aside>`;
+
+  // Insert mid-CTA after ~2nd h2 or middle of content
+  const h2s = [...html.matchAll(/<h2[\s\S]*?<\/h2>/gi)];
+  if (h2s.length >= 2) {
+    const idx = h2s[1].index + h2s[1][0].length;
+    html = html.slice(0, idx) + midCta + html.slice(idx);
+  } else {
+    html = html + midCta;
+  }
+
+  const body = `
+  <section class="blog-hero">
+    <div class="blog-hero-media"><img src="${coverSrc}" alt="${article.title}" width="1600" height="900"></div>
+    <div class="blog-hero-shade"></div>
+    <div class="blog-hero-inner container">
+      ${breadcrumb(lang, crumbs)}
+      <div class="blog-hero-kicker">${b.eyebrow}</div>
+      <h1>${article.title}</h1>
+      <p class="blog-hero-lead">${article.excerpt || ""}</p>
+      <div class="blog-hero-meta">
+        <span>${site.brand}</span>
+        <span class="dot"></span>
+        <span>${b.readMins(mins)}</span>
+        ${article.publishedAt ? `<span class="dot"></span><span>${String(article.publishedAt).slice(0, 10)}</span>` : ""}
+      </div>
+      <div class="blog-cta-row blog-hero-cta">
         <a href="${url(lang, "iletisim/")}" class="btn btn-primary">${t.bookNow} ${icons.arrow()}</a>
         <a href="${waHref()}" class="btn btn-ghost" target="_blank" rel="noopener">${icons.wa} WhatsApp</a>
       </div>
-    </article>
-  </div></section>
+    </div>
+  </section>
+
+  <div class="blog-trust">
+    <div class="container blog-trust-inner">
+      ${b.trust.map((x) => `<span>${x}</span>`).join("")}
+    </div>
+  </div>
+
+  <section class="section section-blog-article">
+    <div class="container blog-layout">
+      <article class="prose blog-prose">${html}
+        ${faqBlock}
+      </article>
+      <aside class="blog-aside">
+        <div class="blog-aside-card">
+          <div class="eyebrow">${b.benefitsTitle}</div>
+          <ul class="blog-benefits">${b.benefits.map((x) => `<li>${icons.check({ w: 18 })} <span>${x}</span></li>`).join("")}</ul>
+          <a href="${url(lang, "iletisim/")}" class="btn btn-primary" style="width:100%;justify-content:center;">${b.midCta}</a>
+          <a href="${waHref()}" class="btn btn-ghost" style="width:100%;justify-content:center;margin-top:10px;" target="_blank" rel="noopener">${icons.wa} WhatsApp</a>
+          ${
+            svc
+              ? `<a class="blog-aside-service" href="${url(lang, "hizmetler/" + svc.slug + "/")}">
+                  <span class="blog-aside-service-label">${b.relatedTitle}</span>
+                  <strong>${svc.titles[lang]}</strong>
+                  <span>${svc.short[lang]}</span>
+                </a>`
+              : ""
+          }
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section-alt blog-end-cta">
+    <div class="container" style="text-align:center;max-width:720px;">
+      <div class="eyebrow center">${b.eyebrow}</div>
+      <h2>${b.endTitle}</h2>
+      <p class="lead">${b.endLead}</p>
+      <div class="blog-cta-row" style="justify-content:center;">
+        <a href="${url(lang, "iletisim/")}" class="btn btn-primary">${t.bookNow} ${icons.arrow()}</a>
+        <a href="${waHref()}" class="btn btn-ghost" target="_blank" rel="noopener">${icons.wa} WhatsApp</a>
+      </div>
+    </div>
+  </section>
   ${contactSection(lang)}`;
-  const ogImage = article.coverImage ? site.domain + asset(`/assets/img/${article.coverImage}`) : undefined;
+
+  const ogImage = site.domain + coverSrc;
   const jsonld = [
     {
       "@context": "https://schema.org",
@@ -259,7 +367,7 @@ export function articlePage(lang, article, relatedServiceSlug) {
       publisher: { "@id": site.domain + "/#organization" },
       mainEntityOfPage: site.domain + url(lang, "blog/" + article.slug + "/"),
     },
-    ...(article.faq?.length ? [faqSchema(article.faq)] : []),
+    ...(faqs.length ? [faqSchema(faqs)] : []),
     breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
   ];
   return {

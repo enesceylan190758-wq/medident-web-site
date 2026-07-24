@@ -128,6 +128,7 @@ function build() {
       title: a.title,
       excerpt: a.excerpt,
       coverImage: a.coverImage || null,
+      service: a.service || null,
     }));
     emit(lang, "blog/", blogIndexPage(lang, blogList));
     for (const a of byLang) emit(lang, "blog/" + a.slug + "/", articlePage(lang, a, a.service));
