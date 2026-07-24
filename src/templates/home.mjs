@@ -144,7 +144,7 @@ export function homePage(lang) {
         </div>
       </div>
       <div style="height:clamp(48px,6vw,72px);"></div>
-      <div class="case-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(228px,1fr));gap:18px;">
+      <div class="case-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,228px),1fr));gap:18px;">
         ${img.cases
           .map((c) => {
             const label = c.label[lang] || c.label.tr;
@@ -183,7 +183,7 @@ export function homePage(lang) {
           <div class="eyebrow" data-reveal>${t.whyEyebrow}</div>
           <h2 data-reveal>${t.whyTitle}</h2>
           <p class="lead" data-reveal>${t.whyLead}</p>
-          <div data-reveal style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:26px 28px;">
+          <div data-reveal style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:26px 28px;">
             ${t.whyItems
               .map(
                 (w) => `<div><div class="icon-box" style="width:46px;height:46px;">${icons.check({ w: 22 })}</div><h4 style="font-size:17px;font-weight:800;margin:0 0 6px;color:var(--ink);">${w.t}</h4><p style="font-size:14px;line-height:1.55;color:var(--muted-2);margin:0;">${w.d}</p></div>`
@@ -202,7 +202,7 @@ export function homePage(lang) {
         <h2 data-reveal style="margin:0 0 14px;">${t.processTitle}</h2>
         <p data-reveal style="font-size:16px;line-height:1.62;color:var(--muted);margin:0;">${t.processLead}</p>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:20px;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:20px;">
         ${t.process
           .map(
             (p) => `<div class="step" data-reveal><div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;"><span class="step-n">${p.n}</span><span style="flex:1;height:1px;background:linear-gradient(90deg,var(--gold),transparent);"></span></div><h4 style="font-size:16.5px;font-weight:800;margin:0 0 7px;color:var(--ink);">${p.t}</h4><p style="font-size:13.8px;line-height:1.56;color:var(--muted-2);margin:0;">${p.d}</p></div>`
@@ -219,7 +219,7 @@ export function homePage(lang) {
         <h2 data-reveal style="margin:0 0 14px;">${t.packagesTitle}</h2>
         <p data-reveal style="font-size:16px;line-height:1.62;color:var(--muted);margin:0;">${t.packagesLead}</p>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;align-items:stretch;">${packages.map(pkg).join("")}</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:22px;align-items:stretch;">${packages.map(pkg).join("")}</div>
     </div>
   </section>
 
@@ -230,7 +230,7 @@ export function homePage(lang) {
         <h2 data-reveal style="margin:0 0 14px;">${t.reviewsTitle}</h2>
         <p data-reveal style="font-size:16px;line-height:1.6;color:#C9BEAC;margin:0;">${t.reviewsLead}</p>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(272px,1fr));gap:20px;">${t.reviews.map(review).join("")}</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,272px),1fr));gap:20px;">${t.reviews.map(review).join("")}</div>
     </div>
   </section>
 

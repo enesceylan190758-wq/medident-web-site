@@ -58,7 +58,7 @@ function head({ lang, title, description, path, image, jsonld = [], ogType = "we
 <html lang="${htmlLang[lang]}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>${title}</title>
     <meta name="description" content="${escapeAttr(description)}">
     <link rel="canonical" href="${canonical}">

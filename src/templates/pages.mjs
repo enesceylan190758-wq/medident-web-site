@@ -146,7 +146,7 @@ export function doctorsIndexPage(lang) {
   </a>`;
   const body = `${pageHero(lang, "", t.doctorsTitle, t.doctorsLead, crumbs)}
   <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container">
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px;">${doctors.map(card).join("")}</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:22px;">${doctors.map(card).join("")}</div>
   </div></section>
   ${contactSection(lang)}`;
   return {
