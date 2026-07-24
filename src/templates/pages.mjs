@@ -34,7 +34,11 @@ function pageHero(lang, eyebrow, title, lead, crumbs) {
 export function servicesIndexPage(lang, articles = []) {
   const t = i18n[lang];
   const crumbs = [crumbHome(lang), { name: t.nav.services, href: url(lang, "hizmetler/") }];
-  const byService = Object.fromEntries(articles.filter((a) => a.lang === lang && a.service).map((a) => [a.service, a]));
+  const byService = {};
+  for (const a of articles) {
+    if (a.lang !== lang || !a.service || byService[a.service]) continue;
+    byService[a.service] = a; // first match = MAKALELER docx (base), not later blog packs
+  }
   const guideLabel = { tr: "Rehber makale", en: "Treatment guide", de: "Behandlungsleitfaden" }[lang];
   // Prefer services that have uploaded makale content, then the rest (halitosis excluded upstream)
   const ordered = [
