@@ -1,6 +1,7 @@
 import { site } from "../data/site.mjs";
 import { i18n } from "../data/i18n.mjs";
 import { services, doctors, serviceFallback, serviceImages } from "../data/content.mjs";
+import { kvkkHtml, privacyHtml } from "../data/legal.mjs";
 import { img } from "../data/images.mjs";
 import { serviceFaqs } from "../data/seo.mjs";
 import { icons } from "./icons.mjs";
@@ -379,19 +380,15 @@ export function faqPage(lang) {
   };
 }
 
-// Simple legal text page
+// Simple legal text page (KVKK + privacy) — see src/data/legal.mjs
 export function legalPage(lang, kind) {
   const t = i18n[lang];
   const title = kind === "kvkk" ? t.kvkk : t.privacy;
   const slug = kind === "kvkk" ? "kvkk/" : "gizlilik/";
   const crumbs = [crumbHome(lang), { name: title, href: url(lang, slug) }];
-  const copy = {
-    tr: `<p>${site.brand} olarak kişisel verilerinizin gizliliğine önem veriyoruz. İletişim formu veya WhatsApp üzerinden paylaştığınız ad, telefon, e-posta ve mesaj bilgileri yalnızca size dönüş yapmak ve tedavi süreciyle ilgili bilgilendirme amacıyla kullanılır; üçüncü taraflarla pazarlama amacıyla paylaşılmaz.</p><p>6698 sayılı KVKK kapsamındaki haklarınız çerçevesinde verilerinizin silinmesini talep edebilirsiniz. Talepleriniz için <a href="mailto:${site.email}">${site.email}</a> adresinden bize ulaşabilirsiniz.</p>`,
-    en: `<p>At ${site.brand} we value the privacy of your personal data. The name, phone, email and message you share via the contact form or WhatsApp are used only to respond to you and to provide information about your treatment; they are not shared with third parties for marketing.</p><p>You may request deletion of your data. Contact us at <a href="mailto:${site.email}">${site.email}</a>.</p>`,
-    de: `<p>Bei ${site.brand} legen wir Wert auf den Schutz Ihrer personenbezogenen Daten. Name, Telefon, E-Mail und Nachricht, die Sie über das Kontaktformular oder WhatsApp teilen, werden nur zur Beantwortung und zur Information über Ihre Behandlung verwendet und nicht zu Marketingzwecken an Dritte weitergegeben.</p><p>Sie können die Löschung Ihrer Daten verlangen. Kontakt: <a href="mailto:${site.email}">${site.email}</a>.</p>`,
-  };
+  const copy = kind === "kvkk" ? kvkkHtml(lang) : privacyHtml(lang);
   const body = `${pageHero(lang, "", title, "", crumbs)}
-  <section class="section" style="padding-top:clamp(30px,4vw,48px);"><div class="container"><article class="prose">${copy[lang]}</article></div></section>`;
+  <section class="section" style="padding-top:clamp(30px,4vw,48px);"><div class="container" style="max-width:760px;"><article class="prose legal-doc">${copy}</article></div></section>`;
   return {
     body,
     title: `${title} — ${site.brand}`,

@@ -1278,6 +1278,22 @@ textarea:focus {
   padding-left: 1.2em;
 }
 
+.legal-doc h2 {
+  font-size: 1.25rem;
+  margin-top: 1.75em;
+}
+
+.legal-note {
+  background: var(--cream-2, #f3ebe0);
+  border-left: 3px solid var(--gold);
+  padding: 14px 16px;
+  border-radius: 0 12px 12px 0;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--muted);
+  margin-bottom: 1.5em !important;
+}
+
 .doctor-card img,
 .gallery-item img {
   width: 100%;
