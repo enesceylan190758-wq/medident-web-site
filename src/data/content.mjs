@@ -226,17 +226,116 @@ export const services = [
   },
 ];
 
-// Extra homepage cards that map onto service pages with MAKALELER content
+// Homepage Hizmetlerimiz mosaic — photo-led tiles mapped to service pages
 export const homeCards = [
-  { service: "implantoloji-implant-tedavisi", titles: { tr: "İmplant Tedavisi", en: "Dental Implants", de: "Zahnimplantate" }, short: { tr: "Eksik dişler için kalıcı titanyum implant ve sabit protez çözümleri.", en: "Lasting titanium implants and fixed restorations for missing teeth.", de: "Dauerhafte Titanimplantate und festsitzender Zahnersatz." }, icon: "implant" },
-  { service: "estetik-dis-hekimligi", titles: { tr: "Estetik Diş Tedavileri", en: "Cosmetic Dentistry", de: "Ästhetische Zahnmedizin" }, short: { tr: "Gülüş tasarımı, lamina ve zirkonyum ile doğal, dengeli estetik.", en: "Smile design, veneers and zirconia for a natural, balanced look.", de: "Smile Design, Veneers und Zirkon für ein natürliches, ausgewogenes Lächeln." }, icon: "smile" },
-  { service: "dis-beyazlatma", titles: { tr: "Diş Beyazlatma", en: "Teeth Whitening", de: "Zahnaufhellung" }, short: { tr: "Klinik tipi profesyonel beyazlatmayla tonlarca daha parlak bir gülümseme.", en: "Professional whitening for a brighter smile.", de: "Professionelle Aufhellung für ein helleres Lächeln." }, icon: "sparkle" },
-  { service: "protezler", titles: { tr: "Diş Protezleri", en: "Dentures", de: "Zahnprothesen" }, short: { tr: "Sabit ve hareketli protezlerle fonksiyon ve estetiğin geri kazanımı.", en: "Fixed and removable prosthetics to restore function and aesthetics.", de: "Festsitzender und herausnehmbarer Zahnersatz für Funktion und Ästhetik." }, icon: "shield" },
-  { service: "cene-ve-dis-cerrahisi", titles: { tr: "Çene ve Diş Cerrahisi", en: "Dental & Jaw Surgery", de: "Zahn- und Kieferchirurgie" }, short: { tr: "Gömülü diş, çene ve cerrahi uygulamalarda planlı, konforlu tedavi.", en: "Planned, comfortable care for impacted teeth and jaw surgery.", de: "Geplante, komfortable Versorgung bei Weisheitszähnen und Kieferchirurgie." }, icon: "surgery" },
-  { service: "genel-anestezi-ve-sedasyon", titles: { tr: "Bir Günde Diş Tedavisi", en: "Same-Day Dental Care", de: "Taggleiche Behandlung" }, short: { tr: "Sedasyon ve hızlı protokollerle aynı gün planlanan tedaviler.", en: "Same-day planned treatments with sedation options.", de: "Taggleiche Behandlungen mit Sedierungsoptionen." }, icon: "sleep" },
-  { service: "oral-implantoloji", titles: { tr: "All-on-4 / All-on-6", en: "All-on-4 / All-on-6", de: "All-on-4 / All-on-6" }, short: { tr: "Tek seansta sabit dişler: tam dişsizliğe kalıcı çözüm.", en: "Fixed teeth in one session for full edentulism.", de: "Feste Zähne in einer Sitzung bei Zahnlosigkeit." }, icon: "allon" },
-  { service: "konservatif-dis-tedavileri", titles: { tr: "Diş Bakımı ve Hijyen", en: "Dental Care & Hygiene", de: "Zahnpflege & Mundhygiene" }, short: { tr: "Koruyucu bakım, dolgu ve ağız hijyeni uygulamaları.", en: "Preventive care, fillings and oral hygiene.", de: "Prophylaxe, Füllungen und Mundhygiene." }, icon: "care" },
+  {
+    service: "estetik-dis-hekimligi",
+    featured: true,
+    image: "services/estetik.jpg",
+    titles: { tr: "Estetik Diş Tedavileri", en: "Cosmetic Dentistry", de: "Ästhetische Zahnmedizin" },
+    short: {
+      tr: "Gülüş tasarımı, lamina ve zirkonyum ile doğal, dengeli estetik.",
+      en: "Smile design, veneers and zirconia for a natural, balanced look.",
+      de: "Smile Design, Veneers und Zirkon für ein natürliches, ausgewogenes Lächeln.",
+    },
+    icon: "smile",
+  },
+  {
+    service: "implantoloji-implant-tedavisi",
+    image: "services/implant.jpg",
+    titles: { tr: "İmplant Tedavisi", en: "Dental Implants", de: "Zahnimplantate" },
+    short: {
+      tr: "Kalıcı titanyum implant ve sabit protez.",
+      en: "Lasting titanium implants and fixed restorations.",
+      de: "Dauerhafte Titanimplantate und festsitzender Zahnersatz.",
+    },
+    icon: "implant",
+  },
+  {
+    service: "dis-beyazlatma",
+    image: "services/gulush.jpg",
+    titles: { tr: "Diş Beyazlatma", en: "Teeth Whitening", de: "Zahnaufhellung" },
+    short: {
+      tr: "Klinik tipi profesyonel beyazlatma.",
+      en: "Professional in-clinic whitening.",
+      de: "Professionelle Praxis-Zahnaufhellung.",
+    },
+    icon: "sparkle",
+  },
+  {
+    service: "genel-anestezi-ve-sedasyon",
+    image: "services/sedasyon.jpg",
+    titles: { tr: "Uykuda Diş Tedavisi", en: "Sedation Dentistry", de: "Zahnbehandlung im Schlaf" },
+    short: {
+      tr: "Sedasyon ile konforlu, aynı gün tedaviler.",
+      en: "Comfortable same-day care under sedation.",
+      de: "Komfortable taggleiche Behandlung unter Sedierung.",
+    },
+    icon: "sleep",
+  },
+  {
+    service: "cene-ve-dis-cerrahisi",
+    image: "services/cerrahi.jpg",
+    titles: { tr: "Çene ve Diş Cerrahisi", en: "Dental & Jaw Surgery", de: "Zahn- und Kieferchirurgie" },
+    short: {
+      tr: "Planlı, konforlu cerrahi uygulamalar.",
+      en: "Planned, comfortable surgical care.",
+      de: "Geplante, komfortable chirurgische Versorgung.",
+    },
+    icon: "surgery",
+  },
+  {
+    service: "endodonti-kanal-tedavileri",
+    image: "services/endodonti.jpg",
+    titles: { tr: "Kanal Tedavisi", en: "Root Canal", de: "Wurzelbehandlung" },
+    short: {
+      tr: "Mikroskop destekli modern endodonti.",
+      en: "Microscope-guided modern endodontics.",
+      de: "Mikroskopgestützte moderne Endodontie.",
+    },
+    icon: "root",
+  },
+  {
+    service: "pedodonti-cocuk-dis-hekimligi",
+    image: "services/pedodonti.jpg",
+    titles: { tr: "Çocuk Diş Hekimliği", en: "Pediatric Dentistry", de: "Kinderzahnheilkunde" },
+    short: {
+      tr: "Korkusuz, oyun dolu ilk muayene.",
+      en: "Gentle, playful first visits for kids.",
+      de: "Sanfte, spielerische erste Besuche für Kinder.",
+    },
+    icon: "child",
+  },
+  {
+    service: "konservatif-dis-tedavileri",
+    image: "services/klinik.jpg",
+    titles: { tr: "Klinik & Bakım", en: "Clinic & Hygiene", de: "Klinik & Hygiene" },
+    short: {
+      tr: "Modern klinik, hijyen ve koruyucu bakım.",
+      en: "Modern clinic, hygiene and preventive care.",
+      de: "Moderne Klinik, Hygiene und Prophylaxe.",
+    },
+    icon: "care",
+  },
 ];
+
+/** Cover images for /hizmetler/ index tiles (by service slug). */
+export const serviceImages = {
+  "oral-implantoloji": "services/implant.jpg",
+  "implantoloji-implant-tedavisi": "services/implant.jpg",
+  "estetik-dis-hekimligi": "services/estetik.jpg",
+  "dis-beyazlatma": "services/gulush.jpg",
+  protezler: "services/bonding.jpg",
+  "seffaf-plaklar-invisalign": "services/gulush.jpg",
+  "agiz-dis-ve-cene-cerrahisi": "services/cerrahi.jpg",
+  "cene-ve-dis-cerrahisi": "services/cerrahi.jpg",
+  "cene-eklemi-rahatsizliklari": "services/periodontoloji.jpg",
+  "periodontoloji-diseti-hastaliklari": "services/periodontoloji.jpg",
+  "pedodonti-cocuk-dis-hekimligi": "services/pedodonti.jpg",
+  "konservatif-dis-tedavileri": "services/klinik.jpg",
+  "genel-anestezi-ve-sedasyon": "services/sedasyon.jpg",
+  "endodonti-kanal-tedavileri": "services/endodonti.jpg",
+};
 
 export const doctors = [
   {
@@ -385,7 +484,7 @@ export const legacyBlog = [
     langs: ["tr"],
     titles: { tr: "Uykuda Diş Tedavisi" },
     excerpts: {
-      tr: "Uykuda diş tedavisi ve sedasyon ile konforlu uygulamalar. MediDent İstanbul.",
+      tr: "Sedasyon ve genel anestezi ile uykuda diş tedavisi: konforlu ve güvenli bir süreç.",
     },
   },
 ];

@@ -16,14 +16,20 @@ export function homePage(lang) {
   const stat = (s) =>
     `<div><div class="stat-num"><span data-to="${s.to}" ${s.dec ? `data-dec="${s.dec}"` : ""} ${s.sep ? 'data-sep="1"' : ""} ${s.suffix ? `data-suffix="${s.suffix}"` : ""}>0</span>${s.suffix ? "" : '<span>+</span>'}</div><div class="stat-label">${s.label}</div></div>`;
 
-  const serviceCard = (c) => {
+  const serviceCard = (c, i) => {
     const title = c.titles[lang];
     const href = svcUrl(c.service);
-    return `<a href="${href}" class="card" data-reveal style="display:block;color:inherit;">
-      <div class="icon-box">${icons[c.icon] || icons.smile}</div>
-      <h3>${title}</h3>
-      <p style="font-size:14.5px;line-height:1.6;color:var(--muted-2);margin:0;">${c.short[lang]}</p>
-      <span class="link-more">${t.detail} ${icons.arrowSm}</span>
+    const featured = !!c.featured;
+    const photo = src(c.image || "portrait-a.jpg");
+    return `<a href="${href}" class="svc-tile ${featured ? "is-featured" : ""}" data-reveal style="--d:${(i % 6) * 60}ms">
+      <img src="${photo}" alt="${title} — ${site.brand}" loading="lazy">
+      <span class="svc-tile-shade" aria-hidden="true"></span>
+      <span class="svc-tile-body">
+        <span class="svc-tile-kicker">${t.servicesEyebrow}</span>
+        <h3>${title}</h3>
+        <p>${c.short[lang]}</p>
+        <span class="svc-tile-cta">${t.detail} ${icons.arrowSm}</span>
+      </span>
     </a>`;
   };
 
@@ -101,14 +107,19 @@ export function homePage(lang) {
     <div class="stats-grid">${t.stats.map(stat).join("")}</div>
   </section>
 
-  <section class="section" id="hizmetler">
+  <section class="section section-services" id="hizmetler">
     <div class="container">
-      <div class="grid-2" data-reveal style="align-items:end;margin-bottom:clamp(38px,4vw,58px);gap:32px;">
-        <div><div class="eyebrow">${t.servicesEyebrow}</div><h2 style="margin:0;">${t.servicesTitle}</h2></div>
-        <p style="font-size:16px;line-height:1.62;color:var(--muted);margin:0 0 6px;">${t.servicesLead}</p>
+      <div class="svc-head" data-reveal>
+        <div>
+          <div class="eyebrow">${t.servicesEyebrow}</div>
+          <h2 style="margin:0;">${t.servicesTitle}</h2>
+        </div>
+        <p>${t.servicesLead}</p>
       </div>
-      <div class="grid-auto">${homeCards.map(serviceCard).join("")}</div>
-      <div style="text-align:center;margin-top:36px;"><a href="${url(lang, "hizmetler/")}" class="btn btn-ghost">${t.allServices} ${icons.arrowSm}</a></div>
+      <div class="svc-mosaic">${homeCards.map(serviceCard).join("")}</div>
+      <div class="svc-foot" data-reveal>
+        <a href="${url(lang, "hizmetler/")}" class="btn btn-ghost">${t.allServices} ${icons.arrowSm}</a>
+      </div>
     </div>
   </section>
 

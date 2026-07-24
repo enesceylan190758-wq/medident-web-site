@@ -1,6 +1,6 @@
 import { site } from "../data/site.mjs";
 import { i18n } from "../data/i18n.mjs";
-import { services, doctors, serviceFallback } from "../data/content.mjs";
+import { services, doctors, serviceFallback, serviceImages } from "../data/content.mjs";
 import { img } from "../data/images.mjs";
 import { serviceFaqs } from "../data/seo.mjs";
 import { icons } from "./icons.mjs";
@@ -45,23 +45,27 @@ export function servicesIndexPage(lang, articles = []) {
     ...services.filter((s) => byService[s.slug]),
     ...services.filter((s) => !byService[s.slug]),
   ];
-  const card = (s) => {
+  const card = (s, i) => {
     const art = byService[s.slug];
     const blurb = art?.excerpt || s.short[lang];
+    const photo = asset(`/assets/img/${serviceImages[s.slug] || "portrait-a.jpg"}`);
     const badge = art
-      ? `<span style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">${guideLabel}</span>`
+      ? `<span class="svc-tile-badge">${guideLabel}</span>`
       : "";
-    return `<a href="${url(lang, "hizmetler/" + s.slug + "/")}" class="card" style="display:block;color:inherit;">
-    <div class="icon-box">${icons[s.icon] || icons.smile}</div>
-    ${badge}
-    <h3>${s.titles[lang]}</h3>
-    <p style="font-size:14.5px;line-height:1.6;color:var(--muted-2);margin:0;">${blurb}</p>
-    <span class="link-more">${t.detail} ${icons.arrowSm}</span>
+    return `<a href="${url(lang, "hizmetler/" + s.slug + "/")}" class="svc-tile ${i === 0 ? "is-featured" : ""}" data-reveal style="--d:${(i % 6) * 55}ms">
+    <img src="${photo}" alt="${s.titles[lang]} — ${site.brand}" loading="lazy">
+    <span class="svc-tile-shade" aria-hidden="true"></span>
+    <span class="svc-tile-body">
+      ${badge}
+      <h3>${s.titles[lang]}</h3>
+      <p>${blurb}</p>
+      <span class="svc-tile-cta">${t.detail} ${icons.arrowSm}</span>
+    </span>
   </a>`;
   };
   const body = `${pageHero(lang, t.servicesEyebrow, t.nav.services, t.servicesLead, crumbs)}
-  <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container">
-    <div class="grid-auto">${ordered.map(card).join("")}</div>
+  <section class="section section-services" style="padding-top:clamp(36px,4vw,56px);"><div class="container">
+    <div class="svc-mosaic">${ordered.map(card).join("")}</div>
   </div></section>
   ${contactSection(lang)}`;
   return {
