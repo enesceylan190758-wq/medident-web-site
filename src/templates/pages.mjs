@@ -2,6 +2,7 @@ import { site } from "../data/site.mjs";
 import { i18n } from "../data/i18n.mjs";
 import { services, doctors, serviceFallback } from "../data/content.mjs";
 import { img } from "../data/images.mjs";
+import { serviceFaqs } from "../data/seo.mjs";
 import { icons } from "./icons.mjs";
 import {
   url,
@@ -16,6 +17,9 @@ import { contactSection } from "./home.mjs";
 
 const src = (file) => asset(`/assets/img/${file}`);
 const crumbHome = (lang) => ({ name: i18n[lang].breadcrumbHome, href: url(lang, ""), url: site.domain + url(lang, "") });
+
+const faqHeading = { tr: "Sık sorulan sorular", en: "Frequently asked questions", de: "Häufig gestellte Fragen" };
+const keyPointsHeading = { tr: "Öne çıkan noktalar", en: "Key points", de: "Wichtige Punkte" };
 
 function pageHero(lang, eyebrow, title, lead, crumbs) {
   return `<section class="page-hero"><div class="container">
@@ -59,11 +63,17 @@ export function servicePage(lang, service, article) {
     { name: title, href: url(lang, "hizmetler/" + service.slug + "/") },
   ];
   const bodyHtml = article ? article.html : serviceFallback[lang](title);
+  const faqs = (article && article.faq && article.faq.length ? article.faq : null) || serviceFaqs[service.slug]?.[lang] || [];
+  const faqBlock =
+    faqs.length > 0
+      ? `<h2>${faqHeading[lang]}</h2>${faqs.map((f) => `<h3>${f.q}</h3><p>${f.a}</p>`).join("")}`
+      : "";
   const related = services.filter((s) => s.slug !== service.slug && s.home).slice(0, 4);
   const body = `${pageHero(lang, t.servicesEyebrow, title, service.short[lang], crumbs)}
   <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container">
     <div style="display:grid;grid-template-columns:1fr;gap:40px;">
       <article class="prose">${bodyHtml}
+        ${faqBlock}
         <div style="margin-top:32px;display:flex;flex-wrap:wrap;gap:12px;">
           <a href="${url(lang, "iletisim/")}" class="btn btn-primary">${t.bookNow} ${icons.arrow()}</a>
           <a href="${waHref()}" class="btn btn-ghost" target="_blank" rel="noopener">${icons.wa} WhatsApp</a>
@@ -88,10 +98,18 @@ export function servicePage(lang, service, article) {
       description: service.meta[lang],
       provider: { "@id": site.domain + "/#organization" },
       url: site.domain + url(lang, "hizmetler/" + service.slug + "/"),
+      inLanguage: lang === "tr" ? "tr-TR" : lang === "de" ? "de-DE" : "en-US",
     },
     breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
   ];
-  return { body, title: `${title} — ${site.brand}`, description: service.meta[lang], jsonld };
+  if (faqs.length) jsonld.push(faqSchema(faqs));
+  const pageTitle =
+    lang === "en"
+      ? `${title} in Istanbul — ${site.brand}`
+      : lang === "de"
+        ? `${title} in Istanbul — ${site.brand}`
+        : `${title} — ${site.brand}`;
+  return { body, title: pageTitle, description: service.meta[lang], jsonld };
 }
 
 // Doctors index
@@ -210,7 +228,7 @@ export function articlePage(lang, article, relatedServiceSlug) {
       "@type": "Article",
       headline: article.title,
       description: article.excerpt,
-      inLanguage: lang,
+      inLanguage: lang === "tr" ? "tr-TR" : lang === "de" ? "de-DE" : "en-US",
       datePublished: article.publishedAt || undefined,
       image: ogImage,
       author: { "@id": site.domain + "/#organization" },
@@ -225,6 +243,8 @@ export function articlePage(lang, article, relatedServiceSlug) {
     title: `${article.title} — ${site.brand}`,
     description: article.metaDescription || article.excerpt,
     image: ogImage,
+    ogType: "article",
+    publishedTime: article.publishedAt || undefined,
     jsonld,
   };
 }
@@ -233,6 +253,11 @@ export function articlePage(lang, article, relatedServiceSlug) {
 export function aboutPage(lang) {
   const t = i18n[lang];
   const crumbs = [crumbHome(lang), { name: t.nav.about, href: url(lang, "hakkimizda/") }];
+  const badges = {
+    tr: ["Sağlık turizmi koordinasyonu", "Steril & modern klinik", "CAD/CAM laboratuvar", "Uluslararası hasta deneyimi"],
+    en: ["Health tourism coordination", "Sterile modern clinic", "CAD/CAM laboratory", "International patient experience"],
+    de: ["Koordination für Zahntourismus", "Sterile moderne Klinik", "CAD/CAM-Labor", "Internationale Patientenerfahrung"],
+  };
   const body = `${pageHero(lang, t.aboutEyebrow, t.aboutTitle, "", crumbs)}
   <section class="section" style="padding-top:clamp(30px,4vw,48px);"><div class="container">
     <div class="grid-2" style="grid-template-columns:1.05fr .95fr;">
@@ -240,7 +265,7 @@ export function aboutPage(lang) {
         <p>${t.aboutP1}</p>
         <p>${t.aboutP2}</p>
         <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;">
-          ${["Sağlık turizmi koordinasyonu", "Steril & modern klinik", "CAD/CAM laboratuvar", "Uluslararası hasta deneyimi"]
+          ${(badges[lang] || badges.en)
             .map((x) => `<span style="display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;background:var(--cream-2);color:var(--gold);font-weight:700;font-size:13.5px;">${x}</span>`)
             .join("")}
         </div>
@@ -401,9 +426,9 @@ export function geoPackPage(lang, pack) {
     <article class="prose">
       ${cover}
       <p><strong>${pack.direct_answer}</strong></p>
-      <h2>${lang === "tr" ? "Öne çıkan noktalar" : "Key points"}</h2>
+      <h2>${keyPointsHeading[lang] || keyPointsHeading.en}</h2>
       <ul>${(pack.bullets || []).map((b) => `<li>${b}</li>`).join("")}</ul>
-      <h2>${lang === "tr" ? "Sık sorulan sorular" : "FAQ"}</h2>
+      <h2>${faqHeading[lang] || faqHeading.en}</h2>
       ${(pack.faq || []).map((f) => `<h3>${f.q}</h3><p>${f.a}</p>`).join("")}
       <div style="margin-top:28px;display:flex;flex-wrap:wrap;gap:10px;">${links}</div>
     </article>
@@ -421,7 +446,7 @@ export function geoPackPage(lang, pack) {
         name: pack.question || pack.title,
         description: pack.direct_answer,
         image: ogImage,
-        inLanguage: "tr",
+        inLanguage: lang === "tr" ? "tr-TR" : lang === "de" ? "de-DE" : "en-US",
         isPartOf: { "@type": "WebSite", name: site.brand, url: site.domain },
       },
       breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),

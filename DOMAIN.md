@@ -1,18 +1,28 @@
-# Domain’e alma (GitHub Pages) — 2 dakika
+# Domain / HTTPS notları
 
-FTP yok. Site `gh-pages` dalında; domain DNS’i GitHub’a çevrilecek.
+## Şu an (Turhost canlı)
 
-## 1) GitHub Pages aç (tek tık)
+Apex (`medidentistanbul.com`) hâlâ Turhost IP’sinde (`94.199.205.197`) ve Let’s Encrypt ile **HTTPS çalışıyor**.
 
-https://github.com/enesceylan190758-wq/medident-web-site/settings/pages
+Eksik görseller için `public_html/.htaccess` içinde CDN yedek kuralı var:
+yerelde dosya yoksa → `cdn.jsdelivr.net` (`gh-pages`).
 
-- Source: **Deploy from a branch**
-- Branch: **gh-pages** / folder **/** → **Save**
-- Custom domain (varsa): `medidentistanbul.com` → Save → HTTPS bekleyin
+### “Güvenli değil” uyarısı (www)
 
-## 2) Turhost DNS
+`www` CNAME → GitHub iken GitHub henüz domain sertifikası veremiyor (`*.github.io` sertifikası).
+Tarayıcı **www** için kilit uyarısı gösterir.
 
-Eski A kaydını (94.199.205.197) sil / değiştir:
+**Geçici çözüm (önerilen, apex Turhost’tayken):** Zone Editor’da `www` kaydını GitHub CNAME’den çıkarıp Turhost’a alın:
+
+| Tip | İsim | Değer |
+|-----|------|--------|
+| A | www | 94.199.205.197 |
+
+Sonra adresi şöyle açın: **https://medidentistanbul.com/** (www’siz).
+
+## GitHub Pages’e tam geçiş (isteğe bağlı)
+
+Apex A kayıtları gerçekten şu IP’lere dönünce GitHub HTTPS açılır:
 
 | Tip | İsim | Değer |
 |-----|------|--------|
@@ -22,9 +32,8 @@ Eski A kaydını (94.199.205.197) sil / değiştir:
 | A | @ | 185.199.111.153 |
 | CNAME | www | enesceylan190758-wq.github.io |
 
-DNS 5–30 dk sürebilir.
-
-## Yayın komutu (sonraki güncellemeler)
+`dig medidentistanbul.com A` çıktısı Turhost IP’si değil, yukarıdaki GitHub IP’leri olmalı.
+Pages → Custom domain → **Check again** → Enforce HTTPS.
 
 ```bash
 npm run deploy:domain

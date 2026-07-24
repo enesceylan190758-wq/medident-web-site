@@ -2108,5 +2108,437 @@
     ],
     "publishedAt": "2026-07-23",
     "source": "ende-tourism-pack"
+  },
+  {
+    "lang": "en",
+    "slug": "what-is-all-on-4",
+    "bucket": "kategori",
+    "question": "What is All-on-4?",
+    "title": "What is All-on-4",
+    "direct_answer": "All-on-4 is a full-arch implant protocol using typically four implants to support a fixed provisional bridge, often on the same day in suitable cases.",
+    "coverImage": "blog/blog-04-implant.jpg",
+    "bullets": [
+      "Full-arch fixed teeth on typically four implants",
+      "Digital planning before travel",
+      "Provisional teeth often same day when suitable",
+      "Written quote after photo consult"
+    ],
+    "faq": [
+      {
+        "q": "Are temporary teeth same day?",
+        "a": "In suitable All-on-4 cases, a fixed provisional can be fitted the same day after surgery."
+      },
+      {
+        "q": "Is All-on-4 cheaper in Turkey?",
+        "a": "Packages are often more competitive than UK/DE private care; quality depends on team, lab and follow-up — ask for materials in writing."
+      },
+      {
+        "q": "Do you help with hotel and transfer?",
+        "a": "Yes — MediDent Istanbul coordinates VIP transfer and hotel on request."
+      }
+    ],
+    "internal_links": [
+      {
+        "href": "/en/iletisim/",
+        "label": "Contact"
+      },
+      {
+        "href": "/en/hizmetler/implantoloji-implant-tedavisi/",
+        "label": "Services"
+      }
+    ],
+    "source": "seo-ende-expand",
+    "publishedAt": "2026-07-23"
+  },
+  {
+    "lang": "en",
+    "slug": "what-are-clear-aligners",
+    "bucket": "kategori",
+    "question": "What are clear aligners?",
+    "title": "What are clear aligners",
+    "direct_answer": "Clear aligners are nearly invisible removable trays that gradually move teeth according to a digital orthodontic plan.",
+    "coverImage": "blog/blog-06-gulush.jpg",
+    "bullets": [
+      "Nearly invisible trays",
+      "Digital 3D treatment plan",
+      "Often remote follow-ups after start",
+      "Ideal for discreet adult orthodontics"
+    ],
+    "faq": [
+      {
+        "q": "How long do aligners take?",
+        "a": "Often 6–18 months for mild–moderate cases; your digital plan sets the estimate."
+      },
+      {
+        "q": "Can I fly home between sets?",
+        "a": "Usually yes for suitable cases with remote monitoring."
+      }
+    ],
+    "internal_links": [
+      {
+        "href": "/en/iletisim/",
+        "label": "Contact"
+      },
+      {
+        "href": "/en/hizmetler/seffaf-plaklar-invisalign/",
+        "label": "Services"
+      }
+    ],
+    "source": "seo-ende-expand",
+    "publishedAt": "2026-07-23"
+  },
+  {
+    "lang": "en",
+    "slug": "professional-teeth-whitening",
+    "bucket": "kategori",
+    "question": "How does professional teeth whitening work?",
+    "title": "How does professional teeth whitening work",
+    "direct_answer": "Professional whitening uses dentist-supervised bleaching gels at controlled strength for faster, more predictable shade change than home kits.",
+    "coverImage": "blog/blog-06-gulush.jpg",
+    "bullets": [
+      "Dentist-supervised bleaching",
+      "Faster than home kits",
+      "Fits dental-holiday schedules",
+      "Aftercare for lasting shade"
+    ],
+    "faq": [
+      {
+        "q": "How long does it take?",
+        "a": "Often a single visit of about one hour; touch-ups may be advised."
+      },
+      {
+        "q": "Before veneers?",
+        "a": "Sometimes whitening is sequenced before or after veneers depending on the shade goal."
+      }
+    ],
+    "internal_links": [
+      {
+        "href": "/en/iletisim/",
+        "label": "Contact"
+      },
+      {
+        "href": "/en/hizmetler/dis-beyazlatma/",
+        "label": "Services"
+      }
+    ],
+    "source": "seo-ende-expand",
+    "publishedAt": "2026-07-23"
+  },
+  {
+    "lang": "en",
+    "slug": "hollywoodlywood-smile-package-istanbul",
+    "bucket": "kategori",
+    "question": "What is a Hollywood Smile package in Istanbul?",
+    "title": "What is a Hollywood Smile package in Istanbul",
+    "direct_answer": "A Hollywood Smile package typically combines digital smile design with veneers or zirconia crowns, often bundled with transfer and hotel for international patients.",
+    "coverImage": "blog/blog-06-gulush.jpg",
+    "bullets": [
+      "Digital smile design first",
+      "Veneers or zirconia options",
+      "Often 5–10 day stay",
+      "Optional hotel & transfer"
+    ],
+    "faq": [
+      {
+        "q": "Veneers or crowns?",
+        "a": "Veneers for minimal prep; crowns when strength or existing large restorations require it."
+      },
+      {
+        "q": "Can Germans/UK patients communicate easily?",
+        "a": "MediDent Istanbul offers EN/DE support for international patients."
+      }
+    ],
+    "internal_links": [
+      {
+        "href": "/en/iletisim/",
+        "label": "Contact"
+      },
+      {
+        "href": "/en/hizmetler/estetik-dis-hekimligi/",
+        "label": "Services"
+      }
+    ],
+    "source": "seo-ende-expand",
+    "publishedAt": "2026-07-23"
+  },
+  {
+    "lang": "en",
+    "slug": "what-are-porcelain-veneers",
+    "bucket": "karsilastirma",
+    "question": "What are porcelain veneers?",
+    "title": "What are porcelain veneers",
+    "direct_answer": "Porcelain veneers are thin ceramic shells bonded to the front of teeth to improve colour, shape and alignment with relatively conservative preparation.",
+    "coverImage": "blog/blog-01-zirkonyum.jpg",
+    "bullets": [
+      "Veneers = conservative prep",
+      "Zirconia = high strength",
+      "Mock-up before finals",
+      "Common dental-tourism choice"
+    ],
+    "faq": [
+      {
+        "q": "Which looks more natural?",
+        "a": "Both can look natural with modern ceramics; layering and gum line design matter more than the label."
+      },
+      {
+        "q": "Can I decide after mock-up?",
+        "a": "Yes — digital and temporary try-ins help you choose before finals."
+      }
+    ],
+    "internal_links": [
+      {
+        "href": "/en/iletisim/",
+        "label": "Contact"
+      },
+      {
+        "href": "/en/hizmetler/estetik-dis-hekimligi/",
+        "label": "Services"
+      }
+    ],
+    "source": "seo-ende-expand",
+    "publishedAt": "2026-07-23"
+  },
+  {
+    "lang": "en",
+    "slug": "what-is-a-dental-implant",
+    "bucket": "kategori",
+    "question": "What is a dental implant?",
+    "title": "What is a dental implant",
+    "direct_answer": "A dental implant is a titanium (or similar) root placed in the jawbone that supports a crown, bridge or denture after osseointegration.",
+    "coverImage": "blog/blog-04-implant.jpg",
+    "bullets": [
+      "Titanium root in bone",
+      "Supports crown or bridge",
+      "Healing then prosthesis",
+      "Plan before you fly"
+    ],
+    "faq": [
+      {
+        "q": "Is it surgery?",
+        "a": "Yes — minor oral surgery under local anaesthetic or sedation."
+      },
+      {
+        "q": "How long before final crown?",
+        "a": "Often a few months; immediate protocols differ by case."
+      }
+    ],
+    "internal_links": [
+      {
+        "href": "/en/iletisim/",
+        "label": "Contact"
+      },
+      {
+        "href": "/en/hizmetler/oral-implantoloji/",
+        "label": "Services"
+      }
+    ],
+    "source": "seo-ende-expand",
+    "publishedAt": "2026-07-23"
+  },
+  {
+    "lang": "de",
+    "slug": "was-ist-all-on-4",
+    "bucket": "kategori",
+    "question": "Was ist All-on-4?",
+    "title": "Was ist All-on-4",
+    "direct_answer": "All-on-4 ist ein Konzept für den zahnlosen Kiefer: meist vier Implantate tragen eine festsitzende provisorische Brücke, oft am Operationstag bei geeigneten Fällen.",
+    "coverImage": "blog/blog-04-implant.jpg",
+    "bullets": [
+      "Festsitzende Vollbögen auf meist vier Implantaten",
+      "Digitale Planung vor der Reise",
+      "Provisorium oft am selben Tag",
+      "Schriftliches Angebot nach Foto-Beratung"
+    ],
+    "faq": [
+      {
+        "q": "Zähne am selben Tag?",
+        "a": "Bei geeigneten Fällen ist ein festsitzendes Provisorium am OP-Tag möglich."
+      },
+      {
+        "q": "Günstiger als in Deutschland?",
+        "a": "Pakete sind oft wettbewerbsfähiger — Qualität hängt von Team, Labor und Nachsorge ab."
+      }
+    ],
+    "internal_links": [
+      {
+        "href": "/de/iletisim/",
+        "label": "Kontakt"
+      },
+      {
+        "href": "/de/hizmetler/implantoloji-implant-tedavisi/",
+        "label": "Leistungen"
+      }
+    ],
+    "source": "seo-ende-expand",
+    "publishedAt": "2026-07-23"
+  },
+  {
+    "lang": "de",
+    "slug": "was-sind-aligner",
+    "bucket": "kategori",
+    "question": "Was sind Aligner?",
+    "title": "Was sind Aligner",
+    "direct_answer": "Aligner sind nahezu unsichtbare, herausnehmbare Schienen, die Zähne schrittweise nach einem digitalen kieferorthopädischen Plan bewegen.",
+    "coverImage": "blog/blog-06-gulush.jpg",
+    "bullets": [
+      "Nahezu unsichtbar",
+      "3D-Plan vorab",
+      "Oft Fernkontrollen",
+      "Geeignet für Erwachsene"
+    ],
+    "faq": [
+      {
+        "q": "Wie lange dauert es?",
+        "a": "Oft 6–18 Monate; die digitale Planung gibt die Schätzung."
+      },
+      {
+        "q": "Zwischen den Sets nach Hause fliegen?",
+        "a": "Bei geeigneten Fällen meist ja."
+      }
+    ],
+    "internal_links": [
+      {
+        "href": "/de/iletisim/",
+        "label": "Kontakt"
+      },
+      {
+        "href": "/de/hizmetler/seffaf-plaklar-invisalign/",
+        "label": "Leistungen"
+      }
+    ],
+    "source": "seo-ende-expand",
+    "publishedAt": "2026-07-23"
+  },
+  {
+    "lang": "de",
+    "slug": "professionelle-zahnaufhellung",
+    "bucket": "kategori",
+    "question": "Wie funktioniert professionelle Zahnaufhellung?",
+    "title": "Wie funktioniert professionelle Zahnaufhellung",
+    "direct_answer": "Professionelle Aufhellung nutzt zahnärztlich überwachte Bleaching-Gele mit kontrollierter Stärke für schnellere, planbarere Ergebnisse als Heimkits.",
+    "coverImage": "blog/blog-06-gulush.jpg",
+    "bullets": [
+      "Überwachtes Bleaching",
+      "Schneller als Heimkits",
+      "Passt in Reisepläne",
+      "Nachsorge für stabile Farbe"
+    ],
+    "faq": [
+      {
+        "q": "Wie lange dauert der Termin?",
+        "a": "Oft etwa eine Stunde; Auffrischungen können folgen."
+      }
+    ],
+    "internal_links": [
+      {
+        "href": "/de/iletisim/",
+        "label": "Kontakt"
+      },
+      {
+        "href": "/de/hizmetler/dis-beyazlatma/",
+        "label": "Leistungen"
+      }
+    ],
+    "source": "seo-ende-expand",
+    "publishedAt": "2026-07-23"
+  },
+  {
+    "lang": "de",
+    "slug": "hollywoodlywood-smile-paket-istanbul",
+    "bucket": "kategori",
+    "question": "Was ist ein Hollywood-Smile-Paket in Istanbul?",
+    "title": "Was ist ein Hollywood-Smile-Paket in Istanbul",
+    "direct_answer": "Ein Hollywood-Smile-Paket kombiniert meist digitales Smile Design mit Veneers oder Zirkonkronen und oft Transfer/Hotel für internationale Patienten.",
+    "coverImage": "blog/blog-06-gulush.jpg",
+    "bullets": [
+      "Zuerst digitales Smile Design",
+      "Veneers oder Zirkon",
+      "Oft 5–10 Tage Aufenthalt",
+      "Optional Hotel & Transfer"
+    ],
+    "faq": [
+      {
+        "q": "Veneers oder Kronen?",
+        "a": "Veneers bei minimaler Präparation; Kronen bei hoher Belastung oder großen Restaurationen."
+      }
+    ],
+    "internal_links": [
+      {
+        "href": "/de/iletisim/",
+        "label": "Kontakt"
+      },
+      {
+        "href": "/de/hizmetler/estetik-dis-hekimligi/",
+        "label": "Leistungen"
+      }
+    ],
+    "source": "seo-ende-expand",
+    "publishedAt": "2026-07-23"
+  },
+  {
+    "lang": "de",
+    "slug": "was-sind-porzellan-veneers",
+    "bucket": "karsilastirma",
+    "question": "Was sind Porzellan-Veneers?",
+    "title": "Was sind Porzellan-Veneers",
+    "direct_answer": "Porzellan-Veneers sind dünne Keramikschalen, die auf die Zahnvorderseite geklebt werden, um Farbe, Form und Stellung konservativ zu verbessern.",
+    "coverImage": "blog/blog-01-zirkonyum.jpg",
+    "bullets": [
+      "Veneers = wenig Substanzabtrag",
+      "Zirkon = hohe Festigkeit",
+      "Mock-up vor Finalisierung",
+      "Häufige Zahntourismus-Frage"
+    ],
+    "faq": [
+      {
+        "q": "Was wirkt natürlicher?",
+        "a": "Beides kann natürlich wirken — Schichttechnik und Zahnfleischlinie sind entscheidend."
+      }
+    ],
+    "internal_links": [
+      {
+        "href": "/de/iletisim/",
+        "label": "Kontakt"
+      },
+      {
+        "href": "/de/hizmetler/estetik-dis-hekimligi/",
+        "label": "Leistungen"
+      }
+    ],
+    "source": "seo-ende-expand",
+    "publishedAt": "2026-07-23"
+  },
+  {
+    "lang": "de",
+    "slug": "was-ist-ein-zahnimplantat",
+    "bucket": "kategori",
+    "question": "Was ist ein Zahnimplantat?",
+    "title": "Was ist ein Zahnimplantat",
+    "direct_answer": "Ein Zahnimplantat ist eine Titanwurzel (oder ähnliches Material) im Kieferknochen, die nach Einheilung Krone, Brücke oder Prothese trägt.",
+    "coverImage": "blog/blog-04-implant.jpg",
+    "bullets": [
+      "Titanwurzel im Knochen",
+      "Trägt Krone oder Brücke",
+      "Einheilung dann Prothetik",
+      "Planung vor dem Flug"
+    ],
+    "faq": [
+      {
+        "q": "Ist das ein Eingriff?",
+        "a": "Ja — kleiner oralchirurgischer Eingriff unter lokaler Betäubung oder Sedierung."
+      }
+    ],
+    "internal_links": [
+      {
+        "href": "/de/iletisim/",
+        "label": "Kontakt"
+      },
+      {
+        "href": "/de/hizmetler/oral-implantoloji/",
+        "label": "Leistungen"
+      }
+    ],
+    "source": "seo-ende-expand",
+    "publishedAt": "2026-07-23"
   }
 ]

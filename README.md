@@ -38,6 +38,28 @@ npm run dev        # build + serve
 `dist/` klasörünün **içeriği** Turhost `public_html`'e yüklenir.
 Adım adım rehber: [DEPLOY.md](DEPLOY.md)
 
+Hızlı yol: `npm run package` → `medident-dist.zip` → cPanel File Manager’da `public_html` köküne yükle → Extract.
+
+```bash
+npm run package          # zip oluştur
+npm run deploy:domain    # gh-pages (DNS GitHub’a dönünce)
+npm run content:daily    # 2 blog + 2 GEO
+```
+
+Günlük otomasyon: `.github/workflows/daily-content.yml` (schedule + workflow_dispatch).
+
+## Estesof form
+
+`src/data/site.mjs` → `estesof.endpoint` doldurulunca iletişim formu JSON POST eder.
+Boşken WhatsApp fallback çalışır (`src/assets/js/site.js`).
+
+## SEO / GEO
+
+- `sitemap.xml`, `robots.txt`, `llms.txt`, `.htaccess` (HTTPS + eski WP 301)
+- JSON-LD: Dentist, FAQPage, Article, BreadcrumbList
+- GTM / Meta Pixel / GSC verify taşındı; GA4 kimliği `site.tracking.ga4` alanına eklenir
+- Blog: `/blog/…` · GEO: `/geo/…` · diller: TR kök, EN `/en`, DE `/de` + hreflang
+
 ## Yapılacaklar (bilgi gelince güncelleyin)
 
 - `src/data/site.mjs` → `estesof.endpoint`: Estesof form API adresi

@@ -2,6 +2,7 @@ import { site } from "../data/site.mjs";
 import { i18n } from "../data/i18n.mjs";
 import { services, homeCards, packages } from "../data/content.mjs";
 import { img } from "../data/images.mjs";
+import { hoursLocalized } from "../data/seo.mjs";
 import { icons } from "./icons.mjs";
 import { url, waHref, orgSchema, faqSchema, breadcrumbSchema, asset } from "./layout.mjs";
 
@@ -286,7 +287,7 @@ export function contactSection(lang, { heading = true } = {}) {
             <a href="tel:${site.phoneRaw}"><span class="contact-ico">${icons.phone}</span><span><span style="display:block;font-size:12.5px;color:#A89D8B;">${t.phoneLabel}</span><span style="font-weight:700;font-size:16px;">${site.phone}</span></span></a>
             <a href="mailto:${site.email}"><span class="contact-ico">${icons.mail}</span><span><span style="display:block;font-size:12.5px;color:#A89D8B;">${t.emailLabel}</span><span style="font-weight:700;font-size:16px;">${site.email}</span></span></a>
             <a href="${site.mapsUrl}" target="_blank" rel="noopener"><span class="contact-ico">${icons.pin}</span><span><span style="display:block;font-size:12.5px;color:#A89D8B;">${t.addressLabel}</span><span style="font-weight:700;font-size:16px;">${site.address}</span></span></a>
-            <div class="row"><span class="contact-ico">${icons.clock}</span><span><span style="display:block;font-size:12.5px;color:#A89D8B;">${t.hoursLabel}</span><span style="font-weight:700;font-size:16px;">${site.hours}</span></span></div>
+            <div class="row"><span class="contact-ico">${icons.clock}</span><span><span style="display:block;font-size:12.5px;color:#A89D8B;">${t.hoursLabel}</span><span style="font-weight:700;font-size:16px;">${hoursLocalized[lang] || site.hours}</span></span></div>
           </div>
         </div>
         <div data-reveal>

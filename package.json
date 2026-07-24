@@ -11,6 +11,7 @@
     "content:today": "node scripts/content/generate.mjs --blog 10 --geo 10",
     "content:daily": "node scripts/content/generate.mjs --blog 2 --geo 2",
     "content:ende": "node scripts/content/write-ende-pack.mjs",
+    "content:seo-ende": "node scripts/content/write-seo-ende-expand.mjs",
     "content:topics": "node scripts/content/write-topic-pack.mjs",
     "package": "node build.mjs && node scripts/package-dist.mjs",
     "deploy:pages": "node scripts/deploy-pages.mjs",

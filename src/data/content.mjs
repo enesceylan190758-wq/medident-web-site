@@ -12,8 +12,8 @@ export const services = [
     },
     meta: {
       tr: "İstanbul’da oral implantoloji ve dental implant tedavisi. MediDent İstanbul ile güvenli, kalıcı çözümler.",
-      en: "Oral implantology and dental implants in Istanbul. Safe, lasting solutions at MediDent Istanbul.",
-      de: "Orale Implantologie und Zahnimplantate in Istanbul. Sichere, dauerhafte Lösungen bei MediDent Istanbul.",
+      en: "Dental implants in Istanbul, Turkey — oral implantology, All-on-4 packages, hotel & transfer. Free consult at MediDent Istanbul Üsküdar.",
+      de: "Zahnimplantate in Istanbul (Türkei) — orale Implantologie, All-on-4, Hotel & Transfer. Kostenlose Beratung bei MediDent Istanbul Üsküdar.",
     },
   },
   {
@@ -28,8 +28,8 @@ export const services = [
     },
     meta: {
       tr: "İmplant tedavisi nedir, nasıl uygulanır? MediDent İstanbul’da implantoloji hakkında bilmeniz gerekenler.",
-      en: "What is dental implant treatment? Everything you need to know at MediDent Istanbul.",
-      de: "Was ist eine Implantatbehandlung? Alles Wichtige bei MediDent Istanbul.",
+      en: "Dental implant cost & process in Istanbul for UK/EU patients. Same-day options, transparent quotes — MediDent Istanbul.",
+      de: "Zahnimplantate Kosten & Ablauf in Istanbul für Patienten aus DE/AT/CH. Sofortversorgung, klare Angebote — MediDent Istanbul.",
     },
   },
   {
@@ -44,8 +44,8 @@ export const services = [
     },
     meta: {
       tr: "Estetik diş hekimliği, gülüş tasarımı ve Hollywood Smile. MediDent İstanbul.",
-      en: "Cosmetic dentistry, smile design and Hollywood Smile at MediDent Istanbul.",
-      de: "Ästhetische Zahnmedizin, Smile Design und Hollywood Smile bei MediDent Istanbul.",
+      en: "Hollywood Smile & cosmetic dentistry in Istanbul — veneers, zirconia, digital smile design. Dental holiday packages.",
+      de: "Hollywood Smile & ästhetische Zahnmedizin in Istanbul — Veneers, Zirkon, digitales Smile Design. Zahntourismus-Pakete.",
     },
   },
   {
@@ -60,8 +60,8 @@ export const services = [
     },
     meta: {
       tr: "Profesyonel diş beyazlatma tedavisi. Güvenli ve hızlı sonuçlar — MediDent İstanbul.",
-      en: "Professional teeth whitening. Safe, fast results — MediDent Istanbul.",
-      de: "Professionelle Zahnaufhellung. Sicher und schnell — MediDent Istanbul.",
+      en: "Professional teeth whitening in Istanbul — safe in-clinic bleaching, often same week as your dental trip.",
+      de: "Professionelle Zahnaufhellung in Istanbul — sichere Praxis-Bleaching, oft in derselben Reisewoche.",
     },
   },
   {
@@ -76,8 +76,8 @@ export const services = [
     },
     meta: {
       tr: "Diş protezleri, sabit ve hareketli çözümler. MediDent İstanbul.",
-      en: "Dentures and prosthetic solutions at MediDent Istanbul.",
-      de: "Zahnprothesen und Zahnersatz bei MediDent Istanbul.",
+      en: "Full mouth rehabilitation & dentures in Istanbul — fixed/removable prosthetics for dental tourists.",
+      de: "Komplette Sanierung & Zahnprothesen in Istanbul — festsitzender/herausnehmbarer Zahnersatz für Zahntouristen.",
     },
   },
   {
@@ -92,8 +92,8 @@ export const services = [
     },
     meta: {
       tr: "Şeffaf plak ve Invisalign tedavisi. MediDent İstanbul.",
-      en: "Clear aligners and Invisalign treatment at MediDent Istanbul.",
-      de: "Transparente Schienen und Invisalign bei MediDent Istanbul.",
+      en: "Invisalign & clear aligners in Istanbul — digital scans, discreet orthodontics for international patients.",
+      de: "Invisalign & Aligner in Istanbul — digitale Scans, unsichtbare Zahnkorrektur für internationale Patienten.",
     },
   },
   {
@@ -220,8 +220,8 @@ export const services = [
     },
     meta: {
       tr: "Uykuda diş tedavisi, sedasyon ve genel anestezi. MediDent İstanbul.",
-      en: "Dental treatment under sedation or anaesthesia at MediDent Istanbul.",
-      de: "Zahnbehandlung unter Sedierung oder Narkose bei MediDent Istanbul.",
+      en: "Sedation dentistry & sleep dentistry in Istanbul for anxious patients — monitored care at MediDent Istanbul.",
+      de: "Sedierung & Zahnbehandlung im Schlaf in Istanbul bei Angstpatienten — überwachte Versorgung bei MediDent Istanbul.",
     },
   },
   {
