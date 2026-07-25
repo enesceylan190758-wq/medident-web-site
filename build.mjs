@@ -5,7 +5,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { site, langPrefix } from "./src/data/site.mjs";
-import { services, doctors, legacyBlog } from "./src/data/content.mjs";
+import { services, doctors, legacyBlog, legacyDoctorRedirects } from "./src/data/content.mjs";
 import {
   resolveHreflangPaths,
   sitemapPriority,
@@ -95,16 +95,66 @@ function build() {
     // Home
     emit(lang, "", homePage(lang));
 
-    // Services
-    emit(lang, "hizmetler/", servicesIndexPage(lang));
+    // Services (MAKALELER → articles.json body on matching service pages; no halitosis)
+    emit(lang, "hizmetler/", servicesIndexPage(lang, ARTICLES));
+    const implantGeoSlugs = new Set([
+      "dis-implant-nedir",
+      "what-is-a-dental-implant",
+      "was-ist-ein-zahnimplantat",
+      "all-on-4-nedir",
+      "what-is-all-on-4",
+      "was-ist-all-on-4",
+      "istanbul-dis-implant-fiyati",
+      "dental-implant-cost-istanbul",
+      "zahnimplantat-kosten-istanbul",
+      "implant-mi-kopru-mu",
+      "dental-implant-vs-bridge",
+      "implantat-oder-bruecke",
+      "kemik-grefti-ve-sinus-lifting",
+      "bone-graft-sinus-lift-istanbul",
+      "knochenaufbau-sinuslift-istanbul",
+      "uskudar-acibadem-dis-implant",
+      "dental-implants-uskudar-acibadem",
+      "zahnimplantate-uskudar-acibadem",
+      "1-gunde-implant-nedir",
+      "same-day-implants-istanbul",
+      "sofortimplantate-istanbul",
+    ]);
     for (const s of services) {
       const article = byLang.find((a) => a.service === s.slug);
-      emit(lang, "hizmetler/" + s.slug + "/", servicePage(lang, s, article));
+      const relatedGeo =
+        s.slug === "oral-implantoloji" || s.slug === "implantoloji-implant-tedavisi"
+          ? GEO_PACKS.filter((g) => g.lang === lang && implantGeoSlugs.has(g.slug)).slice(0, 6)
+          : [];
+      emit(lang, "hizmetler/" + s.slug + "/", servicePage(lang, s, article, relatedGeo));
     }
 
     // Doctors
     emit(lang, "doktorlar/", doctorsIndexPage(lang));
     for (const d of doctors) emit(lang, "doktorlar/" + d.slug + "/", doctorPage(lang, d));
+    // Soft redirects for renamed doctor profiles (meta refresh pages)
+    for (const r of legacyDoctorRedirects) {
+      const target = site.domain + url(lang, "doktorlar/" + r.to + "/");
+      const html = `<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=${target}"><link rel="canonical" href="${target}"><title>Redirect</title></head><body><p><a href="${target}">Continue</a></p></body></html>`;
+      const dir = path.join(DIST, lang === "tr" ? "" : lang, "doktorlar", r.from);
+      fs.mkdirSync(dir, { recursive: true });
+      fs.writeFileSync(path.join(dir, "index.html"), html);
+    }
+    // Removed / legacy service slugs → soft redirects
+    {
+      const softRedirects = [
+        ["halitosis-agiz-kokusu", "hizmetler/"],
+        ["implantoloji", "hizmetler/oral-implantoloji/"],
+        ["implant-tedavisi", "hizmetler/implantoloji-implant-tedavisi/"],
+      ];
+      for (const [from, toPath] of softRedirects) {
+        const target = site.domain + url(lang, toPath);
+        const html = `<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=${target}"><link rel="canonical" href="${target}"><title>Redirect</title></head><body><p><a href="${target}">Continue</a></p></body></html>`;
+        const dir = path.join(DIST, lang === "tr" ? "" : lang, "hizmetler", from);
+        fs.mkdirSync(dir, { recursive: true });
+        fs.writeFileSync(path.join(dir, "index.html"), html);
+      }
+    }
 
     // Blog + articles
     const blogList = byLang.map((a) => ({
@@ -112,6 +162,7 @@ function build() {
       title: a.title,
       excerpt: a.excerpt,
       coverImage: a.coverImage || null,
+      service: a.service || null,
     }));
     emit(lang, "blog/", blogIndexPage(lang, blogList));
     for (const a of byLang) emit(lang, "blog/" + a.slug + "/", articlePage(lang, a, a.service));
@@ -199,9 +250,12 @@ function writeHtaccess() {
   const serviceRedirects = services
     .map((s) => `Redirect 301 /${s.slug}/ ${site.domain}/hizmetler/${s.slug}/`)
     .join("\n");
-  const doctorRedirects = doctors
-    .map((d) => `Redirect 301 /${d.slug}/ ${site.domain}/doktorlar/${d.slug}/`)
-    .join("\n");
+  const doctorRedirects = [
+    ...doctors.map((d) => `Redirect 301 /${d.slug}/ ${site.domain}/doktorlar/${d.slug}/`),
+    ...legacyDoctorRedirects.map(
+      (r) => `Redirect 301 /${r.from}/ ${site.domain}/doktorlar/${r.to}/\nRedirect 301 /doktorlar/${r.from}/ ${site.domain}/doktorlar/${r.to}/`
+    ),
+  ].join("\n");
   const htaccess = `# MediDent İstanbul — Apache config (Turhost/cPanel)
 Options -Indexes
 DirectoryIndex index.html
@@ -237,6 +291,12 @@ DirectoryIndex index.html
 # ---- Legacy WordPress URLs -> new structure (301) ----
 ${serviceRedirects}
 ${doctorRedirects}
+Redirect 301 /halitosis-agiz-kokusu/ ${site.domain}/hizmetler/
+Redirect 301 /hizmetler/halitosis-agiz-kokusu/ ${site.domain}/hizmetler/
+Redirect 301 /hizmetler/implantoloji/ ${site.domain}/hizmetler/oral-implantoloji/
+Redirect 301 /hizmetler/implant-tedavisi/ ${site.domain}/hizmetler/implantoloji-implant-tedavisi/
+Redirect 301 /en/hizmetler/implantoloji/ ${site.domain}/en/hizmetler/oral-implantoloji/
+Redirect 301 /de/hizmetler/implantoloji/ ${site.domain}/de/hizmetler/oral-implantoloji/
 Redirect 301 /musteri-yorumlari/ ${site.domain}/yorumlar/
 Redirect 301 /referanslar/ ${site.domain}/yorumlar/
 Redirect 301 /foto-galeri/ ${site.domain}/galeri/

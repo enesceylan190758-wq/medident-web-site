@@ -13,17 +13,27 @@ export function homePage(lang) {
   const h = t.home;
   const svcUrl = (slug) => url(lang, "hizmetler/" + slug + "/");
 
-  const stat = (s) =>
-    `<div><div class="stat-num"><span data-to="${s.to}" ${s.dec ? `data-dec="${s.dec}"` : ""} ${s.sep ? 'data-sep="1"' : ""} ${s.suffix ? `data-suffix="${s.suffix}"` : ""}>0</span>${s.suffix ? "" : '<span>+</span>'}</div><div class="stat-label">${s.label}</div></div>`;
+  const stat = (s) => {
+    let initial = s.dec ? Number(s.to).toFixed(s.dec) : String(Math.round(s.to));
+    if (s.sep) initial = initial.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    if (s.suffix) initial += s.suffix;
+    return `<div><div class="stat-num"><span data-to="${s.to}" ${s.dec ? `data-dec="${s.dec}"` : ""} ${s.sep ? 'data-sep="1"' : ""} ${s.suffix ? `data-suffix="${s.suffix}"` : ""}>${initial}</span>${s.suffix ? "" : '<span>+</span>'}</div><div class="stat-label">${s.label}</div></div>`;
+  };
 
-  const serviceCard = (c) => {
+  const serviceCard = (c, i) => {
     const title = c.titles[lang];
     const href = svcUrl(c.service);
-    return `<a href="${href}" class="card" data-reveal style="display:block;color:inherit;">
-      <div class="icon-box">${icons[c.icon] || icons.smile}</div>
-      <h3>${title}</h3>
-      <p style="font-size:14.5px;line-height:1.6;color:var(--muted-2);margin:0;">${c.short[lang]}</p>
-      <span class="link-more">${t.detail} ${icons.arrowSm}</span>
+    const featured = !!c.featured;
+    const photo = src(c.image || "portrait-a.jpg");
+    return `<a href="${href}" class="svc-tile ${featured ? "is-featured" : ""}" data-reveal style="--d:${(i % 6) * 60}ms">
+      <img src="${photo}" alt="${title} — ${site.brand}" loading="lazy">
+      <span class="svc-tile-shade" aria-hidden="true"></span>
+      <span class="svc-tile-body">
+        <span class="svc-tile-kicker">${t.servicesEyebrow}</span>
+        <h3>${title}</h3>
+        <p>${c.short[lang]}</p>
+        <span class="svc-tile-cta">${t.detail} ${icons.arrowSm}</span>
+      </span>
     </a>`;
   };
 
@@ -101,14 +111,19 @@ export function homePage(lang) {
     <div class="stats-grid">${t.stats.map(stat).join("")}</div>
   </section>
 
-  <section class="section" id="hizmetler">
+  <section class="section section-services" id="hizmetler">
     <div class="container">
-      <div class="grid-2" data-reveal style="align-items:end;margin-bottom:clamp(38px,4vw,58px);gap:32px;">
-        <div><div class="eyebrow">${t.servicesEyebrow}</div><h2 style="margin:0;">${t.servicesTitle}</h2></div>
-        <p style="font-size:16px;line-height:1.62;color:var(--muted);margin:0 0 6px;">${t.servicesLead}</p>
+      <div class="svc-head" data-reveal>
+        <div>
+          <div class="eyebrow">${t.servicesEyebrow}</div>
+          <h2 style="margin:0;">${t.servicesTitle}</h2>
+        </div>
+        <p>${t.servicesLead}</p>
       </div>
-      <div class="grid-auto">${homeCards.map(serviceCard).join("")}</div>
-      <div style="text-align:center;margin-top:36px;"><a href="${url(lang, "hizmetler/")}" class="btn btn-ghost">${t.allServices} ${icons.arrowSm}</a></div>
+      <div class="svc-mosaic svc-mosaic--home">${homeCards.map(serviceCard).join("")}</div>
+      <div class="svc-foot" data-reveal>
+        <a href="${url(lang, "hizmetler/")}" class="btn btn-ghost">${t.allServices} ${icons.arrowSm}</a>
+      </div>
     </div>
   </section>
 
@@ -133,7 +148,7 @@ export function homePage(lang) {
         </div>
       </div>
       <div style="height:clamp(48px,6vw,72px);"></div>
-      <div class="case-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(228px,1fr));gap:18px;">
+      <div class="case-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,228px),1fr));gap:18px;">
         ${img.cases
           .map((c) => {
             const label = c.label[lang] || c.label.tr;
@@ -172,7 +187,7 @@ export function homePage(lang) {
           <div class="eyebrow" data-reveal>${t.whyEyebrow}</div>
           <h2 data-reveal>${t.whyTitle}</h2>
           <p class="lead" data-reveal>${t.whyLead}</p>
-          <div data-reveal style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:26px 28px;">
+          <div data-reveal style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:26px 28px;">
             ${t.whyItems
               .map(
                 (w) => `<div><div class="icon-box" style="width:46px;height:46px;">${icons.check({ w: 22 })}</div><h4 style="font-size:17px;font-weight:800;margin:0 0 6px;color:var(--ink);">${w.t}</h4><p style="font-size:14px;line-height:1.55;color:var(--muted-2);margin:0;">${w.d}</p></div>`
@@ -191,7 +206,7 @@ export function homePage(lang) {
         <h2 data-reveal style="margin:0 0 14px;">${t.processTitle}</h2>
         <p data-reveal style="font-size:16px;line-height:1.62;color:var(--muted);margin:0;">${t.processLead}</p>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:20px;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:20px;">
         ${t.process
           .map(
             (p) => `<div class="step" data-reveal><div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;"><span class="step-n">${p.n}</span><span style="flex:1;height:1px;background:linear-gradient(90deg,var(--gold),transparent);"></span></div><h4 style="font-size:16.5px;font-weight:800;margin:0 0 7px;color:var(--ink);">${p.t}</h4><p style="font-size:13.8px;line-height:1.56;color:var(--muted-2);margin:0;">${p.d}</p></div>`
@@ -208,7 +223,7 @@ export function homePage(lang) {
         <h2 data-reveal style="margin:0 0 14px;">${t.packagesTitle}</h2>
         <p data-reveal style="font-size:16px;line-height:1.62;color:var(--muted);margin:0;">${t.packagesLead}</p>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;align-items:stretch;">${packages.map(pkg).join("")}</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:22px;align-items:stretch;">${packages.map(pkg).join("")}</div>
     </div>
   </section>
 
@@ -219,7 +234,7 @@ export function homePage(lang) {
         <h2 data-reveal style="margin:0 0 14px;">${t.reviewsTitle}</h2>
         <p data-reveal style="font-size:16px;line-height:1.6;color:#C9BEAC;margin:0;">${t.reviewsLead}</p>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(272px,1fr));gap:20px;">${t.reviews.map(review).join("")}</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,272px),1fr));gap:20px;">${t.reviews.map(review).join("")}</div>
     </div>
   </section>
 
