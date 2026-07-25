@@ -28,6 +28,11 @@ const crumbHome = (lang) => ({ name: i18n[lang].breadcrumbHome, href: url(lang, 
 
 const faqHeading = { tr: "Sık sorulan sorular", en: "Frequently asked questions", de: "Häufig gestellte Fragen" };
 const keyPointsHeading = { tr: "Öne çıkan noktalar", en: "Key points", de: "Wichtige Punkte" };
+const geoRelatedHeading = {
+  tr: "İmplant hakkında sık sorulanlar (GEO)",
+  en: "Implant Q&A (GEO)",
+  de: "Implantat-Fragen (GEO)",
+};
 
 function pageHero(lang, eyebrow, title, lead, crumbs) {
   return `<section class="page-hero"><div class="container">
@@ -85,7 +90,7 @@ export function servicesIndexPage(lang, articles = []) {
 }
 
 // Single service (with article body if available)
-export function servicePage(lang, service, article) {
+export function servicePage(lang, service, article, relatedGeo = []) {
   const t = i18n[lang];
   const title = service.titles[lang];
   const crumbs = [
@@ -93,16 +98,38 @@ export function servicePage(lang, service, article) {
     { name: t.nav.services, href: url(lang, "hizmetler/") },
     { name: title, href: url(lang, "hizmetler/" + service.slug + "/") },
   ];
-  const bodyHtml = article ? article.html : serviceFallback[lang](title);
+  const rawHtml = article ? article.html : serviceFallback[lang](title);
+  const bodyHtml = article ? formatArticleHtml(rawHtml, article.title) : rawHtml;
   const faqs = (article && article.faq && article.faq.length ? article.faq : null) || serviceFaqs[service.slug]?.[lang] || [];
   const faqBlock =
     faqs.length > 0
       ? `<h2>${faqHeading[lang]}</h2>${faqs.map((f) => `<h3>${f.q}</h3><p>${f.a}</p>`).join("")}`
       : "";
+  const cover = articleCover({ service: service.slug, coverImage: article?.coverImage });
+  const heroMedia = `<div class="svc-detail-cover"><img src="${asset(`/assets/img/${cover}`)}" alt="${title} — ${site.brand}" width="1400" height="780" loading="eager"></div>`;
+  const geoBlock =
+    relatedGeo.length > 0
+      ? `<div class="svc-geo" style="margin-top:48px;">
+          <h2 style="font-size:26px;margin-bottom:18px;">${geoRelatedHeading[lang] || geoRelatedHeading.en}</h2>
+          <div class="blog-grid">${relatedGeo
+            .map(
+              (g) => `<a href="${url(lang, "geo/" + g.slug + "/")}" class="blog-card" style="color:inherit;">
+              <span class="blog-card-body" style="padding:18px 18px 20px;">
+                <span class="blog-card-kicker">GEO</span>
+                <h3 style="font-size:18px;">${g.question || g.title}</h3>
+                <p>${(g.direct_answer || "").slice(0, 120)}…</p>
+                <span class="blog-card-cta">${t.readMore} ${icons.arrowSm}</span>
+              </span>
+            </a>`
+            )
+            .join("")}</div>
+        </div>`
+      : "";
   const related = services.filter((s) => s.slug !== service.slug && s.home).slice(0, 4);
   const body = `${pageHero(lang, t.servicesEyebrow, title, service.short[lang], crumbs)}
-  <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container">
-    <div style="display:grid;grid-template-columns:1fr;gap:40px;">
+  <section class="section" style="padding-top:clamp(28px,4vw,48px);"><div class="container">
+    ${heroMedia}
+    <div style="display:grid;grid-template-columns:1fr;gap:40px;margin-top:28px;">
       <article class="prose">${bodyHtml}
         ${faqBlock}
         <div style="margin-top:32px;display:flex;flex-wrap:wrap;gap:12px;">
@@ -111,6 +138,7 @@ export function servicePage(lang, service, article) {
         </div>
       </article>
     </div>
+    ${geoBlock}
     <div style="margin-top:56px;">
       <h2 style="font-size:26px;margin-bottom:22px;">${t.relatedServices}</h2>
       <div class="grid-auto">${related

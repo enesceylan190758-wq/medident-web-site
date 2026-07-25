@@ -1783,6 +1783,27 @@ textarea:focus {
   color: var(--muted);
 }
 
+.svc-detail-cover {
+  border-radius: 22px;
+  overflow: hidden;
+  aspect-ratio: 16 / 7;
+  background: var(--sand);
+  box-shadow: var(--shadow);
+}
+
+.svc-detail-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 620px) {
+  .svc-detail-cover {
+    aspect-ratio: 16 / 10;
+    border-radius: 16px;
+  }
+}
+
 @media (max-width: 940px) {
   .blog-layout {
     grid-template-columns: 1fr !important;

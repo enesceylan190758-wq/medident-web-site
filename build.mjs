@@ -97,9 +97,36 @@ function build() {
 
     // Services (MAKALELER → articles.json body on matching service pages; no halitosis)
     emit(lang, "hizmetler/", servicesIndexPage(lang, ARTICLES));
+    const implantGeoSlugs = new Set([
+      "dis-implant-nedir",
+      "what-is-a-dental-implant",
+      "was-ist-ein-zahnimplantat",
+      "all-on-4-nedir",
+      "what-is-all-on-4",
+      "was-ist-all-on-4",
+      "istanbul-dis-implant-fiyati",
+      "dental-implant-cost-istanbul",
+      "zahnimplantat-kosten-istanbul",
+      "implant-mi-kopru-mu",
+      "dental-implant-vs-bridge",
+      "implantat-oder-bruecke",
+      "kemik-grefti-ve-sinus-lifting",
+      "bone-graft-sinus-lift-istanbul",
+      "knochenaufbau-sinuslift-istanbul",
+      "uskudar-acibadem-dis-implant",
+      "dental-implants-uskudar-acibadem",
+      "zahnimplantate-uskudar-acibadem",
+      "1-gunde-implant-nedir",
+      "same-day-implants-istanbul",
+      "sofortimplantate-istanbul",
+    ]);
     for (const s of services) {
       const article = byLang.find((a) => a.service === s.slug);
-      emit(lang, "hizmetler/" + s.slug + "/", servicePage(lang, s, article));
+      const relatedGeo =
+        s.slug === "oral-implantoloji" || s.slug === "implantoloji-implant-tedavisi"
+          ? GEO_PACKS.filter((g) => g.lang === lang && implantGeoSlugs.has(g.slug)).slice(0, 6)
+          : [];
+      emit(lang, "hizmetler/" + s.slug + "/", servicePage(lang, s, article, relatedGeo));
     }
 
     // Doctors
