@@ -140,13 +140,20 @@ function build() {
       fs.mkdirSync(dir, { recursive: true });
       fs.writeFileSync(path.join(dir, "index.html"), html);
     }
-    // Removed halitosis service → hizmetler index
+    // Removed / legacy service slugs → soft redirects
     {
-      const target = site.domain + url(lang, "hizmetler/");
-      const html = `<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=${target}"><link rel="canonical" href="${target}"><title>Redirect</title></head><body><p><a href="${target}">Continue</a></p></body></html>`;
-      const dir = path.join(DIST, lang === "tr" ? "" : lang, "hizmetler", "halitosis-agiz-kokusu");
-      fs.mkdirSync(dir, { recursive: true });
-      fs.writeFileSync(path.join(dir, "index.html"), html);
+      const softRedirects = [
+        ["halitosis-agiz-kokusu", "hizmetler/"],
+        ["implantoloji", "hizmetler/oral-implantoloji/"],
+        ["implant-tedavisi", "hizmetler/implantoloji-implant-tedavisi/"],
+      ];
+      for (const [from, toPath] of softRedirects) {
+        const target = site.domain + url(lang, toPath);
+        const html = `<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=${target}"><link rel="canonical" href="${target}"><title>Redirect</title></head><body><p><a href="${target}">Continue</a></p></body></html>`;
+        const dir = path.join(DIST, lang === "tr" ? "" : lang, "hizmetler", from);
+        fs.mkdirSync(dir, { recursive: true });
+        fs.writeFileSync(path.join(dir, "index.html"), html);
+      }
     }
 
     // Blog + articles
@@ -286,6 +293,10 @@ ${serviceRedirects}
 ${doctorRedirects}
 Redirect 301 /halitosis-agiz-kokusu/ ${site.domain}/hizmetler/
 Redirect 301 /hizmetler/halitosis-agiz-kokusu/ ${site.domain}/hizmetler/
+Redirect 301 /hizmetler/implantoloji/ ${site.domain}/hizmetler/oral-implantoloji/
+Redirect 301 /hizmetler/implant-tedavisi/ ${site.domain}/hizmetler/implantoloji-implant-tedavisi/
+Redirect 301 /en/hizmetler/implantoloji/ ${site.domain}/en/hizmetler/oral-implantoloji/
+Redirect 301 /de/hizmetler/implantoloji/ ${site.domain}/de/hizmetler/oral-implantoloji/
 Redirect 301 /musteri-yorumlari/ ${site.domain}/yorumlar/
 Redirect 301 /referanslar/ ${site.domain}/yorumlar/
 Redirect 301 /foto-galeri/ ${site.domain}/galeri/

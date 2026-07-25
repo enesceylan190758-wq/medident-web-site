@@ -13,8 +13,12 @@ export function homePage(lang) {
   const h = t.home;
   const svcUrl = (slug) => url(lang, "hizmetler/" + slug + "/");
 
-  const stat = (s) =>
-    `<div><div class="stat-num"><span data-to="${s.to}" ${s.dec ? `data-dec="${s.dec}"` : ""} ${s.sep ? 'data-sep="1"' : ""} ${s.suffix ? `data-suffix="${s.suffix}"` : ""}>0</span>${s.suffix ? "" : '<span>+</span>'}</div><div class="stat-label">${s.label}</div></div>`;
+  const stat = (s) => {
+    let initial = s.dec ? Number(s.to).toFixed(s.dec) : String(Math.round(s.to));
+    if (s.sep) initial = initial.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    if (s.suffix) initial += s.suffix;
+    return `<div><div class="stat-num"><span data-to="${s.to}" ${s.dec ? `data-dec="${s.dec}"` : ""} ${s.sep ? 'data-sep="1"' : ""} ${s.suffix ? `data-suffix="${s.suffix}"` : ""}>${initial}</span>${s.suffix ? "" : '<span>+</span>'}</div><div class="stat-label">${s.label}</div></div>`;
+  };
 
   const serviceCard = (c, i) => {
     const title = c.titles[lang];
@@ -116,7 +120,7 @@ export function homePage(lang) {
         </div>
         <p>${t.servicesLead}</p>
       </div>
-      <div class="svc-mosaic">${homeCards.map(serviceCard).join("")}</div>
+      <div class="svc-mosaic svc-mosaic--home">${homeCards.map(serviceCard).join("")}</div>
       <div class="svc-foot" data-reveal>
         <a href="${url(lang, "hizmetler/")}" class="btn btn-ghost">${t.allServices} ${icons.arrowSm}</a>
       </div>

@@ -27,7 +27,8 @@
     $$("a", mobile).forEach((a) => a.addEventListener("click", closeMobile));
   }
 
-  // Reveal on scroll
+  // Reveal on scroll (fail-safe: never leave content invisible)
+  const revealAll = () => $$("[data-reveal]").forEach((el) => el.classList.add("is-in"));
   if ("IntersectionObserver" in window) {
     const io = new IntersectionObserver(
       (ents) => {
@@ -38,14 +39,15 @@
           }
         });
       },
-      { threshold: 0.08, rootMargin: "0px 0px -6% 0px" }
+      { threshold: 0.05, rootMargin: "0px 0px -40px 0px" }
     );
     $$("[data-reveal]").forEach((el) => {
-      if (el.getBoundingClientRect().top > window.innerHeight * 0.84) io.observe(el);
+      if (el.getBoundingClientRect().top > window.innerHeight * 0.92) io.observe(el);
       else el.classList.add("is-in");
     });
+    setTimeout(revealAll, 2200);
   } else {
-    $$("[data-reveal]").forEach((el) => el.classList.add("is-in"));
+    revealAll();
   }
 
   // Stats counter
