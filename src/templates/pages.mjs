@@ -339,7 +339,9 @@ export function articlePage(lang, article, relatedServiceSlug) {
 
   <div class="blog-trust">
     <div class="container blog-trust-inner">
-      ${b.trust.map((x) => `<span>${x}</span>`).join("")}
+      ${b.trust
+        .map((x, i) => `${i ? '<span class="blog-trust-sep" aria-hidden="true"></span>' : ""}<span>${x}</span>`)
+        .join("")}
     </div>
   </div>
 

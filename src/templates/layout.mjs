@@ -8,10 +8,15 @@ import { icons } from "./icons.mjs";
 export const waHref = (text) =>
   `https://wa.me/${site.whatsappRaw}${text ? `?text=${encodeURIComponent(text)}` : ""}`;
 
+// Bump when CSS/JS change so browsers skip stale cached assets.
+const ASSET_VER = "20260725c";
+
 // Prefix absolute site paths with optional preview basePath (GitHub Pages etc.).
 export const asset = (p = "") => {
   const path = String(p).startsWith("/") ? p : `/${p}`;
-  return `${site.basePath || ""}${path}`;
+  const url = `${site.basePath || ""}${path}`;
+  if (/\.(css|js)$/i.test(path)) return `${url}?v=${ASSET_VER}`;
+  return url;
 };
 
 // Build a localized URL from a path (no language prefix baked in).
