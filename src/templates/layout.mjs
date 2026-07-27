@@ -217,7 +217,7 @@ function footer(lang) {
           <a href="${waHref()}" target="_blank" rel="noopener">WhatsApp: ${site.whatsapp}</a>
           <a href="tel:${site.phoneRaw}">${site.phone}</a>
           <a href="mailto:${site.email}">${site.email}</a>
-          <a href="${site.mapsUrl}" target="_blank" rel="noopener">${site.address}</a>
+          <span style="font-size:14px;color:#a89d8b;">${site.address}</span>
           <span style="font-size:14px;color:#a89d8b;">${hoursLocalized[lang] || site.hours}</span>
         </div>
       </div>
@@ -288,7 +288,6 @@ export function orgSchema(lang = "tr") {
       addressCountry: "TR",
     },
     geo: { "@type": "GeoCoordinates", latitude: site.geo.lat, longitude: site.geo.lng },
-    hasMap: site.mapsUrl,
     openingHours: site.openingHours,
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",

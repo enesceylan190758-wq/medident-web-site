@@ -16,9 +16,10 @@ export const site = {
   email: "info@medidentistanbul.com",
   address: "Acıbadem, Acıbadem Cd. 195F, 34718 Üsküdar/İstanbul",
   addressShort: "Acıbadem, Üsküdar / İstanbul",
-  mapsUrl: "https://maps.app.goo.gl/LyzPE3yP7NGqZxSY6",
-  mapsEmbed:
-    "https://www.google.com/maps?q=Medident%20İstanbul%20Acıbadem%20Cd%20195F%20Üsküdar&output=embed",
+  // Do not embed/link Maps until Acıbadem clinic pin is confirmed
+  // (previous maps.app link pointed to a different branch — Kartal/Çevizli).
+  mapsUrl: "",
+  mapsEmbed: "",
   hours: "Pazartesi – Cumartesi: 09:00 – 18:00",
   openingHours: ["Mo-Sa 09:00-18:00"],
   geo: { lat: 40.9925, lng: 29.0435 },

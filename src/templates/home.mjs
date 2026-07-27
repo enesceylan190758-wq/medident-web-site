@@ -165,10 +165,10 @@ export function homePage(lang) {
             <a href="${url(lang, "galeri/")}" class="btn btn-ghost">${h.ctaSecondary}</a>
           </div>
           <div class="rating-row rating-row-lg">
-            <a class="rating-pill" href="${site.mapsUrl}" target="_blank" rel="noopener">
+            <span class="rating-pill">
               <span class="stars">★★★★★</span>
               <span><strong style="color:var(--ink);">${site.rating.value}/5</strong> · Google · ${site.rating.count}+</span>
-            </a>
+            </span>
             <span class="hide-sm"><strong style="color:var(--ink);">50+</strong> ${L(uiBits.countriesWord, lang)}</span>
           </div>
         </div>
@@ -385,11 +385,8 @@ export function contactSection(lang, { heading = true } = {}) {
             <a href="${waHref()}" target="_blank" rel="noopener"><span class="contact-ico">${icons.wa}</span><span><span style="display:block;font-size:12.5px;color:#A89D8B;">${t.waLabel}</span><span style="font-weight:700;font-size:16px;">${site.whatsapp}</span></span></a>
             <a href="tel:${site.phoneRaw}"><span class="contact-ico">${icons.phone}</span><span><span style="display:block;font-size:12.5px;color:#A89D8B;">${t.phoneLabel}</span><span style="font-weight:700;font-size:16px;">${site.phone}</span></span></a>
             <a href="mailto:${site.email}"><span class="contact-ico">${icons.mail}</span><span><span style="display:block;font-size:12.5px;color:#A89D8B;">${t.emailLabel}</span><span style="font-weight:700;font-size:16px;">${site.email}</span></span></a>
-            <a href="${site.mapsUrl}" target="_blank" rel="noopener"><span class="contact-ico">${icons.pin}</span><span><span style="display:block;font-size:12.5px;color:#A89D8B;">${t.addressLabel}</span><span style="font-weight:700;font-size:16px;">${site.address}</span></span></a>
+            <div class="row"><span class="contact-ico">${icons.pin}</span><span><span style="display:block;font-size:12.5px;color:#A89D8B;">${t.addressLabel}</span><span style="font-weight:700;font-size:16px;">${site.address}</span></span></div>
             <div class="row"><span class="contact-ico">${icons.clock}</span><span><span style="display:block;font-size:12.5px;color:#A89D8B;">${t.hoursLabel}</span><span style="font-weight:700;font-size:16px;">${hoursLocalized[lang] || site.hours}</span></span></div>
-          </div>
-          <div class="map-embed" data-reveal>
-            <iframe src="${site.mapsEmbed}" width="100%" height="220" style="border:0;border-radius:16px;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="${L(uiBits.mapTitle, lang)} — ${site.addressShort}"></iframe>
           </div>
         </div>
         <div data-reveal>

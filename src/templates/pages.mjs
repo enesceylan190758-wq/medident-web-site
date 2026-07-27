@@ -457,17 +457,12 @@ export function aboutPage(lang) {
   };
 }
 
-// Contact page (form + map)
+// Contact page (form + NAP — no map embed until Acıbadem pin is confirmed)
 export function contactPage(lang) {
   const t = i18n[lang];
   const crumbs = [crumbHome(lang), { name: t.nav.contact, href: url(lang, "iletisim/") }];
   const body = `${pageHero(lang, t.contactEyebrow, t.contactTitle, t.contactLead, crumbs)}
-  ${contactSection(lang, { heading: false })}
-  <section class="section" style="padding-top:0;"><div class="container">
-    <div style="border-radius:20px;overflow:hidden;box-shadow:var(--shadow);aspect-ratio:16/7;background:var(--sand);">
-      <iframe src="${site.mapsEmbed}" width="100%" height="100%" style="border:0;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="MediDent İstanbul — ${site.addressShort}"></iframe>
-    </div>
-  </div></section>`;
+  ${contactSection(lang, { heading: false })}`;
   return {
     body,
     title: `${t.nav.contact} — ${site.brand}`,
@@ -484,7 +479,6 @@ export function reviewsPage(lang) {
   const body = `${pageHero(lang, t.reviewsEyebrow, t.reviewsTitle, t.reviewsLead, crumbs)}
   <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container">
     <div class="grid-auto">${t.reviews.map(review).join("")}</div>
-    <div style="text-align:center;margin-top:36px;"><a href="${site.mapsUrl}" class="btn btn-ghost" target="_blank" rel="noopener">Google ${L(uiBits.googleReviews, lang)} ${icons.arrowSm}</a></div>
   </div></section>
   ${contactSection(lang)}`;
   return {
