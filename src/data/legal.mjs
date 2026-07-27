@@ -18,6 +18,7 @@ function disclaimer(lang) {
 
 /** KVKK aydınlatma (TR primary) + EN/DE summary aligned with same facts. */
 export function kvkkHtml(lang) {
+  if (lang === "ar" || lang === "ru") return kvkkHtml("en");
   if (lang === "en") {
     return `${disclaimer("en")}
 <h2>1. Who we are</h2>
@@ -123,6 +124,7 @@ export function kvkkHtml(lang) {
 
 /** Privacy policy — website-focused; complements KVKK page. */
 export function privacyHtml(lang) {
+  if (lang === "ar" || lang === "ru") return privacyHtml("en");
   if (lang === "en") {
     return `${disclaimer("en")}
 <h2>1. Scope</h2>

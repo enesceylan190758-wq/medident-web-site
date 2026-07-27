@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 
 import { site, langPrefix } from "./src/data/site.mjs";
 import { services, doctors, legacyBlog, legacyDoctorRedirects } from "./src/data/content.mjs";
+import { countryLandings } from "./src/data/country-landings.mjs";
 import {
   resolveHreflangPaths,
   sitemapPriority,
@@ -29,6 +30,7 @@ import {
   legalPage,
   geoIndexPage,
   geoPackPage,
+  countryLandingPage,
 } from "./src/templates/pages.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -135,7 +137,7 @@ function build() {
     // Soft redirects for renamed doctor profiles (meta refresh pages)
     for (const r of legacyDoctorRedirects) {
       const target = site.domain + url(lang, "doktorlar/" + r.to + "/");
-      const html = `<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=${target}"><link rel="canonical" href="${target}"><title>Redirect</title></head><body><p><a href="${target}">Continue</a></p></body></html>`;
+      const html = `<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=${target}"><meta name="robots" content="noindex,follow"><meta name="description" content="Redirect"><link rel="canonical" href="${target}"><title>Redirect</title></head><body><p><a href="${target}">Continue</a></p></body></html>`;
       const dir = path.join(DIST, lang === "tr" ? "" : lang, "doktorlar", r.from);
       fs.mkdirSync(dir, { recursive: true });
       fs.writeFileSync(path.join(dir, "index.html"), html);
@@ -149,7 +151,7 @@ function build() {
       ];
       for (const [from, toPath] of softRedirects) {
         const target = site.domain + url(lang, toPath);
-        const html = `<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=${target}"><link rel="canonical" href="${target}"><title>Redirect</title></head><body><p><a href="${target}">Continue</a></p></body></html>`;
+        const html = `<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=${target}"><meta name="robots" content="noindex,follow"><meta name="description" content="Redirect"><link rel="canonical" href="${target}"><title>Redirect</title></head><body><p><a href="${target}">Continue</a></p></body></html>`;
         const dir = path.join(DIST, lang === "tr" ? "" : lang, "hizmetler", from);
         fs.mkdirSync(dir, { recursive: true });
         fs.writeFileSync(path.join(dir, "index.html"), html);
@@ -180,6 +182,11 @@ function build() {
     emit(lang, "sss/", faqPage(lang));
     emit(lang, "gizlilik/", legalPage(lang, "privacy"));
     emit(lang, "kvkk/", legalPage(lang, "kvkk"));
+
+    // Country SEO landings (shared slug, all langs)
+    for (const landing of countryLandings) {
+      emit(lang, landing.slug + "/", countryLandingPage(lang, landing));
+    }
   }
 
   writeSitemap();

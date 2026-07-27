@@ -2352,3 +2352,145 @@ textarea:focus {
     animation: none;
   }
 }
+
+/* ---- Clinic video + rating + map ---- */
+.rating-row-lg {
+  gap: 16px;
+  align-items: center;
+}
+.rating-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid rgba(43, 35, 24, 0.12);
+  color: inherit;
+  box-shadow: 0 10px 24px -18px rgba(43, 35, 24, 0.45);
+  font-size: 14px;
+}
+.rating-pill:hover {
+  border-color: var(--gold);
+  color: inherit;
+}
+.clinic-video-head {
+  max-width: 640px;
+  margin-bottom: clamp(28px, 4vw, 40px);
+}
+.clinic-video-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 0.65fr;
+  gap: 20px;
+  align-items: stretch;
+}
+.yt-facade {
+  position: relative;
+  display: block;
+  width: 100%;
+  border: 0;
+  padding: 0;
+  border-radius: 22px;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--dark);
+  aspect-ratio: 16 / 9;
+  box-shadow: var(--shadow-lg);
+  color: #fff;
+  text-align: left;
+}
+.yt-facade img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.88;
+}
+.yt-facade-play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 16px 30px -12px rgba(225, 53, 57, 0.7);
+}
+.yt-facade-label {
+  position: absolute;
+  left: 18px;
+  bottom: 16px;
+  font-weight: 700;
+  font-size: 14px;
+  background: rgba(0, 0, 0, 0.45);
+  padding: 8px 12px;
+  border-radius: 999px;
+}
+.yt-facade.is-playing,
+.yt-facade.is-playing iframe {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  border-radius: 22px;
+}
+.clinic-photo-strip {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  align-content: start;
+}
+.clinic-photo-strip img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 14px;
+}
+.clinic-photo-strip .btn {
+  grid-column: 1 / -1;
+  margin-top: 6px;
+}
+.map-embed {
+  margin-top: 28px;
+}
+.map-embed iframe {
+  width: 100%;
+  min-height: 220px;
+  background: var(--sand);
+}
+
+@media (max-width: 900px) {
+  .clinic-video-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---- RTL (Arabic) ---- */
+[dir="rtl"] .nav,
+[dir="rtl"] .rating-row,
+[dir="rtl"] .blog-cta-row,
+[dir="rtl"] .contact-links a,
+[dir="rtl"] .svc-tile-body,
+[dir="rtl"] .yt-facade-label {
+  direction: rtl;
+}
+[dir="rtl"] .eyebrow::before {
+  order: 2;
+}
+[dir="rtl"] .lang-switch {
+  direction: ltr;
+}
+[dir="rtl"] .wa-float,
+[dir="rtl"] .to-top {
+  right: auto;
+  left: 24px;
+}
+[dir="rtl"] .to-top {
+  left: 29px;
+}
+[dir="rtl"] .yt-facade-play {
+  transform: translate(-50%, -50%) scaleX(-1);
+}

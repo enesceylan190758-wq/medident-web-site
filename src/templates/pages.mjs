@@ -4,6 +4,7 @@ import { services, doctors, serviceFallback, serviceImages } from "../data/conte
 import { kvkkHtml, privacyHtml } from "../data/legal.mjs";
 import { img } from "../data/images.mjs";
 import { serviceFaqs } from "../data/seo.mjs";
+import { L, langBCP47, uiBits } from "../data/locale.mjs";
 import { icons } from "./icons.mjs";
 import {
   formatArticleHtml,
@@ -26,12 +27,26 @@ import { contactSection } from "./home.mjs";
 const src = (file) => asset(`/assets/img/${file}`);
 const crumbHome = (lang) => ({ name: i18n[lang].breadcrumbHome, href: url(lang, ""), url: site.domain + url(lang, "") });
 
-const faqHeading = { tr: "Sık sorulan sorular", en: "Frequently asked questions", de: "Häufig gestellte Fragen" };
-const keyPointsHeading = { tr: "Öne çıkan noktalar", en: "Key points", de: "Wichtige Punkte" };
+const faqHeading = {
+  tr: "Sık sorulan sorular",
+  en: "Frequently asked questions",
+  de: "Häufig gestellte Fragen",
+  ar: "الأسئلة الشائعة",
+  ru: "Частые вопросы",
+};
+const keyPointsHeading = {
+  tr: "Öne çıkan noktalar",
+  en: "Key points",
+  de: "Wichtige Punkte",
+  ar: "أبرز النقاط",
+  ru: "Ключевые пункты",
+};
 const geoRelatedHeading = {
   tr: "İmplant hakkında sık sorulanlar (GEO)",
   en: "Implant Q&A (GEO)",
   de: "Implantat-Fragen (GEO)",
+  ar: "أسئلة شائعة عن الزراعة (GEO)",
+  ru: "Частые вопросы об имплантах (GEO)",
 };
 
 function pageHero(lang, eyebrow, title, lead, crumbs) {
@@ -60,17 +75,17 @@ export function servicesIndexPage(lang, articles = []) {
   ];
   const card = (s, i) => {
     const art = byService[s.slug];
-    const blurb = art?.excerpt || s.short[lang];
+    const blurb = art?.excerpt || L(s.short, lang);
     const photo = asset(`/assets/img/${serviceImages[s.slug] || "portrait-a.jpg"}`);
     const badge = art
       ? `<span class="svc-tile-badge">${guideLabel}</span>`
       : "";
     return `<a href="${url(lang, "hizmetler/" + s.slug + "/")}" class="svc-tile ${i === 0 ? "is-featured" : ""}" data-reveal style="--d:${(i % 6) * 55}ms">
-    <img src="${photo}" alt="${s.titles[lang]} — ${site.brand}" loading="lazy">
+    <img src="${photo}" alt="${L(s.titles, lang)} — ${site.brand}" loading="lazy">
     <span class="svc-tile-shade" aria-hidden="true"></span>
     <span class="svc-tile-body">
       ${badge}
-      <h3>${s.titles[lang]}</h3>
+      <h3>${L(s.titles, lang)}</h3>
       <p>${blurb}</p>
       <span class="svc-tile-cta">${t.detail} ${icons.arrowSm}</span>
     </span>
@@ -92,13 +107,13 @@ export function servicesIndexPage(lang, articles = []) {
 // Single service (with article body if available)
 export function servicePage(lang, service, article, relatedGeo = []) {
   const t = i18n[lang];
-  const title = service.titles[lang];
+  const title = L(service.titles, lang);
   const crumbs = [
     crumbHome(lang),
     { name: t.nav.services, href: url(lang, "hizmetler/") },
     { name: title, href: url(lang, "hizmetler/" + service.slug + "/") },
   ];
-  const rawHtml = article ? article.html : serviceFallback[lang](title);
+  const rawHtml = article ? article.html : (serviceFallback[lang] || serviceFallback.en)(title);
   const bodyHtml = article ? formatArticleHtml(rawHtml, article.title) : rawHtml;
   const faqs = (article && article.faq && article.faq.length ? article.faq : null) || serviceFaqs[service.slug]?.[lang] || [];
   const faqBlock =
@@ -126,7 +141,7 @@ export function servicePage(lang, service, article, relatedGeo = []) {
         </div>`
       : "";
   const related = services.filter((s) => s.slug !== service.slug && s.home).slice(0, 4);
-  const body = `${pageHero(lang, t.servicesEyebrow, title, service.short[lang], crumbs)}
+  const body = `${pageHero(lang, t.servicesEyebrow, title, L(service.short, lang), crumbs)}
   <section class="section" style="padding-top:clamp(28px,4vw,48px);"><div class="container">
     ${heroMedia}
     <div style="display:grid;grid-template-columns:1fr;gap:40px;margin-top:28px;">
@@ -143,7 +158,7 @@ export function servicePage(lang, service, article, relatedGeo = []) {
       <h2 style="font-size:26px;margin-bottom:22px;">${t.relatedServices}</h2>
       <div class="grid-auto">${related
         .map(
-          (s) => `<a href="${url(lang, "hizmetler/" + s.slug + "/")}" class="card" style="display:block;color:inherit;"><div class="icon-box">${icons[s.icon] || icons.smile}</div><h3 style="font-size:20px;">${s.titles[lang]}</h3><p style="font-size:14px;color:var(--muted-2);margin:0;">${s.short[lang]}</p></a>`
+          (s) => `<a href="${url(lang, "hizmetler/" + s.slug + "/")}" class="card" style="display:block;color:inherit;"><div class="icon-box">${icons[s.icon] || icons.smile}</div><h3 style="font-size:20px;">${L(s.titles, lang)}</h3><p style="font-size:14px;color:var(--muted-2);margin:0;">${L(s.short, lang)}</p></a>`
         )
         .join("")}</div>
     </div>
@@ -154,21 +169,19 @@ export function servicePage(lang, service, article, relatedGeo = []) {
       "@context": "https://schema.org",
       "@type": "MedicalProcedure",
       name: title,
-      description: service.meta[lang],
+      description: L(service.meta, lang) || L(service.short, lang),
       provider: { "@id": site.domain + "/#organization" },
       url: site.domain + url(lang, "hizmetler/" + service.slug + "/"),
-      inLanguage: lang === "tr" ? "tr-TR" : lang === "de" ? "de-DE" : "en-US",
+      inLanguage: langBCP47[lang] || "en-US",
     },
     breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
   ];
   if (faqs.length) jsonld.push(faqSchema(faqs));
   const pageTitle =
-    lang === "en"
-      ? `${title} in Istanbul — ${site.brand}`
-      : lang === "de"
-        ? `${title} in Istanbul — ${site.brand}`
-        : `${title} — ${site.brand}`;
-  return { body, title: pageTitle, description: service.meta[lang], jsonld };
+    lang === "tr" || lang === "ar" || lang === "ru"
+      ? `${title} — ${site.brand}`
+      : `${title} in Istanbul — ${site.brand}`;
+  return { body, title: pageTitle, description: L(service.meta, lang) || L(service.short, lang), jsonld };
 }
 
 // Doctors index
@@ -177,7 +190,7 @@ export function doctorsIndexPage(lang) {
   const crumbs = [crumbHome(lang), { name: t.nav.doctors, href: url(lang, "doktorlar/") }];
   const card = (d) => `<a href="${url(lang, "doktorlar/" + d.slug + "/")}" class="doctor-card" style="display:block;color:inherit;">
     <div class="photo"><img src="${asset(`/assets/img/${d.image}`)}" alt="${d.name}"></div>
-    <div class="body"><h3 style="font-size:21px;margin-bottom:4px;">${d.name}</h3><p style="font-size:13.5px;color:var(--gold);font-weight:700;margin:0 0 10px;">${d.titles[lang]}</p><p style="font-size:14px;color:var(--muted-2);margin:0;">${d.bio[lang]}</p></div>
+    <div class="body"><h3 style="font-size:21px;margin-bottom:4px;">${d.name}</h3><p style="font-size:13.5px;color:var(--gold);font-weight:700;margin:0 0 10px;">${L(d.titles, lang)}</p><p style="font-size:14px;color:var(--muted-2);margin:0;">${L(d.bio, lang)}</p></div>
   </a>`;
   const body = `${pageHero(lang, "", t.doctorsTitle, t.doctorsLead, crumbs)}
   <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container">
@@ -199,12 +212,12 @@ export function doctorPage(lang, doctor) {
     { name: t.nav.doctors, href: url(lang, "doktorlar/") },
     { name: doctor.name, href: url(lang, "doktorlar/" + doctor.slug + "/") },
   ];
-  const body = `${pageHero(lang, "", doctor.name, doctor.titles[lang], crumbs)}
+  const body = `${pageHero(lang, "", doctor.name, L(doctor.titles, lang), crumbs)}
   <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container">
     <div class="grid-2" style="grid-template-columns:.8fr 1.2fr;align-items:start;">
       <div style="border-radius:20px;overflow:hidden;aspect-ratio:4/5;background:var(--sand);box-shadow:var(--shadow);"><img src="${asset(`/assets/img/${doctor.image}`)}" alt="${doctor.name}" style="width:100%;height:100%;object-fit:cover;"></div>
       <div class="prose" style="margin:0;">
-        <p style="font-size:13.5px;color:var(--gold);font-weight:700;text-transform:uppercase;letter-spacing:.1em;">${doctor.titles[lang]}</p>
+        <p style="font-size:13.5px;color:var(--gold);font-weight:700;text-transform:uppercase;letter-spacing:.1em;">${L(doctor.titles, lang)}</p>
         <p>${doctor.bio[lang]}</p>
         <div style="margin-top:24px;display:flex;flex-wrap:wrap;gap:12px;">
           <a href="${url(lang, "iletisim/")}" class="btn btn-primary">${t.bookNow} ${icons.arrow()}</a>
@@ -219,14 +232,14 @@ export function doctorPage(lang, doctor) {
       "@context": "https://schema.org",
       "@type": "Physician",
       name: doctor.name,
-      jobTitle: doctor.titles[lang],
+      jobTitle: L(doctor.titles, lang),
       image: site.domain + asset("/assets/img/") + doctor.image,
       worksFor: { "@id": site.domain + "/#organization" },
       url: site.domain + url(lang, "doktorlar/" + doctor.slug + "/"),
     },
     breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
   ];
-  return { body, title: `${doctor.name} — ${site.brand}`, description: `${doctor.name}, ${doctor.titles[lang]} — ${site.brand}`, jsonld };
+  return { body, title: `${doctor.name} — ${site.brand}`, description: `${doctor.name}, ${L(doctor.titles, lang)} — ${site.brand}`, jsonld };
 }
 
 // Blog index — visual cards
@@ -360,8 +373,8 @@ export function articlePage(lang, article, relatedServiceSlug) {
             svc
               ? `<a class="blog-aside-service" href="${url(lang, "hizmetler/" + svc.slug + "/")}">
                   <span class="blog-aside-service-label">${b.relatedTitle}</span>
-                  <strong>${svc.titles[lang]}</strong>
-                  <span>${svc.short[lang]}</span>
+                  <strong>${L(svc.titles, lang)}</strong>
+                  <span>${L(svc.short, lang)}</span>
                 </a>`
               : ""
           }
@@ -390,7 +403,7 @@ export function articlePage(lang, article, relatedServiceSlug) {
       "@type": "Article",
       headline: article.title,
       description: article.excerpt,
-      inLanguage: lang === "tr" ? "tr-TR" : lang === "de" ? "de-DE" : "en-US",
+      inLanguage: langBCP47[lang] || "en-US",
       datePublished: article.publishedAt || undefined,
       image: ogImage,
       author: { "@id": site.domain + "/#organization" },
@@ -471,7 +484,7 @@ export function reviewsPage(lang) {
   const body = `${pageHero(lang, t.reviewsEyebrow, t.reviewsTitle, t.reviewsLead, crumbs)}
   <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container">
     <div class="grid-auto">${t.reviews.map(review).join("")}</div>
-    <div style="text-align:center;margin-top:36px;"><a href="${site.mapsUrl}" class="btn btn-ghost" target="_blank" rel="noopener">Google ${lang === "tr" ? "yorumları" : "reviews"} ${icons.arrowSm}</a></div>
+    <div style="text-align:center;margin-top:36px;"><a href="${site.mapsUrl}" class="btn btn-ghost" target="_blank" rel="noopener">Google ${L(uiBits.googleReviews, lang)} ${icons.arrowSm}</a></div>
   </div></section>
   ${contactSection(lang)}`;
   return {
@@ -540,18 +553,13 @@ const miniPlus = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" st
 
 /** GEO index — AI citation packs */
 export function geoIndexPage(lang, packs) {
-  const title = lang === "de" ? "GEO Wissensbank" : lang === "en" ? "GEO knowledge base" : "GEO bilgi bankası";
-  const lead =
-    lang === "de"
-      ? "Kurze, zitierfähige Antworten für KI-Suchmaschinen und Patientenfragen."
-      : lang === "en"
-        ? "Short, citation-ready answers for AI search and patient questions."
-        : "Yapay zekâ arama motorları ve hasta soruları için kısa, alıntılanabilir cevaplar.";
+  const title = L(uiBits.geoTitle, lang);
+  const lead = L(uiBits.geoLead, lang);
   const crumbs = [crumbHome(lang), { name: "GEO", href: url(lang, "geo/") }];
   const row = (p) => `<a href="${url(lang, "geo/" + p.slug + "/")}" class="article-row" style="color:inherit;">
     ${p.coverImage ? `<img class="article-thumb" src="${asset(`/assets/img/${p.coverImage}`)}" alt="" width="160" height="106" loading="lazy">` : ""}
     <div><h3 style="font-size:20px;margin-bottom:6px;">${p.title || p.question}</h3><p style="font-size:14.5px;color:var(--muted-2);margin:0;">${p.direct_answer.slice(0, 140)}…</p></div>
-    <span class="link-more">${lang === "tr" ? "Oku" : "Read"} ${icons.arrowSm}</span>
+    <span class="link-more">${L(uiBits.read, lang)} ${icons.arrowSm}</span>
   </a>`;
   const body = `${pageHero(lang, "GEO", title, lead, crumbs)}
   <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container" style="max-width:920px;">
@@ -604,9 +612,38 @@ export function geoPackPage(lang, pack) {
         name: pack.question || pack.title,
         description: pack.direct_answer,
         image: ogImage,
-        inLanguage: lang === "tr" ? "tr-TR" : lang === "de" ? "de-DE" : "en-US",
+        inLanguage: langBCP47[lang] || "en-US",
         isPartOf: { "@type": "WebSite", name: site.brand, url: site.domain },
       },
+      breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
+    ],
+  };
+}
+
+/** Country-focused SEO/GEO landings (shared slug, localized copy via L). */
+export function countryLandingPage(lang, landing) {
+  const t = i18n[lang];
+  const title = L(landing.titles, lang);
+  const lead = L(landing.leads, lang);
+  const htmlBody = L(landing.html, lang) || L(landing.html, "en");
+  const faqs = landing.faqs?.[lang] || landing.faqs?.en || landing.faqs?.tr || [];
+  const crumbs = [crumbHome(lang), { name: title, href: url(lang, landing.slug + "/") }];
+  const body = `${pageHero(lang, t.servicesEyebrow, title, lead, crumbs)}
+  <section class="section" style="padding-top:clamp(28px,4vw,48px);"><div class="container" style="max-width:820px;">
+    <article class="prose">${htmlBody}
+      ${faqs.length ? `<h2>${faqHeading[lang] || faqHeading.en}</h2>${faqs.map((f) => `<h3>${f.q}</h3><p>${f.a}</p>`).join("")}` : ""}
+      <p><a class="btn btn-primary" href="${url(lang, "iletisim/")}">${t.bookNow} ${icons.arrow()}</a>
+      <a class="btn btn-ghost" href="${waHref()}" target="_blank" rel="noopener">${icons.wa} WhatsApp</a></p>
+    </article>
+  </div></section>
+  ${contactSection(lang)}`;
+  return {
+    body,
+    title: `${title} — ${site.brand}`,
+    description: lead,
+    jsonld: [
+      ...(faqs.length ? [faqSchema(faqs)] : []),
+      orgSchema(lang),
       breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
     ],
   };

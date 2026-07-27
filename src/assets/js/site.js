@@ -50,41 +50,65 @@
     revealAll();
   }
 
-  // Stats counter
+  // Stats counter — HTML already has final values; animation enhances when visible
   const statsRoot = $("[data-stats]");
+  const formatStat = (el, v) => {
+    const to = parseFloat(el.dataset.to);
+    const dec = parseInt(el.dataset.dec || "0", 10);
+    const sep = el.dataset.sep === "1";
+    const suffix = el.dataset.suffix || "";
+    const n = v == null ? to : v;
+    let s = dec > 0 ? Number(n).toFixed(dec) : String(Math.round(n));
+    if (sep) s = s.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return s + suffix;
+  };
   const animateStats = () => {
     $$("[data-to]", statsRoot || document).forEach((el) => {
+      if (el.dataset.animated === "1") return;
+      el.dataset.animated = "1";
       const to = parseFloat(el.dataset.to);
-      const dec = parseInt(el.dataset.dec || "0", 10);
-      const sep = el.dataset.sep === "1";
-      const suffix = el.dataset.suffix || "";
-      const fmt = (v) => {
-        let s = dec > 0 ? v.toFixed(dec) : String(Math.round(v));
-        if (sep) s = s.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-        return s + suffix;
-      };
       const ease = (t) => 1 - Math.pow(1 - t, 3);
       const start = performance.now();
       const tick = (now) => {
         const p = Math.min(1, (now - start) / 1500);
-        el.textContent = fmt(to * ease(p));
+        el.textContent = formatStat(el, to * ease(p));
         if (p < 1) requestAnimationFrame(tick);
-        else el.textContent = fmt(to);
+        else el.textContent = formatStat(el, to);
       };
       requestAnimationFrame(tick);
     });
   };
   if (statsRoot && "IntersectionObserver" in window) {
-    const sio = new IntersectionObserver((ents) => {
-      ents.forEach((e) => {
-        if (e.isIntersecting) {
-          sio.disconnect();
-          animateStats();
-        }
-      });
-    }, { threshold: 0.35 });
+    const sio = new IntersectionObserver(
+      (ents) => {
+        ents.forEach((e) => {
+          if (e.isIntersecting) {
+            sio.disconnect();
+            animateStats();
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
     sio.observe(statsRoot);
+    setTimeout(() => {
+      $$("[data-to]", statsRoot).forEach((el) => {
+        if (el.dataset.animated !== "1") el.textContent = formatStat(el);
+      });
+    }, 2500);
   } else if (statsRoot) animateStats();
+
+  // YouTube facade — load iframe only on click (no autoplay)
+  $$("[data-yt-facade]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const id = btn.getAttribute("data-yt-id");
+      if (!id) return;
+      const wrap = document.createElement("div");
+      wrap.className = "yt-facade is-playing";
+      wrap.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" title="YouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>`;
+      btn.replaceWith(wrap);
+    });
+  });
 
   // Before/after slider
   const ba = $("[data-ba]");

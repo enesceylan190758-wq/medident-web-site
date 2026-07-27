@@ -1,4 +1,6 @@
-// Site-wide copy for TR / EN / DE.
+// Site-wide copy for TR / EN / DE / AR / RU.
+import { i18nAr, i18nRu } from "./i18n-ar-ru.mjs";
+
 export const i18n = {
   tr: {
     langName: "Türkçe",
@@ -417,4 +419,6 @@ export const i18n = {
       { initials: "SL", name: "Sophie L.", place: "Frankreich · Implantat", text: "Mein Implantatprozess war sehr komfortabel. Dank Dolmetscher hatte ich nie Schwierigkeiten. Von Herzen danke." },
     ],
   },
+  ar: i18nAr,
+  ru: i18nRu,
 };

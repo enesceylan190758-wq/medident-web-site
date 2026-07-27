@@ -92,6 +92,9 @@ export const blogCopy = {
 };
 
 /** Default sales FAQs when article has none */
+blogCopy.ar = blogCopy.en;
+blogCopy.ru = blogCopy.en;
+
 export function defaultArticleFaqs(lang, title) {
   const map = {
     tr: [

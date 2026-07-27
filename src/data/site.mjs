@@ -42,11 +42,19 @@ export const site = {
     method: "POST",
   },
   rating: { value: "4.9", count: "1200" },
-  languages: ["tr", "en", "de"],
+  languages: ["tr", "en", "de", "ar", "ru"],
   defaultLang: "tr",
+  // Optional homepage intro video. Empty → facade opens YouTube channel (no autoplay embed).
+  youtubeIntroId: "",
 };
 
-// Language -> URL prefix. TR lives at root, EN/DE under /en, /de.
-export const langPrefix = { tr: "", en: "/en", de: "/de" };
-export const htmlLang = { tr: "tr", en: "en", de: "de" };
-export const ogLocale = { tr: "tr_TR", en: "en_US", de: "de_DE" };
+// Language -> URL prefix. TR lives at root; others under /en, /de, /ar, /ru.
+export const langPrefix = { tr: "", en: "/en", de: "/de", ar: "/ar", ru: "/ru" };
+export const htmlLang = { tr: "tr", en: "en", de: "de", ar: "ar", ru: "ru" };
+export const ogLocale = {
+  tr: "tr_TR",
+  en: "en_US",
+  de: "de_DE",
+  ar: "ar_SA",
+  ru: "ru_RU",
+};

@@ -3,13 +3,14 @@ import { site, langPrefix, htmlLang, ogLocale } from "../data/site.mjs";
 import { i18n } from "../data/i18n.mjs";
 import { services } from "../data/content.mjs";
 import { resolveHreflangPaths, hoursLocalized } from "../data/seo.mjs";
+import { rtlLangs } from "../data/locale.mjs";
 import { icons } from "./icons.mjs";
 
 export const waHref = (text) =>
   `https://wa.me/${site.whatsappRaw}${text ? `?text=${encodeURIComponent(text)}` : ""}`;
 
 // Bump when CSS/JS change so browsers skip stale cached assets.
-const ASSET_VER = "20260725c";
+const ASSET_VER = "20260727a";
 
 // Prefix absolute site paths with optional preview basePath (GitHub Pages etc.).
 export const asset = (p = "") => {
@@ -60,7 +61,7 @@ function head({ lang, title, description, path, image, jsonld = [], ogType = "we
     ? `<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','${site.tracking.metaPixel}');fbq('track','PageView');</script><noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=${site.tracking.metaPixel}&ev=PageView&noscript=1"/></noscript>`
     : "";
   return `<!DOCTYPE html>
-<html lang="${htmlLang[lang]}">
+<html lang="${htmlLang[lang]}"${rtlLangs.has(lang) ? ' dir="rtl"' : ""}>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -267,7 +268,7 @@ ${bodyHtml}
 export function orgSchema(lang = "tr") {
   return {
     "@context": "https://schema.org",
-    "@type": "Dentist",
+    "@type": ["Dentist", "MedicalOrganization"],
     "@id": site.domain + "/#organization",
     name: site.brand,
     alternateName: ["MediDent Istanbul", "MediDent İstanbul Dental Clinic"],
@@ -277,7 +278,7 @@ export function orgSchema(lang = "tr") {
     telephone: site.phone,
     email: site.email,
     priceRange: "$$",
-    availableLanguage: ["Turkish", "English", "German"],
+    availableLanguage: ["Turkish", "English", "German", "Arabic", "Russian"],
     address: {
       "@type": "PostalAddress",
       streetAddress: "Acıbadem Cd. 195F",
@@ -304,6 +305,8 @@ export function orgSchema(lang = "tr") {
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: site.rating.value,
+      bestRating: "5",
+      worstRating: "1",
       reviewCount: site.rating.count,
     },
   };

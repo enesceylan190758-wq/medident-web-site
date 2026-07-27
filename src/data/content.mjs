@@ -468,6 +468,8 @@ export const serviceFallback = {
 <p>Ihr Plan wird nach Ihrer Mundsituation, Ihren Erwartungen und Ihrem Allgemeinzustand erstellt. Wir bieten transparente Preise, schriftliche Informationen und bei Bedarf VIP-Hotel-/Transfer-Support.</p>
 <p>Für eine kostenlose Vorab-Einschätzung reichen einige Fotos Ihrer Zähne per WhatsApp oder Kontaktformular.</p>`,
 };
+serviceFallback.ar = serviceFallback.en;
+serviceFallback.ru = serviceFallback.en;
 
 // Legacy blog posts that already rank (keep URLs)
 export const legacyBlog = [
