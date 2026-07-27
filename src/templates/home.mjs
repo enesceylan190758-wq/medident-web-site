@@ -9,15 +9,51 @@ import { url, waHref, orgSchema, faqSchema, breadcrumbSchema, asset } from "./la
 
 const src = (file) => asset(`/assets/img/${file}`);
 
+function igPermalinkToEmbed(url = "") {
+  const m = String(url).match(/instagram\.com\/(reel|p|tv)\/([^/?#]+)/i);
+  if (!m) return "";
+  return `https://www.instagram.com/${m[1]}/${m[2]}/embed`;
+}
+
 function clinicVideoSection(lang) {
   const cover = src(img.about || "about-portrait.jpg");
   const videoId = site.youtubeIntroId || "";
   const channel = site.social.youtube;
+  const igProfile = site.social.instagram;
   const watchHref = videoId ? `https://www.youtube.com/watch?v=${videoId}` : channel;
   const facadeAttrs = videoId
     ? `data-yt-facade data-yt-id="${videoId}"`
     : `href="${channel}" target="_blank" rel="noopener"`;
   const tag = videoId ? "button" : "a";
+
+  const configured = Array.isArray(site.instagramFeed) ? site.instagramFeed.filter((x) => x?.url) : [];
+  const fallbackCovers = (img.marquee || []).slice(0, 4);
+  const igItems =
+    configured.length > 0
+      ? configured.slice(0, 6).map((item, i) => ({
+          url: item.url,
+          embed: igPermalinkToEmbed(item.url),
+          cover: src(item.cover || fallbackCovers[i % fallbackCovers.length] || "portrait-a.jpg"),
+        }))
+      : fallbackCovers.map((f) => ({
+          url: igProfile,
+          embed: "",
+          cover: src(f),
+        }));
+
+  const igCards = igItems
+    .map(
+      (item) => {
+        const embedAttr = item.embed ? ` data-ig-embed="${item.embed}"` : "";
+        return `<a class="ig-card" href="${item.url}" target="_blank" rel="noopener"${embedAttr}>
+      <img src="${item.cover}" alt="${site.brand} Instagram" loading="lazy" width="320" height="400">
+      <span class="ig-card-shade" aria-hidden="true"></span>
+      <span class="ig-card-badge">${icons.instagram}<span>${L(uiBits.openInstagram, lang)}</span></span>
+    </a>`;
+      }
+    )
+    .join("");
+
   return `<section class="section section-clinic-video" id="klinik-video">
     <div class="container">
       <div class="clinic-video-head" data-reveal>
@@ -35,6 +71,17 @@ function clinicVideoSection(lang) {
           ${(img.marquee || []).slice(0, 4).map((f) => `<img src="${src(f)}" alt="${site.brand}" loading="lazy" width="280" height="200">`).join("")}
           <a class="btn btn-ghost" href="${watchHref}" target="_blank" rel="noopener">${L(uiBits.openYoutube, lang)} ${icons.arrowSm}</a>
         </div>
+      </div>
+
+      <div class="ig-feed" data-reveal>
+        <div class="ig-feed-head">
+          <div>
+            <div class="eyebrow">${L(uiBits.instagramEyebrow, lang)}</div>
+            <h3 style="margin:0 0 8px;font-size:clamp(22px,3vw,30px);">${L(uiBits.instagramTitle, lang)}</h3>
+          </div>
+          <a class="btn btn-ghost" href="${igProfile}" target="_blank" rel="noopener">${icons.instagram} @medidentistanbul</a>
+        </div>
+        <div class="ig-grid">${igCards}</div>
       </div>
     </div>
   </section>`;

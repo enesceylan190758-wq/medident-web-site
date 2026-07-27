@@ -110,6 +110,31 @@
     });
   });
 
+  // Instagram cards — optional in-page embed; fallback is opening Instagram
+  $$("[data-ig-embed]").forEach((card) => {
+    card.addEventListener("click", (e) => {
+      const embed = card.getAttribute("data-ig-embed");
+      if (!embed) return;
+      e.preventDefault();
+      let lb = $("[data-ig-lightbox]");
+      if (!lb) {
+        lb = document.createElement("div");
+        lb.className = "ig-lightbox";
+        lb.setAttribute("data-ig-lightbox", "");
+        lb.innerHTML = `<button type="button" class="ig-lightbox-close" data-ig-close aria-label="Close">×</button><div class="ig-lightbox-frame"></div>`;
+        document.body.appendChild(lb);
+        lb.addEventListener("click", (ev) => {
+          if (ev.target === lb || ev.target.closest("[data-ig-close]")) lb.classList.remove("is-open");
+        });
+      }
+      const frame = $(".ig-lightbox-frame", lb);
+      if (frame) {
+        frame.innerHTML = `<iframe src="${embed}" title="Instagram" loading="lazy" allowtransparency="true"></iframe>`;
+      }
+      lb.classList.add("is-open");
+    });
+  });
+
   // Before/after slider
   const ba = $("[data-ba]");
   if (ba) {

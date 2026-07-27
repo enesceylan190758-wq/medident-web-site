@@ -46,6 +46,10 @@ export const site = {
   defaultLang: "tr",
   // Optional homepage intro video. Empty → facade opens YouTube channel (no autoplay embed).
   youtubeIntroId: "",
+  // Instagram reels/posts for homepage. Add permalinks from @medidentistanbul.
+  // cover: optional local image under assets/img; otherwise clinic photo is used.
+  // Example: { url: "https://www.instagram.com/reel/XXXX/", cover: "aug-17-3.jpg" }
+  instagramFeed: [],
 };
 
 // Language -> URL prefix. TR lives at root; others under /en, /de, /ar, /ru.
