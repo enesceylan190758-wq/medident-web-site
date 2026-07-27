@@ -10,7 +10,7 @@ export const waHref = (text) =>
   `https://wa.me/${site.whatsappRaw}${text ? `?text=${encodeURIComponent(text)}` : ""}`;
 
 // Bump when CSS/JS change so browsers skip stale cached assets.
-const ASSET_VER = "20260727b";
+const ASSET_VER = "20260727d";
 
 // Prefix absolute site paths with optional preview basePath (GitHub Pages etc.).
 export const asset = (p = "") => {

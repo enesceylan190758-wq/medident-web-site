@@ -47,10 +47,16 @@ export const site = {
   defaultLang: "tr",
   // Optional homepage intro video. Empty → facade opens YouTube channel (no autoplay embed).
   youtubeIntroId: "",
-  // Instagram reels/posts for homepage. Add permalinks from @medidentistanbul.
-  // cover: optional local image under assets/img; otherwise clinic photo is used.
-  // Example: { url: "https://www.instagram.com/reel/XXXX/", cover: "aug-17-3.jpg" }
-  instagramFeed: [],
+  // Instagram reels from @medidentistanbul (covers mirrored under assets/img/instagram/).
+  // Homepage shows up to 6; order = display order.
+  instagramFeed: [
+    { url: "https://www.instagram.com/reel/C_LZ1_5I5np/", cover: "instagram/ig-C_LZ1_5I5np.jpg" },
+    { url: "https://www.instagram.com/reel/C2R4vE0MPpG/", cover: "instagram/ig-C2R4vE0MPpG.jpg" },
+    { url: "https://www.instagram.com/reel/DBlb0rUqn_3/", cover: "instagram/ig-DBlb0rUqn_3.jpg" },
+    { url: "https://www.instagram.com/reel/DFNQ_-AMf2s/", cover: "instagram/ig-DFNQ_-AMf2s.jpg" },
+    { url: "https://www.instagram.com/reel/DZFMDvPjHGr/", cover: "instagram/ig-DZFMDvPjHGr.jpg" },
+    { url: "https://www.instagram.com/reel/DGN1puJJxhq/", cover: "instagram/ig-DGN1puJJxhq.jpg" },
+  ],
 };
 
 // Language -> URL prefix. TR lives at root; others under /en, /de, /ar, /ru.
