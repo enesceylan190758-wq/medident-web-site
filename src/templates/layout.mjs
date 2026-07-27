@@ -3,14 +3,15 @@ import { site, langPrefix, htmlLang, ogLocale } from "../data/site.mjs";
 import { i18n } from "../data/i18n.mjs";
 import { services } from "../data/content.mjs";
 import { resolveHreflangPaths, hoursLocalized } from "../data/seo.mjs";
-import { rtlLangs } from "../data/locale.mjs";
+import { rtlLangs, L } from "../data/locale.mjs";
+import { trustBadges, hasTrustBadges } from "../data/trust.mjs";
 import { icons } from "./icons.mjs";
 
 export const waHref = (text) =>
   `https://wa.me/${site.whatsappRaw}${text ? `?text=${encodeURIComponent(text)}` : ""}`;
 
 // Bump when CSS/JS change so browsers skip stale cached assets.
-const ASSET_VER = "20260727d";
+const ASSET_VER = "20260727e";
 
 // Prefix absolute site paths with optional preview basePath (GitHub Pages etc.).
 export const asset = (p = "") => {
@@ -266,7 +267,7 @@ ${bodyHtml}
 
 // Shared JSON-LD builders
 export function orgSchema(lang = "tr") {
-  return {
+  const schema = {
     "@context": "https://schema.org",
     "@type": ["Dentist", "MedicalOrganization"],
     "@id": site.domain + "/#organization",
@@ -309,6 +310,14 @@ export function orgSchema(lang = "tr") {
       reviewCount: site.rating.count,
     },
   };
+  if (hasTrustBadges()) {
+    schema.hasCredential = trustBadges.map((b) => ({
+      "@type": "EducationalOccupationalCredential",
+      name: b.credential || L(b.alt, lang),
+      credentialCategory: L(b.alt, lang),
+    }));
+  }
+  return schema;
 }
 
 export function breadcrumbSchema(items) {

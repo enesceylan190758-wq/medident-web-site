@@ -61,6 +61,33 @@ function copyDir(src, dest) {
   }
 }
 
+/** Create .webp siblings for JPEGs (skipped if sharp unavailable). */
+async function ensureWebpVariants(imgRoot) {
+  let sharp;
+  try {
+    sharp = (await import("sharp")).default;
+  } catch {
+    return;
+  }
+  const walk = async (dir) => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const p = path.join(dir, entry.name);
+      if (entry.isDirectory()) await walk(p);
+      else if (/\.jpe?g$/i.test(entry.name)) {
+        const webpPath = p.replace(/\.jpe?g$/i, ".webp");
+        if (!fs.existsSync(webpPath)) {
+          try {
+            await sharp(p).webp({ quality: 82 }).toFile(webpPath);
+          } catch {
+            /* skip broken inputs */
+          }
+        }
+      }
+    }
+  };
+  await walk(imgRoot);
+}
+
 // Write a page. `pathNoLang` like "hizmetler/oral-implantoloji/" (no leading slash, no lang prefix)
 function emit(lang, pathNoLang, rendered) {
   const rel = (langPrefix[lang] ? langPrefix[lang].slice(1) + "/" : "") + pathNoLang;
@@ -86,10 +113,12 @@ function emit(lang, pathNoLang, rendered) {
 function build() {
   clean(DIST);
 
+  const imgSrc = path.join(__dirname, "src/assets/images");
+  return ensureWebpVariants(imgSrc).then(() => {
   // Assets
   copyDir(path.join(__dirname, "src/assets/css"), path.join(DIST, "assets/css"));
   copyDir(path.join(__dirname, "src/assets/js"), path.join(DIST, "assets/js"));
-  copyDir(path.join(__dirname, "src/assets/images"), path.join(DIST, "assets/img"));
+  copyDir(imgSrc, path.join(DIST, "assets/img"));
 
   for (const lang of site.languages) {
     const byLang = ARTICLES.filter((a) => a.lang === lang);
@@ -196,6 +225,7 @@ function build() {
   writeLlmsTxt();
 
   console.log(`Built ${pages.length} pages -> ${DIST} (blog gen ${GENERATED_BLOG.length}, geo ${GEO_PACKS.length})`);
+  });
 }
 
 function writeSitemap() {
@@ -397,4 +427,7 @@ ${blogLines || "- (pending)"}
   fs.writeFileSync(path.join(DIST, "llms.txt"), txt);
 }
 
-build();
+build().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

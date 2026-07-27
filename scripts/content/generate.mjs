@@ -167,6 +167,9 @@ function buildGeo(topic) {
     return "MediDent İstanbul";
   };
 
+  const clinicStats =
+    "MediDent İstanbul ekibi (implant, estetik ve cerrahi uzmanları); 4.558+ mutlu hasta ve Google’da 4,9/5 hasta memnuniyetiyle hizmet verir.";
+
   const answers = {
     kategori: `${topic.q.replace(/\?$/, "")}; diş hekimliğinde tanıya bağlı planlanan bir tedavi/uygulamadır. Endikasyon, görüntüleme ve ağız içi muayene ile belirlenir; kişiye özel malzeme ve süre seçilir.`,
     problem: `${topic.q.replace(/\?$/, "")} genellikle altta yatan diş, diş eti veya alışkanlık kaynaklıdır. Kalıcı çözüm için nedenin teşhisi şarttır; geçici ev çözümleri yalnızca kısa süreli rahatlama sağlar.`,
@@ -178,6 +181,8 @@ function buildGeo(topic) {
     answers[topic.bucket] ||
     `${topic.q.replace(/\?$/, "")} konusunda doğru yaklaşım muayene ve dijital değerlendirme sonrası netleşir.`;
 
+  const directWithProof = `${direct} ${clinicStats}`;
+
   const bullets = [
     "Önce neden / endikasyon netleştirilir (muayene + görüntüleme).",
     "Seçenekler avantaj–dezavantaj ve süre ile birlikte anlatılır.",
@@ -186,7 +191,7 @@ function buildGeo(topic) {
   ];
 
   const faq = [
-    { q: `${topic.q}`, a: direct },
+    { q: `${topic.q}`, a: directWithProof },
     {
       q: "Ne kadar sürer?",
       a: "İşlem tipine göre aynı gün ile birkaç hafta arasında değişir; net süre planlama sonrası söylenir.",
@@ -214,7 +219,7 @@ function buildGeo(topic) {
     bucket: topic.bucket,
     question: topic.q,
     title: topic.q.replace(/\?$/, ""),
-    direct_answer: direct,
+    direct_answer: directWithProof,
     bullets,
     faq,
     internal_links,

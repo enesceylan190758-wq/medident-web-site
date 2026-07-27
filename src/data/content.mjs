@@ -409,6 +409,8 @@ export const legacyDoctorRedirects = [
 ];
 
 export const packages = [
+  // Optional soft pricing — set fromPrice when clinic confirms EUR ranges:
+  // fromPrice: { tr: "€2.990'dan", en: "from €2,990", de: "ab €2.990", ar: "من €2,990", ru: "от €2 990" }
   {
     key: "smile",
     featured: false,

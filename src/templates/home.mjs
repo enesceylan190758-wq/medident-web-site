@@ -6,6 +6,8 @@ import { hoursLocalized } from "../data/seo.mjs";
 import { L, uiBits } from "../data/locale.mjs";
 import { icons } from "./icons.mjs";
 import { url, waHref, orgSchema, faqSchema, breadcrumbSchema, asset } from "./layout.mjs";
+import { trustStrip, doctorStrip, mapEmbedBlock } from "./partials.mjs";
+import { responsiveImg } from "./media.mjs";
 
 const src = (file) => asset(`/assets/img/${file}`);
 
@@ -103,9 +105,8 @@ export function homePage(lang) {
     const title = L(c.titles, lang);
     const href = svcUrl(c.service);
     const featured = !!c.featured;
-    const photo = src(c.image || "portrait-a.jpg");
     return `<a href="${href}" class="svc-tile ${featured ? "is-featured" : ""}" data-reveal style="--d:${(i % 6) * 60}ms">
-      <img src="${photo}" alt="${title} — ${site.brand}" loading="lazy">
+      ${responsiveImg(c.image || "portrait-a.jpg", { alt: `${title} — ${site.brand}`, loading: "lazy" })}
       <span class="svc-tile-shade" aria-hidden="true"></span>
       <span class="svc-tile-body">
         <span class="svc-tile-kicker">${t.servicesEyebrow}</span>
@@ -118,6 +119,12 @@ export function homePage(lang) {
 
   const pkg = (p) => {
     const featured = p.featured;
+    const fromPrice = p.fromPrice ? L(p.fromPrice, lang) : "";
+    const priceHtml = fromPrice
+      ? `<div style="font-size:12.5px;color:${featured ? "#C9BEAC" : "var(--muted-2)"};margin-bottom:4px;">${L(uiBits.fromPriceLabel, lang)}</div>
+        <div style="font-family:var(--font-serif);font-weight:700;font-size:26px;color:${featured ? "#fff" : "var(--ink)"};margin-bottom:18px;">${fromPrice}</div>`
+      : `<div style="font-size:12.5px;color:${featured ? "#C9BEAC" : "var(--muted-2)"};margin-bottom:4px;">${L(uiBits.allInclusive, lang)}</div>
+        <div style="font-family:var(--font-serif);font-weight:700;font-size:26px;color:${featured ? "#fff" : "var(--ink)"};margin-bottom:18px;">${t.customPrice}</div>`;
     return `<div class="pkg ${featured ? "featured" : ""}" data-reveal>
       ${featured ? `<span class="pkg-badge">${t.popular}</span>` : ""}
       <h3>${L(p.titles, lang)}</h3>
@@ -126,8 +133,7 @@ export function homePage(lang) {
         .map((it) => `<li style="color:${featured ? "#F4EEE4" : "var(--ink-soft)"}">${icons.check()} <span>${it}</span></li>`)
         .join("")}</ul>
       <div style="margin-top:auto;">
-        <div style="font-size:12.5px;color:${featured ? "#C9BEAC" : "var(--muted-2)"};margin-bottom:4px;">${L(uiBits.allInclusive, lang)}</div>
-        <div style="font-family:var(--font-serif);font-weight:700;font-size:26px;color:${featured ? "#fff" : "var(--ink)"};margin-bottom:18px;">${t.customPrice}</div>
+        ${priceHtml}
         <a href="${url(lang, "iletisim/")}" class="btn ${featured ? "btn-gold" : "btn-outline-red"} btn-block">${t.getQuote}</a>
       </div>
     </div>`;
@@ -165,10 +171,10 @@ export function homePage(lang) {
             <a href="${url(lang, "galeri/")}" class="btn btn-ghost">${h.ctaSecondary}</a>
           </div>
           <div class="rating-row rating-row-lg">
-            <span class="rating-pill">
+            <a class="rating-pill" href="${site.googleMapsUrl || site.mapsUrl}" target="_blank" rel="noopener" aria-label="Google ${L(uiBits.googleReviewsCta, lang)}">
               <span class="stars">★★★★★</span>
-              <span><strong style="color:var(--ink);">${site.rating.value}/5</strong> · Google · ${site.rating.count}+</span>
-            </span>
+              <span><strong style="color:var(--ink);">${site.rating.value}/5</strong> · Google · ${site.rating.count}+ ${L(uiBits.googleReviews, lang)}</span>
+            </a>
             <span class="hide-sm"><strong style="color:var(--ink);">50+</strong> ${L(uiBits.countriesWord, lang)}</span>
           </div>
         </div>
@@ -193,6 +199,8 @@ export function homePage(lang) {
     <div class="stats-grid">${t.stats.map(stat).join("")}</div>
   </section>
 
+  ${trustStrip(lang)}
+
   <section class="section section-services" id="hizmetler">
     <div class="container">
       <div class="svc-head" data-reveal>
@@ -208,6 +216,8 @@ export function homePage(lang) {
       </div>
     </div>
   </section>
+
+  ${doctorStrip(lang)}
 
   <section class="section section-alt" id="sonuclar">
     <div class="container">
@@ -371,7 +381,7 @@ const miniMinus = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" s
 const miniPlus = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>`;
 
 // Reusable contact section (also used on /iletisim/)
-export function contactSection(lang, { heading = true } = {}) {
+export function contactSection(lang, { heading = true, showMap = true } = {}) {
   const t = i18n[lang];
   const treatments = services.filter((s) => s.home).map((s) => L(s.titles, lang));
   return `<section class="section contact-band" id="iletisim">
@@ -388,6 +398,7 @@ export function contactSection(lang, { heading = true } = {}) {
             <div class="row"><span class="contact-ico">${icons.pin}</span><span><span style="display:block;font-size:12.5px;color:#A89D8B;">${t.addressLabel}</span><span style="font-weight:700;font-size:16px;">${site.address}</span></span></div>
             <div class="row"><span class="contact-ico">${icons.clock}</span><span><span style="display:block;font-size:12.5px;color:#A89D8B;">${t.hoursLabel}</span><span style="font-weight:700;font-size:16px;">${hoursLocalized[lang] || site.hours}</span></span></div>
           </div>
+          ${showMap ? mapEmbedBlock(lang, { title: L(uiBits.mapTitle, lang) }) : ""}
         </div>
         <div data-reveal>
           <div class="form-card">

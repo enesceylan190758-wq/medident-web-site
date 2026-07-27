@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "basic-ftp": "^6.0.1",
-    "mammoth": "^1.8.0"
+    "mammoth": "^1.8.0",
+    "sharp": "^0.33.5"
   }
 }

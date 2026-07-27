@@ -231,9 +231,11 @@ export function doctorPage(lang, doctor) {
     {
       "@context": "https://schema.org",
       "@type": "Physician",
+      "@id": site.domain + url(lang, "doktorlar/" + doctor.slug + "/") + "#physician",
       name: doctor.name,
       jobTitle: L(doctor.titles, lang),
       image: site.domain + asset("/assets/img/") + doctor.image,
+      medicalSpecialty: L(doctor.titles, lang),
       worksFor: { "@id": site.domain + "/#organization" },
       url: site.domain + url(lang, "doktorlar/" + doctor.slug + "/"),
     },
