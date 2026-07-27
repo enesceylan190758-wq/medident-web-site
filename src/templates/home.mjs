@@ -6,7 +6,7 @@ import { hoursLocalized } from "../data/seo.mjs";
 import { L, uiBits } from "../data/locale.mjs";
 import { icons } from "./icons.mjs";
 import { url, waHref, orgSchema, faqSchema, breadcrumbSchema, asset } from "./layout.mjs";
-import { trustStrip, doctorStrip, mapEmbedBlock } from "./partials.mjs";
+import { trustStrip, doctorStrip } from "./partials.mjs";
 import { responsiveImg } from "./media.mjs";
 
 const src = (file) => asset(`/assets/img/${file}`);
@@ -171,10 +171,17 @@ export function homePage(lang) {
             <a href="${url(lang, "galeri/")}" class="btn btn-ghost">${h.ctaSecondary}</a>
           </div>
           <div class="rating-row rating-row-lg">
-            <a class="rating-pill" href="${site.googleMapsUrl || site.mapsUrl}" target="_blank" rel="noopener" aria-label="Google ${L(uiBits.googleReviewsCta, lang)}">
+            ${
+              site.googleMapsUrl || site.mapsUrl
+                ? `<a class="rating-pill" href="${site.googleMapsUrl || site.mapsUrl}" target="_blank" rel="noopener" aria-label="Google ${L(uiBits.googleReviewsCta, lang)}">
               <span class="stars">★★★★★</span>
               <span><strong style="color:var(--ink);">${site.rating.value}/5</strong> · Google · ${site.rating.count}+ ${L(uiBits.googleReviews, lang)}</span>
-            </a>
+            </a>`
+                : `<span class="rating-pill">
+              <span class="stars">★★★★★</span>
+              <span><strong style="color:var(--ink);">${site.rating.value}/5</strong> · Google · ${site.rating.count}+ ${L(uiBits.googleReviews, lang)}</span>
+            </span>`
+            }
             <span class="hide-sm"><strong style="color:var(--ink);">50+</strong> ${L(uiBits.countriesWord, lang)}</span>
           </div>
         </div>
@@ -381,7 +388,7 @@ const miniMinus = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" s
 const miniPlus = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>`;
 
 // Reusable contact section (also used on /iletisim/)
-export function contactSection(lang, { heading = true, showMap = true } = {}) {
+export function contactSection(lang, { heading = true } = {}) {
   const t = i18n[lang];
   const treatments = services.filter((s) => s.home).map((s) => L(s.titles, lang));
   return `<section class="section contact-band" id="iletisim">
@@ -398,7 +405,6 @@ export function contactSection(lang, { heading = true, showMap = true } = {}) {
             <div class="row"><span class="contact-ico">${icons.pin}</span><span><span style="display:block;font-size:12.5px;color:#A89D8B;">${t.addressLabel}</span><span style="font-weight:700;font-size:16px;">${site.address}</span></span></div>
             <div class="row"><span class="contact-ico">${icons.clock}</span><span><span style="display:block;font-size:12.5px;color:#A89D8B;">${t.hoursLabel}</span><span style="font-weight:700;font-size:16px;">${hoursLocalized[lang] || site.hours}</span></span></div>
           </div>
-          ${showMap ? mapEmbedBlock(lang, { title: L(uiBits.mapTitle, lang) }) : ""}
         </div>
         <div data-reveal>
           <div class="form-card">
