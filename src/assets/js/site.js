@@ -84,6 +84,43 @@
     sio.observe(statsRoot);
   } else if (statsRoot) animateStats();
 
+  // YouTube facade — load iframe only on click (no autoplay)
+  $$("[data-yt-facade]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const id = btn.getAttribute("data-yt-id");
+      if (!id) return;
+      const wrap = document.createElement("div");
+      wrap.className = "yt-facade is-playing";
+      wrap.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" title="YouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>`;
+      btn.replaceWith(wrap);
+    });
+  });
+
+  // Instagram cards — optional in-page embed; fallback opens Instagram
+  $$("[data-ig-embed]").forEach((card) => {
+    card.addEventListener("click", (e) => {
+      const embed = card.getAttribute("data-ig-embed");
+      if (!embed) return;
+      e.preventDefault();
+      let lb = $("[data-ig-lightbox]");
+      if (!lb) {
+        lb = document.createElement("div");
+        lb.className = "ig-lightbox";
+        lb.setAttribute("data-ig-lightbox", "");
+        lb.innerHTML = `<button type="button" class="ig-lightbox-close" data-ig-close aria-label="Close">×</button><div class="ig-lightbox-frame"></div>`;
+        document.body.appendChild(lb);
+        lb.addEventListener("click", (ev) => {
+          if (ev.target === lb || ev.target.closest("[data-ig-close]")) lb.classList.remove("is-open");
+        });
+      }
+      const frame = $(".ig-lightbox-frame", lb);
+      if (frame) {
+        frame.innerHTML = `<iframe src="${embed}" title="Instagram" loading="lazy" allowtransparency="true"></iframe>`;
+      }
+      lb.classList.add("is-open");
+    });
+  });
+
   // Before/after slider
   const ba = $("[data-ba]");
   if (ba) {

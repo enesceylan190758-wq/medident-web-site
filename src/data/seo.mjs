@@ -6,6 +6,8 @@ export const hoursLocalized = {
   tr: "Pazartesi – Cumartesi: 09:00 – 18:00",
   en: "Monday – Saturday: 09:00 – 18:00",
   de: "Montag – Samstag: 09:00 – 18:00",
+  ar: "الاثنين – السبت: 09:00 – 18:00",
+  ru: "Понедельник – суббота: 09:00 – 18:00",
 };
 
 /** Blog topic groups → slugs per language (only emit hreflang when all present). */
