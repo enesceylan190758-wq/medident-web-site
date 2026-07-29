@@ -256,9 +256,9 @@ export const homeCards = [
 
 export const doctors = [
   {
-    slug: "dr-faruk-ogutlu",
+    slug: "dr-ahmet-celik",
     image: null,
-    name: "Dr. Faruk Öğütlü",
+    name: "Dr. Ahmet Çelik",
     titles: {
       tr: "Ağız, Diş ve Çene Cerrahisi Uzmanı",
       en: "Oral & Maxillofacial Surgery Specialist",
@@ -301,9 +301,9 @@ export const doctors = [
     },
   },
   {
-    slug: "dr-dt-nilufer-yilmaz-ogutlu",
+    slug: "dr-asli-yilmaz",
     image: null,
-    name: "Dr. Dt. Nilüfer Yılmaz Öğütlü",
+    name: "Dr. Aslı Yılmaz",
     titles: {
       tr: "Diş Hekimi",
       en: "Dentist",
