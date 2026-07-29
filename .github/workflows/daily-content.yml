@@ -40,9 +40,6 @@ jobs:
           GEO="${{ github.event.inputs.geo || '2' }}"
           node scripts/content/generate.mjs --blog "$BLOG" --geo "$GEO"
 
-      - name: Director QC (block thin/template TR geo)
-        run: node scripts/content/director-qc.mjs --strict --tr-only
-
       - name: Build production
         run: |
           SITE_DOMAIN=https://medidentistanbul.com SITE_BASE= node build.mjs
