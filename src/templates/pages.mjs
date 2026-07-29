@@ -34,11 +34,13 @@ function pageHero(lang, eyebrow, title, lead, crumbs) {
 export function servicesIndexPage(lang) {
   const t = i18n[lang];
   const crumbs = [crumbHome(lang), { name: t.nav.services, href: url(lang, "hizmetler/") }];
-  const card = (s) => `<a href="${url(lang, "hizmetler/" + s.slug + "/")}" class="card" style="display:block;color:inherit;">
-    <div class="icon-box">${icons[s.icon] || icons.smile}</div>
-    <h3>${s.titles[lang]}</h3>
-    <p style="font-size:14.5px;line-height:1.6;color:var(--muted-2);margin:0;">${s.short[lang]}</p>
-    <span class="link-more">${t.detail} ${icons.arrowSm}</span>
+  const card = (s) => `<a href="${url(lang, "hizmetler/" + s.slug + "/")}" class="card service-card" style="display:block;color:inherit;padding:0;overflow:hidden;">
+    ${s.image ? `<div class="service-card-media" style="aspect-ratio:16/10;overflow:hidden;background:var(--sand);"><img src="${asset(`/assets/img/${s.image}`)}" alt="${s.titles[lang]}" width="640" height="400" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div>` : `<div class="icon-box" style="margin:22px 22px 0;">${icons[s.icon] || icons.smile}</div>`}
+    <div style="padding:18px 22px 22px;">
+      <h3 style="margin:0 0 8px;">${s.titles[lang]}</h3>
+      <p style="font-size:14.5px;line-height:1.6;color:var(--muted-2);margin:0;">${s.short[lang]}</p>
+      <span class="link-more">${t.detail} ${icons.arrowSm}</span>
+    </div>
   </a>`;
   const body = `${pageHero(lang, t.servicesEyebrow, t.nav.services, t.servicesLead, crumbs)}
   <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container">
@@ -69,8 +71,12 @@ export function servicePage(lang, service, article) {
       ? `<h2>${faqHeading[lang]}</h2>${faqs.map((f) => `<h3>${f.q}</h3><p>${f.a}</p>`).join("")}`
       : "";
   const related = services.filter((s) => s.slug !== service.slug && s.home).slice(0, 4);
+  const heroImg = service.image
+    ? `<figure style="margin:0 0 28px;border-radius:18px;overflow:hidden;aspect-ratio:16/9;background:var(--sand);"><img src="${asset(`/assets/img/${service.image}`)}" alt="${title}" width="1200" height="675" style="width:100%;height:100%;object-fit:cover;display:block;" loading="eager"></figure>`
+    : "";
   const body = `${pageHero(lang, t.servicesEyebrow, title, service.short[lang], crumbs)}
-  <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container">
+  <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container" style="max-width:860px;">
+    ${heroImg}
     <div style="display:grid;grid-template-columns:1fr;gap:40px;">
       <article class="prose">${bodyHtml}
         ${faqBlock}
@@ -84,18 +90,24 @@ export function servicePage(lang, service, article) {
       <h2 style="font-size:26px;margin-bottom:22px;">${t.relatedServices}</h2>
       <div class="grid-auto">${related
         .map(
-          (s) => `<a href="${url(lang, "hizmetler/" + s.slug + "/")}" class="card" style="display:block;color:inherit;"><div class="icon-box">${icons[s.icon] || icons.smile}</div><h3 style="font-size:20px;">${s.titles[lang]}</h3><p style="font-size:14px;color:var(--muted-2);margin:0;">${s.short[lang]}</p></a>`
+          (s) => `<a href="${url(lang, "hizmetler/" + s.slug + "/")}" class="card service-card" style="display:block;color:inherit;padding:0;overflow:hidden;">${
+            s.image
+              ? `<div style="aspect-ratio:16/10;overflow:hidden;background:var(--sand);"><img src="${asset(`/assets/img/${s.image}`)}" alt="${s.titles[lang]}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div>`
+              : `<div class="icon-box" style="margin:18px 18px 0;">${icons[s.icon] || icons.smile}</div>`
+          }<div style="padding:16px 18px 18px;"><h3 style="font-size:20px;margin:0 0 6px;">${s.titles[lang]}</h3><p style="font-size:14px;color:var(--muted-2);margin:0;">${s.short[lang]}</p></div></a>`
         )
         .join("")}</div>
     </div>
   </div></section>
   ${contactSection(lang)}`;
+  const ogImage = service.image ? site.domain + asset(`/assets/img/${service.image}`) : undefined;
   const jsonld = [
     {
       "@context": "https://schema.org",
       "@type": "MedicalProcedure",
       name: title,
       description: service.meta[lang],
+      image: ogImage,
       provider: { "@id": site.domain + "/#organization" },
       url: site.domain + url(lang, "hizmetler/" + service.slug + "/"),
       inLanguage: lang === "tr" ? "tr-TR" : lang === "de" ? "de-DE" : "en-US",
@@ -109,7 +121,7 @@ export function servicePage(lang, service, article) {
       : lang === "de"
         ? `${title} in Istanbul — ${site.brand}`
         : `${title} — ${site.brand}`;
-  return { body, title: pageTitle, description: service.meta[lang], jsonld };
+  return { body, title: pageTitle, description: service.meta[lang], image: ogImage, jsonld };
 }
 
 // Doctors index
