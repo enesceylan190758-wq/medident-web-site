@@ -1,6 +1,6 @@
 # MediDent İstanbul — Web Sitesi
 
-Çok dilli (TR / EN / DE), çok sayfalı, SEO/GEO uyumlu **statik** web sitesi.
+Çok dilli (TR / EN / DE / AR / RU), çok sayfalı, SEO/GEO uyumlu **statik** web sitesi.
 Mevcut tasarım korunarak; Google, Bing ve AI botlarının (ChatGPT, Perplexity vb.)
 ham HTML'den okuyabileceği, çok sayfalı bir yapıya dönüştürülmüştür.
 
@@ -43,10 +43,19 @@ Hızlı yol: `npm run package` → `medident-dist.zip` → cPanel File Manager�
 ```bash
 npm run package          # zip oluştur
 npm run deploy:domain    # gh-pages (DNS GitHub’a dönünce)
-npm run content:daily    # 2 blog + 2 GEO
+npm run content:weekly   # 3 blog + 1 GEO iskelet (draft PR ile)
 ```
 
-Günlük otomasyon: `.github/workflows/daily-content.yml` (schedule + workflow_dispatch).
+### SEO/GEO otomasyon (araştırma devamı)
+
+| Yol | Ne | Yayın |
+|-----|-----|--------|
+| **Cursor Automations** (tercih) | Haftalık araştırma + orijinal içerik + QC | Draft PR — merge sonrası deploy |
+| GitHub `weekly-content.yml` | Pazartesi iskelet üretim | Draft PR — **otomatik deploy yok** |
+| `daily-content.yml` | Ayda bir yedek | Draft PR |
+
+Kurulum: `directives/cursor-seo-geo-automation.md` · `directives/weekly_blog_geo.md`  
+Plan: `docs/medident-seo-geo-ajan-plani.md`
 
 ## Estesof form
 
@@ -58,7 +67,7 @@ Boşken WhatsApp fallback çalışır (`src/assets/js/site.js`).
 - `sitemap.xml`, `robots.txt`, `llms.txt`, `.htaccess` (HTTPS + eski WP 301)
 - JSON-LD: Dentist, FAQPage, Article, BreadcrumbList
 - GTM / Meta Pixel / GSC verify taşındı; GA4 kimliği `site.tracking.ga4` alanına eklenir
-- Blog: `/blog/…` · GEO: `/geo/…` · diller: TR kök, EN `/en`, DE `/de` + hreflang
+- Blog: `/blog/…` · GEO: `/geo/…` · diller: TR kök, EN `/en`, DE `/de`, AR `/ar`, RU `/ru` + hreflang
 
 ## Yapılacaklar (bilgi gelince güncelleyin)
 

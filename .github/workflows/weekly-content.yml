@@ -1,17 +1,17 @@
-# Monthly backup content → draft PR (prefer weekly-content.yml)
-# Was daily; reduced to avoid thin-content spam (SEO/GEO research plan).
+# Weekly blog + GEO → draft PR (no auto-deploy)
+# Quality over daily thin-content spam. Director QC before merge.
 
-name: Monthly content backup
+name: Weekly content
 
 on:
   schedule:
-    # 1st of month 06:00 UTC
-    - cron: "0 6 1 * *"
+    # Mondays 06:00 UTC
+    - cron: "0 6 * * 1"
   workflow_dispatch:
     inputs:
       blog:
         description: "Blog count"
-        default: "2"
+        default: "3"
       geo:
         description: "GEO count"
         default: "1"
@@ -35,21 +35,21 @@ jobs:
       - name: Install
         run: npm ci
 
-      - name: Generate content skeleton
+      - name: Generate weekly content skeleton
         run: |
-          BLOG="${{ github.event.inputs.blog || '2' }}"
+          BLOG="${{ github.event.inputs.blog || '3' }}"
           GEO="${{ github.event.inputs.geo || '1' }}"
           node scripts/content/generate.mjs --blog "$BLOG" --geo "$GEO"
 
-      - name: Build smoke
+      - name: Build smoke (production paths)
         run: SITE_DOMAIN=https://medidentistanbul.com SITE_BASE= node build.mjs
 
-      - name: Open draft PR
+      - name: Open draft PR (do not push to main / do not deploy)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           DATE=$(date -u +%Y-%m-%d)
-          BRANCH="cursor/monthly-seo-${DATE}-5c2b"
+          BRANCH="cursor/weekly-seo-${DATE}-5c2b"
           git config user.name "medident-bot"
           git config user.email "bot@medidentistanbul.com"
           git checkout -b "$BRANCH"
@@ -58,11 +58,27 @@ jobs:
             echo "No new content — skipping PR"
             exit 0
           fi
-          git commit -m "chore: monthly blog+GEO draft ${DATE}"
+          git commit -m "chore: weekly blog+GEO draft ${DATE}"
           git push -u origin "$BRANCH"
           gh pr create \
             --draft \
             --base main \
             --head "$BRANCH" \
-            --title "Monthly SEO/GEO backup draft — ${DATE}" \
-            --body "Aylık yedek iskelet. Tercih edilen akış: Weekly content + Cursor Automation. Canlıya alma yok — QC sonra merge."
+            --title "Weekly SEO/GEO draft — ${DATE}" \
+            --body "$(cat <<'EOF'
+## Haftalık içerik taslağı
+
+Otomatik iskelet üretim (`scripts/content/generate.mjs`).
+**Canlıya alınmadı.** Merge öncesi:
+
+- [ ] Director QC (`docs/medident-seo-geo-ajan-plani.md` §7)
+- [ ] Şablon / thin GEO tekrarı yok
+- [ ] Cevap ilk 2 cümlede
+- [ ] Garanti / kesin sonuç yok
+- [ ] İstenirse Cursor Automation ile metin güçlendirildi
+
+Merge sonrası: `npm run deploy:domain` veya cloud agent deploy.
+
+Kurulum notu: `directives/weekly_blog_geo.md` · Cursor: `directives/cursor-seo-geo-automation.md`
+EOF
+)"

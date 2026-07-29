@@ -1,47 +1,22 @@
-# MediDent İstanbul — Günlük Blog (SEO) Otomasyonu
+# MediDent İstanbul — Günlük Blog (SEO) Otomasyonu → **artık haftalık**
 
-Nefalix modelinin diş kliniği uyarlaması.
+Bu dosya eski günlük Nefalix modelini belgeler. **Güncel akış haftalıktır.**
 
-## Blog ≠ GEO
+→ `directives/weekly_blog_geo.md`  
+→ Cursor Automations: `directives/cursor-seo-geo-automation.md`  
+→ Araştırma planı: `docs/medident-seo-geo-ajan-plani.md`
 
-| | Blog | GEO |
-|---|------|-----|
-| URL | `/blog/:slug/` | `/geo/:slug/` |
-| Biçim | Uzun rehber (H2 + SSS) | Kısa answer-first + maddeler + SSS |
-| Amaç | İnsan okur, Google sıralar | AI motoru alıntılar (ChatGPT, Perplexity, Gemini) |
-| Dil | TR (+ EN/DE özet veya tam çeviri) | TR (nötr tanım; satış CTA yok) |
+## Neden değişti?
 
-## Hacim
+Günlük 2+2 üretim `/geo/` altında tekrarlayan thin content üretti. Plan: kalite > miktar; yayın öncesi Director QC; **otomatik canlıya alma yok**.
 
-| | Bugün (ilk kurulum) | Sonraki günler |
-|---|------|------|
-| Blog | **10** | **2** |
-| GEO | **10** | **2** |
+## Komutlar (güncel)
 
 ```bash
-# Bugünkü paket (veya manuel)
-npm run content:today
-
-# Günlük (2 blog + 2 geo)
-npm run content:daily
-
-# Özel adet
-node scripts/content/generate.mjs --blog 2 --geo 2
+npm run content:weekly          # 3 blog + 1 GEO iskelet
+npm run content:daily           # yedek (2+2) — tercih etme
 ```
 
-## Başarı kriteri
-
-- Public crawlable sayfa (200)
-- Answer-first intro / direct_answer
-- Görünür FAQ + `FAQPage` JSON-LD
-- `sitemap.xml` + `blog` + `geo` URL’leri
-- `llms.txt` güncel
-
-Cursor / VPS cron ile `npm run content:daily && npm run build` (deploy adımı ayrı).
-
-GitHub Actions: `.github/workflows/daily-content.yml`
-- Her gün 06:00 UTC (`content:daily` → build → `gh-pages`)
-- Elle tetikleme: Actions → Daily content → Run workflow
-- Turhost FTP senkronu için repo Secrets: `FTP_HOST`, `FTP_USER`, `FTP_PASSWORD`
-  (veya cPanel’e `medident-dist.zip` yükleyin — `npm run package`)
-
+GitHub Actions:
+- `.github/workflows/weekly-content.yml` — Pazartesi, **draft PR**
+- `.github/workflows/daily-content.yml` — ayda bir yedek, **draft PR**

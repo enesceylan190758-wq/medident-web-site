@@ -148,6 +148,11 @@ Zorunlu: Yalnızca gerçek web arama/SERP verisine dayan, tahmin üretme.
 - **Faz 4:** PR bülteni + dizin/forum varlığı (Maltepe modeli).
 - **Faz 5:** Aylık ölçüm ve iterasyon — sabit döngü.
 
+### Otomasyon (kurulum)
+
+Haftalık Cursor Automation + GitHub draft-PR akışı: `directives/cursor-seo-geo-automation.md`.
+Otomatik canlı yayın **yok**; Director QC (`§7`) sonrası merge.
+
 ---
 
 ## 10) Takip metrikleri

@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 /**
- * MediDent daily SEO blog + GEO pack generator (Nefalix-style dual channel).
+ * MediDent weekly SEO blog + GEO pack generator (skeleton; Cursor Automation preferred for final copy).
  *
  * Usage:
- *   node scripts/content/generate.mjs --blog 10 --geo 10
- *   node scripts/content/generate.mjs --blog 2 --geo 2
+ *   node scripts/content/generate.mjs --blog 3 --geo 1
+ *   npm run content:weekly
  *
  * Writes:
- *   src/content/generated-blog.json   (merged into articles at build)
+ *   src/content/generated-blog.json
  *   src/content/geo/packs.json
- *   src/content/queue-state.json      (topic cursors)
+ *   src/content/queue-state.json
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -151,52 +151,58 @@ function buildBlog(topic) {
     html: htmlParts.join(""),
     wordCount: htmlParts.join(" ").split(/\s+/).length,
     faq,
-    source: "daily-seo",
+    source: "weekly-seo",
     publishedAt: new Date().toISOString().slice(0, 10),
     tag: topic.tag,
   };
 }
 
-/** GEO pack: short answer-first, no hard sell. */
+/** GEO pack: short answer-first, topic-specific (no shared thin template). */
 function buildGeo(topic) {
+  const clinic = "MediDent İstanbul";
+  const q = topic.q || topic.slug;
+  const title = String(q).replace(/\?$/, "");
+  const tag = topic.tag || topic.bucket || "genel";
+
   const brandMax = topic.bucket === "marka" ? 99 : 1;
   let brandHits = 0;
   const mention = () => {
     if (brandHits >= brandMax) return "klinik";
     brandHits++;
-    return "MediDent İstanbul";
+    return clinic;
   };
 
-  const answers = {
-    kategori: `${topic.q.replace(/\?$/, "")}; diş hekimliğinde tanıya bağlı planlanan bir tedavi/uygulamadır. Endikasyon, görüntüleme ve ağız içi muayene ile belirlenir; kişiye özel malzeme ve süre seçilir.`,
-    problem: `${topic.q.replace(/\?$/, "")} genellikle altta yatan diş, diş eti veya alışkanlık kaynaklıdır. Kalıcı çözüm için nedenin teşhisi şarttır; geçici ev çözümleri yalnızca kısa süreli rahatlama sağlar.`,
-    marka: `${topic.q} ${mention()}, Üsküdar Acıbadem’de hizmet verir. Konsültasyon, dijital planlama ve sağlık turizmi koordinasyonu aynı çatı altında sunulur.`,
-    karsilastirma: `${topic.q.replace(/\?$/, "")} tek bir “en iyi” cevap yoktur; kemik/diş durumu, bütçe, süre ve estetik hedefe göre değişir. Karar muayene ve seçeneklerin şeffaf kıyaslanmasıyla verilir.`,
+  // Unique lead per question — never reuse the old “tanıya bağlı planlanan…” boilerplate.
+  const leads = {
+    kategori: `${title}, diş hekimliğinde ${tag} kapsamında değerlendirilen bir uygulamadır. Endikasyon; muayene, görüntüleme ve hastanın hedefiyle birlikte belirlenir — tek tip paket yoktur.`,
+    problem: `${title} için önce nedeni ayırmak gerekir (diş, diş eti, oklüzyon veya alışkanlık). Kalıcı çözüm teşhise dayanır; geçici ev yöntemleri yalnızca kısa süreli rahatlama sağlar.`,
+    marka: `${q} ${mention()}, Üsküdar Acıbadem’de hizmet verir. Konsültasyon, dijital planlama ve sağlık turizmi koordinasyonu aynı çatı altında sunulur.`,
+    karsilastirma: `${title} için “tek doğru seçenek” yoktur. Kemik/diş durumu, süre, bütçe ve estetik hedef şeffaf kıyaslandıktan sonra plan netleşir.`,
   };
 
   const direct =
-    answers[topic.bucket] ||
-    `${topic.q.replace(/\?$/, "")} konusunda doğru yaklaşım muayene ve dijital değerlendirme sonrası netleşir.`;
+    leads[topic.bucket] ||
+    `${title} konusunda net cevap, kişiye özel değerlendirme sonrası verilir. Aşağıda süreç ve dikkat edilecekler özetlenir.`;
 
   const bullets = [
-    "Önce neden / endikasyon netleştirilir (muayene + görüntüleme).",
-    "Seçenekler avantaj–dezavantaj ve süre ile birlikte anlatılır.",
+    `${title}: ilk adım muayene ve gerekli görüntülemedir.`,
+    "Seçenekler süre, avantaj–dezavantaj ve bakım yüküyle birlikte anlatılır.",
     "Tedavi günü steril protokol ve dijital ölçü/üretim kullanılır.",
-    "Sonrasında hijyen ve kontrol randevuları kalıcılığı belirler.",
+    "Sonrasında hijyen ve kontrol randevuları sonucu korur.",
   ];
 
   const faq = [
-    { q: `${topic.q}`, a: direct },
+    { q: String(q).endsWith("?") ? q : `${q}?`, a: direct },
     {
-      q: "Ne kadar sürer?",
-      a: "İşlem tipine göre aynı gün ile birkaç hafta arasında değişir; net süre planlama sonrası söylenir.",
+      q: `${title} ne kadar sürer?`,
+      a: "Süre endikasyona göre aynı günden birkaç haftaya değişir; net takvim planlama sonrası söylenir.",
     },
     {
-      q: "Üsküdar’da bu hizmet var mı?",
+      q: "Üsküdar / Acıbadem’de bu hizmet var mı?",
       a: `${mention()} Acıbadem’deki klinik implant, estetik, beyazlatma ve cerrahi dahil geniş bir yelpazede hizmet verir.`,
     },
     {
-      q: "Yurt dışından hasta kabul ediyor musunuz?",
+      q: "Yurt dışından hasta kabul ediliyor mu?",
       a: "Evet. Tedavi takvimi, transfer ve konaklama sağlık turizmi paketinde koordine edilebilir.",
     },
   ];
@@ -212,14 +218,14 @@ function buildGeo(topic) {
     lang: "tr",
     slug: topic.slug,
     bucket: topic.bucket,
-    question: topic.q,
-    title: topic.q.replace(/\?$/, ""),
+    question: q,
+    title,
     direct_answer: direct,
     bullets,
     faq,
     internal_links,
     publishedAt: new Date().toISOString().slice(0, 10),
-    source: "daily-geo",
+    source: "weekly-geo",
   };
 }
 
