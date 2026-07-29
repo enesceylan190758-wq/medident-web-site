@@ -1,9 +1,18 @@
 import { site } from "../data/site.mjs";
 import { i18n } from "../data/i18n.mjs";
-import { services, doctors, serviceFallback } from "../data/content.mjs";
+import { services, doctors, serviceFallback, serviceImages } from "../data/content.mjs";
+import { kvkkHtml, privacyHtml } from "../data/legal.mjs";
 import { img } from "../data/images.mjs";
 import { serviceFaqs } from "../data/seo.mjs";
+import { L, langBCP47, uiBits } from "../data/locale.mjs";
 import { icons } from "./icons.mjs";
+import {
+  formatArticleHtml,
+  articleCover,
+  blogCopy,
+  defaultArticleFaqs,
+  readingMinutes,
+} from "./article-utils.mjs";
 import {
   url,
   waHref,
@@ -18,8 +27,27 @@ import { contactSection } from "./home.mjs";
 const src = (file) => asset(`/assets/img/${file}`);
 const crumbHome = (lang) => ({ name: i18n[lang].breadcrumbHome, href: url(lang, ""), url: site.domain + url(lang, "") });
 
-const faqHeading = { tr: "Sık sorulan sorular", en: "Frequently asked questions", de: "Häufig gestellte Fragen" };
-const keyPointsHeading = { tr: "Öne çıkan noktalar", en: "Key points", de: "Wichtige Punkte" };
+const faqHeading = {
+  tr: "Sık sorulan sorular",
+  en: "Frequently asked questions",
+  de: "Häufig gestellte Fragen",
+  ar: "الأسئلة الشائعة",
+  ru: "Частые вопросы",
+};
+const keyPointsHeading = {
+  tr: "Öne çıkan noktalar",
+  en: "Key points",
+  de: "Wichtige Punkte",
+  ar: "أبرز النقاط",
+  ru: "Ключевые пункты",
+};
+const geoRelatedHeading = {
+  tr: "İmplant hakkında sık sorulanlar (GEO)",
+  en: "Implant Q&A (GEO)",
+  de: "Implantat-Fragen (GEO)",
+  ar: "أسئلة شائعة عن الزراعة (GEO)",
+  ru: "Частые вопросы об имплантах (GEO)",
+};
 
 function pageHero(lang, eyebrow, title, lead, crumbs) {
   return `<section class="page-hero"><div class="container">
@@ -30,19 +58,42 @@ function pageHero(lang, eyebrow, title, lead, crumbs) {
   </div></section>`;
 }
 
-// Services index
-export function servicesIndexPage(lang) {
+// Services index — article bodies from MAKALELER are shown on each service detail page
+export function servicesIndexPage(lang, articles = []) {
   const t = i18n[lang];
   const crumbs = [crumbHome(lang), { name: t.nav.services, href: url(lang, "hizmetler/") }];
-  const card = (s) => `<a href="${url(lang, "hizmetler/" + s.slug + "/")}" class="card" style="display:block;color:inherit;">
-    <div class="icon-box">${icons[s.icon] || icons.smile}</div>
-    <h3>${s.titles[lang]}</h3>
-    <p style="font-size:14.5px;line-height:1.6;color:var(--muted-2);margin:0;">${s.short[lang]}</p>
-    <span class="link-more">${t.detail} ${icons.arrowSm}</span>
+  const byService = {};
+  for (const a of articles) {
+    if (a.lang !== lang || !a.service || byService[a.service]) continue;
+    byService[a.service] = a; // first match = MAKALELER docx (base), not later blog packs
+  }
+  const guideLabel = { tr: "Rehber makale", en: "Treatment guide", de: "Behandlungsleitfaden" }[lang];
+  // Prefer services that have uploaded makale content, then the rest (halitosis excluded upstream)
+  const ordered = [
+    ...services.filter((s) => byService[s.slug]),
+    ...services.filter((s) => !byService[s.slug]),
+  ];
+  const card = (s, i) => {
+    const art = byService[s.slug];
+    const blurb = art?.excerpt || L(s.short, lang);
+    const photo = asset(`/assets/img/${serviceImages[s.slug] || "portrait-a.jpg"}`);
+    const badge = art
+      ? `<span class="svc-tile-badge">${guideLabel}</span>`
+      : "";
+    return `<a href="${url(lang, "hizmetler/" + s.slug + "/")}" class="svc-tile ${i === 0 ? "is-featured" : ""}" data-reveal style="--d:${(i % 6) * 55}ms">
+    <img src="${photo}" alt="${L(s.titles, lang)} — ${site.brand}" loading="lazy">
+    <span class="svc-tile-shade" aria-hidden="true"></span>
+    <span class="svc-tile-body">
+      ${badge}
+      <h3>${L(s.titles, lang)}</h3>
+      <p>${blurb}</p>
+      <span class="svc-tile-cta">${t.detail} ${icons.arrowSm}</span>
+    </span>
   </a>`;
+  };
   const body = `${pageHero(lang, t.servicesEyebrow, t.nav.services, t.servicesLead, crumbs)}
-  <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container">
-    <div class="grid-auto">${services.map(card).join("")}</div>
+  <section class="section section-services" style="padding-top:clamp(36px,4vw,56px);"><div class="container">
+    <div class="svc-mosaic">${ordered.map(card).join("")}</div>
   </div></section>
   ${contactSection(lang)}`;
   return {
@@ -54,24 +105,46 @@ export function servicesIndexPage(lang) {
 }
 
 // Single service (with article body if available)
-export function servicePage(lang, service, article) {
+export function servicePage(lang, service, article, relatedGeo = []) {
   const t = i18n[lang];
-  const title = service.titles[lang];
+  const title = L(service.titles, lang);
   const crumbs = [
     crumbHome(lang),
     { name: t.nav.services, href: url(lang, "hizmetler/") },
     { name: title, href: url(lang, "hizmetler/" + service.slug + "/") },
   ];
-  const bodyHtml = article ? article.html : serviceFallback[lang](title);
+  const rawHtml = article ? article.html : (serviceFallback[lang] || serviceFallback.en)(title);
+  const bodyHtml = article ? formatArticleHtml(rawHtml, article.title) : rawHtml;
   const faqs = (article && article.faq && article.faq.length ? article.faq : null) || serviceFaqs[service.slug]?.[lang] || [];
   const faqBlock =
     faqs.length > 0
       ? `<h2>${faqHeading[lang]}</h2>${faqs.map((f) => `<h3>${f.q}</h3><p>${f.a}</p>`).join("")}`
       : "";
+  const cover = articleCover({ service: service.slug, coverImage: article?.coverImage });
+  const heroMedia = `<div class="svc-detail-cover"><img src="${asset(`/assets/img/${cover}`)}" alt="${title} — ${site.brand}" width="1400" height="780" loading="eager"></div>`;
+  const geoBlock =
+    relatedGeo.length > 0
+      ? `<div class="svc-geo" style="margin-top:48px;">
+          <h2 style="font-size:26px;margin-bottom:18px;">${geoRelatedHeading[lang] || geoRelatedHeading.en}</h2>
+          <div class="blog-grid">${relatedGeo
+            .map(
+              (g) => `<a href="${url(lang, "geo/" + g.slug + "/")}" class="blog-card" style="color:inherit;">
+              <span class="blog-card-body" style="padding:18px 18px 20px;">
+                <span class="blog-card-kicker">GEO</span>
+                <h3 style="font-size:18px;">${g.question || g.title}</h3>
+                <p>${(g.direct_answer || "").slice(0, 120)}…</p>
+                <span class="blog-card-cta">${t.readMore} ${icons.arrowSm}</span>
+              </span>
+            </a>`
+            )
+            .join("")}</div>
+        </div>`
+      : "";
   const related = services.filter((s) => s.slug !== service.slug && s.home).slice(0, 4);
-  const body = `${pageHero(lang, t.servicesEyebrow, title, service.short[lang], crumbs)}
-  <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container">
-    <div style="display:grid;grid-template-columns:1fr;gap:40px;">
+  const body = `${pageHero(lang, t.servicesEyebrow, title, L(service.short, lang), crumbs)}
+  <section class="section" style="padding-top:clamp(28px,4vw,48px);"><div class="container">
+    ${heroMedia}
+    <div style="display:grid;grid-template-columns:1fr;gap:40px;margin-top:28px;">
       <article class="prose">${bodyHtml}
         ${faqBlock}
         <div style="margin-top:32px;display:flex;flex-wrap:wrap;gap:12px;">
@@ -80,11 +153,12 @@ export function servicePage(lang, service, article) {
         </div>
       </article>
     </div>
+    ${geoBlock}
     <div style="margin-top:56px;">
       <h2 style="font-size:26px;margin-bottom:22px;">${t.relatedServices}</h2>
       <div class="grid-auto">${related
         .map(
-          (s) => `<a href="${url(lang, "hizmetler/" + s.slug + "/")}" class="card" style="display:block;color:inherit;"><div class="icon-box">${icons[s.icon] || icons.smile}</div><h3 style="font-size:20px;">${s.titles[lang]}</h3><p style="font-size:14px;color:var(--muted-2);margin:0;">${s.short[lang]}</p></a>`
+          (s) => `<a href="${url(lang, "hizmetler/" + s.slug + "/")}" class="card" style="display:block;color:inherit;"><div class="icon-box">${icons[s.icon] || icons.smile}</div><h3 style="font-size:20px;">${L(s.titles, lang)}</h3><p style="font-size:14px;color:var(--muted-2);margin:0;">${L(s.short, lang)}</p></a>`
         )
         .join("")}</div>
     </div>
@@ -95,21 +169,19 @@ export function servicePage(lang, service, article) {
       "@context": "https://schema.org",
       "@type": "MedicalProcedure",
       name: title,
-      description: service.meta[lang],
+      description: L(service.meta, lang) || L(service.short, lang),
       provider: { "@id": site.domain + "/#organization" },
       url: site.domain + url(lang, "hizmetler/" + service.slug + "/"),
-      inLanguage: lang === "tr" ? "tr-TR" : lang === "de" ? "de-DE" : "en-US",
+      inLanguage: langBCP47[lang] || "en-US",
     },
     breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
   ];
   if (faqs.length) jsonld.push(faqSchema(faqs));
   const pageTitle =
-    lang === "en"
-      ? `${title} in Istanbul — ${site.brand}`
-      : lang === "de"
-        ? `${title} in Istanbul — ${site.brand}`
-        : `${title} — ${site.brand}`;
-  return { body, title: pageTitle, description: service.meta[lang], jsonld };
+    lang === "tr" || lang === "ar" || lang === "ru"
+      ? `${title} — ${site.brand}`
+      : `${title} in Istanbul — ${site.brand}`;
+  return { body, title: pageTitle, description: L(service.meta, lang) || L(service.short, lang), jsonld };
 }
 
 // Doctors index
@@ -118,11 +190,11 @@ export function doctorsIndexPage(lang) {
   const crumbs = [crumbHome(lang), { name: t.nav.doctors, href: url(lang, "doktorlar/") }];
   const card = (d) => `<a href="${url(lang, "doktorlar/" + d.slug + "/")}" class="doctor-card" style="display:block;color:inherit;">
     <div class="photo"><img src="${asset(`/assets/img/${d.image}`)}" alt="${d.name}"></div>
-    <div class="body"><h3 style="font-size:21px;margin-bottom:4px;">${d.name}</h3><p style="font-size:13.5px;color:var(--gold);font-weight:700;margin:0 0 10px;">${d.titles[lang]}</p><p style="font-size:14px;color:var(--muted-2);margin:0;">${d.bio[lang]}</p></div>
+    <div class="body"><h3 style="font-size:21px;margin-bottom:4px;">${d.name}</h3><p style="font-size:13.5px;color:var(--gold);font-weight:700;margin:0 0 10px;">${L(d.titles, lang)}</p><p style="font-size:14px;color:var(--muted-2);margin:0;">${L(d.bio, lang)}</p></div>
   </a>`;
   const body = `${pageHero(lang, "", t.doctorsTitle, t.doctorsLead, crumbs)}
   <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container">
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px;">${doctors.map(card).join("")}</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:22px;">${doctors.map(card).join("")}</div>
   </div></section>
   ${contactSection(lang)}`;
   return {
@@ -140,12 +212,12 @@ export function doctorPage(lang, doctor) {
     { name: t.nav.doctors, href: url(lang, "doktorlar/") },
     { name: doctor.name, href: url(lang, "doktorlar/" + doctor.slug + "/") },
   ];
-  const body = `${pageHero(lang, "", doctor.name, doctor.titles[lang], crumbs)}
+  const body = `${pageHero(lang, "", doctor.name, L(doctor.titles, lang), crumbs)}
   <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container">
     <div class="grid-2" style="grid-template-columns:.8fr 1.2fr;align-items:start;">
       <div style="border-radius:20px;overflow:hidden;aspect-ratio:4/5;background:var(--sand);box-shadow:var(--shadow);"><img src="${asset(`/assets/img/${doctor.image}`)}" alt="${doctor.name}" style="width:100%;height:100%;object-fit:cover;"></div>
       <div class="prose" style="margin:0;">
-        <p style="font-size:13.5px;color:var(--gold);font-weight:700;text-transform:uppercase;letter-spacing:.1em;">${doctor.titles[lang]}</p>
+        <p style="font-size:13.5px;color:var(--gold);font-weight:700;text-transform:uppercase;letter-spacing:.1em;">${L(doctor.titles, lang)}</p>
         <p>${doctor.bio[lang]}</p>
         <div style="margin-top:24px;display:flex;flex-wrap:wrap;gap:12px;">
           <a href="${url(lang, "iletisim/")}" class="btn btn-primary">${t.bookNow} ${icons.arrow()}</a>
@@ -159,30 +231,51 @@ export function doctorPage(lang, doctor) {
     {
       "@context": "https://schema.org",
       "@type": "Physician",
+      "@id": site.domain + url(lang, "doktorlar/" + doctor.slug + "/") + "#physician",
       name: doctor.name,
-      jobTitle: doctor.titles[lang],
+      jobTitle: L(doctor.titles, lang),
       image: site.domain + asset("/assets/img/") + doctor.image,
+      medicalSpecialty: L(doctor.titles, lang),
       worksFor: { "@id": site.domain + "/#organization" },
       url: site.domain + url(lang, "doktorlar/" + doctor.slug + "/"),
     },
     breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
   ];
-  return { body, title: `${doctor.name} — ${site.brand}`, description: `${doctor.name}, ${doctor.titles[lang]} — ${site.brand}`, jsonld };
+  return { body, title: `${doctor.name} — ${site.brand}`, description: `${doctor.name}, ${L(doctor.titles, lang)} — ${site.brand}`, jsonld };
 }
 
-// Blog index
+// Blog index — visual cards
 export function blogIndexPage(lang, articles) {
   const t = i18n[lang];
+  const b = blogCopy[lang] || blogCopy.en;
   const crumbs = [crumbHome(lang), { name: t.nav.blog, href: url(lang, "blog/") }];
-  const row = (a) => `<a href="${url(lang, "blog/" + a.slug + "/")}" class="article-row" style="color:inherit;">
-    ${a.coverImage ? `<img class="article-thumb" src="${asset(`/assets/img/${a.coverImage}`)}" alt="" width="160" height="106" loading="lazy">` : ""}
-    <div><h3 style="font-size:20px;margin-bottom:6px;">${a.title}</h3><p style="font-size:14.5px;color:var(--muted-2);margin:0;">${a.excerpt}</p></div>
-    <span class="link-more">${t.readMore} ${icons.arrowSm}</span>
-  </a>`;
+  const card = (a) => {
+    const cover = articleCover(a);
+    const href = url(lang, "blog/" + a.slug + "/");
+    return `<a href="${href}" class="blog-card" data-reveal>
+      <span class="blog-card-media"><img src="${asset(`/assets/img/${cover}`)}" alt="${a.title}" loading="lazy" width="640" height="420"></span>
+      <span class="blog-card-body">
+        <span class="blog-card-kicker">${b.eyebrow}</span>
+        <h3>${a.title}</h3>
+        <p>${a.excerpt}</p>
+        <span class="blog-card-cta">${t.readMore} ${icons.arrowSm}</span>
+      </span>
+    </a>`;
+  };
   const body = `${pageHero(lang, "", t.blogTitle, t.blogLead, crumbs)}
-  <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container" style="max-width:920px;">
-    <div class="article-list">${articles.map(row).join("") || `<p>${t.blogLead}</p>`}</div>
-  </div></section>
+  <section class="section section-blog-index" style="padding-top:clamp(36px,4vw,56px);">
+    <div class="container">
+      <div class="blog-grid">${articles.map(card).join("") || `<p>${t.blogLead}</p>`}</div>
+      <div class="blog-index-cta" data-reveal>
+        <h2>${b.endTitle}</h2>
+        <p>${b.endLead}</p>
+        <div class="blog-cta-row">
+          <a href="${url(lang, "iletisim/")}" class="btn btn-primary">${b.indexCta} ${icons.arrow()}</a>
+          <a href="${waHref()}" class="btn btn-ghost" target="_blank" rel="noopener">${icons.wa} WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </section>
   ${contactSection(lang)}`;
   return {
     body,
@@ -194,48 +287,132 @@ export function blogIndexPage(lang, articles) {
 
 export function articlePage(lang, article, relatedServiceSlug) {
   const t = i18n[lang];
+  const b = blogCopy[lang] || blogCopy.en;
   const crumbs = [
     crumbHome(lang),
     { name: t.nav.blog, href: url(lang, "blog/") },
     { name: article.title, href: url(lang, "blog/" + article.slug + "/") },
   ];
-  const svc = services.find((s) => s.slug === relatedServiceSlug);
-  const cover = article.coverImage
-    ? `<figure class="article-cover" style="margin:0 0 28px;"><img src="${asset(`/assets/img/${article.coverImage}`)}" alt="${article.title}" width="1536" height="1024" style="width:100%;height:auto;border-radius:18px;display:block;" loading="eager"></figure>`
-    : "";
-  // Avoid duplicate cover if HTML already embeds one
-  let html = article.html || "";
+  const svc = services.find((s) => s.slug === relatedServiceSlug || s.slug === article.service);
+  const coverFile = articleCover(article);
+  const coverSrc = asset(`/assets/img/${coverFile}`);
+  let html = formatArticleHtml(article.html || "", article.title);
+  // Avoid double-embedding the same cover file inside body
   if (article.coverImage && html.includes(article.coverImage)) {
-    /* keep embedded cover from generator */
-  } else if (cover) {
-    html = cover + html;
+    html = html.replace(new RegExp(`<figure[\\s\\S]*?${article.coverImage.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}[\\s\\S]*?<\\/figure>`, "i"), "");
   }
-  const body = `${pageHero(lang, t.nav.blog, article.title, "", crumbs)}
-  <section class="section" style="padding-top:clamp(30px,4vw,48px);"><div class="container" style="max-width:820px;">
-    <article class="prose">${html}
-      ${svc ? `<p style="margin-top:28px;"><a class="btn btn-ghost" href="${url(lang, "hizmetler/" + svc.slug + "/")}">${svc.titles[lang]} ${icons.arrowSm}</a></p>` : ""}
-      <div style="margin-top:24px;display:flex;flex-wrap:wrap;gap:12px;">
+  const mins = readingMinutes(html);
+  const faqs = article.faq?.length ? article.faq : defaultArticleFaqs(lang, article.title);
+  const faqBlock =
+    faqs.length > 0
+      ? `<div class="blog-faq"><h2>${b.faqTitle}</h2>${faqs
+          .map((f) => `<details class="blog-faq-item"><summary>${f.q}</summary><p>${f.a}</p></details>`)
+          .join("")}</div>`
+      : "";
+
+  const midCta = `<aside class="blog-mid-cta" data-reveal>
+    <div class="blog-mid-cta-inner">
+      <h2>${b.midTitle}</h2>
+      <p>${b.midLead}</p>
+      <div class="blog-cta-row">
+        <a href="${url(lang, "iletisim/")}" class="btn btn-primary">${b.midCta} ${icons.arrow()}</a>
+        <a href="${waHref()}" class="btn btn-ghost" target="_blank" rel="noopener">${icons.wa} ${b.midWa}</a>
+      </div>
+    </div>
+  </aside>`;
+
+  // Insert mid-CTA after ~2nd h2 or middle of content
+  const h2s = [...html.matchAll(/<h2[\s\S]*?<\/h2>/gi)];
+  if (h2s.length >= 2) {
+    const idx = h2s[1].index + h2s[1][0].length;
+    html = html.slice(0, idx) + midCta + html.slice(idx);
+  } else {
+    html = html + midCta;
+  }
+
+  const body = `
+  <section class="blog-hero">
+    <div class="blog-hero-media"><img src="${coverSrc}" alt="${article.title}" width="1600" height="900"></div>
+    <div class="blog-hero-shade"></div>
+    <div class="blog-hero-inner container">
+      ${breadcrumb(lang, crumbs)}
+      <div class="blog-hero-kicker">${b.eyebrow}</div>
+      <h1>${article.title}</h1>
+      <p class="blog-hero-lead">${article.excerpt || ""}</p>
+      <div class="blog-hero-meta">
+        <span>${site.brand}</span>
+        <span class="dot"></span>
+        <span>${b.readMins(mins)}</span>
+        ${article.publishedAt ? `<span class="dot"></span><span>${String(article.publishedAt).slice(0, 10)}</span>` : ""}
+      </div>
+      <div class="blog-cta-row blog-hero-cta">
         <a href="${url(lang, "iletisim/")}" class="btn btn-primary">${t.bookNow} ${icons.arrow()}</a>
         <a href="${waHref()}" class="btn btn-ghost" target="_blank" rel="noopener">${icons.wa} WhatsApp</a>
       </div>
-    </article>
-  </div></section>
+    </div>
+  </section>
+
+  <div class="blog-trust">
+    <div class="container blog-trust-inner">
+      ${b.trust
+        .map((x, i) => `${i ? '<span class="blog-trust-sep" aria-hidden="true"></span>' : ""}<span>${x}</span>`)
+        .join("")}
+    </div>
+  </div>
+
+  <section class="section section-blog-article">
+    <div class="container blog-layout">
+      <article class="prose blog-prose">${html}
+        ${faqBlock}
+      </article>
+      <aside class="blog-aside">
+        <div class="blog-aside-card">
+          <div class="eyebrow">${b.benefitsTitle}</div>
+          <ul class="blog-benefits">${b.benefits.map((x) => `<li>${icons.check({ w: 18 })} <span>${x}</span></li>`).join("")}</ul>
+          <a href="${url(lang, "iletisim/")}" class="btn btn-primary" style="width:100%;justify-content:center;">${b.midCta}</a>
+          <a href="${waHref()}" class="btn btn-ghost" style="width:100%;justify-content:center;margin-top:10px;" target="_blank" rel="noopener">${icons.wa} WhatsApp</a>
+          ${
+            svc
+              ? `<a class="blog-aside-service" href="${url(lang, "hizmetler/" + svc.slug + "/")}">
+                  <span class="blog-aside-service-label">${b.relatedTitle}</span>
+                  <strong>${L(svc.titles, lang)}</strong>
+                  <span>${L(svc.short, lang)}</span>
+                </a>`
+              : ""
+          }
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section-alt blog-end-cta">
+    <div class="container" style="text-align:center;max-width:720px;">
+      <div class="eyebrow center">${b.eyebrow}</div>
+      <h2>${b.endTitle}</h2>
+      <p class="lead">${b.endLead}</p>
+      <div class="blog-cta-row" style="justify-content:center;">
+        <a href="${url(lang, "iletisim/")}" class="btn btn-primary">${t.bookNow} ${icons.arrow()}</a>
+        <a href="${waHref()}" class="btn btn-ghost" target="_blank" rel="noopener">${icons.wa} WhatsApp</a>
+      </div>
+    </div>
+  </section>
   ${contactSection(lang)}`;
-  const ogImage = article.coverImage ? site.domain + asset(`/assets/img/${article.coverImage}`) : undefined;
+
+  const ogImage = site.domain + coverSrc;
   const jsonld = [
     {
       "@context": "https://schema.org",
       "@type": "Article",
       headline: article.title,
       description: article.excerpt,
-      inLanguage: lang === "tr" ? "tr-TR" : lang === "de" ? "de-DE" : "en-US",
+      inLanguage: langBCP47[lang] || "en-US",
       datePublished: article.publishedAt || undefined,
       image: ogImage,
       author: { "@id": site.domain + "/#organization" },
       publisher: { "@id": site.domain + "/#organization" },
       mainEntityOfPage: site.domain + url(lang, "blog/" + article.slug + "/"),
     },
-    ...(article.faq?.length ? [faqSchema(article.faq)] : []),
+    ...(faqs.length ? [faqSchema(faqs)] : []),
     breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
   ];
   return {
@@ -282,17 +459,12 @@ export function aboutPage(lang) {
   };
 }
 
-// Contact page (form + map)
+// Contact page (form + NAP — no map embed until Acıbadem pin is confirmed)
 export function contactPage(lang) {
   const t = i18n[lang];
   const crumbs = [crumbHome(lang), { name: t.nav.contact, href: url(lang, "iletisim/") }];
   const body = `${pageHero(lang, t.contactEyebrow, t.contactTitle, t.contactLead, crumbs)}
-  ${contactSection(lang, { heading: false })}
-  <section class="section" style="padding-top:0;"><div class="container">
-    <div style="border-radius:20px;overflow:hidden;box-shadow:var(--shadow);aspect-ratio:16/7;background:var(--sand);">
-      <iframe src="${site.mapsEmbed}" width="100%" height="100%" style="border:0;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="MediDent İstanbul — ${site.addressShort}"></iframe>
-    </div>
-  </div></section>`;
+  ${contactSection(lang, { heading: false })}`;
   return {
     body,
     title: `${t.nav.contact} — ${site.brand}`,
@@ -309,7 +481,6 @@ export function reviewsPage(lang) {
   const body = `${pageHero(lang, t.reviewsEyebrow, t.reviewsTitle, t.reviewsLead, crumbs)}
   <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container">
     <div class="grid-auto">${t.reviews.map(review).join("")}</div>
-    <div style="text-align:center;margin-top:36px;"><a href="${site.mapsUrl}" class="btn btn-ghost" target="_blank" rel="noopener">Google ${lang === "tr" ? "yorumları" : "reviews"} ${icons.arrowSm}</a></div>
   </div></section>
   ${contactSection(lang)}`;
   return {
@@ -356,19 +527,15 @@ export function faqPage(lang) {
   };
 }
 
-// Simple legal text page
+// Simple legal text page (KVKK + privacy) — see src/data/legal.mjs
 export function legalPage(lang, kind) {
   const t = i18n[lang];
   const title = kind === "kvkk" ? t.kvkk : t.privacy;
   const slug = kind === "kvkk" ? "kvkk/" : "gizlilik/";
   const crumbs = [crumbHome(lang), { name: title, href: url(lang, slug) }];
-  const copy = {
-    tr: `<p>${site.brand} olarak kişisel verilerinizin gizliliğine önem veriyoruz. İletişim formu veya WhatsApp üzerinden paylaştığınız ad, telefon, e-posta ve mesaj bilgileri yalnızca size dönüş yapmak ve tedavi süreciyle ilgili bilgilendirme amacıyla kullanılır; üçüncü taraflarla pazarlama amacıyla paylaşılmaz.</p><p>6698 sayılı KVKK kapsamındaki haklarınız çerçevesinde verilerinizin silinmesini talep edebilirsiniz. Talepleriniz için <a href="mailto:${site.email}">${site.email}</a> adresinden bize ulaşabilirsiniz.</p>`,
-    en: `<p>At ${site.brand} we value the privacy of your personal data. The name, phone, email and message you share via the contact form or WhatsApp are used only to respond to you and to provide information about your treatment; they are not shared with third parties for marketing.</p><p>You may request deletion of your data. Contact us at <a href="mailto:${site.email}">${site.email}</a>.</p>`,
-    de: `<p>Bei ${site.brand} legen wir Wert auf den Schutz Ihrer personenbezogenen Daten. Name, Telefon, E-Mail und Nachricht, die Sie über das Kontaktformular oder WhatsApp teilen, werden nur zur Beantwortung und zur Information über Ihre Behandlung verwendet und nicht zu Marketingzwecken an Dritte weitergegeben.</p><p>Sie können die Löschung Ihrer Daten verlangen. Kontakt: <a href="mailto:${site.email}">${site.email}</a>.</p>`,
-  };
+  const copy = kind === "kvkk" ? kvkkHtml(lang) : privacyHtml(lang);
   const body = `${pageHero(lang, "", title, "", crumbs)}
-  <section class="section" style="padding-top:clamp(30px,4vw,48px);"><div class="container"><article class="prose">${copy[lang]}</article></div></section>`;
+  <section class="section" style="padding-top:clamp(30px,4vw,48px);"><div class="container" style="max-width:760px;"><article class="prose legal-doc">${copy}</article></div></section>`;
   return {
     body,
     title: `${title} — ${site.brand}`,
@@ -382,18 +549,13 @@ const miniPlus = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" st
 
 /** GEO index — AI citation packs */
 export function geoIndexPage(lang, packs) {
-  const title = lang === "de" ? "GEO Wissensbank" : lang === "en" ? "GEO knowledge base" : "GEO bilgi bankası";
-  const lead =
-    lang === "de"
-      ? "Kurze, zitierfähige Antworten für KI-Suchmaschinen und Patientenfragen."
-      : lang === "en"
-        ? "Short, citation-ready answers for AI search and patient questions."
-        : "Yapay zekâ arama motorları ve hasta soruları için kısa, alıntılanabilir cevaplar.";
+  const title = L(uiBits.geoTitle, lang);
+  const lead = L(uiBits.geoLead, lang);
   const crumbs = [crumbHome(lang), { name: "GEO", href: url(lang, "geo/") }];
   const row = (p) => `<a href="${url(lang, "geo/" + p.slug + "/")}" class="article-row" style="color:inherit;">
     ${p.coverImage ? `<img class="article-thumb" src="${asset(`/assets/img/${p.coverImage}`)}" alt="" width="160" height="106" loading="lazy">` : ""}
     <div><h3 style="font-size:20px;margin-bottom:6px;">${p.title || p.question}</h3><p style="font-size:14.5px;color:var(--muted-2);margin:0;">${p.direct_answer.slice(0, 140)}…</p></div>
-    <span class="link-more">${lang === "tr" ? "Oku" : "Read"} ${icons.arrowSm}</span>
+    <span class="link-more">${L(uiBits.read, lang)} ${icons.arrowSm}</span>
   </a>`;
   const body = `${pageHero(lang, "GEO", title, lead, crumbs)}
   <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container" style="max-width:920px;">
@@ -446,9 +608,38 @@ export function geoPackPage(lang, pack) {
         name: pack.question || pack.title,
         description: pack.direct_answer,
         image: ogImage,
-        inLanguage: lang === "tr" ? "tr-TR" : lang === "de" ? "de-DE" : "en-US",
+        inLanguage: langBCP47[lang] || "en-US",
         isPartOf: { "@type": "WebSite", name: site.brand, url: site.domain },
       },
+      breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
+    ],
+  };
+}
+
+/** Country-focused SEO/GEO landings (shared slug, localized copy via L). */
+export function countryLandingPage(lang, landing) {
+  const t = i18n[lang];
+  const title = L(landing.titles, lang);
+  const lead = L(landing.leads, lang);
+  const htmlBody = L(landing.html, lang) || L(landing.html, "en");
+  const faqs = landing.faqs?.[lang] || landing.faqs?.en || landing.faqs?.tr || [];
+  const crumbs = [crumbHome(lang), { name: title, href: url(lang, landing.slug + "/") }];
+  const body = `${pageHero(lang, t.servicesEyebrow, title, lead, crumbs)}
+  <section class="section" style="padding-top:clamp(28px,4vw,48px);"><div class="container" style="max-width:820px;">
+    <article class="prose">${htmlBody}
+      ${faqs.length ? `<h2>${faqHeading[lang] || faqHeading.en}</h2>${faqs.map((f) => `<h3>${f.q}</h3><p>${f.a}</p>`).join("")}` : ""}
+      <p><a class="btn btn-primary" href="${url(lang, "iletisim/")}">${t.bookNow} ${icons.arrow()}</a>
+      <a class="btn btn-ghost" href="${waHref()}" target="_blank" rel="noopener">${icons.wa} WhatsApp</a></p>
+    </article>
+  </div></section>
+  ${contactSection(lang)}`;
+  return {
+    body,
+    title: `${title} — ${site.brand}`,
+    description: lead,
+    jsonld: [
+      ...(faqs.length ? [faqSchema(faqs)] : []),
+      orgSchema(lang),
       breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
     ],
   };

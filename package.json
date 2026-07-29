@@ -10,6 +10,8 @@
     "build:preview": "SITE_DOMAIN=https://enesceylan190758-wq.github.io SITE_BASE=/medident-web-site node build.mjs",
     "content:today": "node scripts/content/generate.mjs --blog 10 --geo 10",
     "content:daily": "node scripts/content/generate.mjs --blog 2 --geo 2",
+    "content:weekly": "node scripts/content/generate.mjs --blog 3 --geo 1",
+    "audit:meta": "node scripts/audit-meta.mjs",
     "content:ende": "node scripts/content/write-ende-pack.mjs",
     "content:seo-ende": "node scripts/content/write-seo-ende-expand.mjs",
     "content:topics": "node scripts/content/write-topic-pack.mjs",
@@ -21,6 +23,7 @@
   },
   "devDependencies": {
     "basic-ftp": "^6.0.1",
-    "mammoth": "^1.8.0"
+    "mammoth": "^1.8.0",
+    "sharp": "^0.33.5"
   }
 }

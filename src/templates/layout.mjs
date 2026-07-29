@@ -3,15 +3,22 @@ import { site, langPrefix, htmlLang, ogLocale } from "../data/site.mjs";
 import { i18n } from "../data/i18n.mjs";
 import { services } from "../data/content.mjs";
 import { resolveHreflangPaths, hoursLocalized } from "../data/seo.mjs";
+import { rtlLangs, L } from "../data/locale.mjs";
+import { trustBadges, hasTrustBadges } from "../data/trust.mjs";
 import { icons } from "./icons.mjs";
 
 export const waHref = (text) =>
   `https://wa.me/${site.whatsappRaw}${text ? `?text=${encodeURIComponent(text)}` : ""}`;
 
+// Bump when CSS/JS change so browsers skip stale cached assets.
+const ASSET_VER = "20260729a";
+
 // Prefix absolute site paths with optional preview basePath (GitHub Pages etc.).
 export const asset = (p = "") => {
   const path = String(p).startsWith("/") ? p : `/${p}`;
-  return `${site.basePath || ""}${path}`;
+  const url = `${site.basePath || ""}${path}`;
+  if (/\.(css|js)$/i.test(path)) return `${url}?v=${ASSET_VER}`;
+  return url;
 };
 
 // Build a localized URL from a path (no language prefix baked in).
@@ -55,10 +62,10 @@ function head({ lang, title, description, path, image, jsonld = [], ogType = "we
     ? `<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','${site.tracking.metaPixel}');fbq('track','PageView');</script><noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=${site.tracking.metaPixel}&ev=PageView&noscript=1"/></noscript>`
     : "";
   return `<!DOCTYPE html>
-<html lang="${htmlLang[lang]}">
+<html lang="${htmlLang[lang]}"${rtlLangs.has(lang) ? ' dir="rtl"' : ""}>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>${title}</title>
     <meta name="description" content="${escapeAttr(description)}">
     <link rel="canonical" href="${canonical}">
@@ -145,7 +152,7 @@ function header(lang, path) {
   return `${topbar(lang)}
   <header class="site-header">
     <div class="header-inner">
-      <a href="${url(lang, "")}" class="logo" aria-label="${site.brand}"><img src="${asset("/assets/img/logo.png")}" alt="${site.brand}" width="150" height="44"></a>
+      <a href="${url(lang, "")}" class="logo" aria-label="${site.brand}"><img src="${asset("/assets/img/logo.png")}" alt="${site.brand}" width="190" height="60"></a>
       <nav class="nav">
         ${links.map(([label, href]) => `<a href="${href}">${label}</a>`).join("\n        ")}
       </nav>
@@ -161,7 +168,7 @@ function header(lang, path) {
   <div class="mobile-nav" data-mobile-nav>
     <div class="mobile-panel">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;">
-        <img src="${asset("/assets/img/logo.png")}" alt="${site.brand}" style="height:34px;width:auto;">
+        <img src="${asset("/assets/img/logo.png")}" alt="${site.brand}" style="height:48px;width:auto;">
         <button data-close-nav aria-label="Close" style="width:40px;height:40px;border-radius:10px;border:1px solid rgba(43,35,24,.14);display:flex;align-items:center;justify-content:center;background:#fff;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2B2318" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
       </div>
       ${links.map(([label, href]) => `<a href="${href}">${label}</a>`).join("\n      ")}
@@ -211,7 +218,7 @@ function footer(lang) {
           <a href="${waHref()}" target="_blank" rel="noopener">WhatsApp: ${site.whatsapp}</a>
           <a href="tel:${site.phoneRaw}">${site.phone}</a>
           <a href="mailto:${site.email}">${site.email}</a>
-          <a href="${site.mapsUrl}" target="_blank" rel="noopener">${site.address}</a>
+          <span style="font-size:14px;color:#a89d8b;">${site.address}</span>
           <span style="font-size:14px;color:#a89d8b;">${hoursLocalized[lang] || site.hours}</span>
         </div>
       </div>
@@ -260,9 +267,9 @@ ${bodyHtml}
 
 // Shared JSON-LD builders
 export function orgSchema(lang = "tr") {
-  return {
+  const schema = {
     "@context": "https://schema.org",
-    "@type": "Dentist",
+    "@type": ["Dentist", "MedicalOrganization"],
     "@id": site.domain + "/#organization",
     name: site.brand,
     alternateName: ["MediDent Istanbul", "MediDent İstanbul Dental Clinic"],
@@ -272,7 +279,7 @@ export function orgSchema(lang = "tr") {
     telephone: site.phone,
     email: site.email,
     priceRange: "$$",
-    availableLanguage: ["Turkish", "English", "German"],
+    availableLanguage: ["Turkish", "English", "German", "Arabic", "Russian"],
     address: {
       "@type": "PostalAddress",
       streetAddress: "Acıbadem Cd. 195F",
@@ -282,7 +289,6 @@ export function orgSchema(lang = "tr") {
       addressCountry: "TR",
     },
     geo: { "@type": "GeoCoordinates", latitude: site.geo.lat, longitude: site.geo.lng },
-    hasMap: site.mapsUrl,
     openingHours: site.openingHours,
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
@@ -299,9 +305,19 @@ export function orgSchema(lang = "tr") {
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: site.rating.value,
+      bestRating: "5",
+      worstRating: "1",
       reviewCount: site.rating.count,
     },
   };
+  if (hasTrustBadges()) {
+    schema.hasCredential = trustBadges.map((b) => ({
+      "@type": "EducationalOccupationalCredential",
+      name: b.credential || L(b.alt, lang),
+      credentialCategory: L(b.alt, lang),
+    }));
+  }
+  return schema;
 }
 
 export function breadcrumbSchema(items) {

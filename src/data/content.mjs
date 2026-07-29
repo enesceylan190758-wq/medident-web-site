@@ -193,22 +193,6 @@ export const services = [
     },
   },
   {
-    slug: "halitosis-agiz-kokusu",
-    icon: "breath",
-    home: false,
-    titles: { tr: "Halitosis (Ağız Kokusu)", en: "Halitosis (Bad Breath)", de: "Halitosis (Mundgeruch)" },
-    short: {
-      tr: "Ağız kokusunun nedeninin tespiti ve kalıcı çözüm.",
-      en: "Finding the cause of bad breath and lasting solutions.",
-      de: "Ursachenklärung bei Mundgeruch und dauerhafte Lösungen.",
-    },
-    meta: {
-      tr: "Ağız kokusu (halitosis) tedavisi. MediDent İstanbul.",
-      en: "Halitosis (bad breath) treatment at MediDent Istanbul.",
-      de: "Behandlung von Mundgeruch (Halitosis) bei MediDent Istanbul.",
-    },
-  },
-  {
     slug: "genel-anestezi-ve-sedasyon",
     icon: "sleep",
     home: true,
@@ -242,17 +226,116 @@ export const services = [
   },
 ];
 
-// Extra homepage cards that map onto existing service pages
+// Homepage Hizmetlerimiz mosaic — photo-led tiles mapped to service pages
 export const homeCards = [
-  { service: "estetik-dis-hekimligi", titles: { tr: "Gülüş Tasarımı", en: "Smile Design", de: "Smile Design" }, short: { tr: "Yüz hatlarınıza özel, dijital planlamayla tasarlanan doğal ve dengeli gülüşler.", en: "Natural, balanced smiles designed digitally for your face.", de: "Natürliche, ausgewogene Lächeln – digital auf Ihr Gesicht abgestimmt." }, icon: "smile" },
-  { service: "estetik-dis-hekimligi", titles: { tr: "Porselen Lamina", en: "Porcelain Veneers", de: "Porzellan-Veneers" }, short: { tr: "İnce porselen kaplamalarla minimum aşındırma, maksimum estetik.", en: "Thin porcelain veneers — minimal prep, maximum aesthetics.", de: "Dünne Porzellan-Veneers — minimale Präparation, maximale Ästhetik." }, icon: "veneer" },
-  { service: "estetik-dis-hekimligi", titles: { tr: "Zirkonyum Kaplama", en: "Zirconia Crowns", de: "Zirkonkronen" }, short: { tr: "Dayanıklı, ışık geçirgen ve doğal görünümlü kron çözümleri.", en: "Strong, light-transmitting, natural-looking crowns.", de: "Stabile, lichtdurchlässige, natürlich wirkende Kronen." }, icon: "shield" },
-  { service: "implantoloji-implant-tedavisi", titles: { tr: "Dental İmplant", en: "Dental Implant", de: "Zahnimplantat" }, short: { tr: "Eksik dişleriniz için kalıcı, sağlam ve doğal köke en yakın çözüm.", en: "A lasting solution closest to a natural tooth root.", de: "Dauerhafte Lösung – so nah wie möglich an der natürlichen Wurzel." }, icon: "implant" },
-  { service: "estetik-dis-hekimligi", titles: { tr: "Hollywood Smile", en: "Hollywood Smile", de: "Hollywood Smile" }, short: { tr: "Beyaz, simetrik ve ışıltılı bir gülüş için bütünsel dönüşüm.", en: "A full smile transformation — white, symmetrical, radiant.", de: "Komplette Smile-Transformation — weiß, symmetrisch, strahlend." }, icon: "sparkle" },
-  { service: "dis-beyazlatma", titles: { tr: "Diş Beyazlatma", en: "Teeth Whitening", de: "Zahnaufhellung" }, short: { tr: "Klinik tipi profesyonel beyazlatmayla tonlarca daha parlak bir gülümseme.", en: "Professional whitening for a brighter smile.", de: "Professionelle Aufhellung für ein helleres Lächeln." }, icon: "sparkle" },
-  { service: "oral-implantoloji", titles: { tr: "All-on-4 / All-on-6", en: "All-on-4 / All-on-6", de: "All-on-4 / All-on-6" }, short: { tr: "Tek seansta sabit dişler: tam dişsizliğe kalıcı çözüm.", en: "Fixed teeth in one session: lasting solution for full edentulism.", de: "Feste Zähne in einer Sitzung: dauerhafte Lösung bei Zahnlosigkeit." }, icon: "allon" },
-  { service: "seffaf-plaklar-invisalign", titles: { tr: "Şeffaf Plak Tedavisi", en: "Clear Aligners", de: "Transparente Schienen" }, short: { tr: "Görünmez plaklarla fark edilmeden düzelen diş dizilimi.", en: "Discreet alignment with clear aligners.", de: "Unauffällige Korrektur mit transparenten Schienen." }, icon: "align" },
+  {
+    service: "estetik-dis-hekimligi",
+    featured: true,
+    image: "services/estetik.jpg",
+    titles: { tr: "Estetik Diş Tedavileri", en: "Cosmetic Dentistry", de: "Ästhetische Zahnmedizin" },
+    short: {
+      tr: "Gülüş tasarımı, lamina ve zirkonyum ile doğal, dengeli estetik.",
+      en: "Smile design, veneers and zirconia for a natural, balanced look.",
+      de: "Smile Design, Veneers und Zirkon für ein natürliches, ausgewogenes Lächeln.",
+    },
+    icon: "smile",
+  },
+  {
+    service: "implantoloji-implant-tedavisi",
+    image: "services/implant.jpg",
+    titles: { tr: "İmplant Tedavisi", en: "Dental Implants", de: "Zahnimplantate" },
+    short: {
+      tr: "Kalıcı titanyum implant ve sabit protez.",
+      en: "Lasting titanium implants and fixed restorations.",
+      de: "Dauerhafte Titanimplantate und festsitzender Zahnersatz.",
+    },
+    icon: "implant",
+  },
+  {
+    service: "dis-beyazlatma",
+    image: "services/gulush.jpg",
+    titles: { tr: "Diş Beyazlatma", en: "Teeth Whitening", de: "Zahnaufhellung" },
+    short: {
+      tr: "Klinik tipi profesyonel beyazlatma.",
+      en: "Professional in-clinic whitening.",
+      de: "Professionelle Praxis-Zahnaufhellung.",
+    },
+    icon: "sparkle",
+  },
+  {
+    service: "genel-anestezi-ve-sedasyon",
+    image: "services/sedasyon.jpg",
+    titles: { tr: "Uykuda Diş Tedavisi", en: "Sedation Dentistry", de: "Zahnbehandlung im Schlaf" },
+    short: {
+      tr: "Sedasyon ile konforlu, aynı gün tedaviler.",
+      en: "Comfortable same-day care under sedation.",
+      de: "Komfortable taggleiche Behandlung unter Sedierung.",
+    },
+    icon: "sleep",
+  },
+  {
+    service: "cene-ve-dis-cerrahisi",
+    image: "services/cerrahi.jpg",
+    titles: { tr: "Çene ve Diş Cerrahisi", en: "Dental & Jaw Surgery", de: "Zahn- und Kieferchirurgie" },
+    short: {
+      tr: "Planlı, konforlu cerrahi uygulamalar.",
+      en: "Planned, comfortable surgical care.",
+      de: "Geplante, komfortable chirurgische Versorgung.",
+    },
+    icon: "surgery",
+  },
+  {
+    service: "endodonti-kanal-tedavileri",
+    image: "services/endodonti.jpg",
+    titles: { tr: "Kanal Tedavisi", en: "Root Canal", de: "Wurzelbehandlung" },
+    short: {
+      tr: "Mikroskop destekli modern endodonti.",
+      en: "Microscope-guided modern endodontics.",
+      de: "Mikroskopgestützte moderne Endodontie.",
+    },
+    icon: "root",
+  },
+  {
+    service: "pedodonti-cocuk-dis-hekimligi",
+    image: "services/pedodonti.jpg",
+    titles: { tr: "Çocuk Diş Hekimliği", en: "Pediatric Dentistry", de: "Kinderzahnheilkunde" },
+    short: {
+      tr: "Korkusuz, oyun dolu ilk muayene.",
+      en: "Gentle, playful first visits for kids.",
+      de: "Sanfte, spielerische erste Besuche für Kinder.",
+    },
+    icon: "child",
+  },
+  {
+    service: "konservatif-dis-tedavileri",
+    image: "services/klinik.jpg",
+    titles: { tr: "Klinik & Bakım", en: "Clinic & Hygiene", de: "Klinik & Hygiene" },
+    short: {
+      tr: "Modern klinik, hijyen ve koruyucu bakım.",
+      en: "Modern clinic, hygiene and preventive care.",
+      de: "Moderne Klinik, Hygiene und Prophylaxe.",
+    },
+    icon: "care",
+  },
 ];
+
+/** Cover images for /hizmetler/ index tiles (by service slug). */
+export const serviceImages = {
+  "oral-implantoloji": "services/implant.jpg",
+  "implantoloji-implant-tedavisi": "services/implant.jpg",
+  "estetik-dis-hekimligi": "services/estetik.jpg",
+  "dis-beyazlatma": "services/gulush.jpg",
+  protezler: "services/bonding.jpg",
+  "seffaf-plaklar-invisalign": "services/gulush.jpg",
+  "agiz-dis-ve-cene-cerrahisi": "services/cerrahi.jpg",
+  "cene-ve-dis-cerrahisi": "services/cerrahi.jpg",
+  "cene-eklemi-rahatsizliklari": "services/periodontoloji.jpg",
+  "periodontoloji-diseti-hastaliklari": "services/periodontoloji.jpg",
+  "pedodonti-cocuk-dis-hekimligi": "services/pedodonti.jpg",
+  "konservatif-dis-tedavileri": "services/klinik.jpg",
+  "genel-anestezi-ve-sedasyon": "services/sedasyon.jpg",
+  "endodonti-kanal-tedavileri": "services/endodonti.jpg",
+};
 
 export const doctors = [
   {
@@ -271,18 +354,18 @@ export const doctors = [
     },
   },
   {
-    slug: "dr-alperen-demiral",
-    image: "dr-alperen-demiral.jpg",
-    name: "Dr. Alperen Demiral",
+    slug: "dr-ayse-demir",
+    image: "dr-ayse-demir.jpg",
+    name: "Dr. Ayşe Demir",
     titles: {
-      tr: "Diş Hekimi",
-      en: "Dentist",
-      de: "Zahnarzt",
+      tr: "Estetik Diş Hekimi",
+      en: "Cosmetic Dentist",
+      de: "Ästhetische Zahnärztin",
     },
     bio: {
-      tr: "Estetik ve genel diş hekimliği uygulamalarında MediDent İstanbul hastalarına hizmet vermektedir.",
-      en: "Provides aesthetic and general dentistry care for MediDent Istanbul patients.",
-      de: "Tätig in ästhetischer und allgemeiner Zahnmedizin bei MediDent Istanbul.",
+      tr: "Gülüş tasarımı, lamina ve zirkonyum uygulamalarında MediDent İstanbul hastalarına hizmet verir.",
+      en: "Provides smile design, veneer and zirconia care for MediDent Istanbul patients.",
+      de: "Tätig in Smile Design, Veneers und Zirkon bei MediDent Istanbul.",
     },
   },
   {
@@ -302,7 +385,7 @@ export const doctors = [
   },
   {
     slug: "dr-dt-nilufer-yilmaz-ogutlu",
-    image: "about-portrait.jpg",
+    image: "dr-dt-nilufer-yilmaz-ogutlu.jpg",
     name: "Dr. Dt. Nilüfer Yılmaz Öğütlü",
     titles: {
       tr: "Diş Hekimi",
@@ -310,14 +393,24 @@ export const doctors = [
       de: "Zahnärztin",
     },
     bio: {
-      tr: "MediDent İstanbul hekim kadrosunda hizmet vermektedir.",
-      en: "Provides care within the MediDent Istanbul clinical team.",
-      de: "Tätig im klinischen Team von MediDent Istanbul.",
+      tr: "Genel diş hekimliği ve sedasyon destekli tedavilerde MediDent İstanbul hekim kadrosundadır.",
+      en: "Provides general dentistry and sedation-supported care at MediDent Istanbul.",
+      de: "Tätig in allgemeiner Zahnmedizin und sedierungsunterstützter Behandlung bei MediDent Istanbul.",
     },
   },
 ];
 
+/** Old doctor profile URLs → redirect targets (slug kept for SEO 301s). */
+export const legacyDoctorRedirects = [
+  { from: "dr-mehmet-kaya", to: "dr-faruk-ogutlu" },
+  { from: "dr-alperen-demiral", to: "dr-ayse-demir" },
+  { from: "dt-can-yildiz", to: "dt-levent-emir-guneysu" },
+  { from: "dr-elif-arslan", to: "dr-dt-nilufer-yilmaz-ogutlu" },
+];
+
 export const packages = [
+  // Optional soft pricing — set fromPrice when clinic confirms EUR ranges:
+  // fromPrice: { tr: "€2.990'dan", en: "from €2,990", de: "ab €2.990", ar: "من €2,990", ru: "от €2 990" }
   {
     key: "smile",
     featured: false,
@@ -377,6 +470,8 @@ export const serviceFallback = {
 <p>Ihr Plan wird nach Ihrer Mundsituation, Ihren Erwartungen und Ihrem Allgemeinzustand erstellt. Wir bieten transparente Preise, schriftliche Informationen und bei Bedarf VIP-Hotel-/Transfer-Support.</p>
 <p>Für eine kostenlose Vorab-Einschätzung reichen einige Fotos Ihrer Zähne per WhatsApp oder Kontaktformular.</p>`,
 };
+serviceFallback.ar = serviceFallback.en;
+serviceFallback.ru = serviceFallback.en;
 
 // Legacy blog posts that already rank (keep URLs)
 export const legacyBlog = [
@@ -393,7 +488,7 @@ export const legacyBlog = [
     langs: ["tr"],
     titles: { tr: "Uykuda Diş Tedavisi" },
     excerpts: {
-      tr: "Uykuda diş tedavisi ve sedasyon ile konforlu uygulamalar. MediDent İstanbul.",
+      tr: "Sedasyon ve genel anestezi ile uykuda diş tedavisi: konforlu ve güvenli bir süreç.",
     },
   },
 ];

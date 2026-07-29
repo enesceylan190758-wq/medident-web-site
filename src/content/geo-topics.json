@@ -198,5 +198,25 @@
     "bucket": "problem",
     "slug": "diseti-cekilmesi-nedenleri",
     "q": "Diş eti çekilmesi neden olur?"
+  },
+  {
+    "bucket": "marka",
+    "slug": "ortadogudan-istanbula-dis-tedavisi-geo",
+    "q": "Ortadoğu’dan İstanbul’a diş tedavisi için ne planlanmalı?"
+  },
+  {
+    "bucket": "marka",
+    "slug": "rusyadan-istanbula-dis-tedavisi-geo",
+    "q": "Rusya’dan İstanbul’a diş tedavisi güvenli mi?"
+  },
+  {
+    "bucket": "kategori",
+    "slug": "dis-tedavisi-turkiye-guvenli-mi",
+    "q": "Türkiye’de diş tedavisi güvenli mi?"
+  },
+  {
+    "bucket": "kategori",
+    "slug": "all-on-4-sureci-kac-gun",
+    "q": "All-on-4 tedavisi kaç gün sürer?"
   }
 ]

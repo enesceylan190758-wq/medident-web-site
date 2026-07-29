@@ -198,5 +198,29 @@
     "tag": "Bakim",
     "slug": "zirkonyum-kaplama-sonrasi-bakim",
     "angle": "Zirkonyum kaplama sonrası bakım: fırçalama, arayüz temizliği, kontroller."
+  },
+  {
+    "lang": "tr",
+    "title": "Almanya’dan İstanbul’a diş implantı: fiyat ve süreç rehberi",
+    "slug": "almanyadan-istanbula-dis-implant-rehberi",
+    "service": "oral-implantoloji"
+  },
+  {
+    "lang": "en",
+    "title": "Dental implants in Istanbul for UK patients: timeline and travel",
+    "slug": "dental-implants-istanbul-uk-patients-guide",
+    "service": "oral-implantoloji"
+  },
+  {
+    "lang": "tr",
+    "title": "Ortadoğu’dan İstanbul’a Hollywood Smile yolculuğu",
+    "slug": "ortadogudan-istanbula-hollywood-smile",
+    "service": "estetik-dis-hekimligi"
+  },
+  {
+    "lang": "en",
+    "title": "Is dental treatment in Turkey safe? A practical checklist",
+    "slug": "is-dental-treatment-in-turkey-safe-checklist",
+    "service": "oral-implantoloji"
   }
 ]

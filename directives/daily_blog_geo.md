@@ -45,3 +45,7 @@ GitHub Actions: `.github/workflows/daily-content.yml`
 - Turhost FTP senkronu için repo Secrets: `FTP_HOST`, `FTP_USER`, `FTP_PASSWORD`
   (veya cPanel’e `medident-dist.zip` yükleyin — `npm run package`)
 
+
+
+## Cadence update (2026-07)
+Prefer **weekly** 2–3 blog + 1 GEO (`npm run content:weekly`, `.github/workflows/weekly-content.yml`). Daily schedule reduced to monthly backup.

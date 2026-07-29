@@ -27,7 +27,8 @@
     $$("a", mobile).forEach((a) => a.addEventListener("click", closeMobile));
   }
 
-  // Reveal on scroll
+  // Reveal on scroll (fail-safe: never leave content invisible)
+  const revealAll = () => $$("[data-reveal]").forEach((el) => el.classList.add("is-in"));
   if ("IntersectionObserver" in window) {
     const io = new IntersectionObserver(
       (ents) => {
@@ -38,51 +39,101 @@
           }
         });
       },
-      { threshold: 0.08, rootMargin: "0px 0px -6% 0px" }
+      { threshold: 0.05, rootMargin: "0px 0px -40px 0px" }
     );
     $$("[data-reveal]").forEach((el) => {
-      if (el.getBoundingClientRect().top > window.innerHeight * 0.84) io.observe(el);
+      if (el.getBoundingClientRect().top > window.innerHeight * 0.92) io.observe(el);
       else el.classList.add("is-in");
     });
+    setTimeout(revealAll, 2200);
   } else {
-    $$("[data-reveal]").forEach((el) => el.classList.add("is-in"));
+    revealAll();
   }
 
-  // Stats counter
+  // Stats counter — HTML already has final values; animation enhances when visible
   const statsRoot = $("[data-stats]");
+  const formatStat = (el, v) => {
+    const to = parseFloat(el.dataset.to);
+    const dec = parseInt(el.dataset.dec || "0", 10);
+    const sep = el.dataset.sep === "1";
+    const suffix = el.dataset.suffix || "";
+    const n = v == null ? to : v;
+    let s = dec > 0 ? Number(n).toFixed(dec) : String(Math.round(n));
+    if (sep) s = s.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return s + suffix;
+  };
   const animateStats = () => {
     $$("[data-to]", statsRoot || document).forEach((el) => {
+      if (el.dataset.animated === "1") return;
+      el.dataset.animated = "1";
       const to = parseFloat(el.dataset.to);
-      const dec = parseInt(el.dataset.dec || "0", 10);
-      const sep = el.dataset.sep === "1";
-      const suffix = el.dataset.suffix || "";
-      const fmt = (v) => {
-        let s = dec > 0 ? v.toFixed(dec) : String(Math.round(v));
-        if (sep) s = s.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-        return s + suffix;
-      };
       const ease = (t) => 1 - Math.pow(1 - t, 3);
       const start = performance.now();
       const tick = (now) => {
         const p = Math.min(1, (now - start) / 1500);
-        el.textContent = fmt(to * ease(p));
+        el.textContent = formatStat(el, to * ease(p));
         if (p < 1) requestAnimationFrame(tick);
-        else el.textContent = fmt(to);
+        else el.textContent = formatStat(el, to);
       };
       requestAnimationFrame(tick);
     });
   };
   if (statsRoot && "IntersectionObserver" in window) {
-    const sio = new IntersectionObserver((ents) => {
-      ents.forEach((e) => {
-        if (e.isIntersecting) {
-          sio.disconnect();
-          animateStats();
-        }
-      });
-    }, { threshold: 0.35 });
+    const sio = new IntersectionObserver(
+      (ents) => {
+        ents.forEach((e) => {
+          if (e.isIntersecting) {
+            sio.disconnect();
+            animateStats();
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
     sio.observe(statsRoot);
+    setTimeout(() => {
+      $$("[data-to]", statsRoot).forEach((el) => {
+        if (el.dataset.animated !== "1") el.textContent = formatStat(el);
+      });
+    }, 2500);
   } else if (statsRoot) animateStats();
+
+  // YouTube facade — load iframe only on click (no autoplay)
+  $$("[data-yt-facade]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const id = btn.getAttribute("data-yt-id");
+      if (!id) return;
+      const wrap = document.createElement("div");
+      wrap.className = "yt-facade is-playing";
+      wrap.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" title="YouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>`;
+      btn.replaceWith(wrap);
+    });
+  });
+
+  // Instagram cards — optional in-page embed; fallback is opening Instagram
+  $$("[data-ig-embed]").forEach((card) => {
+    card.addEventListener("click", (e) => {
+      const embed = card.getAttribute("data-ig-embed");
+      if (!embed) return;
+      e.preventDefault();
+      let lb = $("[data-ig-lightbox]");
+      if (!lb) {
+        lb = document.createElement("div");
+        lb.className = "ig-lightbox";
+        lb.setAttribute("data-ig-lightbox", "");
+        lb.innerHTML = `<button type="button" class="ig-lightbox-close" data-ig-close aria-label="Close">×</button><div class="ig-lightbox-frame"></div>`;
+        document.body.appendChild(lb);
+        lb.addEventListener("click", (ev) => {
+          if (ev.target === lb || ev.target.closest("[data-ig-close]")) lb.classList.remove("is-open");
+        });
+      }
+      const frame = $(".ig-lightbox-frame", lb);
+      if (frame) {
+        frame.innerHTML = `<iframe src="${embed}" title="Instagram" loading="lazy" allowtransparency="true"></iframe>`;
+      }
+      lb.classList.add("is-open");
+    });
+  });
 
   // Before/after slider
   const ba = $("[data-ba]");
