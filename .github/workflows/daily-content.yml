@@ -48,6 +48,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          set -e
           DATE=$(date -u +%Y-%m-%d)
           BRANCH="cursor/monthly-seo-${DATE}-5c2b"
           git config user.name "medident-bot"
@@ -60,9 +61,11 @@ jobs:
           fi
           git commit -m "chore: monthly blog+GEO draft ${DATE}"
           git push -u origin "$BRANCH"
-          gh pr create \
-            --draft \
-            --base main \
-            --head "$BRANCH" \
+          BODY_FILE=$(mktemp)
+          printf '%s\n' \
+            "Aylik yedek iskelet. Tercih edilen akis: Weekly content + Cursor Automation." \
+            "Canliya alma yok — QC sonra merge." \
+            > "$BODY_FILE"
+          gh pr create --draft --base main --head "$BRANCH" \
             --title "Monthly SEO/GEO backup draft — ${DATE}" \
-            --body "Aylık yedek iskelet. Tercih edilen akış: Weekly content + Cursor Automation. Canlıya alma yok — QC sonra merge."
+            --body-file "$BODY_FILE"

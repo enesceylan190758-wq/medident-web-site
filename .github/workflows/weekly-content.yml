@@ -44,10 +44,11 @@ jobs:
       - name: Build smoke (production paths)
         run: SITE_DOMAIN=https://medidentistanbul.com SITE_BASE= node build.mjs
 
-      - name: Open draft PR (do not push to main / do not deploy)
+      - name: Open draft PR (do not deploy)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          set -e
           DATE=$(date -u +%Y-%m-%d)
           BRANCH="cursor/weekly-seo-${DATE}-5c2b"
           git config user.name "medident-bot"
@@ -60,25 +61,22 @@ jobs:
           fi
           git commit -m "chore: weekly blog+GEO draft ${DATE}"
           git push -u origin "$BRANCH"
-          gh pr create \
-            --draft \
-            --base main \
-            --head "$BRANCH" \
+          BODY_FILE=$(mktemp)
+          printf '%s\n' \
+            "## Haftalik icerik taslagi" \
+            "" \
+            "Otomatik iskelet uretim (\`scripts/content/generate.mjs\`)." \
+            "**Canliya alinmadi.** Merge oncesi Director QC:" \
+            "" \
+            "- [ ] docs/medident-seo-geo-ajan-plani.md §7" \
+            "- [ ] Sablon / thin GEO tekrari yok" \
+            "- [ ] Cevap ilk 2 cumlede" \
+            "- [ ] Garanti / kesin sonuc yok" \
+            "" \
+            "Merge sonrasi: \`npm run deploy:domain\`" \
+            "" \
+            "Kurulum: \`directives/weekly_blog_geo.md\` · Cursor: \`directives/cursor-seo-geo-automation.md\`" \
+            > "$BODY_FILE"
+          gh pr create --draft --base main --head "$BRANCH" \
             --title "Weekly SEO/GEO draft — ${DATE}" \
-            --body "$(cat <<'EOF'
-## Haftalık içerik taslağı
-
-Otomatik iskelet üretim (`scripts/content/generate.mjs`).
-**Canlıya alınmadı.** Merge öncesi:
-
-- [ ] Director QC (`docs/medident-seo-geo-ajan-plani.md` §7)
-- [ ] Şablon / thin GEO tekrarı yok
-- [ ] Cevap ilk 2 cümlede
-- [ ] Garanti / kesin sonuç yok
-- [ ] İstenirse Cursor Automation ile metin güçlendirildi
-
-Merge sonrası: `npm run deploy:domain` veya cloud agent deploy.
-
-Kurulum notu: `directives/weekly_blog_geo.md` · Cursor: `directives/cursor-seo-geo-automation.md`
-EOF
-)"
+            --body-file "$BODY_FILE"
