@@ -254,68 +254,9 @@ export const homeCards = [
   { service: "seffaf-plaklar-invisalign", titles: { tr: "Şeffaf Plak Tedavisi", en: "Clear Aligners", de: "Transparente Schienen" }, short: { tr: "Görünmez plaklarla fark edilmeden düzelen diş dizilimi.", en: "Discreet alignment with clear aligners.", de: "Unauffällige Korrektur mit transparenten Schienen." }, icon: "align" },
 ];
 
-export const doctors = [
-  {
-    slug: "dr-faruk-ogutlu",
-    image: "dr-faruk-ogutlu.jpg",
-    name: "Dr. Faruk Öğütlü",
-    titles: {
-      tr: "Ağız, Diş ve Çene Cerrahisi Uzmanı",
-      en: "Oral & Maxillofacial Surgery Specialist",
-      de: "Facharzt für Mund-, Kiefer- und Gesichtschirurgie",
-    },
-    bio: {
-      tr: "MediDent İstanbul hekim kadrosunda ağız, diş ve çene cerrahisi alanında hizmet vermektedir.",
-      en: "Provides oral and maxillofacial surgery care within the MediDent Istanbul team.",
-      de: "Tätig in der Mund-, Kiefer- und Gesichtschirurgie im Team von MediDent Istanbul.",
-    },
-  },
-  {
-    slug: "dr-alperen-demiral",
-    image: "dr-alperen-demiral.jpg",
-    name: "Dr. Alperen Demiral",
-    titles: {
-      tr: "Diş Hekimi",
-      en: "Dentist",
-      de: "Zahnarzt",
-    },
-    bio: {
-      tr: "Estetik ve genel diş hekimliği uygulamalarında MediDent İstanbul hastalarına hizmet vermektedir.",
-      en: "Provides aesthetic and general dentistry care for MediDent Istanbul patients.",
-      de: "Tätig in ästhetischer und allgemeiner Zahnmedizin bei MediDent Istanbul.",
-    },
-  },
-  {
-    slug: "dt-levent-emir-guneysu",
-    image: "dt-levent-emir-guneysu.jpg",
-    name: "Dt. Levent Emir Güneysu",
-    titles: {
-      tr: "Diş Hekimi",
-      en: "Dentist",
-      de: "Zahnarzt",
-    },
-    bio: {
-      tr: "Konservatif tedaviler ve hasta odaklı uygulamalarda MediDent İstanbul ekibindedir.",
-      en: "Part of the MediDent Istanbul team for conservative and patient-centred care.",
-      de: "Im MediDent-Istanbul-Team für konservierende und patientenzentrierte Versorgung.",
-    },
-  },
-  {
-    slug: "dr-dt-nilufer-yilmaz-ogutlu",
-    image: "about-portrait.jpg",
-    name: "Dr. Dt. Nilüfer Yılmaz Öğütlü",
-    titles: {
-      tr: "Diş Hekimi",
-      en: "Dentist",
-      de: "Zahnärztin",
-    },
-    bio: {
-      tr: "MediDent İstanbul hekim kadrosunda hizmet vermektedir.",
-      en: "Provides care within the MediDent Istanbul clinical team.",
-      de: "Tätig im klinischen Team von MediDent Istanbul.",
-    },
-  },
-];
+// Doctors — empty until real physician details are provided.
+// Add entries here, then `npm run build` to generate /doktorlar/ pages.
+export const doctors = [];
 
 export const packages = [
   {

@@ -122,7 +122,16 @@ export function doctorsIndexPage(lang) {
   </a>`;
   const body = `${pageHero(lang, "", t.doctorsTitle, t.doctorsLead, crumbs)}
   <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container">
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px;">${doctors.map(card).join("")}</div>
+    ${doctors.length
+      ? `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px;">${doctors.map(card).join("")}</div>`
+      : `<div class="prose" style="text-align:center;padding:40px 0;"><p style="font-size:17px;color:var(--muted-2);">${
+          lang === "tr" ? "Hekim kadromuz güncellenmektedir. Detaylı bilgi için lütfen iletişime geçin."
+          : lang === "de" ? "Unser Ärzteteam wird aktualisiert. Bitte kontaktieren Sie uns für weitere Informationen."
+          : "Our medical team is being updated. Please contact us for details."
+        }</p><a href="${url(lang, "iletisim/")}" class="btn btn-primary" style="margin-top:16px;">${
+          lang === "tr" ? "İletişim" : lang === "de" ? "Kontakt" : "Contact us"
+        }</a></div>`
+    }
   </div></section>
   ${contactSection(lang)}`;
   return {
