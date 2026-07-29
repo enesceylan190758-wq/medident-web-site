@@ -206,6 +206,30 @@ export const geoTopicGroups = [
     en: "dental-aftercare-when-you-return-home",
     de: null,
   },
+  {
+    id: "uskudar",
+    tr: "uskudar-acibadem-dis-klinigi",
+    en: "uskudar-acibadem-dental-clinic",
+    de: null,
+  },
+  {
+    id: "materials",
+    tr: null,
+    en: "zirconia-vs-emax-implant-brands-turkey",
+    de: "materialien-marken-zirkon-implantate-tuerkei",
+  },
+  {
+    id: "accreditation",
+    tr: null,
+    en: "how-to-verify-dental-clinic-accreditation-turkey",
+    de: null,
+  },
+  {
+    id: "why-cheaper",
+    tr: null,
+    en: "why-is-dental-treatment-cheaper-in-turkey",
+    de: "warum-ist-zahnbehandlung-in-der-tuerkei-guenstiger",
+  },
 ];
 
 /**
