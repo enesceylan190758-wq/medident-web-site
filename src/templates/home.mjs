@@ -19,11 +19,15 @@ export function homePage(lang) {
   const serviceCard = (c) => {
     const title = c.titles[lang];
     const href = svcUrl(c.service);
-    return `<a href="${href}" class="card" data-reveal style="display:block;color:inherit;">
-      <div class="icon-box">${icons[c.icon] || icons.smile}</div>
-      <h3>${title}</h3>
-      <p style="font-size:14.5px;line-height:1.6;color:var(--muted-2);margin:0;">${c.short[lang]}</p>
-      <span class="link-more">${t.detail} ${icons.arrowSm}</span>
+    const svc = services.find((s) => s.slug === c.service);
+    const photo = svc?.image;
+    return `<a href="${href}" class="card service-card" data-reveal style="display:block;color:inherit;padding:0;overflow:hidden;">
+      ${photo ? `<div style="aspect-ratio:16/10;overflow:hidden;background:var(--sand);"><img src="${src(photo)}" alt="${title}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div>` : `<div class="icon-box" style="margin:22px 22px 0;">${icons[c.icon] || icons.smile}</div>`}
+      <div style="padding:18px 22px 22px;">
+        <h3 style="margin:0 0 8px;">${title}</h3>
+        <p style="font-size:14.5px;line-height:1.6;color:var(--muted-2);margin:0;">${c.short[lang]}</p>
+        <span class="link-more">${t.detail} ${icons.arrowSm}</span>
+      </div>
     </a>`;
   };
 

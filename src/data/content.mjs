@@ -3,6 +3,7 @@ export const services = [
   {
     slug: "oral-implantoloji",
     icon: "implant",
+    image: "blog/blog-04-implant.jpg",
     home: true,
     titles: { tr: "Oral İmplantoloji", en: "Oral Implantology", de: "Orale Implantologie" },
     short: {
@@ -19,6 +20,7 @@ export const services = [
   {
     slug: "implantoloji-implant-tedavisi",
     icon: "implant",
+    image: "jun-8-3.jpg",
     home: true,
     titles: { tr: "İmplantoloji (İmplant Tedavisi)", en: "Implantology (Dental Implants)", de: "Implantologie (Zahnimplantate)" },
     short: {
@@ -35,6 +37,7 @@ export const services = [
   {
     slug: "estetik-dis-hekimligi",
     icon: "smile",
+    image: "blog/blog-06-gulush.jpg",
     home: true,
     titles: { tr: "Estetik Diş Hekimliği", en: "Cosmetic Dentistry", de: "Ästhetische Zahnmedizin" },
     short: {
@@ -51,6 +54,7 @@ export const services = [
   {
     slug: "dis-beyazlatma",
     icon: "sparkle",
+    image: "may-4-2.jpg",
     home: true,
     titles: { tr: "Diş Beyazlatma", en: "Teeth Whitening", de: "Zahnaufhellung" },
     short: {
@@ -67,6 +71,7 @@ export const services = [
   {
     slug: "protezler",
     icon: "shield",
+    image: "aug-17-2.jpg",
     home: true,
     titles: { tr: "Protezler", en: "Dentures & Prosthetics", de: "Zahnprothesen" },
     short: {
@@ -83,6 +88,7 @@ export const services = [
   {
     slug: "seffaf-plaklar-invisalign",
     icon: "align",
+    image: "sep-27-3.jpg",
     home: true,
     titles: { tr: "Şeffaf Plaklar / Invisalign", en: "Clear Aligners / Invisalign", de: "Transparente Schienen / Invisalign" },
     short: {
@@ -99,6 +105,7 @@ export const services = [
   {
     slug: "agiz-dis-ve-cene-cerrahisi",
     icon: "surgery",
+    image: "blog/blog-05-cekimi.jpg",
     home: false,
     titles: { tr: "Ağız Diş ve Çene Cerrahisi", en: "Oral & Maxillofacial Surgery", de: "Mund-, Kiefer- und Gesichtschirurgie" },
     short: {
@@ -115,6 +122,7 @@ export const services = [
   {
     slug: "cene-ve-dis-cerrahisi",
     icon: "surgery",
+    image: "jul-27-3.jpg",
     home: true,
     titles: { tr: "Çene ve Diş Cerrahisi", en: "Dental & Jaw Surgery", de: "Zahn- und Kieferchirurgie" },
     short: {
@@ -131,6 +139,7 @@ export const services = [
   {
     slug: "cene-eklemi-rahatsizliklari",
     icon: "joint",
+    image: "nov-8-4.jpg",
     home: false,
     titles: { tr: "Çene Eklemi Rahatsızlıkları", en: "TMJ Disorders", de: "Kiefergelenkbeschwerden" },
     short: {
@@ -147,6 +156,7 @@ export const services = [
   {
     slug: "periodontoloji-diseti-hastaliklari",
     icon: "gum",
+    image: "blog/blog-09-periodontoloji.jpg",
     home: false,
     titles: { tr: "Periodontoloji (Dişeti Hastalıkları)", en: "Periodontology (Gum Disease)", de: "Parodontologie (Zahnfleischerkrankungen)" },
     short: {
@@ -163,6 +173,7 @@ export const services = [
   {
     slug: "pedodonti-cocuk-dis-hekimligi",
     icon: "child",
+    image: "blog/blog-07-pedodonti.jpg",
     home: false,
     titles: { tr: "Pedodonti (Çocuk Diş Hekimliği)", en: "Pediatric Dentistry", de: "Kinderzahnheilkunde" },
     short: {
@@ -179,6 +190,7 @@ export const services = [
   {
     slug: "konservatif-dis-tedavileri",
     icon: "care",
+    image: "feb-18-1.jpg",
     home: false,
     titles: { tr: "Konservatif Diş Tedavileri", en: "Conservative Dentistry", de: "Konservierende Zahnheilkunde" },
     short: {
@@ -195,6 +207,7 @@ export const services = [
   {
     slug: "halitosis-agiz-kokusu",
     icon: "breath",
+    image: "blog/blog-10-klinik.jpg",
     home: false,
     titles: { tr: "Halitosis (Ağız Kokusu)", en: "Halitosis (Bad Breath)", de: "Halitosis (Mundgeruch)" },
     short: {
@@ -211,6 +224,7 @@ export const services = [
   {
     slug: "genel-anestezi-ve-sedasyon",
     icon: "sleep",
+    image: "blog/blog-03-sedasyon.jpg",
     home: true,
     titles: { tr: "Genel Anestezi ve Sedasyon", en: "General Anaesthesia & Sedation", de: "Vollnarkose und Sedierung" },
     short: {
@@ -227,6 +241,7 @@ export const services = [
   {
     slug: "endodonti-kanal-tedavileri",
     icon: "root",
+    image: "blog/blog-08-kanal.jpg",
     home: false,
     titles: { tr: "Endodonti (Kanal Tedavileri)", en: "Endodontics (Root Canal)", de: "Endodontie (Wurzelbehandlung)" },
     short: {
