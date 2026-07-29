@@ -188,6 +188,24 @@ export const geoTopicGroups = [
     en: "what-are-porcelain-veneers",
     de: "was-sind-porzellan-veneers",
   },
+  {
+    id: "safety",
+    tr: "turkiyede-dis-tedavisi-guvenli-mi",
+    en: "is-dental-treatment-in-turkey-safe",
+    de: "ist-zahnbehandlung-in-der-tuerkei-sicher",
+  },
+  {
+    id: "turkey-teeth",
+    tr: null,
+    en: "turkey-teeth-what-they-are-and-how-to-avoid-problems",
+    de: null,
+  },
+  {
+    id: "aftercare",
+    tr: null,
+    en: "dental-aftercare-when-you-return-home",
+    de: null,
+  },
 ];
 
 /**

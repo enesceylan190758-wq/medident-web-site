@@ -247,6 +247,7 @@ Redirect 301 /uykuda-dis-tedavisi/ ${site.domain}/hizmetler/genel-anestezi-ve-se
 Redirect 301 /dis-hekimi-istanbul/ ${site.domain}/hizmetler/oral-implantoloji/
 Redirect 301 /service/dental-care/ ${site.domain}/hizmetler/
 Redirect 301 /price_tables_categories/ ${site.domain}/hizmetler/
+Redirect 301 /geo/hollywoodlywood-smile-nedir/ ${site.domain}/geo/hollywood-smile-nedir/
 
 # ---- Caching & compression ----
 <IfModule mod_deflate.c>
