@@ -150,8 +150,8 @@ Zorunlu: Yalnızca gerçek web arama/SERP verisine dayan, tahmin üretme.
 
 ### Otomasyon (kurulum)
 
-Haftalık Cursor Automation + GitHub draft-PR akışı: `directives/cursor-seo-geo-automation.md`.
-Otomatik canlı yayın **yok**; Director QC (`§7`) sonrası merge.
+Haftalık Cursor Automation + GitHub Actions: `directives/cursor-seo-geo-automation.md`.
+Director QC (`§7`) geçince **otomatik main + gh-pages** yayını.
 
 ---
 

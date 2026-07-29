@@ -1,6 +1,6 @@
 # MediDent İstanbul — Haftalık Blog + GEO otomasyonu
 
-Araştırma devamı: miktar değil kalite. Günlük spam → **haftalık draft PR**.
+Araştırma devamı: miktar değil kalite. Günlük spam → **haftalık üretim + otomatik yayın**.
 
 ## Blog ≠ GEO
 
@@ -21,14 +21,15 @@ Araştırma devamı: miktar değil kalite. Günlük spam → **haftalık draft P
 ```bash
 npm run content:weekly          # 3 blog + 1 GEO (iskelet üretici)
 node scripts/content/generate.mjs --blog 2 --geo 1
+npm run deploy:domain           # canlı (gh-pages)
 ```
 
-**Not:** `generate.mjs` iskelet üretir. Cursor Automation (tercih edilen yol) orijinal metin yazar.
-İskelet çıktısı da **doğrudan canlıya gitmez** — haftalık workflow draft PR açar.
+**Not:** `generate.mjs` iskelet üretir. Cursor Automation (tercih) orijinal metin yazar.
+Her iki yol da QC sonrası **otomatik canlıya alır** (`gh-pages` → medidentistanbul.com).
 
 ## Kalite kapısı (Director)
 
-Yayından önce (`docs/medident-seo-geo-ajan-plani.md` §7):
+Yayından önce self-QC (`docs/medident-seo-geo-ajan-plani.md` §7):
 
 1. Mevcut `/geo/` ile şablon tekrarı yok  
 2. Cevap ilk 2 cümlede  
@@ -36,20 +37,22 @@ Yayından önce (`docs/medident-seo-geo-ajan-plani.md` §7):
 4. FAQ + FAQPage şeması  
 5. İç linkler sağlıklı  
 
+QC fail → yayınlama; düzelt veya haftayı atla.
+
 ## GitHub Actions
 
 | Workflow | Cron | Ne yapar |
 |----------|------|----------|
-| `weekly-content.yml` | Pazartesi 06:00 UTC | içerik üret → **draft PR** (deploy yok) |
-| `daily-content.yml` | Ayın 1’i 06:00 UTC | yedek / elle tetik |
+| `weekly-content.yml` | Pazartesi 06:00 UTC | üret → main commit → **gh-pages deploy** |
+| `daily-content.yml` | Ayın 1’i 06:00 UTC | yedek aynı akış |
 
 Elle: Actions → Weekly content → Run workflow.
 
-Cursor Automations kurulum: `directives/cursor-seo-geo-automation.md`.
+Cursor Automations: `directives/cursor-seo-geo-automation.md`.
 
 ## Başarı kriteri
 
-- Draft PR açıldı; merge sonrası deploy ayrı adım
-- Public 200 + sitemap’te URL
+- main’de içerik commit’i
+- Canlı 200 + sitemap’te URL
 - Answer-first / unique GEO
-- `llms.txt` güncel (build sonrası)
+- `llms.txt` güncel

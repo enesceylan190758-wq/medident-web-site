@@ -43,16 +43,16 @@ Hızlı yol: `npm run package` → `medident-dist.zip` → cPanel File Manager�
 ```bash
 npm run package          # zip oluştur
 npm run deploy:domain    # gh-pages (DNS GitHub’a dönünce)
-npm run content:weekly   # 3 blog + 1 GEO iskelet (draft PR ile)
+npm run content:weekly   # 3 blog + 1 GEO iskelet (+ Actions ile auto-deploy)
 ```
 
 ### SEO/GEO otomasyon (araştırma devamı)
 
 | Yol | Ne | Yayın |
 |-----|-----|--------|
-| **Cursor Automations** (tercih) | Haftalık araştırma + orijinal içerik + QC | Draft PR — merge sonrası deploy |
-| GitHub `weekly-content.yml` | Pazartesi iskelet üretim | Draft PR — **otomatik deploy yok** |
-| `daily-content.yml` | Ayda bir yedek | Draft PR |
+| **Cursor Automations** (tercih) | Haftalık araştırma + orijinal içerik + QC | **Otomatik** main + gh-pages |
+| GitHub `weekly-content.yml` | Pazartesi iskelet üretim | **Otomatik** main + gh-pages |
+| `daily-content.yml` | Ayda bir yedek | **Otomatik** main + gh-pages |
 
 Kurulum: `directives/cursor-seo-geo-automation.md` · `directives/weekly_blog_geo.md`  
 Plan: `docs/medident-seo-geo-ajan-plani.md`

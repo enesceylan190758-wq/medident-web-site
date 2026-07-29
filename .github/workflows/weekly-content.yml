@@ -1,5 +1,5 @@
-# Weekly blog + GEO → draft PR (no auto-deploy)
-# Quality over daily thin-content spam. Director QC before merge.
+# Weekly blog + GEO → commit main → deploy gh-pages
+# Cadence: Mondays (quality over daily spam). Auto-publishes to medidentistanbul.com
 
 name: Weekly content
 
@@ -18,15 +18,16 @@ on:
 
 permissions:
   contents: write
-  pull-requests: write
+  pages: write
 
 jobs:
-  generate-pr:
+  generate-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           ref: main
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: actions/setup-node@v4
         with:
@@ -35,48 +36,33 @@ jobs:
       - name: Install
         run: npm ci
 
-      - name: Generate weekly content skeleton
+      - name: Generate weekly content
         run: |
           BLOG="${{ github.event.inputs.blog || '3' }}"
           GEO="${{ github.event.inputs.geo || '1' }}"
           node scripts/content/generate.mjs --blog "$BLOG" --geo "$GEO"
 
-      - name: Build smoke (production paths)
+      - name: Build production
         run: SITE_DOMAIN=https://medidentistanbul.com SITE_BASE= node build.mjs
 
-      - name: Open draft PR (do not deploy)
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Commit content sources to main
         run: |
           set -e
-          DATE=$(date -u +%Y-%m-%d)
-          BRANCH="cursor/weekly-seo-${DATE}-5c2b"
           git config user.name "medident-bot"
           git config user.email "bot@medidentistanbul.com"
-          git checkout -b "$BRANCH"
           git add src/content || true
           if git diff --staged --quiet; then
-            echo "No new content - skipping PR"
-            exit 0
+            echo "No content source changes"
+          else
+            git commit -m "chore: weekly blog+GEO content $(date -u +%Y-%m-%d)"
+            git push origin HEAD:main
           fi
-          git commit -m "chore: weekly blog+GEO draft ${DATE}"
-          git push -u origin "$BRANCH"
-          BODY_FILE=$(mktemp)
-          printf '%s\n' \
-            "## Haftalik icerik taslagi" \
-            "" \
-            "Otomatik iskelet uretim (\`scripts/content/generate.mjs\`)." \
-            "**Canliya alinmadi.** Merge oncesi Director QC:" \
-            "" \
-            "- [ ] docs/medident-seo-geo-ajan-plani.md section 7" \
-            "- [ ] Sablon / thin GEO tekrari yok" \
-            "- [ ] Cevap ilk 2 cumlede" \
-            "- [ ] Garanti / kesin sonuc yok" \
-            "" \
-            "Merge sonrasi: \`npm run deploy:domain\`" \
-            "" \
-            "Kurulum: \`directives/weekly_blog_geo.md\` · Cursor: \`directives/cursor-seo-geo-automation.md\`" \
-            > "$BODY_FILE"
-          gh pr create --draft --base main --head "$BRANCH" \
-            --title "Weekly SEO/GEO draft - ${DATE}" \
-            --body-file "$BODY_FILE"
+
+      - name: Deploy gh-pages (live)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          CUSTOM_DOMAIN=medidentistanbul.com \
+          SITE_DOMAIN=https://medidentistanbul.com \
+          SITE_BASE= \
+          node scripts/deploy-pages.mjs

@@ -5,8 +5,8 @@ Araştırma planı: `docs/medident-seo-geo-ajan-plani.md` · rakip notları: `do
 
 ## Neden haftalık (günlük değil)?
 
-Günlük şablon üretim thin content üretti (`/geo/` tekrarları). Plan: **kalite > miktar**.
-Otomatik **yayın yok** — çıktı her zaman **PR / draft**; insan veya Director onayı sonrası merge + deploy.
+Günlük şablon üretim thin content üretti (`/geo/` tekrarları). Plan: **kalite > miktar**, ama **otomatik yayın açık**:
+QC geçtikten sonra `main` + `gh-pages` (medidentistanbul.com).
 
 ## Cursor’da kurulum (2 dk)
 
@@ -15,7 +15,7 @@ Otomatik **yayın yok** — çıktı her zaman **PR / draft**; insan veya Direct
 3. **Schedule:** her Pazartesi 09:00 Europe/Istanbul (veya `0 6 * * 1` UTC)
 4. **Model:** güçlü / thinking önerilir (araştırma + yazım)
 5. Prompt alanına aşağıdaki **MASTER PROMPT** bloğunu yapıştır
-6. Tools: repo write, web search, PR create açık olsun
+6. Tools: repo write, web search, PR create, deploy açık olsun
 7. Kaydet → Enable
 
 ---
@@ -60,13 +60,16 @@ Repo: enesceylan190758-wq/medident-web-site. Base: main.
    - Garanti/kesin sonuç veya dil/pazar belirsiz hasta yorumu reklamı
    - Kaynaksız tıbbi abartı
    - Rakip yapı birebir kopya
+   QC FAIL ise yayına ALMA; düzelt veya bu haftayı atla ve gerekçeyi yaz.
 
-5) TESLİMAT
+5) TESLİMAT + OTOMATİK YAYIN (QC PASS ise)
    - Branch: cursor/weekly-seo-YYYY-MM-DD-5c2b
-   - İçeriği packs/generated-blog veya uygun src/content altına yaz
-   - SITE_DOMAIN=https://medidentistanbul.com SITE_BASE= node build.mjs çalıştır (smoke)
-   - Draft PR aç; gövdeye: pazar, slug’lar, QC checklist, deploy ETME
-   - Canlıya alma / gh-pages push YASAK — merge insan onayıyla
+   - İçeriği src/content altına yaz; commit + push
+   - SITE_DOMAIN=https://medidentistanbul.com SITE_BASE= node build.mjs
+   - main’e merge et (veya doğrudan main’e commit)
+   - CUSTOM_DOMAIN=medidentistanbul.com node scripts/deploy-pages.mjs ile gh-pages’e yayınla
+   - PR aç (varsa): gövdeye pazar, slug’lar, QC checklist, canlı URL’ler
+   - Canlıda 200 kontrolü: yeni /blog/ veya /geo/ URL’leri
 
 ## Diller
 - UI: TR / EN / DE / AR / RU mevcut
@@ -74,7 +77,7 @@ Repo: enesceylan190758-wq/medident-web-site. Base: main.
 - Hreflang gruplarını bozma
 
 ## Bitirince
-Kısa özet: pazar, üretilen URL’ler, gap’ler, sonraki hafta önerisi.
+Kısa özet: pazar, üretilen URL’ler (canlı), gap’ler, sonraki hafta önerisi.
 ```
 
 ---
@@ -94,3 +97,8 @@ Kısa özet: pazar, üretilen URL’ler, gap’ler, sonraki hafta önerisi.
 
 Faz 0 thin GEO rewrite, Faz 2 trust, Turkey teeth, semt/malzeme/otorite sayfaları yapıldı.
 Otomasyon **Faz 3+**’e odaklansın: tedavi bazlı yorum paketleri (yasal dikkat), PR/dizin, aylık ölçüm, yeni gap’ler.
+
+## GitHub yedek yayın
+
+`weekly-content.yml` aynı şekilde Pazartesi iskelet üretip **main + gh-pages** yayınlar.
+Cursor Automation orijinal metin için tercih edilir; ikisi de canlıya alır.

@@ -1,5 +1,5 @@
-# Monthly backup content → draft PR (prefer weekly-content.yml)
-# Was daily; reduced to avoid thin-content spam (SEO/GEO research plan).
+# Monthly backup content → commit main → deploy gh-pages
+# Prefer weekly-content.yml; this is a light monthly safety net.
 
 name: Monthly content backup
 
@@ -18,15 +18,16 @@ on:
 
 permissions:
   contents: write
-  pull-requests: write
+  pages: write
 
 jobs:
-  generate-pr:
+  generate-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           ref: main
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: actions/setup-node@v4
         with:
@@ -35,37 +36,33 @@ jobs:
       - name: Install
         run: npm ci
 
-      - name: Generate content skeleton
+      - name: Generate content
         run: |
           BLOG="${{ github.event.inputs.blog || '2' }}"
           GEO="${{ github.event.inputs.geo || '1' }}"
           node scripts/content/generate.mjs --blog "$BLOG" --geo "$GEO"
 
-      - name: Build smoke
+      - name: Build production
         run: SITE_DOMAIN=https://medidentistanbul.com SITE_BASE= node build.mjs
 
-      - name: Open draft PR
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Commit content sources to main
         run: |
           set -e
-          DATE=$(date -u +%Y-%m-%d)
-          BRANCH="cursor/monthly-seo-${DATE}-5c2b"
           git config user.name "medident-bot"
           git config user.email "bot@medidentistanbul.com"
-          git checkout -b "$BRANCH"
           git add src/content || true
           if git diff --staged --quiet; then
-            echo "No new content - skipping PR"
-            exit 0
+            echo "No content source changes"
+          else
+            git commit -m "chore: monthly blog+GEO content $(date -u +%Y-%m-%d)"
+            git push origin HEAD:main
           fi
-          git commit -m "chore: monthly blog+GEO draft ${DATE}"
-          git push -u origin "$BRANCH"
-          BODY_FILE=$(mktemp)
-          printf '%s\n' \
-            "Aylik yedek iskelet. Tercih edilen akis: Weekly content + Cursor Automation." \
-            "Canliya alma yok - QC sonra merge." \
-            > "$BODY_FILE"
-          gh pr create --draft --base main --head "$BRANCH" \
-            --title "Monthly SEO/GEO backup draft - ${DATE}" \
-            --body-file "$BODY_FILE"
+
+      - name: Deploy gh-pages (live)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          CUSTOM_DOMAIN=medidentistanbul.com \
+          SITE_DOMAIN=https://medidentistanbul.com \
+          SITE_BASE= \
+          node scripts/deploy-pages.mjs
