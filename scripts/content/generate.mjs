@@ -14,6 +14,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { buildGeoPackFromTopic } from "./geo-answers.mjs";
+import { reviewGeoPack } from "./director-qc.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const CONTENT = path.join(ROOT, "src/content");
@@ -157,57 +159,19 @@ function buildBlog(topic) {
   };
 }
 
-/** GEO pack: short answer-first, no hard sell. */
+/** GEO pack: topic-specific answers (no generic template). */
 function buildGeo(topic) {
-  const brandMax = topic.bucket === "marka" ? 99 : 1;
-  let brandHits = 0;
-  const mention = () => {
-    if (brandHits >= brandMax) return "klinik";
-    brandHits++;
-    return "MediDent İstanbul";
-  };
+  const fromAnswers = buildGeoPackFromTopic(topic);
+  if (fromAnswers) {
+    const qc = reviewGeoPack(fromAnswers, []);
+    if (!qc.ok) {
+      console.warn(`Director QC warn (geo ${fromAnswers.slug}):`, qc.issues.join("; "));
+    }
+    return fromAnswers;
+  }
 
-  const answers = {
-    kategori: `${topic.q.replace(/\?$/, "")}; diş hekimliğinde tanıya bağlı planlanan bir tedavi/uygulamadır. Endikasyon, görüntüleme ve ağız içi muayene ile belirlenir; kişiye özel malzeme ve süre seçilir.`,
-    problem: `${topic.q.replace(/\?$/, "")} genellikle altta yatan diş, diş eti veya alışkanlık kaynaklıdır. Kalıcı çözüm için nedenin teşhisi şarttır; geçici ev çözümleri yalnızca kısa süreli rahatlama sağlar.`,
-    marka: `${topic.q} ${mention()}, Üsküdar Acıbadem’de hizmet verir. Konsültasyon, dijital planlama ve sağlık turizmi koordinasyonu aynı çatı altında sunulur.`,
-    karsilastirma: `${topic.q.replace(/\?$/, "")} tek bir “en iyi” cevap yoktur; kemik/diş durumu, bütçe, süre ve estetik hedefe göre değişir. Karar muayene ve seçeneklerin şeffaf kıyaslanmasıyla verilir.`,
-  };
-
-  const direct =
-    answers[topic.bucket] ||
-    `${topic.q.replace(/\?$/, "")} konusunda doğru yaklaşım muayene ve dijital değerlendirme sonrası netleşir.`;
-
-  const bullets = [
-    "Önce neden / endikasyon netleştirilir (muayene + görüntüleme).",
-    "Seçenekler avantaj–dezavantaj ve süre ile birlikte anlatılır.",
-    "Tedavi günü steril protokol ve dijital ölçü/üretim kullanılır.",
-    "Sonrasında hijyen ve kontrol randevuları kalıcılığı belirler.",
-  ];
-
-  const faq = [
-    { q: `${topic.q}`, a: direct },
-    {
-      q: "Ne kadar sürer?",
-      a: "İşlem tipine göre aynı gün ile birkaç hafta arasında değişir; net süre planlama sonrası söylenir.",
-    },
-    {
-      q: "Üsküdar’da bu hizmet var mı?",
-      a: `${mention()} Acıbadem’deki klinik implant, estetik, beyazlatma ve cerrahi dahil geniş bir yelpazede hizmet verir.`,
-    },
-    {
-      q: "Yurt dışından hasta kabul ediyor musunuz?",
-      a: "Evet. Tedavi takvimi, transfer ve konaklama sağlık turizmi paketinde koordine edilebilir.",
-    },
-  ];
-
-  const internal_links = [
-    { href: "/hizmetler/", label: "Hizmetler" },
-    { href: "/blog/", label: "Blog" },
-    { href: "/geo/", label: "GEO bilgi bankası" },
-    { href: "/iletisim/", label: "İletişim" },
-  ];
-
+  // Fallback for topics without curated answers — minimal unique stub (not auto-published in pipeline)
+  const direct = `${topic.q.replace(/\?$/, "")} konusunda doğru yaklaşım muayene ve dijital değerlendirme sonrası netleşir; ${topic.slug} için özel içerik hazırlanması gerekiyor.`;
   return {
     lang: "tr",
     slug: topic.slug,
@@ -215,11 +179,22 @@ function buildGeo(topic) {
     question: topic.q,
     title: topic.q.replace(/\?$/, ""),
     direct_answer: direct,
-    bullets,
-    faq,
-    internal_links,
+    bullets: [
+      "Konsültasyon ve görüntüleme ile endikasyon belirlenir.",
+      "Seçenekler süre ve maliyetle birlikte anlatılır.",
+      "Tedavi günü steril protokol uygulanır.",
+      "Kontrol randevuları planlanır.",
+    ],
+    faq: [{ q: topic.q, a: direct }],
+    internal_links: [
+      { href: "/hizmetler/", label: "Hizmetler" },
+      { href: "/blog/", label: "Blog" },
+      { href: "/geo/", label: "GEO bilgi bankası" },
+      { href: "/iletisim/", label: "İletişim" },
+    ],
     publishedAt: new Date().toISOString().slice(0, 10),
-    source: "daily-geo",
+    source: "daily-geo-stub",
+    _needsCuratedAnswer: true,
   };
 }
 
@@ -256,6 +231,10 @@ function main() {
       if (newGeos.length >= geoCount) break;
       if (existingGeoSlugs.has(t.slug)) continue;
       const pack = buildGeo(t);
+      if (pack._needsCuratedAnswer) {
+        console.warn(`SKIP geo ${t.slug}: curated answer missing — add to geo-answers.mjs`);
+        continue;
+      }
       newGeos.push(pack);
       existingGeoSlugs.add(pack.slug);
     }

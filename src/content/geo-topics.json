@@ -6,7 +6,7 @@
   },
   {
     "bucket": "kategori",
-    "slug": "hollywoodlywood-smile-nedir",
+    "slug": "hollywood-smile-nedir",
     "q": "Hollywood Smile nedir?"
   },
   {
@@ -150,8 +150,13 @@
     "q": "MediDent İstanbul’da implant tedavisi nasıl planlanır?"
   },
   {
+    "bucket": "karsilastirma",
+    "slug": "turkiyede-dis-tedavisi-guvenli-mi",
+    "q": "Türkiye'de diş tedavisi güvenli mi?"
+  },
+  {
     "bucket": "marka",
-    "slug": "medident-hollywoodlywood-smile",
+    "slug": "medident-hollywood-smile",
     "q": "MediDent İstanbul Hollywood Smile süreci nasıl ilerler?"
   },
   {
