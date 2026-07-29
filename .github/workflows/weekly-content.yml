@@ -56,7 +56,7 @@ jobs:
           git checkout -b "$BRANCH"
           git add src/content || true
           if git diff --staged --quiet; then
-            echo "No new content — skipping PR"
+            echo "No new content - skipping PR"
             exit 0
           fi
           git commit -m "chore: weekly blog+GEO draft ${DATE}"
@@ -68,7 +68,7 @@ jobs:
             "Otomatik iskelet uretim (\`scripts/content/generate.mjs\`)." \
             "**Canliya alinmadi.** Merge oncesi Director QC:" \
             "" \
-            "- [ ] docs/medident-seo-geo-ajan-plani.md §7" \
+            "- [ ] docs/medident-seo-geo-ajan-plani.md section 7" \
             "- [ ] Sablon / thin GEO tekrari yok" \
             "- [ ] Cevap ilk 2 cumlede" \
             "- [ ] Garanti / kesin sonuc yok" \
@@ -78,5 +78,5 @@ jobs:
             "Kurulum: \`directives/weekly_blog_geo.md\` · Cursor: \`directives/cursor-seo-geo-automation.md\`" \
             > "$BODY_FILE"
           gh pr create --draft --base main --head "$BRANCH" \
-            --title "Weekly SEO/GEO draft — ${DATE}" \
+            --title "Weekly SEO/GEO draft - ${DATE}" \
             --body-file "$BODY_FILE"
