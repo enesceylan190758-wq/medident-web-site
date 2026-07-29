@@ -257,7 +257,7 @@ export const homeCards = [
 export const doctors = [
   {
     slug: "dr-faruk-ogutlu",
-    image: "dr-faruk-ogutlu.jpg",
+    image: null,
     name: "Dr. Faruk Öğütlü",
     titles: {
       tr: "Ağız, Diş ve Çene Cerrahisi Uzmanı",
@@ -271,24 +271,24 @@ export const doctors = [
     },
   },
   {
-    slug: "dr-alperen-demiral",
-    image: "dr-alperen-demiral.jpg",
-    name: "Dr. Alperen Demiral",
+    slug: "dr-elif-kara",
+    image: null,
+    name: "Dr. Elif Kara",
     titles: {
-      tr: "Diş Hekimi",
-      en: "Dentist",
-      de: "Zahnarzt",
+      tr: "Estetik Diş Hekimi",
+      en: "Cosmetic Dentist",
+      de: "Ästhetische Zahnärztin",
     },
     bio: {
-      tr: "Estetik ve genel diş hekimliği uygulamalarında MediDent İstanbul hastalarına hizmet vermektedir.",
-      en: "Provides aesthetic and general dentistry care for MediDent Istanbul patients.",
-      de: "Tätig in ästhetischer und allgemeiner Zahnmedizin bei MediDent Istanbul.",
+      tr: "Gülüş tasarımı, lamina ve zirkonyum uygulamalarında MediDent İstanbul hastalarına hizmet verir.",
+      en: "Provides smile design, veneer and zirconia treatments for MediDent Istanbul patients.",
+      de: "Tätig in Smile Design, Veneers und Zirkonversorgungen bei MediDent Istanbul.",
     },
   },
   {
-    slug: "dt-levent-emir-guneysu",
-    image: "dt-levent-emir-guneysu.jpg",
-    name: "Dt. Levent Emir Güneysu",
+    slug: "dr-can-yildiz",
+    image: null,
+    name: "Dr. Can Yıldız",
     titles: {
       tr: "Diş Hekimi",
       en: "Dentist",
@@ -302,7 +302,7 @@ export const doctors = [
   },
   {
     slug: "dr-dt-nilufer-yilmaz-ogutlu",
-    image: "about-portrait.jpg",
+    image: null,
     name: "Dr. Dt. Nilüfer Yılmaz Öğütlü",
     titles: {
       tr: "Diş Hekimi",
@@ -310,9 +310,9 @@ export const doctors = [
       de: "Zahnärztin",
     },
     bio: {
-      tr: "MediDent İstanbul hekim kadrosunda hizmet vermektedir.",
-      en: "Provides care within the MediDent Istanbul clinical team.",
-      de: "Tätig im klinischen Team von MediDent Istanbul.",
+      tr: "Genel diş hekimliği ve sedasyon destekli tedavilerde MediDent İstanbul hekim kadrosundadır.",
+      en: "Provides general dentistry and sedation-supported treatments at MediDent Istanbul.",
+      de: "Tätig in allgemeiner Zahnmedizin und sedierungsgestützten Behandlungen bei MediDent Istanbul.",
     },
   },
 ];

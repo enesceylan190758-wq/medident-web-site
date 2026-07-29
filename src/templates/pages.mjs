@@ -116,13 +116,26 @@ export function servicePage(lang, service, article) {
 export function doctorsIndexPage(lang) {
   const t = i18n[lang];
   const crumbs = [crumbHome(lang), { name: t.nav.doctors, href: url(lang, "doktorlar/") }];
+  const initials = (name) => name.replace(/^(Dr\.|Dt\.)\s*/gi, "").split(/\s+/).map(w => w[0]).join("").slice(0, 2).toUpperCase();
+  const avatarOrImg = (d) => d.image
+    ? `<img src="${asset(`/assets/img/${d.image}`)}" alt="${d.name}">`
+    : `<div style="width:100%;aspect-ratio:1;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--burgundy));display:flex;align-items:center;justify-content:center;font-family:var(--font-serif);font-size:36px;font-weight:700;color:#fff;">${initials(d.name)}</div>`;
   const card = (d) => `<a href="${url(lang, "doktorlar/" + d.slug + "/")}" class="doctor-card" style="display:block;color:inherit;">
-    <div class="photo"><img src="${asset(`/assets/img/${d.image}`)}" alt="${d.name}"></div>
+    <div class="photo">${avatarOrImg(d)}</div>
     <div class="body"><h3 style="font-size:21px;margin-bottom:4px;">${d.name}</h3><p style="font-size:13.5px;color:var(--gold);font-weight:700;margin:0 0 10px;">${d.titles[lang]}</p><p style="font-size:14px;color:var(--muted-2);margin:0;">${d.bio[lang]}</p></div>
   </a>`;
   const body = `${pageHero(lang, "", t.doctorsTitle, t.doctorsLead, crumbs)}
   <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container">
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px;">${doctors.map(card).join("")}</div>
+    ${doctors.length
+      ? `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px;">${doctors.map(card).join("")}</div>`
+      : `<div class="prose" style="text-align:center;padding:40px 0;"><p style="font-size:17px;color:var(--muted-2);">${
+          lang === "tr" ? "Hekim kadromuz güncellenmektedir. Detaylı bilgi için lütfen iletişime geçin."
+          : lang === "de" ? "Unser Ärzteteam wird aktualisiert. Bitte kontaktieren Sie uns für weitere Informationen."
+          : "Our medical team is being updated. Please contact us for details."
+        }</p><a href="${url(lang, "iletisim/")}" class="btn btn-primary" style="margin-top:16px;">${
+          lang === "tr" ? "İletişim" : lang === "de" ? "Kontakt" : "Contact us"
+        }</a></div>`
+    }
   </div></section>
   ${contactSection(lang)}`;
   return {
@@ -143,7 +156,11 @@ export function doctorPage(lang, doctor) {
   const body = `${pageHero(lang, "", doctor.name, doctor.titles[lang], crumbs)}
   <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container">
     <div class="grid-2" style="grid-template-columns:.8fr 1.2fr;align-items:start;">
-      <div style="border-radius:20px;overflow:hidden;aspect-ratio:4/5;background:var(--sand);box-shadow:var(--shadow);"><img src="${asset(`/assets/img/${doctor.image}`)}" alt="${doctor.name}" style="width:100%;height:100%;object-fit:cover;"></div>
+      <div style="border-radius:20px;overflow:hidden;aspect-ratio:4/5;background:var(--sand);box-shadow:var(--shadow);">${
+        doctor.image
+          ? `<img src="${asset(`/assets/img/${doctor.image}`)}" alt="${doctor.name}" style="width:100%;height:100%;object-fit:cover;">`
+          : `<div style="width:100%;height:100%;background:linear-gradient(135deg,var(--gold),var(--burgundy));display:flex;align-items:center;justify-content:center;font-family:var(--font-serif);font-size:72px;font-weight:700;color:#fff;">${doctor.name.replace(/^(Dr\.|Dt\.)\s*/gi,"").split(/\s+/).map(w=>w[0]).join("").slice(0,2).toUpperCase()}</div>`
+      }</div>
       <div class="prose" style="margin:0;">
         <p style="font-size:13.5px;color:var(--gold);font-weight:700;text-transform:uppercase;letter-spacing:.1em;">${doctor.titles[lang]}</p>
         <p>${doctor.bio[lang]}</p>
