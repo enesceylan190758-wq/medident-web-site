@@ -1,0 +1,57 @@
+[
+  {
+    "lang": "en",
+    "slug": "turkey-teeth-what-they-are-and-how-to-avoid-problems",
+    "bucket": "trust",
+    "question": "What are Turkey teeth and how do you avoid problems?",
+    "title": "What are Turkey teeth and how do you avoid problems",
+    "coverImage": "blog/blog-10-klinik.jpg",
+    "author": "Dr. Alperen Demiral",
+    "direct_answer": "\"Turkey teeth\" is an informal term for low-cost dental crowns or veneers placed abroad — often involving aggressive preparation of healthy teeth that would not require it under conservative clinical standards. The real risk is not the country; it is a specific clinic model that prioritises speed and volume over individual diagnosis.",
+    "bullets": [
+      "The term surfaced on UK social media after patients received full-arch crowns when veneers or bonding would have been sufficient — the core issue is over-treatment, not geography.",
+      "Ethical cosmetic dentistry starts with digital smile design (DSD) and a written treatment plan that distinguishes crowns from veneers and specifies material brands.",
+      "Turkish dentists complete a minimum five-year university programme; the Ministry of Health licenses clinics and issues health-tourism authorisation certificates to qualifying facilities.",
+      "Red flags include: refusing to name the implant or ceramic brand, recommending crowns on teeth that show no clinical need, quoting prices far below market norms, and requiring a deposit before you have a plan.",
+      "A trustworthy clinic will share your dentist's name and qualifications in advance, provide a written plan you can take to your home-country dentist for a second opinion, and schedule post-treatment follow-up."
+    ],
+    "faq": [
+      {
+        "q": "What exactly does \"Turkey teeth\" mean?",
+        "a": "It refers to an overly uniform, very white set of dental crowns placed abroad — usually after healthy enamel was filed down far more than necessary. The phrase is colloquial and does not describe all dental work done in Turkey."
+      },
+      {
+        "q": "Is dental treatment in Turkey actually safe?",
+        "a": "Yes, at the right clinic. Turkey has internationally trained prosthodontists, Ministry of Health oversight, and clinics operating to ISO-level hygiene protocols. Safety depends on your specific clinic and dentist, not on the country."
+      },
+      {
+        "q": "How can I tell a good clinic from a bad one?",
+        "a": "Ask five things before booking: (1) the treating dentist's full name and registration, (2) the exact material and brand to be used, (3) a written plan distinguishing veneers from crowns, (4) whether digital smile design is included, (5) what happens if you need aftercare once home. A clinic that answers all five openly is a strong candidate."
+      },
+      {
+        "q": "Why are prices lower in Turkey than in the UK or Germany?",
+        "a": "Lower clinic rent, staff costs and lab overheads — not lower material quality. Reputable clinics use the same CAD/CAM systems and ceramic brands (e.g. IPS e.max, Vita Suprinity, monolithic zirconia) available in Western Europe."
+      },
+      {
+        "q": "What should I do if something goes wrong after I fly home?",
+        "a": "Before treatment, confirm the clinic's aftercare protocol: remote follow-up schedule, warranty terms in writing, and whether they coordinate with a dentist in your home country. At MediDent Istanbul, patients receive a post-treatment WhatsApp channel and scheduled remote check-ins."
+      },
+      {
+        "q": "Crowns vs veneers — how do I know which I actually need?",
+        "a": "Crowns cover the entire tooth and require more preparation; veneers are thin shells bonded to the front surface with minimal enamel removal. If your teeth are structurally healthy, a conservative dentist will recommend veneers or bonding — not crowns."
+      },
+      {
+        "q": "Does MediDent Istanbul place unnecessary crowns?",
+        "a": "No. Treatment planning begins with 3D imaging and digital smile design. If veneers, bonding or whitening achieve the patient's goal, those options are recommended first. The treating dentist's name and credentials are shared before any appointment."
+      }
+    ],
+    "internal_links": [
+      { "href": "/en/hizmetler/estetik-dis-hekimligi/", "label": "Cosmetic dentistry" },
+      { "href": "/en/geo/what-are-zirconia-crowns/", "label": "Zirconia crowns explained" },
+      { "href": "/en/geo/what-is-dental-bonding/", "label": "Dental bonding explained" },
+      { "href": "/en/iletisim/", "label": "Free consultation" }
+    ],
+    "publishedAt": "2026-07-29",
+    "source": "turkey-teeth-trust-page"
+  }
+]
