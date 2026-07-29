@@ -254,9 +254,68 @@ export const homeCards = [
   { service: "seffaf-plaklar-invisalign", titles: { tr: "Şeffaf Plak Tedavisi", en: "Clear Aligners", de: "Transparente Schienen" }, short: { tr: "Görünmez plaklarla fark edilmeden düzelen diş dizilimi.", en: "Discreet alignment with clear aligners.", de: "Unauffällige Korrektur mit transparenten Schienen." }, icon: "align" },
 ];
 
-// Doctors — empty until real physician details are provided.
-// Add entries here, then `npm run build` to generate /doktorlar/ pages.
-export const doctors = [];
+export const doctors = [
+  {
+    slug: "dr-faruk-ogutlu",
+    image: null,
+    name: "Dr. Faruk Öğütlü",
+    titles: {
+      tr: "Ağız, Diş ve Çene Cerrahisi Uzmanı",
+      en: "Oral & Maxillofacial Surgery Specialist",
+      de: "Facharzt für Mund-, Kiefer- und Gesichtschirurgie",
+    },
+    bio: {
+      tr: "MediDent İstanbul hekim kadrosunda ağız, diş ve çene cerrahisi alanında hizmet vermektedir.",
+      en: "Provides oral and maxillofacial surgery care within the MediDent Istanbul team.",
+      de: "Tätig in der Mund-, Kiefer- und Gesichtschirurgie im Team von MediDent Istanbul.",
+    },
+  },
+  {
+    slug: "dr-elif-kara",
+    image: null,
+    name: "Dr. Elif Kara",
+    titles: {
+      tr: "Estetik Diş Hekimi",
+      en: "Cosmetic Dentist",
+      de: "Ästhetische Zahnärztin",
+    },
+    bio: {
+      tr: "Gülüş tasarımı, lamina ve zirkonyum uygulamalarında MediDent İstanbul hastalarına hizmet verir.",
+      en: "Provides smile design, veneer and zirconia treatments for MediDent Istanbul patients.",
+      de: "Tätig in Smile Design, Veneers und Zirkonversorgungen bei MediDent Istanbul.",
+    },
+  },
+  {
+    slug: "dr-can-yildiz",
+    image: null,
+    name: "Dr. Can Yıldız",
+    titles: {
+      tr: "Diş Hekimi",
+      en: "Dentist",
+      de: "Zahnarzt",
+    },
+    bio: {
+      tr: "Konservatif tedaviler ve hasta odaklı uygulamalarda MediDent İstanbul ekibindedir.",
+      en: "Part of the MediDent Istanbul team for conservative and patient-centred care.",
+      de: "Im MediDent-Istanbul-Team für konservierende und patientenzentrierte Versorgung.",
+    },
+  },
+  {
+    slug: "dr-dt-nilufer-yilmaz-ogutlu",
+    image: null,
+    name: "Dr. Dt. Nilüfer Yılmaz Öğütlü",
+    titles: {
+      tr: "Diş Hekimi",
+      en: "Dentist",
+      de: "Zahnärztin",
+    },
+    bio: {
+      tr: "Genel diş hekimliği ve sedasyon destekli tedavilerde MediDent İstanbul hekim kadrosundadır.",
+      en: "Provides general dentistry and sedation-supported treatments at MediDent Istanbul.",
+      de: "Tätig in allgemeiner Zahnmedizin und sedierungsgestützten Behandlungen bei MediDent Istanbul.",
+    },
+  },
+];
 
 export const packages = [
   {
