@@ -292,17 +292,26 @@ export function contactSection(lang, { heading = true } = {}) {
         </div>
         <div data-reveal>
           <div class="form-card">
-            <form class="form-main" data-lead-form>
+            <form class="form-main" data-lead-form data-form-mode="stella"
+              method="post"
+              action="${site.stella.action}"
+              enctype="multipart/form-data"
+              accept-charset="UTF-8">
+              <input type="hidden" name="accessToken" value="${site.stella.accessToken[lang]}">
+              <input type="hidden" name="tid" value="${site.stella.tid}">
               <h3>${t.formTitle}</h3>
               <p style="font-size:14px;color:var(--muted-2);margin:0 0 24px;">${t.formLead}</p>
-              <div class="form-stack">
+              <div class="form-stack" style="position:relative;">
                 <div class="form-grid">
-                  <label><span class="lbl">${t.formName}</span><input type="text" name="name" required placeholder="${t.formName}"></label>
-                  <label><span class="lbl">${t.formPhone}</span><input type="tel" name="phone" required placeholder="+90 ..."></label>
+                  <label><span class="lbl">${t.formName}</span><input type="text" name="leadName" required placeholder="${t.formName}" autocomplete="name"></label>
+                  <label><span class="lbl">${t.formPhone}</span><input type="tel" name="leadPhone" required placeholder="+90 ..." autocomplete="tel"></label>
                 </div>
-                <label><span class="lbl">${t.formEmail}</span><input type="email" name="email" required placeholder="ornek@eposta.com"></label>
-                <label><span class="lbl">${t.formTreatment}</span><select name="treatment">${treatments.map((x) => `<option>${x}</option>`).join("")}<option>${lang === "tr" ? "Henüz emin değilim" : lang === "de" ? "Noch unsicher" : "Not sure yet"}</option></select></label>
-                <label><span class="lbl">${t.formMessage} <span style="color:#9AA;font-weight:500;">${t.formOptional}</span></span><textarea name="message" rows="3"></textarea></label>
+                <label><span class="lbl">${t.formEmail}</span><input type="email" name="leadMail" required placeholder="ornek@eposta.com" autocomplete="email"></label>
+                <label><span class="lbl">${t.formTreatment}</span><select name="Subject" required>${treatments.map((x) => `<option value="${x}">${x}</option>`).join("")}<option value="${lang === "tr" ? "Henüz emin değilim" : lang === "de" ? "Noch unsicher" : "Not sure yet"}">${lang === "tr" ? "Henüz emin değilim" : lang === "de" ? "Noch unsicher" : "Not sure yet"}</option></select></label>
+                <label><span class="lbl">${t.formMessage} <span style="color:#9AA;font-weight:500;">${t.formOptional}</span></span><textarea name="Message" rows="3"></textarea></label>
+                <div style="position:absolute;left:-9999px;height:0;overflow:hidden;" aria-hidden="true">
+                  <label>Leave blank<input type="text" name="honeypot" tabindex="-1" autocomplete="off"></label>
+                </div>
                 <button type="submit" class="btn btn-primary btn-block" style="padding:16px;">${t.formSubmit}</button>
                 <p style="font-size:11.5px;color:var(--muted-2);text-align:center;margin:2px 0 0;line-height:1.5;">${t.formKvkk}</p>
               </div>

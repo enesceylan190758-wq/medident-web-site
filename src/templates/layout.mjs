@@ -236,9 +236,11 @@ function floating(lang) {
 export function layout(opts, bodyHtml) {
   const { lang, path } = opts;
   const formCfg = {
+    mode: site.stella?.accessToken?.[lang] ? "stella" : site.estesof.endpoint ? "estesof" : "whatsapp",
     endpoint: site.estesof.endpoint,
     method: site.estesof.method,
     whatsapp: site.whatsappRaw,
+    stellaAction: site.stella?.action || "",
   };
   const gtmNo = site.tracking.gtm
     ? `<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=${site.tracking.gtm}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>`

@@ -34,11 +34,21 @@ export const site = {
     gscVerify: "D1pF9pwynq5nBW7V0fFMFIvcgZuTc49glS3A18XsOvw",
     ga4: "", // Yeni GA4 kimliği eklenince buraya yazın (ör. G-XXXXXXX)
   },
-  // Estesof form integration point (plan faz 5).
-  // endpoint doluysa site.js JSON POST atar; boşsa WhatsApp fallback.
-  // Bağlamak için: endpoint'i yaz → npm run build → deploy.
+  // Stella Medi (web form integration) — dil başına accessToken
+  // Panel: https://medidentistanbul.stellamedi.com/integrations/website
+  // TR #568 · EN #569 · DE #567
+  stella: {
+    action: "https://medidentistanbul.stellamedi.com/api/websiteIntegration/newForm",
+    tid: "915",
+    accessToken: {
+      tr: "2db1c617-e038-4ba7-955e-18fabad72f39", // #568
+      en: "17a6af1c-15d0-49ea-bbed-c7019617ab60", // #569
+      de: "1594c63f-ce50-43b7-ac58-6b05827f69fb", // #567
+    },
+  },
+  // Eski Estesof JSON hook (opsiyonel). Stella doluysa form Stella'ya gider.
   estesof: {
-    endpoint: "", // ör. "https://panel.estesof.com/api/leads/xxxx"
+    endpoint: "",
     method: "POST",
   },
   rating: { value: "4.9", count: "1200" },

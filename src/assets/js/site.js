@@ -148,17 +148,31 @@
     document.addEventListener("keydown", (e) => e.key === "Escape" && closeLb());
   }
 
-  // Contact form → Estesof endpoint (if configured) else WhatsApp fallback
+  // Contact form → Stella Medi (multipart POST) | Estesof JSON | WhatsApp fallback
   const form = $("[data-lead-form]");
   if (form) {
     const card = form.closest(".form-card");
     const cfg = window.__MD_FORM__ || {};
+    const mode = form.getAttribute("data-form-mode") || cfg.mode || "whatsapp";
+
     form.addEventListener("submit", async (e) => {
+      // Stella: native multipart POST to stellamedi (required field names)
+      if (mode === "stella" && form.getAttribute("action")) {
+        const msg = form.querySelector('[name="Message"]');
+        if (msg && !String(msg.value || "").trim()) {
+          const subject = form.querySelector('[name="Subject"]');
+          msg.value = subject ? String(subject.value || "") : "Website lead";
+        }
+        // allow default browser submit
+        return;
+      }
+
       e.preventDefault();
       const fd = new FormData(form);
       const data = Object.fromEntries(fd.entries());
       let ok = false;
-      if (cfg.endpoint) {
+
+      if (mode === "estesof" && cfg.endpoint) {
         try {
           const res = await fetch(cfg.endpoint, {
             method: cfg.method || "POST",
@@ -170,14 +184,15 @@
           ok = false;
         }
       }
+
       if (!ok && cfg.whatsapp) {
         const msg = [
           "Merhaba MediDent İstanbul,",
-          `Ad: ${data.name || ""}`,
-          `Telefon: ${data.phone || ""}`,
-          `E-posta: ${data.email || ""}`,
-          `Tedavi: ${data.treatment || ""}`,
-          data.message ? `Mesaj: ${data.message}` : "",
+          `Ad: ${data.leadName || data.name || ""}`,
+          `Telefon: ${data.leadPhone || data.phone || ""}`,
+          `E-posta: ${data.leadMail || data.email || ""}`,
+          `Tedavi: ${data.Subject || data.treatment || ""}`,
+          data.Message || data.message ? `Mesaj: ${data.Message || data.message}` : "",
         ]
           .filter(Boolean)
           .join("\n");
