@@ -339,18 +339,18 @@ export const serviceImages = {
 
 export const doctors = [
   {
-    slug: "dr-mehmet-kaya",
-    image: "dr-mehmet-kaya.jpg",
-    name: "Dr. Mehmet Kaya",
+    slug: "dr-faruk-ogutlu",
+    image: "dr-faruk-ogutlu.jpg",
+    name: "Dr. Faruk Öğütlü",
     titles: {
       tr: "Ağız, Diş ve Çene Cerrahisi Uzmanı",
       en: "Oral & Maxillofacial Surgery Specialist",
       de: "Facharzt für Mund-, Kiefer- und Gesichtschirurgie",
     },
     bio: {
-      tr: "İmplant ve çene cerrahisi odaklı uygulamalarda MediDent İstanbul hekim kadrosundadır.",
-      en: "Focuses on implant and jaw surgery within the MediDent Istanbul team.",
-      de: "Schwerpunkt Implantat- und Kieferchirurgie im Team von MediDent Istanbul.",
+      tr: "MediDent İstanbul hekim kadrosunda ağız, diş ve çene cerrahisi alanında hizmet vermektedir.",
+      en: "Provides oral and maxillofacial surgery care within the MediDent Istanbul team.",
+      de: "Tätig in der Mund-, Kiefer- und Gesichtschirurgie im Team von MediDent Istanbul.",
     },
   },
   {
@@ -369,24 +369,24 @@ export const doctors = [
     },
   },
   {
-    slug: "dt-can-yildiz",
-    image: "dt-can-yildiz.jpg",
-    name: "Dt. Can Yıldız",
+    slug: "dt-levent-emir-guneysu",
+    image: "dt-levent-emir-guneysu.jpg",
+    name: "Dt. Levent Emir Güneysu",
     titles: {
       tr: "Diş Hekimi",
       en: "Dentist",
       de: "Zahnarzt",
     },
     bio: {
-      tr: "Konservatif tedaviler, protez ve hasta odaklı bakımda MediDent İstanbul ekibindedir.",
-      en: "Part of the MediDent Istanbul team for conservative care and prosthetics.",
-      de: "Im MediDent-Istanbul-Team für konservierende Versorgung und Prothetik.",
+      tr: "Konservatif tedaviler ve hasta odaklı uygulamalarda MediDent İstanbul ekibindedir.",
+      en: "Part of the MediDent Istanbul team for conservative and patient-centred care.",
+      de: "Im MediDent-Istanbul-Team für konservierende und patientenzentrierte Versorgung.",
     },
   },
   {
-    slug: "dr-elif-arslan",
-    image: "dr-elif-arslan.jpg",
-    name: "Dr. Elif Arslan",
+    slug: "dr-dt-nilufer-yilmaz-ogutlu",
+    image: "dr-dt-nilufer-yilmaz-ogutlu.jpg",
+    name: "Dr. Dt. Nilüfer Yılmaz Öğütlü",
     titles: {
       tr: "Diş Hekimi",
       en: "Dentist",
@@ -402,10 +402,10 @@ export const doctors = [
 
 /** Old doctor profile URLs → redirect targets (slug kept for SEO 301s). */
 export const legacyDoctorRedirects = [
-  { from: "dr-faruk-ogutlu", to: "dr-mehmet-kaya" },
+  { from: "dr-mehmet-kaya", to: "dr-faruk-ogutlu" },
   { from: "dr-alperen-demiral", to: "dr-ayse-demir" },
-  { from: "dt-levent-emir-guneysu", to: "dt-can-yildiz" },
-  { from: "dr-dt-nilufer-yilmaz-ogutlu", to: "dr-elif-arslan" },
+  { from: "dt-can-yildiz", to: "dt-levent-emir-guneysu" },
+  { from: "dr-elif-arslan", to: "dr-dt-nilufer-yilmaz-ogutlu" },
 ];
 
 export const packages = [
