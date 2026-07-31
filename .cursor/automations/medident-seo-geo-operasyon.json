@@ -1,0 +1,34 @@
+{
+  "name": "MediDent SEO/GEO Operasyon",
+  "description": "Katman B: strateji / GEO / SEO. Katman A (günlük yayın + yönetici maili) VPS/cron'da kalır — SMTP yok, çift mail yok.",
+  "enabled": false,
+  "trigger": {
+    "type": "cron",
+    "expression": "0 10 * * 1-5",
+    "timezone": "Europe/Istanbul",
+    "note": "Hafta içi 10:00 — günlük yayın/mail özetinden sonra"
+  },
+  "repository": {
+    "owner": "enesceylan190758-wq",
+    "name": "medident-web-site",
+    "branch": "main"
+  },
+  "model": "gpt-5.5-high",
+  "model_alternates": ["claude-4.6-sonnet-high-thinking"],
+  "model_avoid": ["grok", "composer"],
+  "tools": {
+    "open_pull_request": true,
+    "memories": true,
+    "send_email": false,
+    "smtp": false
+  },
+  "agent_instructions": "Sen MediDent SEO/GEO cloud ajanısın. Tek kaynak: directives/medident_seo_geo_cursor_automation.md — oku ve aynen uygula.\nGünlük yayın/mail VPS veya mevcut cron'dadır; sen yerine geçme — smoke et, sonra sıradaki strateji fazını bitir.\nTahmin yok. Yönetmelik ihlali yok. Open PR + kısa handoff.",
+  "sop_path": "directives/medident_seo_geo_cursor_automation.md",
+  "related_docs": [
+    "docs/medident-seo-geo-ajan-plani.md",
+    "docs/medident-seo-geo-gap-notes.md",
+    "docs/medident-rakip-anahtar-kelime-arastirmasi.md",
+    ".cursor/rules/medident-content-director.mdc",
+    "directives/weekly_blog_geo.md"
+  ]
+}

@@ -150,8 +150,10 @@ Zorunlu: Yalnızca gerçek web arama/SERP verisine dayan, tahmin üretme.
 
 ### Otomasyon (kurulum)
 
-Haftalık Cursor Automation + GitHub Actions: `directives/cursor-seo-geo-automation.md`.
-Director QC (`§7`) geçince **otomatik main + gh-pages** yayını.
+**Tek cloud SOP:** `directives/medident_seo_geo_cursor_automation.md`  
+Director kuralı: `.cursor/rules/medident-content-director.mdc` · Gap: `docs/medident-seo-geo-gap-notes.md`  
+Kurulum notu: `directives/cursor-seo-geo-automation.md` · Actions iskelet = Katman A (mail/SMTP Cursor’da yok).  
+Cloud Automation **Open PR** açar; merge/deploy insan veya Katman A. Director QC (`§7`) PASS şart.
 
 ---
 

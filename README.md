@@ -48,14 +48,13 @@ npm run content:weekly   # 3 blog + 1 GEO iskelet (+ Actions ile auto-deploy)
 
 ### SEO/GEO otomasyon (araştırma devamı)
 
-| Yol | Ne | Yayın |
-|-----|-----|--------|
-| **Cursor Automations** (tercih) | Haftalık araştırma + orijinal içerik + QC | **Otomatik** main + gh-pages |
-| GitHub `weekly-content.yml` | Pazartesi iskelet üretim | **Otomatik** main + gh-pages |
-| `daily-content.yml` | Ayda bir yedek | **Otomatik** main + gh-pages |
+| Katman | Yol | Ne |
+|--------|-----|-----|
+| **B** | Cursor **MediDent SEO/GEO Operasyon** | Araştırma + Director + orijinal GEO/blog → Open PR |
+| **A** | VPS/cron veya `weekly-content.yml` | İskelet / deploy / yönetici maili (Cursor SMTP değil) |
 
-Kurulum: `directives/cursor-seo-geo-automation.md` · `directives/weekly_blog_geo.md`  
-Plan: `docs/medident-seo-geo-ajan-plani.md`
+SOP: `directives/medident_seo_geo_cursor_automation.md` · Gap: `docs/medident-seo-geo-gap-notes.md`  
+Director: `.cursor/rules/medident-content-director.mdc` · Plan: `docs/medident-seo-geo-ajan-plani.md`
 
 ## Estesof form
 

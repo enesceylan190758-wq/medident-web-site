@@ -1,104 +1,33 @@
-# MediDent — Cursor Automation (haftalık SEO/GEO)
+# MediDent — Cursor Automation kurulum notu (eski giriş)
 
-Bu dosya **Cursor Automations** paneline yapıştırılacak prompt + kurulum adımlarını içerir.
-Araştırma planı: `docs/medident-seo-geo-ajan-plani.md` · rakip notları: `docs/medident-rakip-anahtar-kelime-arastirmasi.md`.
+> **Çalışma SOP’u taşındı:** [`directives/medident_seo_geo_cursor_automation.md`](./medident_seo_geo_cursor_automation.md)  
+> Cloud Agent instructions yalnızca o dosyaya işaret eder. Bu dosya kurulum / tarihçe içindir.
 
-## Neden haftalık (günlük değil)?
+## Mimari
 
-Günlük şablon üretim thin content üretti (`/geo/` tekrarları). Plan: **kalite > miktar**, ama **otomatik yayın açık**:
-QC geçtikten sonra `main` + `gh-pages` (medidentistanbul.com).
+| Katman | İş | Sahip |
+|--------|----|--------|
+| A | Günlük/haftalık iskelet yayın + yönetici maili | VPS/cron veya GitHub Actions — **Cursor SMTP değil** |
+| B | Strateji / GEO / SEO (araştırma → director → içerik → PR) | Cursor Automation: **MediDent SEO/GEO Operasyon** |
 
-## Cursor’da kurulum (2 dk)
+## Editör ayarları
 
-1. [cursor.com/automations](https://cursor.com/automations) → **New automation**
-2. **Repo:** `enesceylan190758-wq/medident-web-site` · branch base: `main`
-3. **Schedule:** her Pazartesi 09:00 Europe/Istanbul (veya `0 6 * * 1` UTC)
-4. **Model:** güçlü / thinking önerilir (araştırma + yazım)
-5. Prompt alanına aşağıdaki **MASTER PROMPT** bloğunu yapıştır
-6. Tools: repo write, web search, PR create, deploy açık olsun
-7. Kaydet → Enable
+- **Ad:** MediDent SEO/GEO Operasyon  
+- **Cron:** `0 10 * * 1-5` (Europe/Istanbul) — yayın mailinden sonra  
+- **Repo:** `enesceylan190758-wq/medident-web-site` @ `main`  
+- **Tools:** Open Pull Request + Memories (mail yok)  
+- **Model:** GPT-5.5 veya Claude Sonnet  
 
----
-
-## MASTER PROMPT (yapıştır)
+### Agent instructions
 
 ```
-Sen MediDent İstanbul (https://medidentistanbul.com) için haftalık SEO/GEO operasyon ajanısın.
-Repo: enesceylan190758-wq/medident-web-site. Base: main.
-
-## Bağlam (mutlaka oku)
-- docs/medident-seo-geo-ajan-plani.md
-- docs/medident-rakip-anahtar-kelime-arastirmasi.md
-- directives/weekly_blog_geo.md
-- src/data/site.mjs (diller: tr, en, de, ar, ru)
-- Mevcut /geo/ ve /blog/ sayfalarını tekrarla
-
-## Bu haftanın görevi (sırayla)
-1) ARAŞTIRMA (web araması zorunlu; tahmin yasak)
-   - Bu hafta tek pazar seç (rotasyon): DE → UK → TR → AR/MENA → RU
-   - 5 gerçek arama öbeği + PAA/forum soruları + ilk 5 rakip (neden sıralıyorlar)
-   - MediDent’te hangi sayfa var / yok (gap listesi)
-
-2) BRIEF (1 sayfa)
-   - Hedef URL slug + dil(ler)
-   - Birincil soru + ilk 2 cümlede cevap taslağı
-   - FAQ 4–6 madde
-   - Yasak ifadeler kontrolü (garanti/kesin sonuç; TR’de hasta yorumu/öncesi-sonrası reklam)
-
-3) İÇERİK (orijinal; kopya/parafras yasak)
-   - Tercihen 1 güçlü GEO veya 1 blog rehberi (max 2 sayfa/hafta)
-   - GEO: answer-first, ≥180 kelime, soruya özgü (şablon cümle YASAK:
-     “diş hekimliğinde tanıya bağlı planlanan bir tedavi/uygulamadır…”)
-   - Blog: H2’li rehber + görünür SSS
-   - FAQPage JSON-LD uyumlu alanlar
-   - İç link: ilgili /hizmetler/, /geo/, /iletisim/
-
-4) DIRECTOR QC (kendine uygula; docs §7)
-   Reddet ve düzelt eğer:
-   - Mevcut /geo/ ile %30+ kalıp benzerliği
-   - Cevap ilk 2 cümlede yok
-   - Garanti/kesin sonuç veya dil/pazar belirsiz hasta yorumu reklamı
-   - Kaynaksız tıbbi abartı
-   - Rakip yapı birebir kopya
-   QC FAIL ise yayına ALMA; düzelt veya bu haftayı atla ve gerekçeyi yaz.
-
-5) TESLİMAT + OTOMATİK YAYIN (QC PASS ise)
-   - Branch: cursor/weekly-seo-YYYY-MM-DD-5c2b
-   - İçeriği src/content altına yaz; commit + push
-   - SITE_DOMAIN=https://medidentistanbul.com SITE_BASE= node build.mjs
-   - main’e merge et (veya doğrudan main’e commit)
-   - CUSTOM_DOMAIN=medidentistanbul.com node scripts/deploy-pages.mjs ile gh-pages’e yayınla
-   - PR aç (varsa): gövdeye pazar, slug’lar, QC checklist, canlı URL’ler
-   - Canlıda 200 kontrolü: yeni /blog/ veya /geo/ URL’leri
-
-## Diller
-- UI: TR / EN / DE / AR / RU mevcut
-- Bu hafta içerik dili = seçilen pazar (AR/RU için EN fallback kabul; mümkünse native)
-- Hreflang gruplarını bozma
-
-## Bitirince
-Kısa özet: pazar, üretilen URL’ler (canlı), gap’ler, sonraki hafta önerisi.
+Sen MediDent SEO/GEO cloud ajanısın. Tek kaynak: directives/medident_seo_geo_cursor_automation.md — oku ve aynen uygula.
+Günlük yayın/mail VPS veya mevcut cron'dadır; sen yerine geçme — smoke et, sonra sıradaki strateji fazını bitir.
+Tahmin yok. Yönetmelik ihlali yok. Open PR + kısa handoff.
 ```
 
----
+Taslak JSON: `.cursor/automations/medident-seo-geo-operasyon.json`
 
-## Rotasyon takvimi (öneri)
+## Eski MASTER PROMPT
 
-| Hafta | Pazar | Odak örnek |
-|------|--------|------------|
-| 1 | UK | Turkey teeth / safety / aftercare |
-| 2 | DE | Implantate Türkei Kosten / Sicherheit |
-| 3 | TR | Üsküdar/Acıbadem yerel + hizmet |
-| 4 | AR/MENA | implant / veneers Dubai–Riyadh aramaları |
-| 5 | RU | импланты Турция / Стамбул |
-| 6 | Ölçüm | GSC + ChatGPT/Perplexity alıntı testi (Faz 5) |
-
-## Tamamlanan plan fazları (otomatik tekrarlama)
-
-Faz 0 thin GEO rewrite, Faz 2 trust, Turkey teeth, semt/malzeme/otorite sayfaları yapıldı.
-Otomasyon **Faz 3+**’e odaklansın: tedavi bazlı yorum paketleri (yasal dikkat), PR/dizin, aylık ölçüm, yeni gap’ler.
-
-## GitHub yedek yayın
-
-`weekly-content.yml` aynı şekilde Pazartesi iskelet üretip **main + gh-pages** yayınlar.
-Cursor Automation orijinal metin için tercih edilir; ikisi de canlıya alır.
+Uzun haftalık prompt kaldırıldı; tekrar etme. Plan + gap + director kuralı SOP içinde bağlandı.

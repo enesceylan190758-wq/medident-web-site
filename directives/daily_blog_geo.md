@@ -3,8 +3,8 @@
 Bu dosya eski günlük Nefalix modelini belgeler. **Güncel akış haftalıktır ve canlıya alır.**
 
 → `directives/weekly_blog_geo.md`  
-→ Cursor Automations: `directives/cursor-seo-geo-automation.md`  
-→ Araştırma planı: `docs/medident-seo-geo-ajan-plani.md`
+→ Cloud SOP: `directives/medident_seo_geo_cursor_automation.md`  
+→ Araştırma planı: `docs/medident-seo-geo-ajan-plani.md` · Gap: `docs/medident-seo-geo-gap-notes.md`
 
 ## Neden değişti?
 

@@ -48,7 +48,7 @@ QC fail → yayınlama; düzelt veya haftayı atla.
 
 Elle: Actions → Weekly content → Run workflow.
 
-Cursor Automations: `directives/cursor-seo-geo-automation.md`.
+Cursor Automations SOP: `directives/medident_seo_geo_cursor_automation.md`.
 
 ## Başarı kriteri
 
