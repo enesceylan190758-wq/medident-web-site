@@ -48,8 +48,6 @@ export const site = {
   youtubeIntroId: "",
   // Instagram reels from @medidentistanbul (covers under assets/img/instagram/).
   instagramFeed: [
-    { url: "https://www.instagram.com/reel/C_LZ1_5I5np/", cover: "instagram/ig-C_LZ1_5I5np.webp" },
-    { url: "https://www.instagram.com/reel/C2R4vE0MPpG/", cover: "instagram/ig-C2R4vE0MPpG.webp" },
     { url: "https://www.instagram.com/reel/DBlb0rUqn_3/", cover: "instagram/ig-DBlb0rUqn_3.webp" },
     { url: "https://www.instagram.com/reel/DFNQ_-AMf2s/", cover: "instagram/ig-DFNQ_-AMf2s.webp" },
     { url: "https://www.instagram.com/reel/DZFMDvPjHGr/", cover: "instagram/ig-DZFMDvPjHGr.webp" },
