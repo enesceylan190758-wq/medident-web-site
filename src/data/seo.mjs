@@ -436,6 +436,7 @@ export function sitemapPriority(lang, pathNoLang) {
   if (p.startsWith("geo/") && p !== "geo") return "0.75";
   if (p === "blog" || p === "geo") return "0.7";
   if (p.startsWith("doktorlar")) return "0.7";
+  if (p.startsWith("p/")) return "0.8";
   return "0.6";
 }
 
