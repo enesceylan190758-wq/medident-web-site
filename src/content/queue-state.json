@@ -1,6 +1,6 @@
 {
-  "blogIndex": 10,
-  "geoIndex": 10,
+  "blogIndex": 17,
+  "geoIndex": 16,
   "usedBlog": [
     "istanbulda-dis-implant-fiyatlari-2026",
     "all-on-4-mi-all-on-6-mi",
@@ -21,7 +21,9 @@
     "cocuk-dis-hekimligi-korkusuz-ilk-muayene",
     "kanal-tedavisi-mikroskop-disi-kurtarmak",
     "periodontoloji-saglikli-dis-eti-temeli",
-    "medident-istanbul-klinigi-ekip-hijyen"
+    "medident-istanbul-klinigi-ekip-hijyen",
+    "tek-seansta-implant-mumkun-mu",
+    "gomulu-yirmi-yas-disi-cekimi"
   ],
   "usedGeo": [
     "dis-implant-nedir",
@@ -43,6 +45,7 @@
     "cocuk-dis-hekimligi-ilk-muayene",
     "kanal-tedavisi-mikroskop-ile",
     "periodontoloji-dis-eti-sagligi",
-    "medident-istanbul-klinik-deneyimi"
+    "medident-istanbul-klinik-deneyimi",
+    "medident-istanbul-nerede"
   ]
 }

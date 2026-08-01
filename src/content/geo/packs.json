@@ -3181,5 +3181,57 @@
     "author": "MediDent Istanbul Clinical Team",
     "publishedAt": "2026-07-29",
     "source": "seo-geo-plan-gaps"
+  },
+  {
+    "lang": "tr",
+    "slug": "medident-istanbul-nerede",
+    "bucket": "marka",
+    "question": "MediDent İstanbul nerede? Üsküdar Acıbadem kliniği.",
+    "title": "MediDent İstanbul nerede? Üsküdar Acıbadem kliniği.",
+    "direct_answer": "MediDent İstanbul nerede? Üsküdar Acıbadem kliniği. MediDent İstanbul, Üsküdar Acıbadem’de hizmet verir. Konsültasyon, dijital planlama ve sağlık turizmi koordinasyonu aynı çatı altında sunulur.",
+    "bullets": [
+      "MediDent İstanbul nerede? Üsküdar Acıbadem kliniği.: ilk adım muayene ve gerekli görüntülemedir.",
+      "Seçenekler süre, avantaj–dezavantaj ve bakım yüküyle birlikte anlatılır.",
+      "Tedavi günü steril protokol ve dijital ölçü/üretim kullanılır.",
+      "Sonrasında hijyen ve kontrol randevuları sonucu korur."
+    ],
+    "faq": [
+      {
+        "q": "MediDent İstanbul nerede? Üsküdar Acıbadem kliniği.?",
+        "a": "MediDent İstanbul nerede? Üsküdar Acıbadem kliniği. MediDent İstanbul, Üsküdar Acıbadem’de hizmet verir. Konsültasyon, dijital planlama ve sağlık turizmi koordinasyonu aynı çatı altında sunulur."
+      },
+      {
+        "q": "MediDent İstanbul nerede? Üsküdar Acıbadem kliniği. ne kadar sürer?",
+        "a": "Süre endikasyona göre aynı günden birkaç haftaya değişir; net takvim planlama sonrası söylenir."
+      },
+      {
+        "q": "Üsküdar / Acıbadem’de bu hizmet var mı?",
+        "a": "MediDent İstanbul Acıbadem’deki klinik implant, estetik, beyazlatma ve cerrahi dahil geniş bir yelpazede hizmet verir."
+      },
+      {
+        "q": "Yurt dışından hasta kabul ediliyor mu?",
+        "a": "Evet. Tedavi takvimi, transfer ve konaklama sağlık turizmi paketinde koordine edilebilir."
+      }
+    ],
+    "internal_links": [
+      {
+        "href": "/hizmetler/",
+        "label": "Hizmetler"
+      },
+      {
+        "href": "/blog/",
+        "label": "Blog"
+      },
+      {
+        "href": "/geo/",
+        "label": "GEO bilgi bankası"
+      },
+      {
+        "href": "/iletisim/",
+        "label": "İletişim"
+      }
+    ],
+    "publishedAt": "2026-08-01",
+    "source": "weekly-geo"
   }
 ]
