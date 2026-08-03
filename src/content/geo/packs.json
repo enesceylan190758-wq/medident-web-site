@@ -3233,5 +3233,57 @@
     ],
     "publishedAt": "2026-08-01",
     "source": "weekly-geo"
+  },
+  {
+    "lang": "tr",
+    "slug": "yirmi-yas-disi-agrisi",
+    "bucket": "problem",
+    "question": "Yirmi yaş dişi ağrısında ne yapılmalı?",
+    "title": "Yirmi yaş dişi ağrısında ne yapılmalı",
+    "direct_answer": "Yirmi yaş dişi ağrısında ne yapılmalı için önce nedeni ayırmak gerekir (diş, diş eti, oklüzyon veya alışkanlık). Kalıcı çözüm teşhise dayanır; geçici ev yöntemleri yalnızca kısa süreli rahatlama sağlar.",
+    "bullets": [
+      "Yirmi yaş dişi ağrısında ne yapılmalı: ilk adım muayene ve gerekli görüntülemedir.",
+      "Seçenekler süre, avantaj–dezavantaj ve bakım yüküyle birlikte anlatılır.",
+      "Tedavi günü steril protokol ve dijital ölçü/üretim kullanılır.",
+      "Sonrasında hijyen ve kontrol randevuları sonucu korur."
+    ],
+    "faq": [
+      {
+        "q": "Yirmi yaş dişi ağrısında ne yapılmalı?",
+        "a": "Yirmi yaş dişi ağrısında ne yapılmalı için önce nedeni ayırmak gerekir (diş, diş eti, oklüzyon veya alışkanlık). Kalıcı çözüm teşhise dayanır; geçici ev yöntemleri yalnızca kısa süreli rahatlama sağlar."
+      },
+      {
+        "q": "Yirmi yaş dişi ağrısında ne yapılmalı ne kadar sürer?",
+        "a": "Süre endikasyona göre aynı günden birkaç haftaya değişir; net takvim planlama sonrası söylenir."
+      },
+      {
+        "q": "Üsküdar / Acıbadem’de bu hizmet var mı?",
+        "a": "klinik Acıbadem’deki klinik implant, estetik, beyazlatma ve cerrahi dahil geniş bir yelpazede hizmet verir."
+      },
+      {
+        "q": "Yurt dışından hasta kabul ediliyor mu?",
+        "a": "Evet. Tedavi takvimi, transfer ve konaklama sağlık turizmi paketinde koordine edilebilir."
+      }
+    ],
+    "internal_links": [
+      {
+        "href": "/hizmetler/",
+        "label": "Hizmetler"
+      },
+      {
+        "href": "/blog/",
+        "label": "Blog"
+      },
+      {
+        "href": "/geo/",
+        "label": "GEO bilgi bankası"
+      },
+      {
+        "href": "/iletisim/",
+        "label": "İletişim"
+      }
+    ],
+    "publishedAt": "2026-08-03",
+    "source": "weekly-geo"
   }
 ]
