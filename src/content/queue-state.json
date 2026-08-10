@@ -1,6 +1,6 @@
 {
-  "blogIndex": 25,
-  "geoIndex": 22,
+  "blogIndex": 33,
+  "geoIndex": 28,
   "usedBlog": [
     "istanbulda-dis-implant-fiyatlari-2026",
     "all-on-4-mi-all-on-6-mi",
@@ -26,7 +26,10 @@
     "gomulu-yirmi-yas-disi-cekimi",
     "almanya-dan-istanbula-dis-tedavisi",
     "implant-sonrasi-agiz-bakimi",
-    "emax-kaplama-avantajlari"
+    "emax-kaplama-avantajlari",
+    "sinus-lifting-implant-oncesi",
+    "implant-destekli-protez-avantajlari",
+    "ortodonti-sonrasi-retainer"
   ],
   "usedGeo": [
     "dis-implant-nedir",
@@ -50,6 +53,7 @@
     "periodontoloji-dis-eti-sagligi",
     "medident-istanbul-klinik-deneyimi",
     "medident-istanbul-nerede",
-    "yirmi-yas-disi-agrisi"
+    "yirmi-yas-disi-agrisi",
+    "genel-anestezi-dis-tedavisi"
   ]
 }

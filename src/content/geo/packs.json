@@ -3285,5 +3285,57 @@
     ],
     "publishedAt": "2026-08-03",
     "source": "weekly-geo"
+  },
+  {
+    "lang": "tr",
+    "slug": "genel-anestezi-dis-tedavisi",
+    "bucket": "kategori",
+    "question": "Genel anestezi ile diş tedavisi nedir?",
+    "title": "Genel anestezi ile diş tedavisi nedir",
+    "direct_answer": "Genel anestezi ile diş tedavisi nedir, diş hekimliğinde kategori kapsamında değerlendirilen bir uygulamadır. Endikasyon; muayene, görüntüleme ve hastanın hedefiyle birlikte belirlenir — tek tip paket yoktur.",
+    "bullets": [
+      "Genel anestezi ile diş tedavisi nedir: ilk adım muayene ve gerekli görüntülemedir.",
+      "Seçenekler süre, avantaj–dezavantaj ve bakım yüküyle birlikte anlatılır.",
+      "Tedavi günü steril protokol ve dijital ölçü/üretim kullanılır.",
+      "Sonrasında hijyen ve kontrol randevuları sonucu korur."
+    ],
+    "faq": [
+      {
+        "q": "Genel anestezi ile diş tedavisi nedir?",
+        "a": "Genel anestezi ile diş tedavisi nedir, diş hekimliğinde kategori kapsamında değerlendirilen bir uygulamadır. Endikasyon; muayene, görüntüleme ve hastanın hedefiyle birlikte belirlenir — tek tip paket yoktur."
+      },
+      {
+        "q": "Genel anestezi ile diş tedavisi nedir ne kadar sürer?",
+        "a": "Süre endikasyona göre aynı günden birkaç haftaya değişir; net takvim planlama sonrası söylenir."
+      },
+      {
+        "q": "Üsküdar / Acıbadem’de bu hizmet var mı?",
+        "a": "klinik Acıbadem’deki klinik implant, estetik, beyazlatma ve cerrahi dahil geniş bir yelpazede hizmet verir."
+      },
+      {
+        "q": "Yurt dışından hasta kabul ediliyor mu?",
+        "a": "Evet. Tedavi takvimi, transfer ve konaklama sağlık turizmi paketinde koordine edilebilir."
+      }
+    ],
+    "internal_links": [
+      {
+        "href": "/hizmetler/",
+        "label": "Hizmetler"
+      },
+      {
+        "href": "/blog/",
+        "label": "Blog"
+      },
+      {
+        "href": "/geo/",
+        "label": "GEO bilgi bankası"
+      },
+      {
+        "href": "/iletisim/",
+        "label": "İletişim"
+      }
+    ],
+    "publishedAt": "2026-08-10",
+    "source": "weekly-geo"
   }
 ]
