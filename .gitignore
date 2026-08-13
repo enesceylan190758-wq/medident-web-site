@@ -11,3 +11,9 @@ dist/
 medident-dist.zip
 scripts/__pycache__/
 .gh-pages-work/
+
+# seo automation artifacts
+decay-report.md
+lint-*.json
+gate.txt
+prelint.txt

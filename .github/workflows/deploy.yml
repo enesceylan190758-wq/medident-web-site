@@ -1,0 +1,63 @@
+# TEK deploy kaynagi. Baska hicbir workflow gh-pages'e yazmaz.
+# Lokal `npm run deploy:domain` ARTIK KULLANILMAZ (cift deploy / race condition).
+#
+# Tetik: main'e push (merge). concurrency ile es zamanli deploy engellenir.
+
+name: Deploy (gh-pages)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "assets/**"
+      - "build.mjs"
+      - "scripts/deploy-pages.mjs"
+      - "package.json"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+# Ayni anda tek deploy. cancel-in-progress:false -> yarim deploy birakma.
+concurrency:
+  group: gh-pages-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install
+        run: npm ci
+
+      # Son savunma hatti: main'e bir sekilde RED icerik girdiyse deploy'u durdur.
+      - name: Yayin oncesi kapi
+        run: node scripts/seo/lint-content.mjs --max-new 999
+
+      - name: Build production
+        run: SITE_DOMAIN=https://medidentistanbul.com SITE_BASE= node build.mjs
+
+      - name: Deploy gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          CUSTOM_DOMAIN=medidentistanbul.com \
+          SITE_DOMAIN=https://medidentistanbul.com \
+          SITE_BASE= \
+          node scripts/deploy-pages.mjs
+
+      - name: IndexNow ping
+        continue-on-error: true
+        env:
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+        run: node scripts/seo/indexnow.mjs || echo "IndexNow atlandi"

@@ -1,12 +1,12 @@
 {
   "name": "MediDent SEO/GEO Operasyon",
-  "description": "Katman B: strateji / GEO / SEO. Katman A (günlük yayın + yönetici maili) VPS/cron'da kalır — SMTP yok, çift mail yok.",
-  "enabled": false,
+  "description": "Katman B: strateji + duzeltme. Katman A (Actions) sablon uretir; B kaliteyi yukseltir. B ASLA deploy etmez, main'e yazmaz. Tek arayuz: PR.",
+  "enabled": true,
   "trigger": {
     "type": "cron",
-    "expression": "0 10 * * 1-5",
+    "expression": "0 10 * * 2",
     "timezone": "Europe/Istanbul",
-    "note": "Hafta içi 10:00 — günlük yayın/mail özetinden sonra"
+    "note": "Sali 10:00 — Actions Pzt 06:00 UTC'de taslak PR'i acmis olur; B onun uzerine calisir. Cakisma yok."
   },
   "repository": {
     "owner": "enesceylan190758-wq",
@@ -22,13 +22,14 @@
     "send_email": false,
     "smtp": false
   },
-  "agent_instructions": "Sen MediDent SEO/GEO cloud ajanısın. Tek kaynak: directives/medident_seo_geo_cursor_automation.md — oku ve aynen uygula.\nGünlük yayın/mail VPS veya mevcut cron'dadır; sen yerine geçme — smoke et, sonra sıradaki strateji fazını bitir.\nTahmin yok. Yönetmelik ihlali yok. Open PR + kısa handoff.",
+  "agent_instructions": "Sen MediDent SEO/GEO ajanisin (Katman B).\n\nSINIRLAR — ihlal etme:\n1. main'e yazma. Sadece branch + PR.\n2. Deploy etme. `npm run deploy:domain` ve `scripts/deploy-pages.mjs` yasak. Tek deploy kaynagi .github/workflows/deploy.yml.\n3. Yeni PR acmadan once acik `content/*` PR var mi bak. Varsa YENI PR ACMA — mevcut PR'in branch'ine commit et. (Cift PR = cift icerik.)\n4. Dil basina 8 yeni sayfadan fazlasini bir PR'a koyma.\n\nHER KOSUDA SIRAYLA:\na) `node scripts/seo/lint-content.mjs --report-only --json lint-all.json` calistir.\nb) Acik content PR varsa: oncelik YENI SAYFA DEGIL, o PR'daki RED bulgularini duzeltmek.\nc) RED kalmadiysa `node scripts/seo/decay-scan.mjs --days 90` ile en yuksek skorlu 3 sayfayi ayni URL'de guncelle (yeni URL acma, updatedAt tazele).\nd) Hala is yoksa: docs/medident-seo-geo-ajan-plani.md icindeki siradaki fazi tek adim ilerlet.\n\nKURALLAR: .cursor/rules/medident-seo-gate.mdc dosyasini oku ve aynen uygula. SOP: directives/medident_seo_geo_cursor_automation.md\n\nreviewer alanini SEN DOLDURMA — hekim onayi insan islemidir, bos birak ve PR aciklamasinda belirt.\n\nTahmin yok. Sablon govde cogaltma yok. Yonetmelik ihlali yok. PR + 5 satirlik handoff notu.",
   "sop_path": "directives/medident_seo_geo_cursor_automation.md",
   "related_docs": [
+    ".cursor/rules/medident-seo-gate.mdc",
+    "docs/OTOMASYON.md",
     "docs/medident-seo-geo-ajan-plani.md",
     "docs/medident-seo-geo-gap-notes.md",
     "docs/medident-rakip-anahtar-kelime-arastirmasi.md",
-    ".cursor/rules/medident-content-director.mdc",
     "directives/weekly_blog_geo.md"
   ]
 }

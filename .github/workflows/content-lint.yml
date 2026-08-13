@@ -1,0 +1,91 @@
+# RED kapisi. Her content PR'inda calisir. Fail ederse merge edilemez.
+# Bu workflow'u branch protection'da "required status check" yap.
+
+name: Content gate
+
+on:
+  pull_request:
+    paths:
+      - "src/content/**"
+      - "src/data/**"
+      - "scripts/seo/**"
+  workflow_dispatch:
+    inputs:
+      scope:
+        description: "all | new"
+        default: "new"
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: content-gate-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # Yeni sayfalar sert denetlenir; tum korpus ayrica raporlanir (bloklamaz).
+      - name: Gate — yeni icerik
+        id: gate
+        run: |
+          set -o pipefail
+          node scripts/seo/lint-content.mjs \
+            --new-only --max-new 8 --json lint-new.json 2>&1 | tee gate.txt
+
+      - name: Envanter — tum korpus (bloklamaz)
+        if: always()
+        run: node scripts/seo/lint-content.mjs --report-only --json lint-all.json > /dev/null || true
+
+      - name: PR yorumu
+        if: always() && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const out = fs.existsSync('gate.txt') ? fs.readFileSync('gate.txt','utf8') : '(rapor yok)';
+            const all = fs.existsSync('lint-all.json') ? JSON.parse(fs.readFileSync('lint-all.json','utf8')) : null;
+            const ok = '${{ steps.gate.outcome }}' === 'success';
+            const body = [
+              `## ${ok ? 'PASS' : 'FAIL'} — Content gate`,
+              '',
+              '<details><summary>Yeni icerik raporu</summary>',
+              '',
+              '```',
+              out.slice(0, 55000),
+              '```',
+              '</details>',
+              '',
+              all ? `Korpus geneli (bilgi): **${all.red} RED**, ${all.warn} WARN / ${all.scanned} sayfa.` : '',
+              '',
+              ok ? 'Hekim onayi + TR yasal onay kutucuklari isaretlenince merge edilebilir.'
+                 : 'RED bulgulari duzeltilmeden merge edilemez.'
+            ].join('\n');
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body
+            });
+
+      - name: Build smoke (kirik sablon kapisi)
+        run: SITE_DOMAIN=https://medidentistanbul.com SITE_BASE= node build.mjs
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lint-reports
+          path: |
+            lint-new.json
+            lint-all.json
+            gate.txt

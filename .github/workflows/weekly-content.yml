@@ -1,11 +1,14 @@
-# Weekly blog + GEO → commit main → deploy gh-pages
-# Cadence: Mondays (quality over daily spam). Auto-publishes to medidentistanbul.com
+# Katman A — uretim. Haftalik icerik uretir ve PR ACAR. main'e YAZMAZ, DEPLOY ETMEZ.
+# Deploy tek yerde: deploy.yml (main'e merge sonrasi).
+#
+# Akis: Pzt 06:00 UTC -> generate -> lint (yumusak) -> branch -> Draft PR
+#       -> content-lint.yml PR'da sert kapiyi calistirir
+#       -> hekim onayi -> merge -> deploy.yml
 
-name: Weekly content
+name: Weekly content (PR)
 
 on:
   schedule:
-    # Mondays 06:00 UTC
     - cron: "0 6 * * 1"
   workflow_dispatch:
     inputs:
@@ -18,16 +21,20 @@ on:
 
 permissions:
   contents: write
-  pages: write
+  pull-requests: write
+
+concurrency:
+  group: content-generation
+  cancel-in-progress: false
 
 jobs:
-  generate-and-deploy:
+  draft:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           ref: main
-          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
@@ -36,33 +43,65 @@ jobs:
       - name: Install
         run: npm ci
 
-      - name: Generate weekly content
+      - name: Snapshot (once)
+        run: cp -r src/content /tmp/content-before
+
+      - name: Generate
         run: |
           BLOG="${{ github.event.inputs.blog || '3' }}"
           GEO="${{ github.event.inputs.geo || '1' }}"
           node scripts/content/generate.mjs --blog "$BLOG" --geo "$GEO"
 
-      - name: Build production
+      - name: On-lint (rapor — burada bloklamaz, PR'da bloklar)
+        id: prelint
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          node scripts/seo/lint-content.mjs --report-only --json lint-pre.json 2>&1 | tee prelint.txt
+
+      - name: Build smoke
         run: SITE_DOMAIN=https://medidentistanbul.com SITE_BASE= node build.mjs
 
-      - name: Commit content sources to main
+      - name: Branch + Draft PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -e
-          git config user.name "medident-bot"
+          WEEK="$(date -u +%G-w%V)"
+          BR="content/${WEEK}"
+          git config user.name  "medident-bot"
           git config user.email "bot@medidentistanbul.com"
-          git add src/content || true
-          if git diff --staged --quiet; then
-            echo "No content source changes"
-          else
-            git commit -m "chore: weekly blog+GEO content $(date -u +%Y-%m-%d)"
-            git push origin HEAD:main
-          fi
 
-      - name: Deploy gh-pages (live)
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          CUSTOM_DOMAIN=medidentistanbul.com \
-          SITE_DOMAIN=https://medidentistanbul.com \
-          SITE_BASE= \
-          node scripts/deploy-pages.mjs
+          git checkout -b "$BR"
+          git add src/content
+          if git diff --staged --quiet; then
+            echo "Degisiklik yok, PR acilmadi."
+            exit 0
+          fi
+          git commit -m "content: haftalik blog+GEO ${WEEK}"
+          git push -u origin "$BR" --force-with-lease
+
+          BODY=$(cat <<'EOF'
+          Otomatik haftalik icerik taslagi. **Bu PR merge edilmeden canliya cikmaz.**
+
+          ### Onay adimlari
+          - [ ] Content gate PASS
+          - [ ] Hekim tibbi onayi (rakam / sure / endikasyon satirlari)
+          - [ ] TR yasal kontrol (garanti, fiyat, hasta yorumu, oncesi-sonrasi yok)
+          - [ ] author / reviewer / reviewedAt dolduruldu
+
+          Lint raporu asagida; RED kalirsa merge edilemez.
+          EOF
+          )
+          gh pr create --draft --base main --head "$BR" \
+            --title "content: haftalik blog+GEO ${WEEK}" \
+            --body "$BODY" \
+            --label "content,automated" || echo "PR zaten acik olabilir"
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: prelint
+          path: |
+            prelint.txt
+            lint-pre.json
