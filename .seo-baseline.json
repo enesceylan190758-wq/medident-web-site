@@ -1,0 +1,5 @@
+{
+  "red": 451,
+  "note": "Deploy fails if seo:report RED exceeds this. Lower when debt drops; never raise without explicit review.",
+  "updatedAt": "2026-08-13"
+}

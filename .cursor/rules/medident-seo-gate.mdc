@@ -28,6 +28,10 @@ Her blog ve GEO kaydinda:
 AR/RU icerikte ayrica: `nativeReviewed: true`
 
 `reviewer` alanini **sen doldurma** — hekim onayi insan islemidir. Bos birak, PR aciklamasinda belirt.
+Insan onayi:
+```bash
+npm run seo:approve -- --slugs slug1,slug2 --by "Dr. Ahmet Çelik"
+```
 
 ## Answer-first
 
