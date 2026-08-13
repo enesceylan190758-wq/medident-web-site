@@ -65,13 +65,12 @@ Boşken WhatsApp fallback çalışır (`src/assets/js/site.js`).
 
 - `sitemap.xml`, `robots.txt`, `llms.txt`, `.htaccess` (HTTPS + eski WP 301)
 - JSON-LD: Dentist, FAQPage, Article, BreadcrumbList
-- GTM / Meta Pixel / GSC verify taşındı; GA4 kimliği `site.tracking.ga4` alanına eklenir
+- GTM / Meta Pixel / GSC verify / GA4 (`G-WP6XMC87YB`) taşındı
 - Blog: `/blog/…` · GEO: `/geo/…` · diller: TR kök, EN `/en`, DE `/de`, AR `/ar`, RU `/ru` + hreflang
 
 ## Yapılacaklar (bilgi gelince güncelleyin)
 
 - `src/data/site.mjs` → `estesof.endpoint`: Estesof form API adresi
-- `src/data/site.mjs` → `tracking.ga4`: yeni GA4 kimliği (G-XXXX)
 - Gerçek hasta/klinik fotoğrafları: `src/assets/images/` içindekileri değiştirin
 
 Güncelleme sonrası `npm run build` çalıştırıp `dist/`'i tekrar yükleyin.
