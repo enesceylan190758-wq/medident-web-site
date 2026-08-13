@@ -253,8 +253,8 @@
     "lang": "tr",
     "slug": "dis-eksikligi-ne-yapilmali",
     "bucket": "problem",
-    "question": "Eksik diş için en iyi çözüm nedir?",
-    "title": "Eksik diş için en iyi çözüm nedir",
+    "question": "Eksik diş için hangi tedavi seçenekleri vardır?",
+    "title": "Eksik diş için hangi tedavi seçenekleri vardır",
     "direct_answer": "Eksik diş için en uygun çözüm; komşu diş sağlığı, kemik hacmi, yaş ve bütçeye göre implant, sabit köprü veya çıkarılabilir protez arasından seçilir — tek doğru cevap muayene ile belirlenir.",
     "bullets": [
       "Tek eksik dişte komşu dişler sağlamsa implant genelde en koruyucu seçenektir.",
@@ -558,7 +558,7 @@
     "bucket": "kategori",
     "question": "Diş bonding tedavisi nedir?",
     "title": "Diş bonding tedavisi nedir",
-    "direct_answer": "Bonding; kompozit rezin malzemenin diş yüzeyine yapıştırılarak şekil, renk ve form düzeltmesi yapılan ağrısız bir estetik uygulamadır. Genellikle tek seansta tamamlanır; doğal diş dokusuyla sınır neredeyse görünmez.",
+    "direct_answer": "Bonding; kompozit rezin malzemenin diş yüzeyine yapıştırılarak şekil, renk ve form düzeltmesi yapılan, lokal anestezi ile konforlu bir estetik uygulamadır. Genellikle tek seansta tamamlanır; doğal diş dokusuyla sınır neredeyse görünmez.",
     "coverImage": "blog/blog-02-bonding.jpg",
     "bullets": [
       "Önce endikasyon netleştirilir (muayene + görüntüleme).",
@@ -569,7 +569,7 @@
     "faq": [
       {
         "q": "Diş bonding tedavisi nedir?",
-        "a": "Bonding; kompozit rezin malzemenin diş yüzeyine yapıştırılarak şekil, renk ve form düzeltmesi yapılan ağrısız bir estetik uygulamadır. Genellikle tek seansta tamamlanır; doğal diş dokusuyla sınır neredeyse görünmez."
+        "a": "Bonding; kompozit rezin malzemenin diş yüzeyine yapıştırılarak şekil, renk ve form düzeltmesi yapılan, lokal anestezi ile konforlu bir estetik uygulamadır. Genellikle tek seansta tamamlanır; doğal diş dokusuyla sınır neredeyse görünmez."
       },
       {
         "q": "Ne kadar sürer?",
@@ -717,7 +717,7 @@
     "bucket": "problem",
     "question": "Diş çekimi ağrılı mıdır? Güvenli süreç nasıl işler?",
     "title": "Diş çekimi ağrılı mıdır? Güvenli süreç nasıl işler",
-    "direct_answer": "Profesyonel diş çekimi lokal anestezi (gerekirse sedasyon) ile ağrısız planlanır. Steril protokol, dijital röntgen ve kontrollü çekim sonrası gazlı bez ve ilaç protokolü ile iyileşme yönetilir.",
+    "direct_answer": "Profesyonel diş çekimi lokal anestezi (gerekirse sedasyon) ile konforlu planlanır. Steril protokol, dijital röntgen ve kontrollü çekim sonrası gazlı bez ve ilaç protokolü ile iyileşme yönetilir.",
     "coverImage": "blog/blog-05-cekimi.jpg",
     "bullets": [
       "Önce endikasyon netleştirilir (muayene + görüntüleme).",
@@ -728,7 +728,7 @@
     "faq": [
       {
         "q": "Diş çekimi ağrılı mıdır? Güvenli süreç nasıl işler?",
-        "a": "Profesyonel diş çekimi lokal anestezi (gerekirse sedasyon) ile ağrısız planlanır. Steril protokol, dijital röntgen ve kontrollü çekim sonrası gazlı bez ve ilaç protokolü ile iyileşme yönetilir."
+        "a": "Profesyonel diş çekimi lokal anestezi (gerekirse sedasyon) ile konforlu planlanır. Steril protokol, dijital röntgen ve kontrollü çekim sonrası gazlı bez ve ilaç protokolü ile iyileşme yönetilir."
       },
       {
         "q": "Ne kadar sürer?",
@@ -2000,7 +2000,7 @@
     "faq": [
       {
         "q": "Schmerzhaft?",
-        "a": "Ziel ist eine schmerzfreie Sitzung unter Anästhesie; danach leichte Empfindlichkeit möglich."
+        "a": "Ziel ist eine komfortable Sitzung unter lokaler Anästhesie; danach leichte Empfindlichkeit möglich."
       },
       {
         "q": "Warum Mikroskop?",
@@ -3090,8 +3090,8 @@
     ],
     "faq": [
       {
-        "q": "Should I pick the cheapest clinic?",
-        "a": "No. Compare clinics that disclose brands and plans; among those, price can be a fair secondary filter."
+        "q": "Should I choose a clinic only by the lowest quote?",
+        "a": "No. First compare clinics that disclose brands, preparation plan and dentist credentials; among those, price can be a fair secondary filter."
       },
       {
         "q": "Will my home dentist refuse aftercare?",
@@ -3135,7 +3135,7 @@
     "question": "Warum ist Zahnbehandlung in der Türkei günstiger — ist das eine Falle?",
     "title": "Warum Zahnbehandlung in der Türkei günstiger ist",
     "coverImage": "blog/blog-01-zirkonyum.jpg",
-    "direct_answer": "Zahnbehandlung ist in der Türkei oft 50–70 % günstiger vor allem wegen niedrigerer Mieten, Löhne und Laborkosten — nicht weil jede Klinik heimlich schlechtere Materialien nutzt. Die Falle ist der billigste Preis ohne Prüfung von Zahnarzt, Marken und Präparationsgrad.",
+    "direct_answer": "Zahnbehandlung ist in der Türkei oft 50–70 % günstiger vor allem wegen niedrigerer Mieten, Löhne und Laborkosten — nicht weil jede Klinik heimlich schlechtere Materialien nutzt. Die Falle ist eine sehr niedrige Preisangabe ohne Prüfung von Zahnarzt, Marken und Präparationsgrad.",
     "bullets": [
       "Dieselben CAD/CAM-Systeme und viele Keramik-/Implantatmarken sind in Istanbul verfügbar.",
       "Pakete inkl. Hotel/Transfer wirken trotz Flügen oft günstiger als DE-Privatpreise.",
@@ -3144,8 +3144,8 @@
     ],
     "faq": [
       {
-        "q": "Immer die günstigste Klinik?",
-        "a": "Nein. Erst Kliniken mit Marken- und Plantransparenz vergleichen, dann den Preis."
+        "q": "Nur nach dem niedrigsten Angebot entscheiden?",
+        "a": "Nein. Zuerst Kliniken mit Marken-, Präparations- und Zahnarzttransparenz vergleichen; der Preis ist dann ein zweitrangiger Filter."
       },
       {
         "q": "Nachsorge in Deutschland?",
