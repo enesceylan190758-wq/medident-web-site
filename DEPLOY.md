@@ -196,10 +196,11 @@ Tam liste: `dist/.htaccess` dosyasında.
 ### Takip kodları (yeni sitede hazır)
 
 - GTM: `GTM-NTDLLHF`
+- GA4: `G-WP6XMC87YB` (`src/data/site.mjs` → `tracking.ga4`)
 - Meta Pixel: `3052551521644159`
 - GSC doğrulama meta tag
 
-GA4 kimliği gelince `src/data/site.mjs` → `tracking.ga4` doldur → `npm run build` → tekrar yükle.
+Ziyaretçi paneli: [Google Analytics](https://analytics.google.com) → MediDent mülkü → Raporlar.
 
 ---
 
