@@ -40,6 +40,10 @@ const blogTopics = loadJson(path.join(CONTENT, "blog-topics.json"), []);
 const geoTopics = loadJson(path.join(CONTENT, "geo-topics.json"), []);
 const state = loadJson(STATE, { blogIndex: 0, geoIndex: 0, usedBlog: [], usedGeo: [] });
 
+// Skeleton author (hekim). reviewer/reviewedAt ASLA burada doldurulmaz —
+// insan onayi: npm run seo:approve -- --slugs ... --by "Dr. ..."
+const DEFAULT_AUTHOR = "Dr. Ahmet Çelik";
+
 function nextTopics(list, indexKey, usedKey, n) {
   const out = [];
   let i = state[indexKey] || 0;
@@ -152,6 +156,7 @@ function buildBlog(topic) {
     wordCount: htmlParts.join(" ").split(/\s+/).length,
     faq,
     source: "weekly-seo",
+    author: DEFAULT_AUTHOR,
     publishedAt: new Date().toISOString().slice(0, 10),
     tag: topic.tag,
   };
@@ -224,6 +229,7 @@ function buildGeo(topic) {
     bullets,
     faq,
     internal_links,
+    author: DEFAULT_AUTHOR,
     publishedAt: new Date().toISOString().slice(0, 10),
     source: "weekly-geo",
   };

@@ -24,6 +24,8 @@
     "seo:report": "node scripts/seo/lint-content.mjs --report-only --json lint-all.json",
     "seo:decay": "node scripts/seo/decay-scan.mjs --days 90 --top 12",
     "seo:indexnow": "node scripts/seo/indexnow.mjs",
+    "seo:approve": "node scripts/seo/approve.mjs",
+    "seo:baseline": "node scripts/seo/check-baseline.mjs --report lint-all.json",
     "deploy:domain:emergency": "SITE_DOMAIN=https://medidentistanbul.com SITE_BASE= CUSTOM_DOMAIN=medidentistanbul.com node scripts/deploy-pages.mjs"
   },
   "devDependencies": {

@@ -13,7 +13,9 @@ on:
       - "assets/**"
       - "build.mjs"
       - "scripts/deploy-pages.mjs"
+      - "scripts/seo/**"
       - "package.json"
+      - ".seo-baseline.json"
   workflow_dispatch:
 
 permissions:
@@ -40,11 +42,13 @@ jobs:
       - name: Install
         run: npm ci
 
-      # Korpus borcu (eski sayfalar) deploy'u kilitlemesin.
-      # Sert RED kapisi PR'da: content-lint.yml (--new-only).
-      # Burada sadece envanter + build smoke.
-      - name: Yayin oncesi envanter (bloklamaz)
+      # Korpus borcu eski seviyede kalsin; ARTISSA deploy fail.
+      # Sert sayfa kapisi PR'da: content-lint.yml (--new-only).
+      - name: Yayin oncesi envanter
         run: node scripts/seo/lint-content.mjs --report-only --json lint-deploy.json
+
+      - name: Baseline kapisi (RED artmasin)
+        run: node scripts/seo/check-baseline.mjs --report lint-deploy.json
 
       - name: Build production
         run: SITE_DOMAIN=https://medidentistanbul.com SITE_BASE= node build.mjs

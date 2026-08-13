@@ -61,9 +61,11 @@ ve haftalik olarak otomatik canliya cikiyordu.
    ayni anda gh-pages'e yaziyordu — race condition).
 3. `deploy.yml` tek kaynak, `concurrency: gh-pages-deploy`, `cancel-in-progress: false`.
 4. `npm run deploy:domain` **bloklandi** (exit 1). Acil durum: `deploy:domain:emergency`.
-5. **Deploy oncesi lint `--report-only`:** eski korpus RED'leri (simdi ~460) canli
-   deploy'u kilitlemez. Sert kapi yalnizca PR'daki **yeni** sayfalar icin
-   (`content-lint.yml` → `--new-only`).
+5. **Deploy baseline kapisi:** `.seo-baseline.json` icinde `red` tavani.
+   Deploy, `lint --report-only` sonrasi RED > tavan ise **fail** eder.
+   Eski borcu kilitlemez; yeni borcun artmasini engeller. Borc dustukce tavanı dusurun.
+6. **Hekim onayi:** `npm run seo:approve -- --slugs a,b --by "Dr. Ahmet Çelik"`
+   Generator `author` yazar; `reviewer`/`reviewedAt` sadece bu komutla (ajan doldurmaz).
 
 ## RED kriterleri (merge bloklanir)
 
