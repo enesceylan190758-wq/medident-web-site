@@ -44,14 +44,23 @@ if (!home.includes('href="/assets/css/site.css"') && !home.includes("href=\"/ass
 
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "medident-gh-pages-"));
 sh(`cp -a "${DIST}/." "${tmp}/"`);
-const remote = shOut("git remote get-url origin", { cwd: ROOT });
+
+// GitHub Actions checkout remote is often credential-less HTTPS.
+// Prefer GITHUB_TOKEN when present so `git push` to gh-pages works in CI.
+let remote = shOut("git remote get-url origin", { cwd: ROOT });
+const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
+if (token) {
+  remote = `https://x-access-token:${token}@github.com/${REPO}.git`;
+}
+
 sh("git init -b gh-pages", { cwd: tmp });
 sh('git -c user.email="cursor@cursor.com" -c user.name="Cursor Agent" add -A', { cwd: tmp });
 sh(
   'git -c user.email="cursor@cursor.com" -c user.name="Cursor Agent" commit -m "Deploy MediDent to custom domain"',
   { cwd: tmp }
 );
-sh(`git remote add origin "${remote}"`, { cwd: tmp });
+console.log("> git remote add origin <redacted>");
+execSync(`git remote add origin "${remote}"`, { stdio: "inherit", cwd: tmp });
 sh("git push -u origin gh-pages --force", { cwd: tmp });
 fs.rmSync(tmp, { recursive: true, force: true });
 
