@@ -1,0 +1,78 @@
+---
+description: MediDent icerik yazim + yayin kurallari (RED kapisi ile birebir ayni). src/content altinda calisirken her zaman uygula.
+globs:
+  - "src/content/**"
+  - "scripts/content/**"
+  - "scripts/seo/**"
+alwaysApply: true
+---
+
+# MediDent — icerik kapisi (Cursor tarafi)
+
+Bu dosya `scripts/seo/lint-content.mjs` ile **ayni kurallari** anlatir.
+CI'da fail edecek bir seyi burada uretme. Yazmadan once `node scripts/seo/lint-content.mjs --report-only` calistir.
+
+## Rol siniri (cok onemli)
+
+- Sen **uretici**sin. `main`'e asla yazma. Sadece **branch + PR** ac.
+- **Deploy etme.** `npm run deploy:domain` veya `scripts/deploy-pages.mjs` CALISTIRMA.
+  Tek deploy kaynagi `.github/workflows/deploy.yml`.
+- Ayni is icin ikinci bir PR acma. Acik `content/*` PR varsa ona commit et.
+- Actions zaten haftalik taslak uretiyor. Sen **ayni haftada ayni konuyu** tekrar uretme —
+  once `src/content/queue-state.json` ve acik PR'lari kontrol et.
+
+## Zorunlu alanlar (biri eksikse CI RED verir)
+
+Her blog ve GEO kaydinda:
+`author`, `reviewer`, `reviewedAt`, `publishedAt` (veya `updatedAt`), `source` (sayisal iddia varsa)
+AR/RU icerikte ayrica: `nativeReviewed: true`
+
+`reviewer` alanini **sen doldurma** — hekim onayi insan islemidir. Bos birak, PR aciklamasinda belirt.
+
+## Answer-first
+
+- GEO `direct_answer`: **25-60 kelime**, tek paragraf, tek basina alintilanabilir,
+  sorunun anahtar kelimelerini tekrar eder. "Bu sorunun cevabi kisiye ozeldir" ile baslama.
+- Blog ilk paragraf: **max 60 kelime**, dogrudan cevap.
+- Somut ol: sure araligi, seans sayisi, iyilesme gunu, malzeme adi. Rakam varsa `source` doldur.
+
+## Ozgunluk (en sik ihlal)
+
+- Sablon govde YASAK. Ayni dilde baska bir sayfayla **%60 uzeri** benzerlik WARN, **%75 uzeri** RED.
+- `scripts/content/generate.mjs` iskelet uretir; onun cikti kalibini **kopyalayarak cogaltma**.
+- Her sayfanin en az bir bolumu o konuya ozel olmali (o tedaviye ozgu risk, sure, alternatif).
+- Kelime saymak icin dolgu cumle ekleme. Blog min 250 kelime ama **dolguyla degil**.
+
+## Kannibalizasyon
+
+Bir soru = bir URL. Ayni sorguyu ikinci sayfada cevaplama; mevcut sayfaya link ver.
+Guncelleme gerekiyorsa **yeni URL acma**, mevcut dosyayi guncelle + `updatedAt` tazele.
+
+## Yasak ifadeler
+
+Tam liste: `scripts/seo/lib/banned-terms.json`. Ozet:
+
+- **TR (en kati):** garanti / kesin sonuc, agrisiz, en iyi / lider, ucuz / indirim / kampanya / fiyat listesi,
+  hasta yorumu / memnun hasta, oncesi-sonrasi, hasta sayisi veya puan ile reklam, mucize / sifa.
+- **EN:** guaranteed result, painless, cheapest, discount, best clinic, miracle.
+- **DE:** Ergebnisgarantie, schmerzfrei, billigste, Rabatt, beste Klinik.
+- **AR/RU:** sonuc garantisi, agrisizlik, indirim.
+
+Yerine: "lokal anestezi ile konforlu", "planlanan sure araligi", "muayene sonrasi kisiye ozel plan".
+
+## Ic link
+
+Sayfa basi **1 hizmet sayfasi + 2-3 ilgili answer**, toplam **max 8**. Otomatik link enjeksiyonunu sinirla.
+
+## Hacim tavani
+
+PR basina dil basina **max 8 yeni sayfa**. Fazlasi RED. Az ve dogru > cok ve sablon.
+
+## Calistirma
+
+```bash
+node scripts/seo/lint-content.mjs --report-only   # envanter
+node scripts/seo/lint-content.mjs --new-only      # PR kapisi (CI bunu calistirir)
+node scripts/seo/decay-scan.mjs --days 90         # guncelleme adaylari
+npm run build                                     # sablon smoke
+```

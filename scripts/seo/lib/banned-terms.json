@@ -1,0 +1,43 @@
+{
+  "_note": "RED kapisi sozlugu. Kaynak: SB Saglik Hizmetleri Tanitim Yonetmeligi (TR) + genel yanilticilik riski (EN/DE). tr listesi en kati; en/de'de sonuc/garanti vaadi yine yasak.",
+  "all": [
+    { "re": "\\b(100|%100|100%)\\s*(basari|success|Erfolg)", "why": "Kesin sonuc vaadi" },
+    { "re": "risk[- ]?free|risikofrei|risksiz", "why": "Risksizlik vaadi" }
+  ],
+  "tr": [
+    { "re": "garanti(li|si|miz|niz)?\\b", "why": "Sonuc/tedavi garantisi reklami yasak", "allow": "malzeme garantisi ise 'uretici garantisi' yaz ve source ekle" },
+    { "re": "kesin sonu[cç]|sonu[cç] garanti", "why": "Kesin sonuc vaadi" },
+    { "re": "a[gğ]r[ıi]s[ıi]z", "why": "Agrisizlik vaadi — 'lokal anestezi ile konforlu' kullan" },
+    { "re": "en iyi|en ba[sş]ar[ıi]l[ıi]|birinci s[ıi]n[ıi]f|lider klinik", "why": "Ustunluk/karsilastirma reklami" },
+    { "re": "en ucuz|ucuza|uygun fiyat|fiyat listesi|kampanya|indirim|[cç]ok cazip|%\\s*\\d+\\s*indirim", "why": "Fiyat/indirim/kampanya reklami TR'de yasak" },
+    { "re": "hasta yorum|hasta g[oö]r[uü][sş]|memnun hastam[ıi]z|referans hastam[ıi]z|yorumlar[ıi]m[ıi]z", "why": "Hasta beyani/testimonial TR'de yasak" },
+    { "re": "[oö]ncesi\\s*[-/ve]*\\s*sonras[ıi]|before\\s*&?\\s*after", "why": "Oncesi-sonrasi gorsel/anlatim TR'de yasak" },
+    { "re": "mutlu hasta|\\d[\\d.,]*\\+?\\s*(mutlu )?hasta", "why": "Hasta sayisi ile reklam/ustunluk iddiasi" },
+    { "re": "\\d[\\d.,]*\\+?\\s*yorum|\\d[.,]\\d\\s*/\\s*5", "why": "Puan/yorum sayisi ile reklam" },
+    { "re": "[sş]ifa|kesin [cç][oö]z[uü]m|mucize", "why": "Yaniltici saglik iddiasi" }
+  ],
+  "en": [
+    { "re": "guarantee[ds]?\\s+(result|outcome|success)|guaranteed", "why": "Result guarantee" },
+    { "re": "painless|no pain at all", "why": "Painlessness claim — use 'comfortable under local anaesthesia'" },
+    { "re": "cheapest|lowest price|discount|special offer|limited offer", "why": "Price/discount advertising" },
+    { "re": "best (clinic|dentist)|number one|world[- ]class leader", "why": "Superiority claim" },
+    { "re": "miracle|permanent cure", "why": "Misleading health claim" }
+  ],
+  "de": [
+    { "re": "garantie auf das ergebnis|ergebnisgarantie|garantiert(er|es)? (ergebnis|erfolg)", "why": "Ergebnisgarantie" },
+    { "re": "schmerzfrei", "why": "Schmerzfreiheits-Versprechen — 'komfortabel unter lokaler Anästhesie'" },
+    { "re": "billigste|g[uü]nstigste|rabatt|sonderangebot", "why": "Preis-/Rabattwerbung" },
+    { "re": "beste klinik|nummer eins|weltweit f[uü]hrend", "why": "Überlegenheitsbehauptung" },
+    { "re": "wunder|endg[uü]ltige heilung", "why": "Irreführende Gesundheitsaussage" }
+  ],
+  "ar": [
+    { "re": "ضمان النتيجة|نتيجة مضمونة", "why": "Sonuc garantisi" },
+    { "re": "بدون ألم", "why": "Agrisizlik vaadi" },
+    { "re": "أرخص|خصم|عرض خاص", "why": "Fiyat/indirim reklami" }
+  ],
+  "ru": [
+    { "re": "гарантия результата|гарантированный результат", "why": "Sonuc garantisi" },
+    { "re": "безболезненно", "why": "Agrisizlik vaadi" },
+    { "re": "самый дешевый|скидка|акция", "why": "Fiyat/indirim reklami" }
+  ]
+}
