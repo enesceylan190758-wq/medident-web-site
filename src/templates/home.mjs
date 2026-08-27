@@ -9,6 +9,9 @@ import { url, waHref, orgSchema, faqSchema, breadcrumbSchema, asset } from "./la
 
 const src = (file) => asset(`/assets/img/${file}`);
 
+// Price calculator: DE/EN only (per client request — not shown on TR/AR/RU).
+const CALC_LANGS = ["de", "en"];
+
 function igPermalinkToEmbed(url = "") {
   const m = String(url).match(/instagram\.com\/(reel|p|tv)\/([^/?#]+)/i);
   if (!m) return "";
@@ -205,7 +208,7 @@ export function homePage(lang) {
           <p class="lead">${h.lead}</p>
           <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:26px;">
             <a href="${url(lang, "iletisim/")}" class="btn btn-primary">${h.ctaPrimary} ${icons.arrow()}</a>
-            <a href="#fiyat-hesapla" class="btn btn-outline-red">${(t.calc || i18n.en.calc).heroCta}</a>
+            ${CALC_LANGS.includes(lang) ? `<a href="#fiyat-hesapla" class="btn btn-outline-red">${t.calc.heroCta}</a>` : ""}
             <a href="${url(lang, "galeri/")}" class="btn btn-ghost">${h.ctaSecondary}</a>
           </div>
           <div class="rating-row">
@@ -234,7 +237,7 @@ export function homePage(lang) {
     <div class="stats-grid">${t.stats.map(stat).join("")}</div>
   </section>
 
-  ${priceCalcSection(lang)}
+  ${CALC_LANGS.includes(lang) ? priceCalcSection(lang) : ""}
 
   <section class="section" id="hizmetler">
     <div class="container">
