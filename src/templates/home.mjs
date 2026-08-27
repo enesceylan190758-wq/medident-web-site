@@ -90,8 +90,13 @@ export function homePage(lang) {
   const h = t.home;
   const svcUrl = (slug) => url(lang, "hizmetler/" + slug + "/");
 
+  const statValue = (s) => {
+    let str = s.dec ? s.to.toFixed(s.dec) : String(Math.round(s.to));
+    if (s.sep) str = str.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return str + (s.suffix || "");
+  };
   const stat = (s) =>
-    `<div><div class="stat-num"><span data-to="${s.to}" ${s.dec ? `data-dec="${s.dec}"` : ""} ${s.sep ? 'data-sep="1"' : ""} ${s.suffix ? `data-suffix="${s.suffix}"` : ""}>0</span>${s.suffix ? "" : '<span>+</span>'}</div><div class="stat-label">${s.label}</div></div>`;
+    `<div><div class="stat-num"><span data-to="${s.to}" ${s.dec ? `data-dec="${s.dec}"` : ""} ${s.sep ? 'data-sep="1"' : ""} ${s.suffix ? `data-suffix="${s.suffix}"` : ""}>${statValue(s)}</span>${s.suffix ? "" : '<span>+</span>'}</div><div class="stat-label">${s.label}</div></div>`;
 
   const serviceCard = (c) => {
     const title = L(c.titles, lang);
