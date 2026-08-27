@@ -1,6 +1,6 @@
 import { site } from "../data/site.mjs";
 import { i18n } from "../data/i18n.mjs";
-import { services, homeCards, packages } from "../data/content.mjs";
+import { services, homeCards, packages, priceCalc } from "../data/content.mjs";
 import { img } from "../data/images.mjs";
 import { hoursLocalized } from "../data/seo.mjs";
 import { L, uiBits } from "../data/locale.mjs";
@@ -85,6 +85,51 @@ function clinicVideoSection(lang) {
   </section>`;
 }
 
+function priceCalcSection(lang) {
+  const c = i18n[lang].calc || i18n.en.calc;
+  const treatmentOpts = priceCalc.map((p) => `<option value="${p.key}">${L(p.titles, lang)}</option>`).join("");
+  const calcData = priceCalc.map((p) => ({
+    key: p.key,
+    unit: p.unit,
+    min: p.min,
+    max: p.max,
+    qtyOptions: p.qtyOptions,
+    defaultQty: p.defaultQty,
+    title: L(p.titles, lang),
+    matchTitle: L(services.find((s) => s.slug === p.serviceSlug)?.titles, lang),
+  }));
+  return `<section class="section section-alt" id="fiyat-hesapla">
+    <div class="container" style="max-width:880px;">
+      <div style="text-align:center;max-width:620px;margin:0 auto clamp(30px,4vw,44px);">
+        <div class="eyebrow center" data-reveal>${c.eyebrow}</div>
+        <h2 data-reveal style="margin:0 0 14px;">${c.title}</h2>
+        <p data-reveal style="font-size:16px;line-height:1.62;color:var(--muted);margin:0;">${c.lead}</p>
+      </div>
+      <div class="form-card" data-reveal data-calc>
+        <div class="form-stack">
+          <div class="form-grid">
+            <label><span class="lbl">${c.treatmentLabel}</span><select data-calc-treatment>${treatmentOpts}</select></label>
+            <label><span class="lbl" data-calc-qty-label>${c.qtyLabelTooth}</span><select data-calc-qty></select></label>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:20px 22px;background:var(--cream-2);border-radius:14px;">
+            <span style="font-size:13px;color:var(--muted-2);font-weight:700;">${c.resultLabel}</span>
+            <span style="font-family:var(--font-serif);font-weight:700;font-size:28px;color:var(--ink);" data-calc-result>€0</span>
+          </div>
+          <p style="font-size:12.5px;color:var(--muted-2);margin:0;">${c.disclaimer}</p>
+          <a href="#iletisim" class="btn btn-primary btn-block" data-calc-cta>${c.cta} ${icons.arrow()}</a>
+        </div>
+      </div>
+    </div>
+    <script>window.__MD_CALC__=${JSON.stringify(calcData)};window.__MD_CALC_I18N__=${JSON.stringify({
+      qtyLabelTooth: c.qtyLabelTooth,
+      qtyLabelImplant: c.qtyLabelImplant,
+      qtyLabelJaw: c.qtyLabelJaw,
+      jawSingle: c.jawSingle,
+      jawDouble: c.jawDouble,
+    })};</script>
+  </section>`;
+}
+
 export function homePage(lang) {
   const t = i18n[lang];
   const h = t.home;
@@ -160,6 +205,7 @@ export function homePage(lang) {
           <p class="lead">${h.lead}</p>
           <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:26px;">
             <a href="${url(lang, "iletisim/")}" class="btn btn-primary">${h.ctaPrimary} ${icons.arrow()}</a>
+            <a href="#fiyat-hesapla" class="btn btn-outline-red">${(t.calc || i18n.en.calc).heroCta}</a>
             <a href="${url(lang, "galeri/")}" class="btn btn-ghost">${h.ctaSecondary}</a>
           </div>
           <div class="rating-row">
@@ -187,6 +233,8 @@ export function homePage(lang) {
   <section class="stats" data-stats>
     <div class="stats-grid">${t.stats.map(stat).join("")}</div>
   </section>
+
+  ${priceCalcSection(lang)}
 
   <section class="section" id="hizmetler">
     <div class="container">

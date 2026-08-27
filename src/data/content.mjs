@@ -380,6 +380,71 @@ export const packages = [
   },
 ];
 
+// Price calculator — estimated ranges (EUR) for an interactive homepage tool.
+// NOTE: placeholder market-rate figures; replace with MediDent's actual price list before relying on them commercially.
+export const priceCalc = [
+  {
+    key: "veneer",
+    unit: "tooth",
+    min: 280,
+    max: 420,
+    qtyOptions: [8, 16, 20],
+    defaultQty: 16,
+    serviceSlug: "estetik-dis-hekimligi",
+    titles: { tr: "Gülüş Tasarımı (Veneer)", en: "Smile Design (Veneers)", de: "Smile Design (Veneers)" },
+  },
+  {
+    key: "hollywood",
+    unit: "tooth",
+    min: 320,
+    max: 480,
+    qtyOptions: [16, 20, 28, 32],
+    defaultQty: 20,
+    serviceSlug: "estetik-dis-hekimligi",
+    titles: { tr: "Hollywood Smile", en: "Hollywood Smile", de: "Hollywood Smile" },
+  },
+  {
+    key: "bonding",
+    unit: "tooth",
+    min: 150,
+    max: 220,
+    qtyOptions: [4, 8, 12, 16],
+    defaultQty: 8,
+    serviceSlug: "estetik-dis-hekimligi",
+    titles: { tr: "Kompozit Bonding", en: "Composite Bonding", de: "Composite Bonding" },
+  },
+  {
+    key: "implant",
+    unit: "implant",
+    min: 450,
+    max: 850,
+    qtyOptions: [1, 2, 4, 6],
+    defaultQty: 1,
+    serviceSlug: "implantoloji-implant-tedavisi",
+    titles: { tr: "Diş İmplantı", en: "Dental Implant", de: "Zahnimplantat" },
+  },
+  {
+    key: "allon4",
+    unit: "jaw",
+    min: 3800,
+    max: 5200,
+    qtyOptions: [1, 2],
+    defaultQty: 1,
+    serviceSlug: "oral-implantoloji",
+    titles: { tr: "All-on-4 / All-on-6", en: "All-on-4 / All-on-6", de: "All-on-4 / All-on-6" },
+  },
+  {
+    key: "zahnersatz",
+    unit: "jaw",
+    min: 900,
+    max: 1600,
+    qtyOptions: [1, 2],
+    defaultQty: 1,
+    serviceSlug: "protezler",
+    titles: { tr: "Protez (Çıkarılabilir/Sabit)", en: "Denture / Bridge", de: "Zahnersatz (Prothese/Brücke)" },
+  },
+];
+
 // Fallback body copy for services without a mapped article
 export const serviceFallback = {
   tr: (title) => `<p><strong>${title}</strong>, MediDent İstanbul’da kişiye özel planlanan, dijital destekli ve konfor odaklı bir tedavi sürecidir. İlk online değerlendirmeden klinik uygulamasına kadar her adım hasta koordinasyon ekibimiz tarafından yönetilir.</p>

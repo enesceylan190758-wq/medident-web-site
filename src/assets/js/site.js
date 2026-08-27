@@ -185,6 +185,75 @@
     document.addEventListener("keydown", (e) => e.key === "Escape" && closeLb());
   }
 
+  // Price calculator
+  const calcData = window.__MD_CALC__ || [];
+  const calcI18n = window.__MD_CALC_I18N__ || {};
+  const calcCard = $("[data-calc]");
+  if (calcCard && calcData.length) {
+    const treatmentSel = $("[data-calc-treatment]", calcCard);
+    const qtySel = $("[data-calc-qty]", calcCard);
+    const qtyLabel = $("[data-calc-qty-label]", calcCard);
+    const resultEl = $("[data-calc-result]", calcCard);
+    const ctaBtn = $("[data-calc-cta]", calcCard);
+    const fmtEUR = (n) => "€" + Math.round(n).toLocaleString("de-DE");
+
+    const findItem = (key) => calcData.find((d) => d.key === key) || calcData[0];
+
+    const qtyOptionLabel = (item, qty) => {
+      if (item.unit === "jaw") return qty === 1 ? calcI18n.jawSingle || "1" : calcI18n.jawDouble || "2";
+      return String(qty);
+    };
+
+    const populateQty = (item) => {
+      if (qtyLabel) {
+        qtyLabel.textContent =
+          item.unit === "implant" ? calcI18n.qtyLabelImplant || "" :
+          item.unit === "jaw" ? calcI18n.qtyLabelJaw || "" :
+          calcI18n.qtyLabelTooth || "";
+      }
+      if (!qtySel) return;
+      qtySel.innerHTML = (item.qtyOptions || [1])
+        .map((q) => `<option value="${q}" ${q === item.defaultQty ? "selected" : ""}>${qtyOptionLabel(item, q)}</option>`)
+        .join("");
+    };
+
+    const updateResult = () => {
+      const item = findItem(treatmentSel?.value);
+      const qty = parseInt(qtySel?.value, 10) || item.defaultQty || 1;
+      if (resultEl) resultEl.textContent = `${fmtEUR(item.min * qty)} – ${fmtEUR(item.max * qty)}`;
+      return { item, qty };
+    };
+
+    if (treatmentSel) {
+      treatmentSel.addEventListener("change", () => {
+        populateQty(findItem(treatmentSel.value));
+        updateResult();
+      });
+    }
+    if (qtySel) qtySel.addEventListener("change", updateResult);
+
+    populateQty(findItem(treatmentSel?.value));
+    updateResult();
+
+    if (ctaBtn) {
+      ctaBtn.addEventListener("click", () => {
+        const { item, qty } = updateResult();
+        const leadForm = $("[data-lead-form]");
+        if (!leadForm) return;
+        const msg = $("textarea[name=message]", leadForm);
+        if (msg) {
+          const line = `${item.title} (${qtyOptionLabel(item, qty)}) — ${fmtEUR(item.min * qty)}–${fmtEUR(item.max * qty)}`;
+          if (!msg.value.includes(line)) msg.value = msg.value ? `${line}\n${msg.value}` : line;
+        }
+        const treatSel = $("select[name=treatment]", leadForm);
+        if (treatSel && item.matchTitle) {
+          const match = Array.from(treatSel.options).find((o) => o.text === item.matchTitle);
+          if (match) treatSel.value = match.value;
+        }
+      });
+    }
+  }
+
   // Contact form → Estesof endpoint (if configured) else WhatsApp fallback
   const form = $("[data-lead-form]");
   if (form) {
