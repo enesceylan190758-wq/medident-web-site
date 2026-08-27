@@ -221,7 +221,7 @@ function footer(lang) {
       <span>© ${new Date().getFullYear()} ${site.brand}. ${t.rights}</span>
       <div style="display:flex;gap:22px;">
         <a href="${url(lang, "gizlilik/")}">${t.privacy}</a>
-        <a href="${url(lang, "kvkk/")}">${t.kvkk}</a>
+        ${lang === "tr" ? `<a href="${url(lang, "kvkk/")}">${t.kvkk}</a>` : ""}
       </div>
     </div>
   </footer>`;
