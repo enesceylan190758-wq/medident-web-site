@@ -150,6 +150,29 @@ em {
   margin: 0 0 28px;
 }
 
+.reveal-panel {
+  text-align: center;
+}
+.reveal-panel > summary {
+  list-style: none;
+  cursor: pointer;
+}
+.reveal-panel > summary::-webkit-details-marker,
+.reveal-panel > summary::marker {
+  display: none;
+  content: "";
+}
+.reveal-panel > summary .chev {
+  transition: transform 0.25s ease;
+}
+.reveal-panel[open] > summary .chev {
+  transform: rotate(180deg);
+}
+.reveal-panel-body {
+  padding-top: 30px;
+  text-align: left;
+}
+
 .btn {
   display: inline-flex;
   align-items: center;

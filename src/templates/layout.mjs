@@ -122,7 +122,7 @@ function langSwitch(lang, path) {
           ? "blog/"
           : path.startsWith("geo/")
             ? "geo/"
-            : path;
+            : "";
         return `<a href="${url(l, map[l] || fallback)}" class="${l === lang ? "is-active" : ""}" hreflang="${htmlLang[l]}">${l.toUpperCase()}</a>`;
       }
       return `<a href="${url(l, map[l] || path)}" class="${l === lang ? "is-active" : ""}" hreflang="${htmlLang[l]}">${l.toUpperCase()}</a>`;
@@ -246,6 +246,7 @@ export function layout(opts, bodyHtml) {
     quoteSummaryLabel: calcT.summaryLabel,
     quoteSummaryNote: calcT.summaryNote,
     quoteOnRequest: calcT.onRequest,
+    quoteFormPrompt: i18n[lang].quoteFormPrompt || i18n.en.quoteFormPrompt,
   };
   const gtmNo = site.tracking.gtm
     ? `<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=${site.tracking.gtm}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>`
