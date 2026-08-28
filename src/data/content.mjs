@@ -380,68 +380,48 @@ export const packages = [
   },
 ];
 
-// Price calculator — estimated ranges (EUR) for an interactive homepage tool.
-// NOTE: placeholder market-rate figures; replace with MediDent's actual price list before relying on them commercially.
+// Price calculator — real MediDent price points (EUR), given by the clinic.
+// Each item lists exact { qty, price } options — no estimated ranges/multipliers.
 export const priceCalc = [
   {
-    key: "veneer",
+    key: "zirkon",
     unit: "tooth",
-    min: 280,
-    max: 420,
-    qtyOptions: [8, 16, 20],
+    options: [
+      { qty: 8, price: 1600 },
+      { qty: 16, price: 3200 },
+      { qty: 20, price: 4000 },
+    ],
     defaultQty: 16,
     serviceSlug: "estetik-dis-hekimligi",
-    titles: { tr: "Gülüş Tasarımı (Veneer)", en: "Smile Design (Veneers)", de: "Smile Design (Veneers)" },
-  },
-  {
-    key: "hollywood",
-    unit: "tooth",
-    min: 320,
-    max: 480,
-    qtyOptions: [16, 20, 28, 32],
-    defaultQty: 20,
-    serviceSlug: "estetik-dis-hekimligi",
-    titles: { tr: "Hollywood Smile", en: "Hollywood Smile", de: "Hollywood Smile" },
-  },
-  {
-    key: "bonding",
-    unit: "tooth",
-    min: 150,
-    max: 220,
-    qtyOptions: [4, 8, 12, 16],
-    defaultQty: 8,
-    serviceSlug: "estetik-dis-hekimligi",
-    titles: { tr: "Kompozit Bonding", en: "Composite Bonding", de: "Composite Bonding" },
+    titles: { tr: "Zirkonyum Kaplama", en: "Zirconia Crowns", de: "Zirkonkronen" },
   },
   {
     key: "implant",
     unit: "implant",
-    min: 450,
-    max: 850,
-    qtyOptions: [1, 2, 4, 6],
+    options: [
+      { qty: 1, price: 400 },
+      { qty: 2, price: 800 },
+      { qty: 4, price: 1600 },
+      { qty: 6, price: 2400 },
+    ],
     defaultQty: 1,
     serviceSlug: "implantoloji-implant-tedavisi",
     titles: { tr: "Diş İmplantı", en: "Dental Implant", de: "Zahnimplantat" },
   },
   {
-    key: "allon4",
-    unit: "jaw",
-    min: 3800,
-    max: 5200,
-    qtyOptions: [1, 2],
-    defaultQty: 1,
+    key: "fullmouth",
+    unit: "implantpkg",
+    options: [
+      { qty: 10, price: 8000 },
+      { qty: 12, price: 9000 },
+    ],
+    defaultQty: 10,
     serviceSlug: "oral-implantoloji",
-    titles: { tr: "All-on-4 / All-on-6", en: "All-on-4 / All-on-6", de: "All-on-4 / All-on-6" },
-  },
-  {
-    key: "zahnersatz",
-    unit: "jaw",
-    min: 900,
-    max: 1600,
-    qtyOptions: [1, 2],
-    defaultQty: 1,
-    serviceSlug: "protezler",
-    titles: { tr: "Protez (Çıkarılabilir/Sabit)", en: "Denture / Bridge", de: "Zahnersatz (Prothese/Brücke)" },
+    titles: {
+      tr: "Tam Ağız İmplant Paketi (Üst+Alt)",
+      en: "Full Mouth Implant Package (Upper+Lower)",
+      de: "Implantat-Vollversorgung (Ober+Unterkiefer)",
+    },
   },
 ];
 

@@ -94,9 +94,7 @@ function priceCalcSection(lang) {
   const calcData = priceCalc.map((p) => ({
     key: p.key,
     unit: p.unit,
-    min: p.min,
-    max: p.max,
-    qtyOptions: p.qtyOptions,
+    options: p.options,
     defaultQty: p.defaultQty,
     title: L(p.titles, lang),
     matchTitle: L(services.find((s) => s.slug === p.serviceSlug)?.titles, lang),
@@ -126,9 +124,7 @@ function priceCalcSection(lang) {
     <script>window.__MD_CALC__=${JSON.stringify(calcData)};window.__MD_CALC_I18N__=${JSON.stringify({
       qtyLabelTooth: c.qtyLabelTooth,
       qtyLabelImplant: c.qtyLabelImplant,
-      qtyLabelJaw: c.qtyLabelJaw,
-      jawSingle: c.jawSingle,
-      jawDouble: c.jawDouble,
+      qtyLabelImplantPkg: c.qtyLabelImplantPkg,
     })};</script>
   </section>`;
 }

@@ -185,7 +185,7 @@
     document.addEventListener("keydown", (e) => e.key === "Escape" && closeLb());
   }
 
-  // Price calculator
+  // Price calculator (exact price per qty option — no ranges/multipliers)
   const calcData = window.__MD_CALC__ || [];
   const calcI18n = window.__MD_CALC_I18N__ || {};
   const calcCard = $("[data-calc]");
@@ -199,29 +199,29 @@
 
     const findItem = (key) => calcData.find((d) => d.key === key) || calcData[0];
 
-    const qtyOptionLabel = (item, qty) => {
-      if (item.unit === "jaw") return qty === 1 ? calcI18n.jawSingle || "1" : calcI18n.jawDouble || "2";
-      return String(qty);
-    };
+    const qtyLabelFor = (unit) =>
+      unit === "implant" ? calcI18n.qtyLabelImplant || "" :
+      unit === "implantpkg" ? calcI18n.qtyLabelImplantPkg || "" :
+      calcI18n.qtyLabelTooth || "";
 
     const populateQty = (item) => {
-      if (qtyLabel) {
-        qtyLabel.textContent =
-          item.unit === "implant" ? calcI18n.qtyLabelImplant || "" :
-          item.unit === "jaw" ? calcI18n.qtyLabelJaw || "" :
-          calcI18n.qtyLabelTooth || "";
-      }
+      if (qtyLabel) qtyLabel.textContent = qtyLabelFor(item.unit);
       if (!qtySel) return;
-      qtySel.innerHTML = (item.qtyOptions || [1])
-        .map((q) => `<option value="${q}" ${q === item.defaultQty ? "selected" : ""}>${qtyOptionLabel(item, q)}</option>`)
+      qtySel.innerHTML = item.options
+        .map((o) => `<option value="${o.qty}" ${o.qty === item.defaultQty ? "selected" : ""}>${o.qty}</option>`)
         .join("");
+    };
+
+    const currentOption = (item) => {
+      const qty = parseInt(qtySel?.value, 10) || item.defaultQty;
+      return item.options.find((o) => o.qty === qty) || item.options[0];
     };
 
     const updateResult = () => {
       const item = findItem(treatmentSel?.value);
-      const qty = parseInt(qtySel?.value, 10) || item.defaultQty || 1;
-      if (resultEl) resultEl.textContent = `${fmtEUR(item.min * qty)} – ${fmtEUR(item.max * qty)}`;
-      return { item, qty };
+      const opt = currentOption(item);
+      if (resultEl) resultEl.textContent = fmtEUR(opt.price);
+      return { item, opt };
     };
 
     if (treatmentSel) {
@@ -237,12 +237,12 @@
 
     if (ctaBtn) {
       ctaBtn.addEventListener("click", () => {
-        const { item, qty } = updateResult();
+        const { item, opt } = updateResult();
         const leadForm = $("[data-lead-form]");
         if (!leadForm) return;
         const msg = $("textarea[name=message]", leadForm);
         if (msg) {
-          const line = `${item.title} (${qtyOptionLabel(item, qty)}) — ${fmtEUR(item.min * qty)}–${fmtEUR(item.max * qty)}`;
+          const line = `${item.title} (${opt.qty}) — ${fmtEUR(opt.price)}`;
           if (!msg.value.includes(line)) msg.value = msg.value ? `${line}\n${msg.value}` : line;
         }
         const treatSel = $("select[name=treatment]", leadForm);
