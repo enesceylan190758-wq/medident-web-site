@@ -43,7 +43,7 @@ export const site = {
     method: "POST",
   },
   rating: { value: "4.9", count: "1200" },
-  languages: ["tr", "en", "de", "ar", "ru"],
+  languages: ["tr", "en", "de", "fr", "ar", "ru"],
   defaultLang: "tr",
   // Optional homepage intro video. Empty → facade opens YouTube channel.
   youtubeIntroId: "",
@@ -57,12 +57,13 @@ export const site = {
 };
 
 // Language -> URL prefix. TR lives at root; others under /en, /de, /ar, /ru.
-export const langPrefix = { tr: "", en: "/en", de: "/de", ar: "/ar", ru: "/ru" };
-export const htmlLang = { tr: "tr", en: "en", de: "de", ar: "ar", ru: "ru" };
+export const langPrefix = { tr: "", en: "/en", de: "/de", fr: "/fr", ar: "/ar", ru: "/ru" };
+export const htmlLang = { tr: "tr", en: "en", de: "de", fr: "fr", ar: "ar", ru: "ru" };
 export const ogLocale = {
   tr: "tr_TR",
   en: "en_US",
   de: "de_DE",
+  fr: "fr_FR",
   ar: "ar_SA",
   ru: "ru_RU",
 };

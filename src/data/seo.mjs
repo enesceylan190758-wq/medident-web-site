@@ -6,6 +6,7 @@ export const hoursLocalized = {
   tr: "Pazartesi – Cumartesi: 09:00 – 18:00",
   en: "Monday – Saturday: 09:00 – 18:00",
   de: "Montag – Samstag: 09:00 – 18:00",
+  fr: "Lundi – Samedi : 09:00 – 18:00",
   ar: "الاثنين – السبت: 09:00 – 18:00",
   ru: "Понедельник – суббота: 09:00 – 18:00",
 };
@@ -266,14 +267,14 @@ export function resolveHreflangPaths(lang, pathNoLang) {
     return Object.fromEntries(site.languages.map((l) => [l, withSlash]));
   }
 
-  // Price/cost landing page — DE/EN only, keyword-researched slugs differ per language
-  if (p === "preise" || p === "turkey-teeth-price") {
-    return { de: "preise/", en: "turkey-teeth-price/" };
+  // Price/cost landing page — DE/EN/FR only, keyword-researched slugs differ per language
+  if (p === "preise" || p === "turkey-teeth-price" || p === "prix-implants-dentaires-turquie") {
+    return { de: "preise/", en: "turkey-teeth-price/", fr: "prix-implants-dentaires-turquie/" };
   }
 
-  // Composite bonding landing page — DE/EN only
-  if (p === "composite-bonding-tuerkei" || p === "composite-bonding-turkey") {
-    return { de: "composite-bonding-tuerkei/", en: "composite-bonding-turkey/" };
+  // Composite bonding landing page — DE/EN/FR only
+  if (p === "composite-bonding-tuerkei" || p === "composite-bonding-turkey" || p === "composite-bonding-turquie") {
+    return { de: "composite-bonding-tuerkei/", en: "composite-bonding-turkey/", fr: "composite-bonding-turquie/" };
   }
 
   // Blog article

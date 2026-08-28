@@ -132,13 +132,15 @@ function build() {
     emit(lang, "gizlilik/", legalPage(lang, "privacy"));
     emit(lang, "kvkk/", legalPage(lang, "kvkk"));
 
-    // Prices landing page — DE/EN only (keyword-researched slugs)
+    // Prices landing page — DE/EN/FR only (keyword-researched slugs)
     if (lang === "de") emit(lang, "preise/", pricesPage(lang));
     if (lang === "en") emit(lang, "turkey-teeth-price/", pricesPage(lang));
+    if (lang === "fr") emit(lang, "prix-implants-dentaires-turquie/", pricesPage(lang));
 
-    // Composite bonding landing page — DE/EN only
+    // Composite bonding landing page — DE/EN/FR only
     if (lang === "de") emit(lang, "composite-bonding-tuerkei/", bondingPage(lang));
     if (lang === "en") emit(lang, "composite-bonding-turkey/", bondingPage(lang));
+    if (lang === "fr") emit(lang, "composite-bonding-turquie/", bondingPage(lang));
   }
 
   writeSitemap();
