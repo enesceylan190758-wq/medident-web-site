@@ -266,6 +266,16 @@ export function resolveHreflangPaths(lang, pathNoLang) {
     return Object.fromEntries(site.languages.map((l) => [l, withSlash]));
   }
 
+  // Price/cost landing page — DE/EN only, keyword-researched slugs differ per language
+  if (p === "preise" || p === "turkey-teeth-price") {
+    return { de: "preise/", en: "turkey-teeth-price/" };
+  }
+
+  // Composite bonding landing page — DE/EN only
+  if (p === "composite-bonding-tuerkei" || p === "composite-bonding-turkey") {
+    return { de: "composite-bonding-tuerkei/", en: "composite-bonding-turkey/" };
+  }
+
   // Blog article
   if (p.startsWith("blog/") && p !== "blog") {
     const slug = p.slice("blog/".length);

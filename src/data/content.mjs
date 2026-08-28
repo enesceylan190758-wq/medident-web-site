@@ -380,6 +380,140 @@ export const packages = [
   },
 ];
 
+// Price calculator — real MediDent price points (EUR), given by the clinic.
+// Each item lists exact { qty, price } options — no estimated ranges/multipliers.
+export const priceCalc = [
+  {
+    key: "zirkon",
+    unit: "tooth",
+    options: [
+      { qty: 8, price: 1600 },
+      { qty: 16, price: 3200 },
+      { qty: 20, price: 4000 },
+    ],
+    defaultQty: 16,
+    serviceSlug: "estetik-dis-hekimligi",
+    titles: { tr: "Zirkonyum Kaplama", en: "Zirconia Crowns", de: "Zirkonkronen" },
+  },
+  {
+    key: "implant",
+    unit: "implant",
+    options: [
+      { qty: 1, price: 400 },
+      { qty: 2, price: 800 },
+      { qty: 4, price: 1600 },
+      { qty: 6, price: 2400 },
+    ],
+    defaultQty: 1,
+    serviceSlug: "implantoloji-implant-tedavisi",
+    titles: { tr: "Diş İmplantı", en: "Dental Implant", de: "Zahnimplantat" },
+  },
+  {
+    key: "fullmouth",
+    unit: "implantpkg",
+    options: [
+      { qty: 10, price: 8000 },
+      { qty: 12, price: 9000 },
+    ],
+    defaultQty: 10,
+    serviceSlug: "oral-implantoloji",
+    titles: {
+      tr: "Tam Ağız İmplant Paketi (Üst+Alt)",
+      en: "Full Mouth Implant Package (Upper+Lower)",
+      de: "Implantat-Vollversorgung (Ober+Unterkiefer)",
+    },
+  },
+  {
+    key: "sedation",
+    unit: "session",
+    options: [{ qty: 1, price: 450 }],
+    defaultQty: 1,
+    serviceSlug: "genel-anestezi-ve-sedasyon",
+    titles: { tr: "Sedasyon", en: "Sedation", de: "Sedierung" },
+  },
+  {
+    key: "hollywood",
+    unit: "tooth",
+    options: [
+      { qty: 16, price: 3200 },
+      { qty: 20, price: 4000 },
+      { qty: 28, price: 5600 },
+      { qty: 32, price: 6400 },
+    ],
+    defaultQty: 20,
+    serviceSlug: "estetik-dis-hekimligi",
+    titles: { tr: "Hollywood Smile", en: "Hollywood Smile", de: "Hollywood Smile" },
+  },
+  {
+    key: "bonding",
+    unit: "tooth",
+    options: [
+      { qty: 8, price: 880 },
+      { qty: 16, price: 1760 },
+      { qty: 20, price: 2200 },
+    ],
+    defaultQty: 8,
+    serviceSlug: "estetik-dis-hekimligi",
+    titles: { tr: "Kompozit Bonding", en: "Composite Bonding", de: "Composite Bonding" },
+  },
+  {
+    key: "zahnersatz",
+    unit: "jaw",
+    priceOnRequest: true,
+    serviceSlug: "protezler",
+    titles: { tr: "Protez (Çıkarılabilir/Sabit)", en: "Denture / Bridge", de: "Zahnersatz (Prothese/Brücke)" },
+  },
+];
+
+// Implant/material brands used in clinic — shown as a trust section (DE homepage).
+export const implantBrands = [
+  {
+    key: "straumann",
+    titles: { tr: "Straumann", en: "Straumann", de: "Straumann" },
+    desc: {
+      tr: "İsviçre menşeli, implantoloji alanının öncü markalarından biri; Roxolid® malzeme ve SLActive® yüzey teknolojisiyle tanınır.",
+      en: "A leading Swiss implantology brand, known for Roxolid® material and SLActive® surface technology.",
+      de: "Eine führende Schweizer Implantologie-Marke, bekannt für Roxolid®-Material und SLActive®-Oberflächentechnologie.",
+    },
+  },
+  {
+    key: "osstem",
+    titles: { tr: "Osstem", en: "Osstem", de: "Osstem" },
+    desc: {
+      tr: "Güney Kore merkezli, 70'ten fazla ülkede kullanılan, dünyanın en büyük implant üreticilerinden biridir.",
+      en: "A South Korea–based manufacturer, used in over 70 countries and among the world's largest implant makers.",
+      de: "Ein südkoreanischer Hersteller, in über 70 Ländern im Einsatz und einer der weltweit größten Implantathersteller.",
+    },
+  },
+  {
+    key: "neodent",
+    titles: { tr: "Neodent", en: "Neodent", de: "Neodent" },
+    desc: {
+      tr: "2018'den beri Straumann Group bünyesinde üretilen, geniş klinik kullanım geçmişine sahip bir implant markasıdır.",
+      en: "Manufactured under the Straumann Group since 2018, with a long clinical track record.",
+      de: "Seit 2018 Teil der Straumann Group, mit langjähriger klinischer Erfahrung.",
+    },
+  },
+  {
+    key: "implantswiss",
+    titles: { tr: "ImplantSwiss", en: "ImplantSwiss", de: "ImplantSwiss" },
+    desc: {
+      tr: "İsviçre hassasiyetiyle üretilen implant sistemidir.",
+      en: "An implant system manufactured to Swiss precision standards.",
+      de: "Ein Implantatsystem, gefertigt nach Schweizer Präzisionsstandards.",
+    },
+  },
+  {
+    key: "zirkonzahn",
+    titles: { tr: "Zirkonzahn (Zirkonyum)", en: "Zirkonzahn (Zirconia)", de: "Zirkonzahn (Zirkonoxid)" },
+    desc: {
+      tr: "Zirkonyum kaplamalarımızda İtalya merkezli Zirkonzahn sistemleri kullanılır — ISO 9001 ve ISO 13485 sertifikalı, CE işaretli (93/42/EEC Avrupa Tıbbi Cihaz Direktifi).",
+      en: "Our zirconia crowns use Zirkonzahn systems (Italy) — ISO 9001 and ISO 13485 certified, CE-marked under the European Medical Device Directive 93/42/EEC.",
+      de: "Unsere Zirkonkronen werden mit Zirkonzahn-Systemen (Italien) gefertigt — ISO 9001 und ISO 13485 zertifiziert, CE-gekennzeichnet nach der europäischen Medizinprodukterichtlinie 93/42/EWG.",
+    },
+  },
+];
+
 // Fallback body copy for services without a mapped article
 export const serviceFallback = {
   tr: (title) => `<p><strong>${title}</strong>, MediDent İstanbul’da kişiye özel planlanan, dijital destekli ve konfor odaklı bir tedavi sürecidir. İlk online değerlendirmeden klinik uygulamasına kadar her adım hasta koordinasyon ekibimiz tarafından yönetilir.</p>

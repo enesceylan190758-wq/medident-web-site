@@ -34,7 +34,9 @@ function head({ lang, title, description, path, image, jsonld = [], ogType = "we
   const alts = Object.entries(hreflangMap)
     .map(([l, p]) => `<link rel="alternate" hreflang="${htmlLang[l]}" href="${absUrl(l, p)}">`)
     .join("\n    ");
-  const xDefaultPath = hreflangMap[site.defaultLang] || hreflangMap[lang] || path;
+  const xDefaultHref = hreflangMap[site.defaultLang]
+    ? absUrl(site.defaultLang, hreflangMap[site.defaultLang])
+    : absUrl(lang, hreflangMap[lang] || path);
   const ogLocales = site.languages
     .filter((l) => l !== lang)
     .map((l) => `<meta property="og:locale:alternate" content="${ogLocale[l]}">`)
@@ -66,7 +68,7 @@ function head({ lang, title, description, path, image, jsonld = [], ogType = "we
     ${site.tracking.gscVerify ? `<meta name="google-site-verification" content="${site.tracking.gscVerify}">` : ""}
     <meta name="robots" content="index,follow,max-image-preview:large">
     ${alts}
-    <link rel="alternate" hreflang="x-default" href="${absUrl(site.defaultLang, xDefaultPath)}">
+    <link rel="alternate" hreflang="x-default" href="${xDefaultHref}">
     <meta property="og:type" content="${ogType}">
     <meta property="og:site_name" content="${site.brand}">
     <meta property="og:locale" content="${ogLocale[lang]}">
@@ -130,14 +132,15 @@ function langSwitch(lang, path) {
 
 function navLinks(lang) {
   const n = i18n[lang].nav;
-  return [
+  const links = [
     [n.services, url(lang, "hizmetler/")],
     [n.doctors, url(lang, "doktorlar/")],
     [n.about, url(lang, "hakkimizda/")],
-    [n.gallery, url(lang, "galeri/")],
-    [n.blog, url(lang, "blog/")],
-    [n.contact, url(lang, "iletisim/")],
   ];
+  if (lang === "de") links.push([i18n.de.pricesPage.eyebrow, url(lang, "preise/")]);
+  if (lang === "en") links.push([i18n.en.pricesPage.eyebrow, url(lang, "turkey-teeth-price/")]);
+  links.push([n.gallery, url(lang, "galeri/")], [n.blog, url(lang, "blog/")], [n.contact, url(lang, "iletisim/")]);
+  return links;
 }
 
 function header(lang, path) {
@@ -212,7 +215,6 @@ function footer(lang) {
           <a href="${waHref()}" target="_blank" rel="noopener">WhatsApp: ${site.whatsapp}</a>
           <a href="tel:${site.phoneRaw}">${site.phone}</a>
           <a href="mailto:${site.email}">${site.email}</a>
-          <a href="${site.mapsUrl}" target="_blank" rel="noopener">${site.address}</a>
           <span style="font-size:14px;color:#a89d8b;">${hoursLocalized[lang] || site.hours}</span>
         </div>
       </div>
@@ -221,7 +223,7 @@ function footer(lang) {
       <span>© ${new Date().getFullYear()} ${site.brand}. ${t.rights}</span>
       <div style="display:flex;gap:22px;">
         <a href="${url(lang, "gizlilik/")}">${t.privacy}</a>
-        <a href="${url(lang, "kvkk/")}">${t.kvkk}</a>
+        ${lang === "tr" ? `<a href="${url(lang, "kvkk/")}">${t.kvkk}</a>` : ""}
       </div>
     </div>
   </footer>`;
@@ -236,10 +238,14 @@ function floating(lang) {
 // Full page wrapper.
 export function layout(opts, bodyHtml) {
   const { lang, path } = opts;
+  const calcT = i18n[lang].calc || i18n.en.calc;
   const formCfg = {
     endpoint: site.estesof.endpoint,
     method: site.estesof.method,
     whatsapp: site.whatsappRaw,
+    quoteSummaryLabel: calcT.summaryLabel,
+    quoteSummaryNote: calcT.summaryNote,
+    quoteOnRequest: calcT.onRequest,
   };
   const gtmNo = site.tracking.gtm
     ? `<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=${site.tracking.gtm}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>`

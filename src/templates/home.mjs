@@ -1,6 +1,6 @@
 import { site } from "../data/site.mjs";
 import { i18n } from "../data/i18n.mjs";
-import { services, homeCards, packages } from "../data/content.mjs";
+import { services, homeCards, packages, priceCalc, implantBrands } from "../data/content.mjs";
 import { img } from "../data/images.mjs";
 import { hoursLocalized } from "../data/seo.mjs";
 import { L, uiBits } from "../data/locale.mjs";
@@ -8,6 +8,35 @@ import { icons } from "./icons.mjs";
 import { url, waHref, orgSchema, faqSchema, breadcrumbSchema, asset } from "./layout.mjs";
 
 const src = (file) => asset(`/assets/img/${file}`);
+
+// Price calculator: DE/EN only (per client request — not shown on TR/AR/RU).
+const CALC_LANGS = ["de", "en"];
+// Implant/zirconia brand trust section: DE only (per client request).
+const BRANDS_LANGS = ["de"];
+
+export function brandsSection(lang) {
+  const t = i18n[lang];
+  const c = t.calc || i18n.en.calc;
+  return `<section class="section" id="markalar">
+    <div class="container">
+      <div style="text-align:center;max-width:640px;margin:0 auto clamp(38px,4vw,52px);">
+        <div class="eyebrow center" data-reveal>${c.brandsEyebrow}</div>
+        <h2 data-reveal style="margin:0 0 14px;">${c.brandsTitle}</h2>
+        <p data-reveal style="font-size:16px;line-height:1.62;color:var(--muted);margin:0;">${c.brandsLead}</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;">
+        ${implantBrands
+          .map(
+            (b) => `<div class="card" data-reveal style="padding:24px 22px;">
+          <h3 style="margin:0 0 8px;font-size:18px;">${L(b.titles, lang)}</h3>
+          <p style="font-size:14px;line-height:1.6;color:var(--muted-2);margin:0;">${L(b.desc, lang)}</p>
+        </div>`
+          )
+          .join("")}
+      </div>
+    </div>
+  </section>`;
+}
 
 function igPermalinkToEmbed(url = "") {
   const m = String(url).match(/instagram\.com\/(reel|p|tv)\/([^/?#]+)/i);
@@ -85,13 +114,97 @@ function clinicVideoSection(lang) {
   </section>`;
 }
 
+export function priceCalcSection(lang) {
+  const c = i18n[lang].calc || i18n.en.calc;
+  const treatmentOpts = priceCalc.map((p) => `<option value="${p.key}">${L(p.titles, lang)}</option>`).join("");
+  const calcData = priceCalc.map((p) => ({
+    key: p.key,
+    unit: p.unit,
+    options: p.options || null,
+    priceOnRequest: !!p.priceOnRequest,
+    defaultQty: p.defaultQty,
+    title: L(p.titles, lang),
+    matchTitle: L(services.find((s) => s.slug === p.serviceSlug)?.titles, lang),
+  }));
+  return `<section class="section section-alt" id="fiyat-hesapla">
+    <div class="container" style="max-width:880px;">
+      <div style="text-align:center;max-width:620px;margin:0 auto clamp(30px,4vw,44px);">
+        <div class="eyebrow center" data-reveal>${c.eyebrow}</div>
+        <h2 data-reveal style="margin:0 0 14px;">${c.title}</h2>
+        <p data-reveal style="font-size:16px;line-height:1.62;color:var(--muted);margin:0;">${c.lead}</p>
+      </div>
+      <div class="form-card" data-reveal data-calc>
+        <div class="form-stack">
+          <div class="form-grid">
+            <label><span class="lbl">${c.treatmentLabel}</span><select data-calc-treatment>${treatmentOpts}</select></label>
+            <label data-calc-qty-wrap><span class="lbl" data-calc-qty-label>${c.qtyLabelTooth}</span><select data-calc-qty></select></label>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:20px 22px;background:var(--cream-2);border-radius:14px;">
+            <span style="font-size:13px;color:var(--muted-2);font-weight:700;">${c.resultLabel}</span>
+            <span style="font-family:var(--font-serif);font-weight:700;font-size:28px;color:var(--ink);" data-calc-result>€0</span>
+          </div>
+          <p style="font-size:12.5px;color:var(--muted-2);margin:0;">${c.disclaimer}</p>
+          <p style="font-size:12.5px;color:var(--muted-2);margin:0;">${c.hotelPolicy}</p>
+          <a href="${url(lang, "iletisim/")}" class="btn btn-primary btn-block" data-calc-cta data-quote-url="${url(lang, "iletisim/")}">${c.cta} ${icons.arrow()}</a>
+        </div>
+      </div>
+    </div>
+    <script>window.__MD_CALC__=${JSON.stringify(calcData)};window.__MD_CALC_I18N__=${JSON.stringify({
+      qtyLabelTooth: c.qtyLabelTooth,
+      qtyLabelImplant: c.qtyLabelImplant,
+      qtyLabelImplantPkg: c.qtyLabelImplantPkg,
+      onRequest: c.onRequest,
+    })};</script>
+  </section>`;
+}
+
+// Free X-ray / photo second-opinion CTA — routes to WhatsApp (no upload backend needed).
+export function xraySection(lang) {
+  const x = i18n[lang].xray || i18n.en.xray;
+  const waXrayHref = waHref(x.waMessage);
+  return `<section class="section section-alt" id="rontgen">
+    <div class="container" style="max-width:900px;">
+      <div style="text-align:center;max-width:640px;margin:0 auto clamp(30px,4vw,44px);">
+        <div class="eyebrow center" data-reveal>${x.eyebrow}</div>
+        <h2 data-reveal style="margin:0 0 14px;">${x.title}</h2>
+        <p data-reveal style="font-size:16px;line-height:1.62;color:var(--muted);margin:0;">${x.lead}</p>
+      </div>
+      <div style="max-width:560px;margin:0 auto 32px;text-align:center;" data-reveal>
+        <button data-lightbox-src="${src("xray-example-allonx.jpg")}" style="display:block;width:100%;border:none;background:none;padding:0;cursor:zoom-in;">
+          <img src="${src("xray-example-allonx.jpg")}" alt="${x.exampleAlt}" style="width:100%;border-radius:16px;box-shadow:var(--shadow-lg);display:block;">
+        </button>
+        <p style="font-size:12.5px;color:var(--muted-2);margin:10px 0 0;">${x.exampleCaption}</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-bottom:32px;">
+        ${x.steps
+          .map(
+            (s, i) => `<div class="card" data-reveal style="padding:22px 20px;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;"><span class="step-n">0${i + 1}</span></div>
+          <h4 style="font-size:16px;font-weight:800;margin:0 0 6px;color:var(--ink);">${s.t}</h4>
+          <p style="font-size:13.8px;line-height:1.56;color:var(--muted-2);margin:0;">${s.d}</p>
+        </div>`
+          )
+          .join("")}
+      </div>
+      <div style="text-align:center;" data-reveal>
+        <a href="${waXrayHref}" target="_blank" rel="noopener" class="btn" style="background:#25D366;color:#fff;">${icons.wa} ${x.cta}</a>
+      </div>
+    </div>
+  </section>`;
+}
+
 export function homePage(lang) {
   const t = i18n[lang];
   const h = t.home;
   const svcUrl = (slug) => url(lang, "hizmetler/" + slug + "/");
 
+  const statValue = (s) => {
+    let str = s.dec ? s.to.toFixed(s.dec) : String(Math.round(s.to));
+    if (s.sep) str = str.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return str + (s.suffix || "");
+  };
   const stat = (s) =>
-    `<div><div class="stat-num"><span data-to="${s.to}" ${s.dec ? `data-dec="${s.dec}"` : ""} ${s.sep ? 'data-sep="1"' : ""} ${s.suffix ? `data-suffix="${s.suffix}"` : ""}>0</span>${s.suffix ? "" : '<span>+</span>'}</div><div class="stat-label">${s.label}</div></div>`;
+    `<div><div class="stat-num"><span data-to="${s.to}" ${s.dec ? `data-dec="${s.dec}"` : ""} ${s.sep ? 'data-sep="1"' : ""} ${s.suffix ? `data-suffix="${s.suffix}"` : ""}>${statValue(s)}</span>${s.suffix ? "" : '<span>+</span>'}</div><div class="stat-label">${s.label}</div></div>`;
 
   const serviceCard = (c) => {
     const title = L(c.titles, lang);
@@ -155,6 +268,7 @@ export function homePage(lang) {
           <p class="lead">${h.lead}</p>
           <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:26px;">
             <a href="${url(lang, "iletisim/")}" class="btn btn-primary">${h.ctaPrimary} ${icons.arrow()}</a>
+            ${CALC_LANGS.includes(lang) ? `<a href="#fiyat-hesapla" class="btn btn-outline-red">${t.calc.heroCta}</a>` : ""}
             <a href="${url(lang, "galeri/")}" class="btn btn-ghost">${h.ctaSecondary}</a>
           </div>
           <div class="rating-row">
@@ -182,6 +296,9 @@ export function homePage(lang) {
   <section class="stats" data-stats>
     <div class="stats-grid">${t.stats.map(stat).join("")}</div>
   </section>
+
+  ${CALC_LANGS.includes(lang) ? priceCalcSection(lang) : ""}
+  ${CALC_LANGS.includes(lang) ? xraySection(lang) : ""}
 
   <section class="section" id="hizmetler">
     <div class="container">
@@ -265,6 +382,8 @@ export function homePage(lang) {
       </div>
     </div>
   </section>
+
+  ${BRANDS_LANGS.includes(lang) ? brandsSection(lang) : ""}
 
   <section class="section section-alt" id="surec">
     <div class="container" style="max-width:1120px;">
@@ -370,7 +489,6 @@ export function contactSection(lang, { heading = true } = {}) {
             <a href="${waHref()}" target="_blank" rel="noopener"><span class="contact-ico">${icons.wa}</span><span><span style="display:block;font-size:12.5px;color:#A89D8B;">${t.waLabel}</span><span style="font-weight:700;font-size:16px;">${site.whatsapp}</span></span></a>
             <a href="tel:${site.phoneRaw}"><span class="contact-ico">${icons.phone}</span><span><span style="display:block;font-size:12.5px;color:#A89D8B;">${t.phoneLabel}</span><span style="font-weight:700;font-size:16px;">${site.phone}</span></span></a>
             <a href="mailto:${site.email}"><span class="contact-ico">${icons.mail}</span><span><span style="display:block;font-size:12.5px;color:#A89D8B;">${t.emailLabel}</span><span style="font-weight:700;font-size:16px;">${site.email}</span></span></a>
-            <a href="${site.mapsUrl}" target="_blank" rel="noopener"><span class="contact-ico">${icons.pin}</span><span><span style="display:block;font-size:12.5px;color:#A89D8B;">${t.addressLabel}</span><span style="font-weight:700;font-size:16px;">${site.address}</span></span></a>
             <div class="row"><span class="contact-ico">${icons.clock}</span><span><span style="display:block;font-size:12.5px;color:#A89D8B;">${t.hoursLabel}</span><span style="font-weight:700;font-size:16px;">${hoursLocalized[lang] || site.hours}</span></span></div>
           </div>
         </div>
