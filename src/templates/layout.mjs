@@ -34,7 +34,9 @@ function head({ lang, title, description, path, image, jsonld = [], ogType = "we
   const alts = Object.entries(hreflangMap)
     .map(([l, p]) => `<link rel="alternate" hreflang="${htmlLang[l]}" href="${absUrl(l, p)}">`)
     .join("\n    ");
-  const xDefaultPath = hreflangMap[site.defaultLang] || hreflangMap[lang] || path;
+  const xDefaultHref = hreflangMap[site.defaultLang]
+    ? absUrl(site.defaultLang, hreflangMap[site.defaultLang])
+    : absUrl(lang, hreflangMap[lang] || path);
   const ogLocales = site.languages
     .filter((l) => l !== lang)
     .map((l) => `<meta property="og:locale:alternate" content="${ogLocale[l]}">`)
@@ -66,7 +68,7 @@ function head({ lang, title, description, path, image, jsonld = [], ogType = "we
     ${site.tracking.gscVerify ? `<meta name="google-site-verification" content="${site.tracking.gscVerify}">` : ""}
     <meta name="robots" content="index,follow,max-image-preview:large">
     ${alts}
-    <link rel="alternate" hreflang="x-default" href="${absUrl(site.defaultLang, xDefaultPath)}">
+    <link rel="alternate" hreflang="x-default" href="${xDefaultHref}">
     <meta property="og:type" content="${ogType}">
     <meta property="og:site_name" content="${site.brand}">
     <meta property="og:locale" content="${ogLocale[lang]}">
@@ -130,14 +132,15 @@ function langSwitch(lang, path) {
 
 function navLinks(lang) {
   const n = i18n[lang].nav;
-  return [
+  const links = [
     [n.services, url(lang, "hizmetler/")],
     [n.doctors, url(lang, "doktorlar/")],
     [n.about, url(lang, "hakkimizda/")],
-    [n.gallery, url(lang, "galeri/")],
-    [n.blog, url(lang, "blog/")],
-    [n.contact, url(lang, "iletisim/")],
   ];
+  if (lang === "de") links.push([i18n.de.pricesPage.eyebrow, url(lang, "preise/")]);
+  if (lang === "en") links.push([i18n.en.pricesPage.eyebrow, url(lang, "turkey-teeth-price/")]);
+  links.push([n.gallery, url(lang, "galeri/")], [n.blog, url(lang, "blog/")], [n.contact, url(lang, "iletisim/")]);
+  return links;
 }
 
 function header(lang, path) {

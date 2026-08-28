@@ -1,9 +1,9 @@
 import { site } from "../data/site.mjs";
 import { i18n } from "../data/i18n.mjs";
-import { services, doctors, serviceFallback } from "../data/content.mjs";
+import { services, doctors, serviceFallback, priceCalc } from "../data/content.mjs";
 import { img } from "../data/images.mjs";
 import { serviceFaqs } from "../data/seo.mjs";
-import { L, langBCP47 } from "../data/locale.mjs";
+import { L, langBCP47, uiBits } from "../data/locale.mjs";
 import { icons } from "./icons.mjs";
 import {
   url,
@@ -14,7 +14,7 @@ import {
   faqSchema,
   asset,
 } from "./layout.mjs";
-import { contactSection } from "./home.mjs";
+import { contactSection, priceCalcSection, brandsSection } from "./home.mjs";
 
 const src = (file) => asset(`/assets/img/${file}`);
 const crumbHome = (lang) => ({ name: i18n[lang].breadcrumbHome, href: url(lang, ""), url: site.domain + url(lang, "") });
@@ -331,6 +331,70 @@ export function contactPage(lang) {
     title: `${t.nav.contact} — ${site.brand}`,
     description: t.contactLead,
     jsonld: [orgSchema(lang), breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href })))],
+  };
+}
+
+// Prices / cost landing page — DE ("preise/") + EN ("turkey-teeth-price/") only.
+// Keyword targeting comes from Google Trends research: DE has no single strong
+// "price" long-tail (uses the already-confirmed zahnimplantate/zahnklinik/zahnersatz
+// terms instead), EN is built around "turkey teeth price" — by far the strongest
+// price-intent term found (~3x "turkey dental prices").
+export function pricesPage(lang) {
+  const t = i18n[lang];
+  const p = t.pricesPage;
+  const slug = lang === "de" ? "preise/" : "turkey-teeth-price/";
+  const crumbs = [crumbHome(lang), { name: p.eyebrow, href: url(lang, slug) }];
+
+  const priceCell = (item) => {
+    if (item.priceOnRequest) return t.calc.onRequest;
+    const opt = item.options[0];
+    const amount = `€${opt.price.toLocaleString("de-DE")}`;
+    return item.options.length > 1 ? `${L(uiBits.fromPriceLabel, lang)} ${amount}` : amount;
+  };
+
+  const table = `<div style="overflow-x:auto;border-radius:16px;border:1px solid rgba(43,35,24,.1);">
+    <table style="width:100%;border-collapse:collapse;font-size:15px;">
+      <thead><tr style="background:var(--cream-2);">
+        <th style="text-align:left;padding:14px 18px;font-weight:700;color:var(--ink);">${p.tableTreatment}</th>
+        <th style="text-align:right;padding:14px 18px;font-weight:700;color:var(--ink);">${p.tablePrice}</th>
+      </tr></thead>
+      <tbody>
+        ${priceCalc
+          .map(
+            (item, i) => `<tr style="${i % 2 ? "background:var(--cream);" : ""}border-top:1px solid rgba(43,35,24,.08);">
+          <td style="padding:14px 18px;color:var(--ink-soft);">${L(item.titles, lang)}</td>
+          <td style="padding:14px 18px;text-align:right;font-weight:700;color:var(--ink);">${priceCell(item)}</td>
+        </tr>`
+          )
+          .join("")}
+      </tbody>
+    </table>
+  </div>`;
+
+  const faqItem = (f) => `<div class="faq-item" data-faq-item><button class="faq-q" data-faq-toggle><span>${f.q}</span><span class="faq-icon"><span class="minus">${miniMinus}</span><span class="plus">${miniPlus}</span></span></button><div class="faq-a"><p style="margin:0;">${f.a}</p></div></div>`;
+
+  const body = `${pageHero(lang, p.eyebrow, p.h1, p.lead, crumbs)}
+  <section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:24px;margin:0 0 20px;">${p.tableTitle}</h2>
+    ${table}
+  </div></section>
+  ${priceCalcSection(lang)}
+  ${brandsSection(lang)}
+  <section class="section section-alt"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:24px;margin:0 0 20px;">${p.faqTitle}</h2>
+    <div class="faq" data-reveal>${p.faqs.map(faqItem).join("")}</div>
+  </div></section>
+  ${contactSection(lang)}`;
+
+  return {
+    body,
+    title: `${p.h1} — ${site.brand}`,
+    description: p.lead,
+    jsonld: [
+      orgSchema(lang),
+      faqSchema(p.faqs),
+      breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
+    ],
   };
 }
 

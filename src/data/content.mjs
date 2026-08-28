@@ -441,7 +441,12 @@ export const priceCalc = [
   {
     key: "bonding",
     unit: "tooth",
-    priceOnRequest: true,
+    options: [
+      { qty: 8, price: 880 },
+      { qty: 16, price: 1760 },
+      { qty: 20, price: 2200 },
+    ],
+    defaultQty: 8,
     serviceSlug: "estetik-dis-hekimligi",
     titles: { tr: "Kompozit Bonding", en: "Composite Bonding", de: "Composite Bonding" },
   },

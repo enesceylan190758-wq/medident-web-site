@@ -299,6 +299,33 @@ export const i18n = {
       summaryNote: "We'll confirm your exact price after a free photo assessment.",
       hotelPolicy: "Hotel & transfers are included free of charge for larger treatments (8+ teeth, implants or full-mouth packages). For 1–3 units, accommodation and transfer are at the patient's own cost.",
     },
+    pricesPage: {
+      eyebrow: "Prices 2026",
+      h1: "Turkey Teeth Price Guide: Implants, Zirconia & Full Mouth",
+      lead: "Real MediDent Istanbul prices — no hidden costs. See exact numbers below, or use the calculator to get a quote for your case.",
+      tableTitle: "Full price list",
+      tableTreatment: "Treatment",
+      tablePrice: "Price",
+      faqTitle: "Questions people ask about Turkey teeth prices",
+      faqs: [
+        {
+          q: "Why are dental implants so much cheaper in Turkey?",
+          a: "Lower clinic operating costs, salaries and rent — not lower quality. We use the same certified implant and zirconia brands (Straumann, Osstem, Neodent) used in Western Europe.",
+        },
+        {
+          q: "Is \"Turkey teeth\" safe?",
+          a: "It depends entirely on the clinic. Check for a Ministry of Health Health Tourism Authorization Certificate, real doctor credentials, and a written warranty before booking — we provide all three.",
+        },
+        {
+          q: "Are hotel and airport transfer included in the price?",
+          a: "Yes, for larger treatments (8+ teeth, implants, full-mouth packages) — free of charge. For smaller treatments (1–3 units) patients cover their own accommodation and transfer.",
+        },
+        {
+          q: "Is the price on this page final?",
+          a: "It's a real starting price based on our actual price list. Your exact quote is confirmed after a free photo assessment, since it depends on your specific case.",
+        },
+      ],
+    },
   },
   de: {
     langName: "Deutsch",
@@ -457,6 +484,33 @@ export const i18n = {
       summaryLabel: "Ihre Anfrage",
       summaryNote: "Den genauen Preis bestätigen wir nach einer kostenlosen Foto-Einschätzung.",
       hotelPolicy: "Bei größeren Behandlungen (ab 8 Zähnen, Implantaten oder Vollversorgung) sind Hotel & Transfer kostenlos inklusive. Bei 1–3 Einheiten übernimmt der Patient Unterkunft und Transfer selbst.",
+    },
+    pricesPage: {
+      eyebrow: "Preise 2026",
+      h1: "Zahnimplantate, Zirkonkronen & Zahnersatz Türkei: Preise",
+      lead: "Echte MediDent Istanbul Preise — ohne versteckte Kosten. Sehen Sie unten die genauen Zahlen oder nutzen Sie den Rechner für ein persönliches Angebot.",
+      tableTitle: "Vollständige Preisliste",
+      tableTreatment: "Behandlung",
+      tablePrice: "Preis",
+      faqTitle: "Häufige Fragen zu Zahnbehandlung-Preisen in der Türkei",
+      faqs: [
+        {
+          q: "Warum sind Zahnimplantate in der Türkei so viel günstiger?",
+          a: "Niedrigere Betriebskosten, Gehälter und Mieten — nicht niedrigere Qualität. Wir verwenden dieselben zertifizierten Implantat- und Zirkonmarken (Straumann, Osstem, Neodent), die auch in Westeuropa eingesetzt werden.",
+        },
+        {
+          q: "Ist eine Zahnbehandlung in der Türkei sicher?",
+          a: "Das hängt vollständig von der Klinik ab. Achten Sie vor der Buchung auf eine Sağlık Turizmi Yetki Belgesi (Gesundheitstourismus-Zulassung) des Gesundheitsministeriums, echte Arztqualifikationen und eine schriftliche Garantie — bei uns erhalten Sie alle drei.",
+        },
+        {
+          q: "Sind Hotel und Flughafentransfer im Preis inbegriffen?",
+          a: "Ja, bei größeren Behandlungen (ab 8 Zähnen, Implantaten, Vollversorgung) kostenlos. Bei kleineren Behandlungen (1–3 Einheiten) übernimmt der Patient Unterkunft und Transfer selbst.",
+        },
+        {
+          q: "Ist der Preis auf dieser Seite endgültig?",
+          a: "Es ist ein echter Startpreis aus unserer tatsächlichen Preisliste. Ihr genaues Angebot wird nach einer kostenlosen Foto-Einschätzung bestätigt, da es von Ihrem individuellen Fall abhängt.",
+        },
+      ],
     },
   },
   ar: i18nAr,

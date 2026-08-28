@@ -29,6 +29,7 @@ import {
   legalPage,
   geoIndexPage,
   geoPackPage,
+  pricesPage,
 } from "./src/templates/pages.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -129,6 +130,10 @@ function build() {
     emit(lang, "sss/", faqPage(lang));
     emit(lang, "gizlilik/", legalPage(lang, "privacy"));
     emit(lang, "kvkk/", legalPage(lang, "kvkk"));
+
+    // Prices landing page — DE/EN only (keyword-researched slugs)
+    if (lang === "de") emit(lang, "preise/", pricesPage(lang));
+    if (lang === "en") emit(lang, "turkey-teeth-price/", pricesPage(lang));
   }
 
   writeSitemap();

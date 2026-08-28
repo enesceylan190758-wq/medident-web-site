@@ -14,7 +14,7 @@ const CALC_LANGS = ["de", "en"];
 // Implant/zirconia brand trust section: DE only (per client request).
 const BRANDS_LANGS = ["de"];
 
-function brandsSection(lang) {
+export function brandsSection(lang) {
   const t = i18n[lang];
   const c = t.calc || i18n.en.calc;
   return `<section class="section" id="markalar">
@@ -114,7 +114,7 @@ function clinicVideoSection(lang) {
   </section>`;
 }
 
-function priceCalcSection(lang) {
+export function priceCalcSection(lang) {
   const c = i18n[lang].calc || i18n.en.calc;
   const treatmentOpts = priceCalc.map((p) => `<option value="${p.key}">${L(p.titles, lang)}</option>`).join("");
   const calcData = priceCalc.map((p) => ({
