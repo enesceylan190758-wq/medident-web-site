@@ -294,6 +294,7 @@ export const i18n = {
       onRequest: "Price on request",
       summaryLabel: "Your request",
       summaryNote: "We'll confirm your exact price after a free photo assessment.",
+      hotelPolicy: "Hotel & transfers are included free of charge for larger treatments (8+ teeth, implants or full-mouth packages). For 1–3 units, accommodation and transfer are at the patient's own cost.",
     },
   },
   de: {
@@ -449,6 +450,7 @@ export const i18n = {
       onRequest: "Preis auf Anfrage",
       summaryLabel: "Ihre Anfrage",
       summaryNote: "Den genauen Preis bestätigen wir nach einer kostenlosen Foto-Einschätzung.",
+      hotelPolicy: "Bei größeren Behandlungen (ab 8 Zähnen, Implantaten oder Vollversorgung) sind Hotel & Transfer kostenlos inklusive. Bei 1–3 Einheiten übernimmt der Patient Unterkunft und Transfer selbst.",
     },
   },
   ar: i18nAr,

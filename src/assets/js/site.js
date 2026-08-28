@@ -206,8 +206,9 @@
       calcI18n.qtyLabelTooth || "";
 
     const populateQty = (item) => {
-      if (item.priceOnRequest) {
+      if (item.priceOnRequest || item.options.length <= 1) {
         if (qtyWrap) qtyWrap.style.display = "none";
+        if (!item.priceOnRequest && qtySel) qtySel.innerHTML = `<option value="${item.options[0].qty}" selected>${item.options[0].qty}</option>`;
         return;
       }
       if (qtyWrap) qtyWrap.style.display = "";

@@ -424,6 +424,14 @@ export const priceCalc = [
     },
   },
   {
+    key: "sedation",
+    unit: "session",
+    options: [{ qty: 1, price: 450 }],
+    defaultQty: 1,
+    serviceSlug: "genel-anestezi-ve-sedasyon",
+    titles: { tr: "Sedasyon", en: "Sedation", de: "Sedierung" },
+  },
+  {
     key: "hollywood",
     unit: "tooth",
     priceOnRequest: true,

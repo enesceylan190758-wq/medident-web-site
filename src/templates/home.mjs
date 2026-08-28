@@ -118,6 +118,7 @@ function priceCalcSection(lang) {
             <span style="font-family:var(--font-serif);font-weight:700;font-size:28px;color:var(--ink);" data-calc-result>€0</span>
           </div>
           <p style="font-size:12.5px;color:var(--muted-2);margin:0;">${c.disclaimer}</p>
+          <p style="font-size:12.5px;color:var(--muted-2);margin:0;">${c.hotelPolicy}</p>
           <a href="${url(lang, "iletisim/")}" class="btn btn-primary btn-block" data-calc-cta data-quote-url="${url(lang, "iletisim/")}">${c.cta} ${icons.arrow()}</a>
         </div>
       </div>
