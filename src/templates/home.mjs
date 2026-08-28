@@ -28,6 +28,9 @@ export function brandsSection(lang) {
         ${implantBrands
           .map(
             (b) => `<div class="card" data-reveal style="padding:24px 22px;">
+          <div style="height:42px;display:flex;align-items:center;margin-bottom:16px;${b.logoDark ? "background:var(--ink);border-radius:8px;padding:8px 14px;width:fit-content;" : ""}">
+            <img src="${src("brands/" + b.logo)}" alt="${L(b.titles, lang)}" style="max-height:100%;max-width:140px;object-fit:contain;">
+          </div>
           <h3 style="margin:0 0 8px;font-size:18px;">${L(b.titles, lang)}</h3>
           <p style="font-size:14px;line-height:1.6;color:var(--muted-2);margin:0;">${L(b.desc, lang)}</p>
         </div>`
@@ -158,39 +161,80 @@ export function priceCalcSection(lang) {
   </section>`;
 }
 
+// Reusable "teaser + toggle + WhatsApp CTA" section: only the eyebrow/title/lead
+// and a toggle button show by default; clicking it expands the details inline
+// (native <details>, no JS, no page-flow disruption) — used for the free X-ray
+// second-opinion offer and the free smile-design preview offer.
+function revealWaSection({ id, eyebrow, title, lead, toggle, image, steps, cta, waHref: href }) {
+  return `<section class="section section-alt" id="${id}">
+    <div class="container" style="max-width:900px;">
+      <div style="text-align:center;max-width:640px;margin:0 auto;">
+        <div class="eyebrow center" data-reveal>${eyebrow}</div>
+        <h2 data-reveal style="margin:0 0 14px;">${title}</h2>
+        <p data-reveal style="font-size:16px;line-height:1.62;color:var(--muted);margin:0 0 26px;">${lead}</p>
+      </div>
+      <details class="reveal-panel" data-reveal>
+        <summary class="btn btn-outline-red">${toggle} <span class="chev" style="display:inline-flex;">${icons.chevDown}</span></summary>
+        <div class="reveal-panel-body">
+          ${
+            image
+              ? `<div style="max-width:560px;margin:0 auto 32px;text-align:center;">
+            <button data-lightbox-src="${image.src}" style="display:block;width:100%;border:none;background:none;padding:0;cursor:zoom-in;">
+              <img src="${image.src}" alt="${image.alt}" style="width:100%;border-radius:16px;box-shadow:var(--shadow-lg);display:block;">
+            </button>
+            <p style="font-size:12.5px;color:var(--muted-2);margin:10px 0 0;">${image.caption}</p>
+          </div>`
+              : ""
+          }
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-bottom:32px;">
+            ${steps
+              .map(
+                (s, i) => `<div class="card" style="padding:22px 20px;">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;"><span class="step-n">0${i + 1}</span></div>
+              <h4 style="font-size:16px;font-weight:800;margin:0 0 6px;color:var(--ink);">${s.t}</h4>
+              <p style="font-size:13.8px;line-height:1.56;color:var(--muted-2);margin:0;">${s.d}</p>
+            </div>`
+              )
+              .join("")}
+          </div>
+          <div style="text-align:center;">
+            <a href="${href}" target="_blank" rel="noopener" class="btn" style="background:#25D366;color:#fff;">${icons.wa} ${cta}</a>
+          </div>
+        </div>
+      </details>
+    </div>
+  </section>`;
+}
+
 // Free X-ray / photo second-opinion CTA — routes to WhatsApp (no upload backend needed).
 export function xraySection(lang) {
   const x = i18n[lang].xray || i18n.en.xray;
-  const waXrayHref = waHref(x.waMessage);
-  return `<section class="section section-alt" id="rontgen">
-    <div class="container" style="max-width:900px;">
-      <div style="text-align:center;max-width:640px;margin:0 auto clamp(30px,4vw,44px);">
-        <div class="eyebrow center" data-reveal>${x.eyebrow}</div>
-        <h2 data-reveal style="margin:0 0 14px;">${x.title}</h2>
-        <p data-reveal style="font-size:16px;line-height:1.62;color:var(--muted);margin:0;">${x.lead}</p>
-      </div>
-      <div style="max-width:560px;margin:0 auto 32px;text-align:center;" data-reveal>
-        <button data-lightbox-src="${src("xray-example-allonx.jpg")}" style="display:block;width:100%;border:none;background:none;padding:0;cursor:zoom-in;">
-          <img src="${src("xray-example-allonx.jpg")}" alt="${x.exampleAlt}" style="width:100%;border-radius:16px;box-shadow:var(--shadow-lg);display:block;">
-        </button>
-        <p style="font-size:12.5px;color:var(--muted-2);margin:10px 0 0;">${x.exampleCaption}</p>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-bottom:32px;">
-        ${x.steps
-          .map(
-            (s, i) => `<div class="card" data-reveal style="padding:22px 20px;">
-          <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;"><span class="step-n">0${i + 1}</span></div>
-          <h4 style="font-size:16px;font-weight:800;margin:0 0 6px;color:var(--ink);">${s.t}</h4>
-          <p style="font-size:13.8px;line-height:1.56;color:var(--muted-2);margin:0;">${s.d}</p>
-        </div>`
-          )
-          .join("")}
-      </div>
-      <div style="text-align:center;" data-reveal>
-        <a href="${waXrayHref}" target="_blank" rel="noopener" class="btn" style="background:#25D366;color:#fff;">${icons.wa} ${x.cta}</a>
-      </div>
-    </div>
-  </section>`;
+  return revealWaSection({
+    id: "rontgen",
+    eyebrow: x.eyebrow,
+    title: x.title,
+    lead: x.lead,
+    toggle: x.toggle,
+    image: { src: src("xray-example-allonx.jpg"), alt: x.exampleAlt, caption: x.exampleCaption },
+    steps: x.steps,
+    cta: x.cta,
+    waHref: waHref(x.waMessage),
+  });
+}
+
+// Free smile-design (mockup) preview from a photo — routes to WhatsApp (no upload backend needed).
+export function smileDesignSection(lang) {
+  const s = i18n[lang].smileDesign || i18n.en.smileDesign;
+  return revealWaSection({
+    id: "gulus-tasarimi",
+    eyebrow: s.eyebrow,
+    title: s.title,
+    lead: s.lead,
+    toggle: s.toggle,
+    steps: s.steps,
+    cta: s.cta,
+    waHref: waHref(s.waMessage),
+  });
 }
 
 export function homePage(lang) {
@@ -299,6 +343,7 @@ export function homePage(lang) {
 
   ${CALC_LANGS.includes(lang) ? priceCalcSection(lang) : ""}
   ${CALC_LANGS.includes(lang) ? xraySection(lang) : ""}
+  ${CALC_LANGS.includes(lang) ? smileDesignSection(lang) : ""}
 
   <section class="section" id="hizmetler">
     <div class="container">

@@ -280,7 +280,8 @@
           <div style="font-size:13px;color:var(--muted-2);margin-top:6px;">${cfg.quoteSummaryNote || ""}</div>
         </div>
         <div style="font-family:var(--font-serif);font-weight:700;font-size:26px;color:var(--ink);">${priceText}</div>
-      </div>`;
+      </div>
+      ${cfg.quoteFormPrompt ? `<div style="margin-top:18px;padding:16px 20px;background:var(--gold,#b8935a);color:#fff;border-radius:12px;font-size:19px;font-weight:700;text-align:center;line-height:1.4;">↓ ${cfg.quoteFormPrompt}</div>` : ""}`;
 
       const leadForm = $("[data-lead-form]");
       if (leadForm) {

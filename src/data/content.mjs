@@ -469,6 +469,7 @@ export const priceCalc = [
 export const implantBrands = [
   {
     key: "straumann",
+    logo: "straumann.svg",
     titles: { tr: "Straumann", en: "Straumann", de: "Straumann" },
     desc: {
       tr: "İsviçre menşeli, implantoloji alanının öncü markalarından biri; Roxolid® malzeme ve SLActive® yüzey teknolojisiyle tanınır.",
@@ -478,6 +479,7 @@ export const implantBrands = [
   },
   {
     key: "osstem",
+    logo: "osstem.png",
     titles: { tr: "Osstem", en: "Osstem", de: "Osstem" },
     desc: {
       tr: "Güney Kore merkezli, 70'ten fazla ülkede kullanılan, dünyanın en büyük implant üreticilerinden biridir.",
@@ -487,6 +489,8 @@ export const implantBrands = [
   },
   {
     key: "neodent",
+    logo: "neodent.svg",
+    logoDark: true,
     titles: { tr: "Neodent", en: "Neodent", de: "Neodent" },
     desc: {
       tr: "2018'den beri Straumann Group bünyesinde üretilen, geniş klinik kullanım geçmişine sahip bir implant markasıdır.",
@@ -496,6 +500,7 @@ export const implantBrands = [
   },
   {
     key: "implantswiss",
+    logo: "implantswiss.svg",
     titles: { tr: "ImplantSwiss", en: "ImplantSwiss", de: "ImplantSwiss" },
     desc: {
       tr: "İsviçre hassasiyetiyle üretilen implant sistemidir.",
@@ -505,6 +510,7 @@ export const implantBrands = [
   },
   {
     key: "zirkonzahn",
+    logo: "zirkonzahn.png",
     titles: { tr: "Zirkonzahn (Zirkonyum)", en: "Zirkonzahn (Zirconia)", de: "Zirkonzahn (Zirkonoxid)" },
     desc: {
       tr: "Zirkonyum kaplamalarımızda İtalya merkezli Zirkonzahn sistemleri kullanılır — ISO 9001 ve ISO 13485 sertifikalı, CE işaretli (93/42/EEC Avrupa Tıbbi Cihaz Direktifi).",
