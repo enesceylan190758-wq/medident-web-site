@@ -362,6 +362,8 @@ export const i18n = {
       ],
       cta: "Send X-ray on WhatsApp",
       waMessage: "Hello, I'd like to send my X-ray / photos for a free doctor's assessment.",
+      exampleAlt: "Example X-ray from a real MediDent Istanbul All-on-X case",
+      exampleCaption: "Real example: a full-arch All-on-X case from our clinic",
     },
   },
   de: {
@@ -585,6 +587,8 @@ export const i18n = {
       ],
       cta: "Röntgenbild per WhatsApp senden",
       waMessage: "Hallo, ich möchte mein Röntgenbild / meine Fotos für eine kostenlose Ärzte-Einschätzung senden.",
+      exampleAlt: "Beispiel-Röntgenbild eines echten All-on-X Falls von MediDent Istanbul",
+      exampleCaption: "Echtes Beispiel: ein All-on-X Fall aus unserer Klinik",
     },
   },
   ar: i18nAr,

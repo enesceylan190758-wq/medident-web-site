@@ -504,12 +504,12 @@ export const implantBrands = [
     },
   },
   {
-    key: "ivoclar",
-    titles: { tr: "Ivoclar (Zirkonyum)", en: "Ivoclar (Zirconia)", de: "Ivoclar (Zirkonoxid)" },
+    key: "zirkonzahn",
+    titles: { tr: "Zirkonzahn (Zirkonyum)", en: "Zirkonzahn (Zirconia)", de: "Zirkonzahn (Zirkonoxid)" },
     desc: {
-      tr: "Zirkonyum kaplamalarımızda, diş hekimliği materyalleri alanında uluslararası tanınan Ivoclar sistemleri kullanılır.",
-      en: "Our zirconia crowns use Ivoclar's internationally recognised dental materials systems.",
-      de: "Unsere Zirkonkronen werden mit den international anerkannten Dentalmaterial-Systemen von Ivoclar gefertigt.",
+      tr: "Zirkonyum kaplamalarımızda İtalya merkezli Zirkonzahn sistemleri kullanılır — ISO 9001 ve ISO 13485 sertifikalı, CE işaretli (93/42/EEC Avrupa Tıbbi Cihaz Direktifi).",
+      en: "Our zirconia crowns use Zirkonzahn systems (Italy) — ISO 9001 and ISO 13485 certified, CE-marked under the European Medical Device Directive 93/42/EEC.",
+      de: "Unsere Zirkonkronen werden mit Zirkonzahn-Systemen (Italien) gefertigt — ISO 9001 und ISO 13485 zertifiziert, CE-gekennzeichnet nach der europäischen Medizinprodukterichtlinie 93/42/EWG.",
     },
   },
 ];

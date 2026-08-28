@@ -169,6 +169,12 @@ export function xraySection(lang) {
         <h2 data-reveal style="margin:0 0 14px;">${x.title}</h2>
         <p data-reveal style="font-size:16px;line-height:1.62;color:var(--muted);margin:0;">${x.lead}</p>
       </div>
+      <div style="max-width:560px;margin:0 auto 32px;text-align:center;" data-reveal>
+        <button data-lightbox-src="${src("xray-example-allonx.jpg")}" style="display:block;width:100%;border:none;background:none;padding:0;cursor:zoom-in;">
+          <img src="${src("xray-example-allonx.jpg")}" alt="${x.exampleAlt}" style="width:100%;border-radius:16px;box-shadow:var(--shadow-lg);display:block;">
+        </button>
+        <p style="font-size:12.5px;color:var(--muted-2);margin:10px 0 0;">${x.exampleCaption}</p>
+      </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-bottom:32px;">
         ${x.steps
           .map(
