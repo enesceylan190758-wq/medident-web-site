@@ -94,7 +94,8 @@ function priceCalcSection(lang) {
   const calcData = priceCalc.map((p) => ({
     key: p.key,
     unit: p.unit,
-    options: p.options,
+    options: p.options || null,
+    priceOnRequest: !!p.priceOnRequest,
     defaultQty: p.defaultQty,
     title: L(p.titles, lang),
     matchTitle: L(services.find((s) => s.slug === p.serviceSlug)?.titles, lang),
@@ -110,14 +111,14 @@ function priceCalcSection(lang) {
         <div class="form-stack">
           <div class="form-grid">
             <label><span class="lbl">${c.treatmentLabel}</span><select data-calc-treatment>${treatmentOpts}</select></label>
-            <label><span class="lbl" data-calc-qty-label>${c.qtyLabelTooth}</span><select data-calc-qty></select></label>
+            <label data-calc-qty-wrap><span class="lbl" data-calc-qty-label>${c.qtyLabelTooth}</span><select data-calc-qty></select></label>
           </div>
           <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:20px 22px;background:var(--cream-2);border-radius:14px;">
             <span style="font-size:13px;color:var(--muted-2);font-weight:700;">${c.resultLabel}</span>
             <span style="font-family:var(--font-serif);font-weight:700;font-size:28px;color:var(--ink);" data-calc-result>€0</span>
           </div>
           <p style="font-size:12.5px;color:var(--muted-2);margin:0;">${c.disclaimer}</p>
-          <a href="#iletisim" class="btn btn-primary btn-block" data-calc-cta>${c.cta} ${icons.arrow()}</a>
+          <a href="${url(lang, "iletisim/")}" class="btn btn-primary btn-block" data-calc-cta data-quote-url="${url(lang, "iletisim/")}">${c.cta} ${icons.arrow()}</a>
         </div>
       </div>
     </div>
@@ -125,6 +126,7 @@ function priceCalcSection(lang) {
       qtyLabelTooth: c.qtyLabelTooth,
       qtyLabelImplant: c.qtyLabelImplant,
       qtyLabelImplantPkg: c.qtyLabelImplantPkg,
+      onRequest: c.onRequest,
     })};</script>
   </section>`;
 }

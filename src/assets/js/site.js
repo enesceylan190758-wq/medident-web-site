@@ -189,13 +189,14 @@
   const calcData = window.__MD_CALC__ || [];
   const calcI18n = window.__MD_CALC_I18N__ || {};
   const calcCard = $("[data-calc]");
+  const fmtEUR = (n) => "€" + Math.round(n).toLocaleString("de-DE");
   if (calcCard && calcData.length) {
     const treatmentSel = $("[data-calc-treatment]", calcCard);
     const qtySel = $("[data-calc-qty]", calcCard);
+    const qtyWrap = $("[data-calc-qty-wrap]", calcCard);
     const qtyLabel = $("[data-calc-qty-label]", calcCard);
     const resultEl = $("[data-calc-result]", calcCard);
     const ctaBtn = $("[data-calc-cta]", calcCard);
-    const fmtEUR = (n) => "€" + Math.round(n).toLocaleString("de-DE");
 
     const findItem = (key) => calcData.find((d) => d.key === key) || calcData[0];
 
@@ -205,6 +206,11 @@
       calcI18n.qtyLabelTooth || "";
 
     const populateQty = (item) => {
+      if (item.priceOnRequest) {
+        if (qtyWrap) qtyWrap.style.display = "none";
+        return;
+      }
+      if (qtyWrap) qtyWrap.style.display = "";
       if (qtyLabel) qtyLabel.textContent = qtyLabelFor(item.unit);
       if (!qtySel) return;
       qtySel.innerHTML = item.options
@@ -213,6 +219,7 @@
     };
 
     const currentOption = (item) => {
+      if (item.priceOnRequest) return null;
       const qty = parseInt(qtySel?.value, 10) || item.defaultQty;
       return item.options.find((o) => o.qty === qty) || item.options[0];
     };
@@ -220,7 +227,7 @@
     const updateResult = () => {
       const item = findItem(treatmentSel?.value);
       const opt = currentOption(item);
-      if (resultEl) resultEl.textContent = fmtEUR(opt.price);
+      if (resultEl) resultEl.textContent = opt ? fmtEUR(opt.price) : calcI18n.onRequest || "—";
       return { item, opt };
     };
 
@@ -236,21 +243,55 @@
     updateResult();
 
     if (ctaBtn) {
-      ctaBtn.addEventListener("click", () => {
+      ctaBtn.addEventListener("click", (e) => {
+        e.preventDefault();
         const { item, opt } = updateResult();
-        const leadForm = $("[data-lead-form]");
-        if (!leadForm) return;
-        const msg = $("textarea[name=message]", leadForm);
-        if (msg) {
-          const line = `${item.title} (${opt.qty}) — ${fmtEUR(opt.price)}`;
-          if (!msg.value.includes(line)) msg.value = msg.value ? `${line}\n${msg.value}` : line;
+        const base = ctaBtn.getAttribute("data-quote-url") || ctaBtn.getAttribute("href");
+        const params = new URLSearchParams();
+        params.set("tx", item.title);
+        if (opt) {
+          params.set("qty", opt.qty);
+          params.set("price", opt.price);
+        } else {
+          params.set("price", "onrequest");
         }
+        if (item.matchTitle) params.set("svc", item.matchTitle);
+        window.location.href = base + "?" + params.toString();
+      });
+    }
+  }
+
+  // Quote summary banner (on the contact page, when arriving from the price calculator)
+  const quoteBox = $("[data-quote-summary]");
+  if (quoteBox) {
+    const qp = new URLSearchParams(window.location.search);
+    const tx = qp.get("tx");
+    if (tx) {
+      const cfg = window.__MD_FORM__ || {};
+      const price = qp.get("price");
+      const qty = qp.get("qty");
+      const priceText = price === "onrequest" ? cfg.quoteOnRequest || "—" : fmtEUR(parseFloat(price) || 0);
+      quoteBox.style.display = "block";
+      quoteBox.innerHTML = `<div class="form-card" style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+        <div>
+          <div style="font-size:12.5px;font-weight:700;color:var(--muted-2);margin-bottom:4px;">${cfg.quoteSummaryLabel || ""}</div>
+          <div style="font-family:var(--font-serif);font-weight:700;font-size:22px;color:var(--ink);">${tx}${qty ? ` (${qty})` : ""}</div>
+          <div style="font-size:13px;color:var(--muted-2);margin-top:6px;">${cfg.quoteSummaryNote || ""}</div>
+        </div>
+        <div style="font-family:var(--font-serif);font-weight:700;font-size:26px;color:var(--ink);">${priceText}</div>
+      </div>`;
+
+      const leadForm = $("[data-lead-form]");
+      if (leadForm) {
+        const msg = $("textarea[name=message]", leadForm);
+        if (msg && !msg.value) msg.value = `${tx}${qty ? ` (${qty})` : ""} — ${priceText}`;
+        const svc = qp.get("svc");
         const treatSel = $("select[name=treatment]", leadForm);
-        if (treatSel && item.matchTitle) {
-          const match = Array.from(treatSel.options).find((o) => o.text === item.matchTitle);
+        if (treatSel && svc) {
+          const match = Array.from(treatSel.options).find((o) => o.text === svc);
           if (match) treatSel.value = match.value;
         }
-      });
+      }
     }
   }
 

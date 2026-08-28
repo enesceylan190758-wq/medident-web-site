@@ -319,6 +319,7 @@ export function contactPage(lang) {
   const t = i18n[lang];
   const crumbs = [crumbHome(lang), { name: t.nav.contact, href: url(lang, "iletisim/") }];
   const body = `${pageHero(lang, t.contactEyebrow, t.contactTitle, t.contactLead, crumbs)}
+  <section class="section" style="padding-top:0;padding-bottom:0;"><div class="container" data-quote-summary style="display:none;"></div></section>
   ${contactSection(lang, { heading: false })}
   <section class="section" style="padding-top:0;"><div class="container">
     <div style="border-radius:20px;overflow:hidden;box-shadow:var(--shadow);aspect-ratio:16/7;background:var(--sand);">

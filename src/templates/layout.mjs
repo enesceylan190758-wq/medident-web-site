@@ -236,10 +236,14 @@ function floating(lang) {
 // Full page wrapper.
 export function layout(opts, bodyHtml) {
   const { lang, path } = opts;
+  const calcT = i18n[lang].calc || i18n.en.calc;
   const formCfg = {
     endpoint: site.estesof.endpoint,
     method: site.estesof.method,
     whatsapp: site.whatsappRaw,
+    quoteSummaryLabel: calcT.summaryLabel,
+    quoteSummaryNote: calcT.summaryNote,
+    quoteOnRequest: calcT.onRequest,
   };
   const gtmNo = site.tracking.gtm
     ? `<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=${site.tracking.gtm}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>`

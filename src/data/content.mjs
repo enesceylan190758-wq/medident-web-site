@@ -423,6 +423,27 @@ export const priceCalc = [
       de: "Implantat-Vollversorgung (Ober+Unterkiefer)",
     },
   },
+  {
+    key: "hollywood",
+    unit: "tooth",
+    priceOnRequest: true,
+    serviceSlug: "estetik-dis-hekimligi",
+    titles: { tr: "Hollywood Smile", en: "Hollywood Smile", de: "Hollywood Smile" },
+  },
+  {
+    key: "bonding",
+    unit: "tooth",
+    priceOnRequest: true,
+    serviceSlug: "estetik-dis-hekimligi",
+    titles: { tr: "Kompozit Bonding", en: "Composite Bonding", de: "Composite Bonding" },
+  },
+  {
+    key: "zahnersatz",
+    unit: "jaw",
+    priceOnRequest: true,
+    serviceSlug: "protezler",
+    titles: { tr: "Protez (Çıkarılabilir/Sabit)", en: "Denture / Bridge", de: "Zahnersatz (Prothese/Brücke)" },
+  },
 ];
 
 // Fallback body copy for services without a mapped article
