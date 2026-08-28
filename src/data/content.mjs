@@ -454,6 +454,55 @@ export const priceCalc = [
   },
 ];
 
+// Implant/material brands used in clinic — shown as a trust section (DE homepage).
+export const implantBrands = [
+  {
+    key: "straumann",
+    titles: { tr: "Straumann", en: "Straumann", de: "Straumann" },
+    desc: {
+      tr: "İsviçre menşeli, implantoloji alanının öncü markalarından biri; Roxolid® malzeme ve SLActive® yüzey teknolojisiyle tanınır.",
+      en: "A leading Swiss implantology brand, known for Roxolid® material and SLActive® surface technology.",
+      de: "Eine führende Schweizer Implantologie-Marke, bekannt für Roxolid®-Material und SLActive®-Oberflächentechnologie.",
+    },
+  },
+  {
+    key: "osstem",
+    titles: { tr: "Osstem", en: "Osstem", de: "Osstem" },
+    desc: {
+      tr: "Güney Kore merkezli, 70'ten fazla ülkede kullanılan, dünyanın en büyük implant üreticilerinden biridir.",
+      en: "A South Korea–based manufacturer, used in over 70 countries and among the world's largest implant makers.",
+      de: "Ein südkoreanischer Hersteller, in über 70 Ländern im Einsatz und einer der weltweit größten Implantathersteller.",
+    },
+  },
+  {
+    key: "neodent",
+    titles: { tr: "Neodent", en: "Neodent", de: "Neodent" },
+    desc: {
+      tr: "2018'den beri Straumann Group bünyesinde üretilen, geniş klinik kullanım geçmişine sahip bir implant markasıdır.",
+      en: "Manufactured under the Straumann Group since 2018, with a long clinical track record.",
+      de: "Seit 2018 Teil der Straumann Group, mit langjähriger klinischer Erfahrung.",
+    },
+  },
+  {
+    key: "implantswiss",
+    titles: { tr: "ImplantSwiss", en: "ImplantSwiss", de: "ImplantSwiss" },
+    desc: {
+      tr: "İsviçre hassasiyetiyle üretilen implant sistemidir.",
+      en: "An implant system manufactured to Swiss precision standards.",
+      de: "Ein Implantatsystem, gefertigt nach Schweizer Präzisionsstandards.",
+    },
+  },
+  {
+    key: "ivoclar",
+    titles: { tr: "Ivoclar (Zirkonyum)", en: "Ivoclar (Zirconia)", de: "Ivoclar (Zirkonoxid)" },
+    desc: {
+      tr: "Zirkonyum kaplamalarımızda, diş hekimliği materyalleri alanında uluslararası tanınan Ivoclar sistemleri kullanılır.",
+      en: "Our zirconia crowns use Ivoclar's internationally recognised dental materials systems.",
+      de: "Unsere Zirkonkronen werden mit den international anerkannten Dentalmaterial-Systemen von Ivoclar gefertigt.",
+    },
+  },
+];
+
 // Fallback body copy for services without a mapped article
 export const serviceFallback = {
   tr: (title) => `<p><strong>${title}</strong>, MediDent İstanbul’da kişiye özel planlanan, dijital destekli ve konfor odaklı bir tedavi sürecidir. İlk online değerlendirmeden klinik uygulamasına kadar her adım hasta koordinasyon ekibimiz tarafından yönetilir.</p>

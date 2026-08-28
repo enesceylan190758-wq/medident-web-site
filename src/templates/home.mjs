@@ -1,6 +1,6 @@
 import { site } from "../data/site.mjs";
 import { i18n } from "../data/i18n.mjs";
-import { services, homeCards, packages, priceCalc } from "../data/content.mjs";
+import { services, homeCards, packages, priceCalc, implantBrands } from "../data/content.mjs";
 import { img } from "../data/images.mjs";
 import { hoursLocalized } from "../data/seo.mjs";
 import { L, uiBits } from "../data/locale.mjs";
@@ -11,6 +11,32 @@ const src = (file) => asset(`/assets/img/${file}`);
 
 // Price calculator: DE/EN only (per client request — not shown on TR/AR/RU).
 const CALC_LANGS = ["de", "en"];
+// Implant/zirconia brand trust section: DE only (per client request).
+const BRANDS_LANGS = ["de"];
+
+function brandsSection(lang) {
+  const t = i18n[lang];
+  const c = t.calc || i18n.en.calc;
+  return `<section class="section" id="markalar">
+    <div class="container">
+      <div style="text-align:center;max-width:640px;margin:0 auto clamp(38px,4vw,52px);">
+        <div class="eyebrow center" data-reveal>${c.brandsEyebrow}</div>
+        <h2 data-reveal style="margin:0 0 14px;">${c.brandsTitle}</h2>
+        <p data-reveal style="font-size:16px;line-height:1.62;color:var(--muted);margin:0;">${c.brandsLead}</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;">
+        ${implantBrands
+          .map(
+            (b) => `<div class="card" data-reveal style="padding:24px 22px;">
+          <h3 style="margin:0 0 8px;font-size:18px;">${L(b.titles, lang)}</h3>
+          <p style="font-size:14px;line-height:1.6;color:var(--muted-2);margin:0;">${L(b.desc, lang)}</p>
+        </div>`
+          )
+          .join("")}
+      </div>
+    </div>
+  </section>`;
+}
 
 function igPermalinkToEmbed(url = "") {
   const m = String(url).match(/instagram\.com\/(reel|p|tv)\/([^/?#]+)/i);
@@ -320,6 +346,8 @@ export function homePage(lang) {
       </div>
     </div>
   </section>
+
+  ${BRANDS_LANGS.includes(lang) ? brandsSection(lang) : ""}
 
   <section class="section section-alt" id="surec">
     <div class="container" style="max-width:1120px;">
