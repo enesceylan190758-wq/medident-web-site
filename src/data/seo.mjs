@@ -271,6 +271,11 @@ export function resolveHreflangPaths(lang, pathNoLang) {
     return { de: "preise/", en: "turkey-teeth-price/" };
   }
 
+  // Composite bonding landing page — DE/EN only
+  if (p === "composite-bonding-tuerkei" || p === "composite-bonding-turkey") {
+    return { de: "composite-bonding-tuerkei/", en: "composite-bonding-turkey/" };
+  }
+
   // Blog article
   if (p.startsWith("blog/") && p !== "blog") {
     const slug = p.slice("blog/".length);

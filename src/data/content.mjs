@@ -434,7 +434,13 @@ export const priceCalc = [
   {
     key: "hollywood",
     unit: "tooth",
-    priceOnRequest: true,
+    options: [
+      { qty: 16, price: 3200 },
+      { qty: 20, price: 4000 },
+      { qty: 28, price: 5600 },
+      { qty: 32, price: 6400 },
+    ],
+    defaultQty: 20,
     serviceSlug: "estetik-dis-hekimligi",
     titles: { tr: "Hollywood Smile", en: "Hollywood Smile", de: "Hollywood Smile" },
   },

@@ -362,7 +362,11 @@ export function pricesPage(lang) {
         ${priceCalc
           .map(
             (item, i) => `<tr style="${i % 2 ? "background:var(--cream);" : ""}border-top:1px solid rgba(43,35,24,.08);">
-          <td style="padding:14px 18px;color:var(--ink-soft);">${L(item.titles, lang)}</td>
+          <td style="padding:14px 18px;color:var(--ink-soft);">${
+            item.key === "bonding"
+              ? `<a href="${url(lang, lang === "de" ? "composite-bonding-tuerkei/" : "composite-bonding-turkey/")}" style="color:var(--ink-soft);text-decoration:underline;">${L(item.titles, lang)}</a>`
+              : L(item.titles, lang)
+          }</td>
           <td style="padding:14px 18px;text-align:right;font-weight:700;color:var(--ink);">${priceCell(item)}</td>
         </tr>`
           )
@@ -377,6 +381,67 @@ export function pricesPage(lang) {
   <section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">
     <h2 style="font-size:24px;margin:0 0 20px;">${p.tableTitle}</h2>
     ${table}
+  </div></section>
+  ${priceCalcSection(lang)}
+  ${brandsSection(lang)}
+  <section class="section section-alt"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:24px;margin:0 0 20px;">${p.faqTitle}</h2>
+    <div class="faq" data-reveal>${p.faqs.map(faqItem).join("")}</div>
+  </div></section>
+  ${contactSection(lang)}`;
+
+  return {
+    body,
+    title: `${p.h1} — ${site.brand}`,
+    description: p.lead,
+    jsonld: [
+      orgSchema(lang),
+      faqSchema(p.faqs),
+      breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
+    ],
+  };
+}
+
+// Composite bonding landing page — DE ("composite-bonding-tuerkei/") + EN
+// ("composite-bonding-turkey/") only. Structure mirrors what ranks for
+// competitors (intro, bonding-vs-veneers comparison, price, FAQ) kept to our
+// site's usual length — no need to match their 3–4k word pages.
+export function bondingPage(lang) {
+  const t = i18n[lang];
+  const p = t.bondingPage;
+  const slug = lang === "de" ? "composite-bonding-tuerkei/" : "composite-bonding-turkey/";
+  const crumbs = [crumbHome(lang), { name: p.eyebrow, href: url(lang, slug) }];
+
+  const compareTable = `<div style="overflow-x:auto;border-radius:16px;border:1px solid rgba(43,35,24,.1);">
+    <table style="width:100%;border-collapse:collapse;font-size:14.5px;">
+      <thead><tr style="background:var(--cream-2);">
+        <th style="text-align:left;padding:14px 16px;"></th>
+        <th style="text-align:left;padding:14px 16px;font-weight:700;color:var(--ink);">${p.compareHeadBonding}</th>
+        <th style="text-align:left;padding:14px 16px;font-weight:700;color:var(--ink);">${p.compareHeadVeneer}</th>
+      </tr></thead>
+      <tbody>
+        ${p.compareRows
+          .map(
+            (r, i) => `<tr style="${i % 2 ? "background:var(--cream);" : ""}border-top:1px solid rgba(43,35,24,.08);">
+          <td style="padding:12px 16px;font-weight:700;color:var(--ink-soft);">${r.label}</td>
+          <td style="padding:12px 16px;color:var(--muted-2);">${r.bonding}</td>
+          <td style="padding:12px 16px;color:var(--muted-2);">${r.veneer}</td>
+        </tr>`
+          )
+          .join("")}
+      </tbody>
+    </table>
+  </div>`;
+
+  const faqItem = (f) => `<div class="faq-item" data-faq-item><button class="faq-q" data-faq-toggle><span>${f.q}</span><span class="faq-icon"><span class="minus">${miniMinus}</span><span class="plus">${miniPlus}</span></span></button><div class="faq-a"><p style="margin:0;">${f.a}</p></div></div>`;
+
+  const body = `${pageHero(lang, p.eyebrow, p.h1, p.lead, crumbs)}
+  <section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:22px;margin:0 0 14px;">${p.introTitle}</h2>
+    <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0 0 36px;">${p.introText}</p>
+    <h2 style="font-size:22px;margin:0 0 20px;">${p.compareTitle}</h2>
+    ${compareTable}
+    <p style="font-size:13px;color:var(--muted-2);margin:16px 0 0;">${p.priceNote}</p>
   </div></section>
   ${priceCalcSection(lang)}
   ${brandsSection(lang)}

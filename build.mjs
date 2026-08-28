@@ -30,6 +30,7 @@ import {
   geoIndexPage,
   geoPackPage,
   pricesPage,
+  bondingPage,
 } from "./src/templates/pages.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -134,6 +135,10 @@ function build() {
     // Prices landing page — DE/EN only (keyword-researched slugs)
     if (lang === "de") emit(lang, "preise/", pricesPage(lang));
     if (lang === "en") emit(lang, "turkey-teeth-price/", pricesPage(lang));
+
+    // Composite bonding landing page — DE/EN only
+    if (lang === "de") emit(lang, "composite-bonding-tuerkei/", bondingPage(lang));
+    if (lang === "en") emit(lang, "composite-bonding-turkey/", bondingPage(lang));
   }
 
   writeSitemap();
