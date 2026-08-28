@@ -10,9 +10,9 @@ import { url, waHref, orgSchema, faqSchema, breadcrumbSchema, asset } from "./la
 const src = (file) => asset(`/assets/img/${file}`);
 
 // Price calculator: DE/EN only (per client request — not shown on TR/AR/RU).
-const CALC_LANGS = ["de", "en"];
-// Implant/zirconia brand trust section: DE only (per client request).
-const BRANDS_LANGS = ["de"];
+const CALC_LANGS = ["de", "en", "fr"];
+// Implant/zirconia brand trust section: DE only (per client request), + FR (full DE/EN parity request).
+const BRANDS_LANGS = ["de", "fr"];
 
 export function brandsSection(lang) {
   const t = i18n[lang];

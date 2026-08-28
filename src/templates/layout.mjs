@@ -139,6 +139,7 @@ function navLinks(lang) {
   ];
   if (lang === "de") links.push([i18n.de.pricesPage.eyebrow, url(lang, "preise/")]);
   if (lang === "en") links.push([i18n.en.pricesPage.eyebrow, url(lang, "turkey-teeth-price/")]);
+  if (lang === "fr") links.push([i18n.fr.pricesPage.eyebrow, url(lang, "prix-implants-dentaires-turquie/")]);
   links.push([n.gallery, url(lang, "galeri/")], [n.blog, url(lang, "blog/")], [n.contact, url(lang, "iletisim/")]);
   return links;
 }

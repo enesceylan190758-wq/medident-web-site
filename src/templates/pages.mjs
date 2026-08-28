@@ -117,11 +117,9 @@ export function servicePage(lang, service, article) {
   ];
   if (faqs.length) jsonld.push(faqSchema(faqs));
   const pageTitle =
-    lang === "en"
+    lang === "en" || lang === "de" || lang === "fr"
       ? `${title} in Istanbul — ${site.brand}`
-      : lang === "de"
-        ? `${title} in Istanbul — ${site.brand}`
-        : `${title} — ${site.brand}`;
+      : `${title} — ${site.brand}`;
   return { body, title: pageTitle, description: L(service.meta, lang), image: ogImage, jsonld };
 }
 
@@ -144,11 +142,12 @@ export function doctorsIndexPage(lang) {
       : `<div class="prose" style="text-align:center;padding:40px 0;"><p style="font-size:17px;color:var(--muted-2);">${
           lang === "tr" ? "Hekim kadromuz güncellenmektedir. Detaylı bilgi için lütfen iletişime geçin."
           : lang === "de" ? "Unser Ärzteteam wird aktualisiert. Bitte kontaktieren Sie uns für weitere Informationen."
+          : lang === "fr" ? "Notre équipe médicale est en cours de mise à jour. Veuillez nous contacter pour plus d'informations."
           : lang === "ar" ? "يتم تحديث فريق الأطباء لدينا. يرجى التواصل معنا لمزيد من المعلومات."
           : lang === "ru" ? "Состав врачей обновляется. Свяжитесь с нами для подробностей."
           : "Our medical team is being updated. Please contact us for details."
         }</p><a href="${url(lang, "iletisim/")}" class="btn btn-primary" style="margin-top:16px;">${
-          lang === "tr" ? "İletişim" : lang === "de" ? "Kontakt" : lang === "ar" ? "تواصل" : lang === "ru" ? "Связаться" : "Contact us"
+          lang === "tr" ? "İletişim" : lang === "de" ? "Kontakt" : lang === "fr" ? "Contact" : lang === "ar" ? "تواصل" : lang === "ru" ? "Связаться" : "Contact us"
         }</a></div>`
     }
   </div></section>
@@ -342,7 +341,7 @@ export function contactPage(lang) {
 export function pricesPage(lang) {
   const t = i18n[lang];
   const p = t.pricesPage;
-  const slug = lang === "de" ? "preise/" : "turkey-teeth-price/";
+  const slug = lang === "de" ? "preise/" : lang === "fr" ? "prix-implants-dentaires-turquie/" : "turkey-teeth-price/";
   const crumbs = [crumbHome(lang), { name: p.eyebrow, href: url(lang, slug) }];
 
   const priceCell = (item) => {
@@ -364,7 +363,7 @@ export function pricesPage(lang) {
             (item, i) => `<tr style="${i % 2 ? "background:var(--cream);" : ""}border-top:1px solid rgba(43,35,24,.08);">
           <td style="padding:14px 18px;color:var(--ink-soft);">${
             item.key === "bonding"
-              ? `<a href="${url(lang, lang === "de" ? "composite-bonding-tuerkei/" : "composite-bonding-turkey/")}" style="color:var(--ink-soft);text-decoration:underline;">${L(item.titles, lang)}</a>`
+              ? `<a href="${url(lang, lang === "de" ? "composite-bonding-tuerkei/" : lang === "fr" ? "composite-bonding-turquie/" : "composite-bonding-turkey/")}" style="color:var(--ink-soft);text-decoration:underline;">${L(item.titles, lang)}</a>`
               : L(item.titles, lang)
           }</td>
           <td style="padding:14px 18px;text-align:right;font-weight:700;color:var(--ink);">${priceCell(item)}</td>
@@ -410,7 +409,7 @@ export function pricesPage(lang) {
 export function bondingPage(lang) {
   const t = i18n[lang];
   const p = t.bondingPage;
-  const slug = lang === "de" ? "composite-bonding-tuerkei/" : "composite-bonding-turkey/";
+  const slug = lang === "de" ? "composite-bonding-tuerkei/" : lang === "fr" ? "composite-bonding-turquie/" : "composite-bonding-turkey/";
   const crumbs = [crumbHome(lang), { name: p.eyebrow, href: url(lang, slug) }];
 
   const compareTable = `<div style="overflow-x:auto;border-radius:16px;border:1px solid rgba(43,35,24,.1);">
@@ -473,7 +472,7 @@ export function reviewsPage(lang) {
   const body = `${pageHero(lang, t.reviewsEyebrow, t.reviewsTitle, t.reviewsLead, crumbs)}
   <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container">
     <div class="grid-auto">${t.reviews.map(review).join("")}</div>
-    <div style="text-align:center;margin-top:36px;"><a href="${site.mapsUrl}" class="btn btn-ghost" target="_blank" rel="noopener">Google ${lang === "tr" ? "yorumları" : "reviews"} ${icons.arrowSm}</a></div>
+    <div style="text-align:center;margin-top:36px;"><a href="${site.mapsUrl}" class="btn btn-ghost" target="_blank" rel="noopener">Google ${L(uiBits.googleReviews, lang)} ${icons.arrowSm}</a></div>
   </div></section>
   ${contactSection(lang)}`;
   return {
@@ -548,6 +547,7 @@ const miniPlus = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" st
 export function geoIndexPage(lang, packs) {
   const title =
     lang === "de" ? "GEO Wissensbank"
+    : lang === "fr" ? "Base de connaissances GEO"
     : lang === "ar" ? "قاعدة معرفة GEO"
     : lang === "ru" ? "База знаний GEO"
     : lang === "en" ? "GEO knowledge base"
@@ -555,18 +555,20 @@ export function geoIndexPage(lang, packs) {
   const lead =
     lang === "de"
       ? "Kurze, zitierfähige Antworten für KI-Suchmaschinen und Patientenfragen."
-      : lang === "ar"
-        ? "إجابات قصيرة جاهزة للاقتباس لمحركات البحث بالذكاء الاصطناعي وأسئلة المرضى."
-        : lang === "ru"
-          ? "Краткие, удобные для цитирования ответы для ИИ-поиска и вопросов пациентов."
-          : lang === "en"
-            ? "Short, citation-ready answers for AI search and patient questions."
-            : "Yapay zekâ arama motorları ve hasta soruları için kısa, alıntılanabilir cevaplar.";
+      : lang === "fr"
+        ? "Réponses courtes et citables pour les moteurs de recherche IA et les questions des patients."
+        : lang === "ar"
+          ? "إجابات قصيرة جاهزة للاقتباس لمحركات البحث بالذكاء الاصطناعي وأسئلة المرضى."
+          : lang === "ru"
+            ? "Краткие, удобные для цитирования ответы для ИИ-поиска и вопросов пациентов."
+            : lang === "en"
+              ? "Short, citation-ready answers for AI search and patient questions."
+              : "Yapay zekâ arama motorları ve hasta soruları için kısa, alıntılanabilir cevaplar.";
   const crumbs = [crumbHome(lang), { name: "GEO", href: url(lang, "geo/") }];
   const row = (p) => `<a href="${url(lang, "geo/" + p.slug + "/")}" class="article-row" style="color:inherit;">
     ${p.coverImage ? `<img class="article-thumb" src="${asset(`/assets/img/${p.coverImage}`)}" alt="" width="160" height="106" loading="lazy">` : ""}
     <div><h3 style="font-size:20px;margin-bottom:6px;">${p.title || p.question}</h3><p style="font-size:14.5px;color:var(--muted-2);margin:0;">${p.direct_answer.slice(0, 140)}…</p></div>
-    <span class="link-more">${lang === "tr" ? "Oku" : lang === "de" ? "Lesen" : lang === "ar" ? "اقرأ" : lang === "ru" ? "Читать" : "Read"} ${icons.arrowSm}</span>
+    <span class="link-more">${L(uiBits.read, lang)} ${icons.arrowSm}</span>
   </a>`;
   const body = `${pageHero(lang, "GEO", title, lead, crumbs)}
   <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container" style="max-width:920px;">
