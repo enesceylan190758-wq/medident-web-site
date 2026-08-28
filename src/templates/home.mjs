@@ -158,6 +158,35 @@ export function priceCalcSection(lang) {
   </section>`;
 }
 
+// Free X-ray / photo second-opinion CTA — routes to WhatsApp (no upload backend needed).
+export function xraySection(lang) {
+  const x = i18n[lang].xray || i18n.en.xray;
+  const waXrayHref = waHref(x.waMessage);
+  return `<section class="section section-alt" id="rontgen">
+    <div class="container" style="max-width:900px;">
+      <div style="text-align:center;max-width:640px;margin:0 auto clamp(30px,4vw,44px);">
+        <div class="eyebrow center" data-reveal>${x.eyebrow}</div>
+        <h2 data-reveal style="margin:0 0 14px;">${x.title}</h2>
+        <p data-reveal style="font-size:16px;line-height:1.62;color:var(--muted);margin:0;">${x.lead}</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-bottom:32px;">
+        ${x.steps
+          .map(
+            (s, i) => `<div class="card" data-reveal style="padding:22px 20px;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;"><span class="step-n">0${i + 1}</span></div>
+          <h4 style="font-size:16px;font-weight:800;margin:0 0 6px;color:var(--ink);">${s.t}</h4>
+          <p style="font-size:13.8px;line-height:1.56;color:var(--muted-2);margin:0;">${s.d}</p>
+        </div>`
+          )
+          .join("")}
+      </div>
+      <div style="text-align:center;" data-reveal>
+        <a href="${waXrayHref}" target="_blank" rel="noopener" class="btn" style="background:#25D366;color:#fff;">${icons.wa} ${x.cta}</a>
+      </div>
+    </div>
+  </section>`;
+}
+
 export function homePage(lang) {
   const t = i18n[lang];
   const h = t.home;
@@ -263,6 +292,7 @@ export function homePage(lang) {
   </section>
 
   ${CALC_LANGS.includes(lang) ? priceCalcSection(lang) : ""}
+  ${CALC_LANGS.includes(lang) ? xraySection(lang) : ""}
 
   <section class="section" id="hizmetler">
     <div class="container">

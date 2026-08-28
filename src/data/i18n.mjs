@@ -351,6 +351,18 @@ export const i18n = {
         { q: "Composite bonding or veneers — which is right for me?", a: "Bonding suits minor chips, gaps and shape changes in one visit. Veneers suit bigger colour/shape changes and last longer. We advise after your free photo assessment." },
       ],
     },
+    xray: {
+      eyebrow: "Free Second Opinion",
+      title: "Send your X-ray, get a doctor's assessment — free",
+      lead: "Not sure what treatment you need? Send us your X-ray or a few photos on WhatsApp. Our dentist reviews it, marks up what needs attention, and sends you a short note — no obligation. If you'd like a price afterwards, we're here.",
+      steps: [
+        { t: "Send on WhatsApp", d: "Attach your X-ray or a few clear photos of your teeth." },
+        { t: "Our doctor reviews it", d: "A real dentist looks at your case and marks up the key points." },
+        { t: "Get your note", d: "You receive a short, clear write-up of what's needed — decide freely, no pressure." },
+      ],
+      cta: "Send X-ray on WhatsApp",
+      waMessage: "Hello, I'd like to send my X-ray / photos for a free doctor's assessment.",
+    },
   },
   de: {
     langName: "Deutsch",
@@ -561,6 +573,18 @@ export const i18n = {
         { q: "Ist Composite Bonding reversibel?", a: "Ja — im Gegensatz zu Veneers oder Kronen muss kein Zahnschmelz entfernt werden, daher kann es später angepasst oder entfernt werden." },
         { q: "Composite Bonding oder Veneers — was passt zu mir?", a: "Bonding eignet sich für kleinere Absplitterungen, Lücken und Formkorrekturen in einer Sitzung. Veneers eignen sich für größere Farb-/Formänderungen und halten länger. Wir beraten Sie nach der kostenlosen Foto-Einschätzung." },
       ],
+    },
+    xray: {
+      eyebrow: "Kostenlose Zweitmeinung",
+      title: "Röntgenbild senden, kostenlose Ärzte-Einschätzung erhalten",
+      lead: "Nicht sicher, welche Behandlung Sie brauchen? Senden Sie uns Ihr Röntgenbild oder ein paar Fotos per WhatsApp. Unser Zahnarzt sieht sich Ihren Fall an, markiert die wichtigen Punkte und schickt Ihnen eine kurze Einschätzung — unverbindlich. Wenn Sie danach ein Preisangebot möchten, sind wir für Sie da.",
+      steps: [
+        { t: "Per WhatsApp senden", d: "Röntgenbild oder ein paar klare Fotos Ihrer Zähne anhängen." },
+        { t: "Unser Arzt schaut sich es an", d: "Ein echter Zahnarzt prüft Ihren Fall und markiert die wichtigen Punkte." },
+        { t: "Ihre Einschätzung erhalten", d: "Sie bekommen eine kurze, klare Rückmeldung — frei entscheiden, ohne Druck." },
+      ],
+      cta: "Röntgenbild per WhatsApp senden",
+      waMessage: "Hallo, ich möchte mein Röntgenbild / meine Fotos für eine kostenlose Ärzte-Einschätzung senden.",
     },
   },
   ar: i18nAr,

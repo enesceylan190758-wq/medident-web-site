@@ -14,7 +14,7 @@ import {
   faqSchema,
   asset,
 } from "./layout.mjs";
-import { contactSection, priceCalcSection, brandsSection } from "./home.mjs";
+import { contactSection, priceCalcSection, brandsSection, xraySection } from "./home.mjs";
 
 const src = (file) => asset(`/assets/img/${file}`);
 const crumbHome = (lang) => ({ name: i18n[lang].breadcrumbHome, href: url(lang, ""), url: site.domain + url(lang, "") });
@@ -383,6 +383,7 @@ export function pricesPage(lang) {
     ${table}
   </div></section>
   ${priceCalcSection(lang)}
+  ${xraySection(lang)}
   ${brandsSection(lang)}
   <section class="section section-alt"><div class="container" style="max-width:820px;">
     <h2 style="font-size:24px;margin:0 0 20px;">${p.faqTitle}</h2>
@@ -444,6 +445,7 @@ export function bondingPage(lang) {
     <p style="font-size:13px;color:var(--muted-2);margin:16px 0 0;">${p.priceNote}</p>
   </div></section>
   ${priceCalcSection(lang)}
+  ${xraySection(lang)}
   ${brandsSection(lang)}
   <section class="section section-alt"><div class="container" style="max-width:820px;">
     <h2 style="font-size:24px;margin:0 0 20px;">${p.faqTitle}</h2>
