@@ -323,7 +323,7 @@ export function contactPage(lang) {
   ${contactSection(lang, { heading: false })}
   <section class="section" style="padding-top:0;"><div class="container">
     <div style="border-radius:20px;overflow:hidden;box-shadow:var(--shadow);aspect-ratio:16/7;background:var(--sand);">
-      <iframe src="${site.mapsEmbed}" width="100%" height="100%" style="border:0;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="MediDent İstanbul — ${site.addressShort}"></iframe>
+      <iframe src="${site.mapsEmbed}" width="100%" height="100%" style="border:0;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="${site.brand}"></iframe>
     </div>
   </div></section>`;
   return {

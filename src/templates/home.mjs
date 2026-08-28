@@ -453,7 +453,6 @@ export function contactSection(lang, { heading = true } = {}) {
             <a href="${waHref()}" target="_blank" rel="noopener"><span class="contact-ico">${icons.wa}</span><span><span style="display:block;font-size:12.5px;color:#A89D8B;">${t.waLabel}</span><span style="font-weight:700;font-size:16px;">${site.whatsapp}</span></span></a>
             <a href="tel:${site.phoneRaw}"><span class="contact-ico">${icons.phone}</span><span><span style="display:block;font-size:12.5px;color:#A89D8B;">${t.phoneLabel}</span><span style="font-weight:700;font-size:16px;">${site.phone}</span></span></a>
             <a href="mailto:${site.email}"><span class="contact-ico">${icons.mail}</span><span><span style="display:block;font-size:12.5px;color:#A89D8B;">${t.emailLabel}</span><span style="font-weight:700;font-size:16px;">${site.email}</span></span></a>
-            <a href="${site.mapsUrl}" target="_blank" rel="noopener"><span class="contact-ico">${icons.pin}</span><span><span style="display:block;font-size:12.5px;color:#A89D8B;">${t.addressLabel}</span><span style="font-weight:700;font-size:16px;">${site.address}</span></span></a>
             <div class="row"><span class="contact-ico">${icons.clock}</span><span><span style="display:block;font-size:12.5px;color:#A89D8B;">${t.hoursLabel}</span><span style="font-weight:700;font-size:16px;">${hoursLocalized[lang] || site.hours}</span></span></div>
           </div>
         </div>

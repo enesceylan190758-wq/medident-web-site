@@ -212,7 +212,6 @@ function footer(lang) {
           <a href="${waHref()}" target="_blank" rel="noopener">WhatsApp: ${site.whatsapp}</a>
           <a href="tel:${site.phoneRaw}">${site.phone}</a>
           <a href="mailto:${site.email}">${site.email}</a>
-          <a href="${site.mapsUrl}" target="_blank" rel="noopener">${site.address}</a>
           <span style="font-size:14px;color:#a89d8b;">${hoursLocalized[lang] || site.hours}</span>
         </div>
       </div>
