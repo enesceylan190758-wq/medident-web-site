@@ -3337,5 +3337,58 @@
     ],
     "publishedAt": "2026-08-10",
     "source": "weekly-geo"
+  },
+  {
+    "lang": "tr",
+    "slug": "seffaf-plak-mi-braket-mi",
+    "bucket": "karsilastirma",
+    "question": "Şeffaf plak mı braket mi?",
+    "title": "Şeffaf plak mı braket mi",
+    "direct_answer": "Şeffaf plak mı braket mi için “tek doğru seçenek” yoktur. Kemik/diş durumu, süre, bütçe ve estetik hedef şeffaf kıyaslandıktan sonra plan netleşir.",
+    "bullets": [
+      "Şeffaf plak mı braket mi: ilk adım muayene ve gerekli görüntülemedir.",
+      "Seçenekler süre, avantaj–dezavantaj ve bakım yüküyle birlikte anlatılır.",
+      "Tedavi günü steril protokol ve dijital ölçü/üretim kullanılır.",
+      "Sonrasında hijyen ve kontrol randevuları sonucu korur."
+    ],
+    "faq": [
+      {
+        "q": "Şeffaf plak mı braket mi?",
+        "a": "Şeffaf plak mı braket mi için “tek doğru seçenek” yoktur. Kemik/diş durumu, süre, bütçe ve estetik hedef şeffaf kıyaslandıktan sonra plan netleşir."
+      },
+      {
+        "q": "Şeffaf plak mı braket mi ne kadar sürer?",
+        "a": "Süre endikasyona göre aynı günden birkaç haftaya değişir; net takvim planlama sonrası söylenir."
+      },
+      {
+        "q": "Üsküdar / Acıbadem’de bu hizmet var mı?",
+        "a": "klinik Acıbadem’deki klinik implant, estetik, beyazlatma ve cerrahi dahil geniş bir yelpazede hizmet verir."
+      },
+      {
+        "q": "Yurt dışından hasta kabul ediliyor mu?",
+        "a": "Evet. Tedavi takvimi, transfer ve konaklama sağlık turizmi paketinde koordine edilebilir."
+      }
+    ],
+    "internal_links": [
+      {
+        "href": "/hizmetler/",
+        "label": "Hizmetler"
+      },
+      {
+        "href": "/blog/",
+        "label": "Blog"
+      },
+      {
+        "href": "/geo/",
+        "label": "GEO bilgi bankası"
+      },
+      {
+        "href": "/iletisim/",
+        "label": "İletişim"
+      }
+    ],
+    "author": "Dr. Ahmet Çelik",
+    "publishedAt": "2026-08-24",
+    "source": "weekly-geo"
   }
 ]
