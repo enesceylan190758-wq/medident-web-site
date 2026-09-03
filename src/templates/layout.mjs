@@ -70,7 +70,7 @@ function head({ lang, title, description, path, image, jsonld = [], ogType = "we
     <title>${title}</title>
     <meta name="description" content="${escapeAttr(description)}">
     <link rel="canonical" href="${canonical}">
-    ${site.tracking.gscVerify ? `<meta name="google-site-verification" content="${site.tracking.gscVerify}">` : ""}
+    ${[].concat(site.tracking.gscVerify || []).map((code) => `<meta name="google-site-verification" content="${code}">`).join("\n    ")}
     <meta name="robots" content="index,follow,max-image-preview:large">
     ${alts}
     <link rel="alternate" hreflang="x-default" href="${xDefaultHref}">

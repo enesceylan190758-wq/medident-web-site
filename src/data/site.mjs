@@ -31,7 +31,7 @@ export const site = {
   tracking: {
     gtm: "GTM-NTDLLHF",
     metaPixel: "3052551521644159",
-    gscVerify: "D1pF9pwynq5nBW7V0fFMFIvcgZuTc49glS3A18XsOvw",
+    gscVerify: ["D1pF9pwynq5nBW7V0fFMFIvcgZuTc49glS3A18XsOvw", "SYMyoGFEbTwUMOSq5xq7aJ2eIJzXFPBsb4cypZ0TWvs"],
     // Legacy WP GA4 measurement ID (active on medidentistanbul.com since ~2025)
     ga4: "G-WP6XMC87YB",
     // Google Ads conversion tag (account 502-170-9821) — used by assets/js/tracking.js
