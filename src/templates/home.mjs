@@ -525,7 +525,7 @@ export function contactSection(lang, { heading = true } = {}) {
   const treatments = services.filter((s) => s.home).map((s) => L(s.titles, lang));
   return `<section class="section contact-band" id="iletisim">
     <div class="container">
-      <div class="grid-2" style="grid-template-columns:1fr 1.05fr;">
+      <div class="grid-2 contact-layout">
         <div>
           <div class="eyebrow" data-reveal>${t.contactEyebrow}</div>
           ${heading ? `<h2 data-reveal>${t.contactTitle}</h2>` : ""}
