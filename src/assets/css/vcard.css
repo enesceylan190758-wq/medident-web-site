@@ -1,0 +1,311 @@
+/* Digital business card — QR landing (/p/…) */
+:root {
+  --vc-ink: #1a2332;
+  --vc-muted: #5a6575;
+  --vc-paper: #f7f9fc;
+  --vc-white: #ffffff;
+  --vc-blue: #1a62b0;
+  --vc-blue-deep: #134a86;
+  --vc-red: #e13539;
+  --vc-line: rgba(26, 98, 176, 0.18);
+  --vc-shadow: 0 24px 60px -36px rgba(18, 36, 64, 0.55);
+  --font-sans: "Jost", system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", Georgia, serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body.vcard-page {
+  margin: 0;
+  min-height: 100dvh;
+  font-family: var(--font-sans);
+  color: var(--vc-ink);
+  background: var(--vc-paper);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.45;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.vcard-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(26, 98, 176, 0.16), transparent 55%),
+    radial-gradient(900px 500px at 100% 0%, rgba(225, 53, 57, 0.12), transparent 50%),
+    linear-gradient(165deg, #eef3f9 0%, #f7f9fc 42%, #f3f0ee 100%);
+  pointer-events: none;
+}
+
+.vcard-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath d='M0 80V0h80' fill='none' stroke='%231a62b0' stroke-opacity='.06' stroke-width='1'/%3E%3C/svg%3E");
+}
+
+.vcard-shell {
+  position: relative;
+  z-index: 1;
+  width: min(440px, 100%);
+  margin: 0 auto;
+  padding: clamp(28px, 6vw, 48px) 22px 40px;
+  animation: vcard-in 0.7s ease both;
+}
+
+@keyframes vcard-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.vcard-brand {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 28px;
+}
+
+.vcard-logo img {
+  display: block;
+  height: 42px;
+  width: auto;
+  filter: drop-shadow(0 8px 18px rgba(26, 98, 176, 0.18));
+  transition: transform 0.35s ease;
+}
+
+.vcard-logo:hover img {
+  transform: translateY(-2px);
+}
+
+.vcard-hero {
+  margin-bottom: 28px;
+  animation: vcard-in 0.75s ease 0.08s both;
+}
+
+.vcard-org {
+  margin: 0 0 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--vc-blue);
+}
+
+.vcard-hero h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 9vw, 3.15rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  color: var(--vc-ink);
+}
+
+.vcard-rule {
+  display: block;
+  width: 52px;
+  height: 3px;
+  margin: 14px 0 16px;
+  background: linear-gradient(90deg, var(--vc-red), var(--vc-blue));
+  border-radius: 2px;
+  transform-origin: left center;
+  animation: vcard-rule 0.8s ease 0.25s both;
+}
+
+@keyframes vcard-rule {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+.vcard-lead {
+  margin: 0;
+  max-width: 28ch;
+  color: var(--vc-muted);
+  font-size: 0.98rem;
+  font-weight: 400;
+}
+
+.vcard-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 22px;
+  animation: vcard-in 0.75s ease 0.16s both;
+}
+
+.vcard-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--vc-line);
+  background: var(--vc-white);
+  color: var(--vc-ink);
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: var(--vc-shadow);
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.vcard-btn:hover {
+  transform: translateY(-2px);
+  border-color: rgba(26, 98, 176, 0.35);
+  color: var(--vc-blue-deep);
+}
+
+.vcard-btn-primary {
+  background: var(--vc-blue);
+  border-color: var(--vc-blue);
+  color: #fff;
+}
+
+.vcard-btn-primary:hover {
+  background: var(--vc-blue-deep);
+  color: #fff;
+}
+
+.vcard-btn-wa {
+  background: #128c7e;
+  border-color: #128c7e;
+  color: #fff;
+}
+
+.vcard-btn-wa:hover {
+  background: #0e7367;
+  color: #fff;
+}
+
+.vcard-ico {
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  color: inherit;
+}
+
+.vcard-ico svg {
+  width: 20px;
+  height: 20px;
+}
+
+.vcard-list {
+  list-style: none;
+  margin: 0 0 28px;
+  padding: 0;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid var(--vc-line);
+  backdrop-filter: blur(8px);
+  box-shadow: var(--vc-shadow);
+  overflow: hidden;
+  animation: vcard-in 0.75s ease 0.24s both;
+}
+
+.vcard-list li + li {
+  border-top: 1px solid var(--vc-line);
+}
+
+.vcard-list a {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 16px 18px;
+  color: inherit;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.vcard-list a:hover {
+  background: rgba(26, 98, 176, 0.06);
+}
+
+.vcard-list .vcard-ico {
+  margin-top: 2px;
+  color: var(--vc-blue);
+}
+
+.vcard-list small {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--vc-muted);
+  margin-bottom: 2px;
+}
+
+.vcard-list strong {
+  display: block;
+  font-size: 0.98rem;
+  font-weight: 600;
+}
+
+.vcard-list em {
+  display: block;
+  margin-top: 2px;
+  font-style: normal;
+  font-size: 0.9rem;
+  color: var(--vc-muted);
+}
+
+.vcard-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 4px;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.vcard-foot a {
+  color: var(--vc-blue);
+  text-decoration: none;
+}
+
+.vcard-foot a:hover {
+  color: var(--vc-red);
+}
+
+@media (max-width: 380px) {
+  .vcard-actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vcard-shell,
+  .vcard-hero,
+  .vcard-actions,
+  .vcard-list,
+  .vcard-rule,
+  .vcard-logo img {
+    animation: none !important;
+    transition: none !important;
+  }
+}

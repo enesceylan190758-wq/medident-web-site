@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 
 import { site, langPrefix } from "./src/data/site.mjs";
 import { services, doctors, legacyBlog } from "./src/data/content.mjs";
+import { vcards, buildVcf } from "./src/data/vcard.mjs";
 import {
   resolveHreflangPaths,
   sitemapPriority,
@@ -32,6 +33,7 @@ import {
   pricesPage,
   bondingPage,
 } from "./src/templates/pages.mjs";
+import { vcardPageHtml } from "./src/templates/vcard.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DIST = path.join(__dirname, "dist");
@@ -90,6 +92,16 @@ function build() {
   copyDir(path.join(__dirname, "src/assets/css"), path.join(DIST, "assets/css"));
   copyDir(path.join(__dirname, "src/assets/js"), path.join(DIST, "assets/js"));
   copyDir(path.join(__dirname, "src/assets/images"), path.join(DIST, "assets/img"));
+
+  // Digital business cards (QR destinations) — TR-only standalone pages
+  for (const card of vcards) {
+    const pathNoLang = `p/${card.slug}/`;
+    const outDir = path.join(DIST, pathNoLang);
+    fs.mkdirSync(outDir, { recursive: true });
+    fs.writeFileSync(path.join(outDir, "index.html"), vcardPageHtml(card));
+    fs.writeFileSync(path.join(outDir, `${card.slug}.vcf`), buildVcf(card));
+    pages.push({ lang: "tr", path: pathNoLang, loc: site.domain + url("tr", pathNoLang) });
+  }
 
   for (const lang of site.languages) {
     const byLang = ARTICLES.filter((a) => a.lang === lang);
