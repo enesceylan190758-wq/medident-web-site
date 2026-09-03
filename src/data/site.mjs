@@ -34,6 +34,8 @@ export const site = {
     gscVerify: "D1pF9pwynq5nBW7V0fFMFIvcgZuTc49glS3A18XsOvw",
     // Legacy WP GA4 measurement ID (active on medidentistanbul.com since ~2025)
     ga4: "G-WP6XMC87YB",
+    // Google Ads conversion tag (account 502-170-9821) — used by assets/js/tracking.js
+    googleAds: "AW-18418154075",
   },
   // Estesof form integration point (plan faz 5).
   // endpoint doluysa site.js JSON POST atar; boşsa WhatsApp fallback.
