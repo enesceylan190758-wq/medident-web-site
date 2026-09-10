@@ -45,7 +45,8 @@ export const blogTopicGroups = [
   },
   {
     id: "smile-design",
-    tr: "hollywoodlywood-smile-nedir-kimlere-uygun",
+    // Was wrongly pointing TR at hollywoodlywood-smile-… (collision with id:hollywoodlywood)
+    tr: "gulush-tasarimi-lamine-veneer-kisisel",
     en: "digital-smile-design-laminate-veneers-istanbul",
     de: "digitales-laecheln-design-veneers-istanbul",
   },
@@ -94,14 +95,21 @@ export const blogTopicGroups = [
   {
     id: "hollywoodlywood",
     tr: "hollywoodlywood-smile-nedir-kimlere-uygun",
+    // EN slug still has live typo (rename+301 = red). DE file is correct: hollywood-…
     en: "hollywoodlywood-smile-turkey-package",
-    de: "hollywoodlywood-smile-tuerkei-paket",
+    de: "hollywood-smile-tuerkei-paket",
   },
   {
     id: "lamina-vs-zirconia",
     tr: "porselen-lamina-mi-zirkonyum-mu",
     en: "veneers-vs-zirconia-crowns-istanbul",
     de: "veneers-vs-zirkonkronen-istanbul",
+  },
+  {
+    id: "implant-explained",
+    tr: null,
+    en: "dental-implants-explained-istanbul",
+    de: "zahnimplantat-erklaert-istanbul",
   },
 ];
 
@@ -233,6 +241,19 @@ export const geoTopicGroups = [
     en: "why-is-dental-treatment-cheaper-in-turkey",
     de: "warum-ist-zahnbehandlung-in-der-tuerkei-guenstiger",
   },
+  {
+    id: "whitening-geo",
+    tr: null,
+    en: "professional-teeth-whitening",
+    de: "professionelle-zahnaufhellung",
+  },
+  {
+    // Live GEO slugs still contain "hollywoodlywood" typo — link as-is until rename+301 approved
+    id: "hollywoodwood-geo",
+    tr: "hollywood-smile-nedir",
+    en: "hollywoodlywood-smile-package-istanbul",
+    de: "hollywoodlywood-smile-paket-istanbul",
+  },
 ];
 
 /**
@@ -275,6 +296,11 @@ export function resolveHreflangPaths(lang, pathNoLang) {
   // Composite bonding landing page — DE/EN/FR only
   if (p === "composite-bonding-tuerkei" || p === "composite-bonding-turkey" || p === "composite-bonding-turquie") {
     return { de: "composite-bonding-tuerkei/", en: "composite-bonding-turkey/", fr: "composite-bonding-turquie/" };
+  }
+
+  // Porzellan-Veneers commercial landing — DE only for now
+  if (p === "porzellan-veneers-istanbul") {
+    return { de: "porzellan-veneers-istanbul/" };
   }
 
   // Blog article

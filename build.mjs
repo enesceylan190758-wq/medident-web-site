@@ -31,6 +31,7 @@ import {
   geoPackPage,
   pricesPage,
   bondingPage,
+  veneersPage,
 } from "./src/templates/pages.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -45,6 +46,27 @@ const GEO_PACKS = fs.existsSync(path.join(__dirname, "src/content/geo/packs.json
   : [];
 
 const pages = []; // {lang, path, lastmod} for sitemap
+/** Blog→service 301s for primary mirror articles (exact service-body duplicates). */
+const serviceMirrorRedirects = [];
+
+/**
+ * Services whose primary mapped article is a 1:1 body mirror of the service page.
+ * Those blog URLs are not emitted; they 301 to /hizmetler/{slug}/.
+ * Unique blogs that only *tag* a service (all-on-4, bonding-vs-veneers, …) stay.
+ */
+const SERVICE_BODY_MIRROR_SERVICES = new Set([
+  "implantoloji-implant-tedavisi",
+  "estetik-dis-hekimligi",
+  "cene-ve-dis-cerrahisi",
+  "protezler",
+  "dis-beyazlatma",
+  "genel-anestezi-ve-sedasyon",
+  "konservatif-dis-tedavileri",
+]);
+
+function primaryArticleForService(byLang, serviceSlug) {
+  return byLang.find((a) => a.service === serviceSlug) || null;
+}
 
 function clean(dir) {
   fs.rmSync(dir, { recursive: true, force: true });
@@ -85,6 +107,7 @@ function emit(lang, pathNoLang, rendered) {
 
 function build() {
   clean(DIST);
+  serviceMirrorRedirects.length = 0;
 
   // Assets
   copyDir(path.join(__dirname, "src/assets/css"), path.join(DIST, "assets/css"));
@@ -97,10 +120,20 @@ function build() {
     // Home
     emit(lang, "", homePage(lang));
 
-    // Services
+    // Services — keep primary article.html on the commercial URL (high internal links).
+    // Mirror blog URLs for SERVICE_BODY_MIRROR_SERVICES are not emitted (301 → service).
     emit(lang, "hizmetler/", servicesIndexPage(lang));
+    const mirrorBlogSlugs = new Set();
     for (const s of services) {
-      const article = byLang.find((a) => a.service === s.slug);
+      const article = primaryArticleForService(byLang, s.slug);
+      if (article && SERVICE_BODY_MIRROR_SERVICES.has(s.slug)) {
+        mirrorBlogSlugs.add(article.slug);
+        serviceMirrorRedirects.push({
+          lang,
+          from: `blog/${article.slug}/`,
+          to: `hizmetler/${s.slug}/`,
+        });
+      }
       emit(lang, "hizmetler/" + s.slug + "/", servicePage(lang, s, article));
     }
 
@@ -108,15 +141,16 @@ function build() {
     emit(lang, "doktorlar/", doctorsIndexPage(lang));
     for (const d of doctors) emit(lang, "doktorlar/" + d.slug + "/", doctorPage(lang, d));
 
-    // Blog + articles
-    const blogList = byLang.map((a) => ({
+    // Blog — skip service-body mirrors (content lives on /hizmetler/)
+    const blogArticles = byLang.filter((a) => !mirrorBlogSlugs.has(a.slug));
+    const blogList = blogArticles.map((a) => ({
       slug: a.slug,
       title: a.title,
       excerpt: a.excerpt,
       coverImage: a.coverImage || null,
     }));
     emit(lang, "blog/", blogIndexPage(lang, blogList));
-    for (const a of byLang) emit(lang, "blog/" + a.slug + "/", articlePage(lang, a, a.service));
+    for (const a of blogArticles) emit(lang, "blog/" + a.slug + "/", articlePage(lang, a, a.service));
 
     // GEO packs — language-specific (EN/DE tourism packs + TR)
     const geoForLang = GEO_PACKS.filter((g) => g.lang === lang);
@@ -141,6 +175,9 @@ function build() {
     if (lang === "de") emit(lang, "composite-bonding-tuerkei/", bondingPage(lang));
     if (lang === "en") emit(lang, "composite-bonding-turkey/", bondingPage(lang));
     if (lang === "fr") emit(lang, "composite-bonding-turquie/", bondingPage(lang));
+
+    // Porzellan-Veneers commercial landing — DE only (query: porzellanveneers istanbul)
+    if (lang === "de") emit(lang, "porzellan-veneers-istanbul/", veneersPage(lang));
   }
 
   writeSitemap();
@@ -214,6 +251,13 @@ function writeHtaccess() {
   const doctorRedirects = doctors
     .map((d) => `Redirect 301 /${d.slug}/ ${site.domain}/doktorlar/${d.slug}/`)
     .join("\n");
+  const mirrorRedirects = serviceMirrorRedirects
+    .map((r) => {
+      const from = url(r.lang, r.from);
+      const to = site.domain + url(r.lang, r.to);
+      return `Redirect 301 ${from} ${to}`;
+    })
+    .join("\n");
   const htaccess = `# MediDent İstanbul — Apache config (Turhost/cPanel)
 Options -Indexes
 DirectoryIndex index.html
@@ -261,6 +305,9 @@ Redirect 301 /service/dental-care/ ${site.domain}/hizmetler/
 Redirect 301 /price_tables_categories/ ${site.domain}/hizmetler/
 Redirect 301 /geo/hollywoodlywood-smile-nedir/ ${site.domain}/geo/hollywood-smile-nedir/
 
+# ---- Service-body mirror blogs → commercial service pages (301) ----
+${mirrorRedirects}
+
 # ---- Caching & compression ----
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml
@@ -294,10 +341,15 @@ function writeExtras() {
 
 function writeLlmsTxt() {
   const prefix = (lang) => (lang === "en" ? "/en" : lang === "de" ? "/de" : "");
+  const redirected = new Set(serviceMirrorRedirects.map((r) => `${r.lang}:${r.from}`));
   const blogLine = (a) => `- [${a.title}](${site.domain}${prefix(a.lang)}/blog/${a.slug}/): ${a.excerpt}`;
   const geoLine = (g) => `- [${g.question}](${site.domain}${prefix(g.lang)}/geo/${g.slug}/): ${g.direct_answer}`;
   const blogLines = ["tr", "en", "de"]
-    .flatMap((lang) => ARTICLES.filter((a) => a.lang === lang).slice(0, 12).map(blogLine))
+    .flatMap((lang) =>
+      ARTICLES.filter((a) => a.lang === lang && !redirected.has(`${lang}:blog/${a.slug}/`))
+        .slice(0, 12)
+        .map(blogLine)
+    )
     .join("\n");
   const geoLines = ["tr", "en", "de"]
     .flatMap((lang) => GEO_PACKS.filter((g) => g.lang === lang).slice(0, 12).map(geoLine))

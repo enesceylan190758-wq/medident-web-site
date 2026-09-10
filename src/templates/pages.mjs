@@ -21,6 +21,14 @@ const crumbHome = (lang) => ({ name: i18n[lang].breadcrumbHome, href: url(lang, 
 
 const faqHeading = { tr: "Sık sorulan sorular", en: "Frequently asked questions", de: "Häufig gestellte Fragen", ar: "الأسئلة الشائعة", ru: "Частые вопросы" };
 const keyPointsHeading = { tr: "Öne çıkan noktalar", en: "Key points", de: "Wichtige Punkte", ar: "أبرز النقاط", ru: "Ключевые моменты" };
+const reviewedByLabel = {
+  tr: "Tıbbi inceleme",
+  en: "Medically reviewed by",
+  de: "Medizinisch geprüft von",
+  fr: "Relu par",
+  ar: "مراجعة طبية",
+  ru: "Медицинская проверка",
+};
 
 function pageHero(lang, eyebrow, title, lead, crumbs) {
   return `<section class="page-hero"><div class="container">
@@ -56,8 +64,8 @@ export function servicesIndexPage(lang) {
   };
 }
 
-// Single service (with article body if available)
-export function servicePage(lang, service, article) {
+// Single service (article body when this service's primary mirror article exists).
+export function servicePage(lang, service, article = null) {
   const t = i18n[lang];
   const title = L(service.titles, lang);
   const crumbs = [
@@ -66,7 +74,10 @@ export function servicePage(lang, service, article) {
     { name: title, href: url(lang, "hizmetler/" + service.slug + "/") },
   ];
   const bodyHtml = article ? article.html : (serviceFallback[lang] || serviceFallback.en)(title);
-  const faqs = (article && article.faq && article.faq.length ? article.faq : null) || serviceFaqs[service.slug]?.[lang] || [];
+  const faqs =
+    (article && article.faq && article.faq.length ? article.faq : null) ||
+    serviceFaqs[service.slug]?.[lang] ||
+    [];
   const faqBlock =
     faqs.length > 0
       ? `<h2>${faqHeading[lang] || faqHeading.en}</h2>${faqs.map((f) => `<h3>${f.q}</h3><p>${f.a}</p>`).join("")}`
@@ -464,6 +475,57 @@ export function bondingPage(lang) {
   };
 }
 
+/** Porzellan-Veneers commercial landing — DE (`porzellan-veneers-istanbul/`). */
+export function veneersPage(lang) {
+  const t = i18n[lang];
+  const p = t.veneersPage;
+  if (!p) {
+    throw new Error(`veneersPage copy missing for lang=${lang}`);
+  }
+  const slug = "porzellan-veneers-istanbul/";
+  const crumbs = [crumbHome(lang), { name: p.eyebrow, href: url(lang, slug) }];
+  const faqItem = (f) =>
+    `<div class="faq-item" data-faq-item><button class="faq-q" data-faq-toggle><span>${f.q}</span><span class="faq-icon"><span class="minus">${miniMinus}</span><span class="plus">${miniPlus}</span></span></button><div class="faq-a"><p style="margin:0;">${f.a}</p></div></div>`;
+  const steps = (p.steps || [])
+    .map(
+      (s, i) => `<div style="display:flex;gap:14px;margin:0 0 16px;">
+      <div style="flex:0 0 28px;height:28px;border-radius:50%;background:var(--burgundy);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;">${i + 1}</div>
+      <div><div style="font-weight:700;margin:0 0 4px;">${s.t}</div><p style="margin:0;color:var(--muted);font-size:15px;line-height:1.55;">${s.d}</p></div>
+    </div>`
+    )
+    .join("");
+  const body = `${pageHero(lang, p.eyebrow, p.h1, p.lead, crumbs)}
+  <section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:22px;margin:0 0 14px;">${p.introTitle}</h2>
+    <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0 0 28px;">${p.introText}</p>
+    <h2 style="font-size:22px;margin:0 0 18px;">${p.stepsTitle}</h2>
+    ${steps}
+    <p style="font-size:15px;line-height:1.62;color:var(--muted);margin:24px 0 0;">${p.travelNote}</p>
+    <p style="font-size:13px;color:var(--muted-2);margin:16px 0 0;">${p.priceNote}</p>
+    <p style="margin:20px 0 0;"><a href="${url(lang, "geo/was-sind-porzellan-veneers/")}" class="link-more">${p.geoLinkLabel} ${icons.arrowSm}</a>
+    · <a href="${url(lang, "composite-bonding-tuerkei/")}" class="link-more">${p.bondingLinkLabel} ${icons.arrowSm}</a>
+    · <a href="${url(lang, "blog/bonding-vs-veneers-istanbul/")}" class="link-more">${p.compareLinkLabel} ${icons.arrowSm}</a></p>
+  </div></section>
+  ${priceCalcSection(lang)}
+  ${xraySection(lang)}
+  ${brandsSection(lang)}
+  <section class="section section-alt"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:24px;margin:0 0 20px;">${p.faqTitle}</h2>
+    <div class="faq" data-reveal>${p.faqs.map(faqItem).join("")}</div>
+  </div></section>
+  ${contactSection(lang)}`;
+  return {
+    body,
+    title: `${p.h1} — ${site.brand}`,
+    description: p.lead,
+    jsonld: [
+      orgSchema(lang),
+      faqSchema(p.faqs),
+      breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
+    ],
+  };
+}
+
 // Reviews
 export function reviewsPage(lang) {
   const t = i18n[lang];
@@ -582,7 +644,7 @@ export function geoIndexPage(lang, packs) {
   };
 }
 
-/** Single GEO pack — answer-first + FAQPage */
+/** Single GEO pack — answer-first + Article + FAQPage (E-E-A-T when fields exist) */
 export function geoPackPage(lang, pack) {
   const crumbs = [
     crumbHome(lang),
@@ -596,10 +658,20 @@ export function geoPackPage(lang, pack) {
     ? `<figure class="article-cover" style="margin:0 0 24px;"><img src="${asset(`/assets/img/${pack.coverImage}`)}" alt="${pack.question || pack.title}" width="1536" height="1024" style="width:100%;height:auto;border-radius:18px;display:block;" loading="eager"></figure>`
     : "";
   const ogImage = pack.coverImage ? site.domain + asset(`/assets/img/${pack.coverImage}`) : undefined;
+  const pageUrl = site.domain + url(lang, "geo/" + pack.slug + "/");
+  const bylineBits = [];
+  if (pack.author) bylineBits.push(pack.author);
+  if (pack.reviewer) bylineBits.push(`${reviewedByLabel[lang] || reviewedByLabel.en}: ${pack.reviewer}`);
+  if (pack.publishedAt) bylineBits.push(pack.publishedAt);
+  const byline =
+    bylineBits.length > 0
+      ? `<p style="font-size:13px;color:var(--muted-2);margin:0 0 18px;">${bylineBits.join(" · ")}</p>`
+      : "";
   const body = `${pageHero(lang, "GEO", pack.question || pack.title, "", crumbs)}
   <section class="section" style="padding-top:clamp(24px,3vw,40px);"><div class="container" style="max-width:760px;">
     <article class="prose">
       ${cover}
+      ${byline}
       <p><strong>${pack.direct_answer}</strong></p>
       <h2>${keyPointsHeading[lang] || keyPointsHeading.en}</h2>
       <ul>${(pack.bullets || []).map((b) => `<li>${b}</li>`).join("")}</ul>
@@ -608,22 +680,36 @@ export function geoPackPage(lang, pack) {
       <div style="margin-top:28px;display:flex;flex-wrap:wrap;gap:10px;">${links}</div>
     </article>
   </div></section>`;
+  const authorNode = pack.author
+    ? { "@type": "Person", name: pack.author }
+    : { "@id": site.domain + "/#organization" };
+  const articleLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: pack.question || pack.title,
+    description: pack.direct_answer,
+    image: ogImage,
+    inLanguage: langBCP47[lang] || "en-US",
+    datePublished: pack.publishedAt || undefined,
+    dateModified: pack.updatedAt || pack.publishedAt || undefined,
+    author: authorNode,
+    publisher: { "@id": site.domain + "/#organization" },
+    mainEntityOfPage: pageUrl,
+    url: pageUrl,
+  };
+  if (pack.reviewer) {
+    articleLd.reviewedBy = { "@type": "Person", name: pack.reviewer };
+  }
   return {
     body,
     title: `${pack.question || pack.title} — ${site.brand}`,
     description: pack.direct_answer.slice(0, 155),
     image: ogImage,
+    ogType: "article",
+    publishedTime: pack.publishedAt || undefined,
     jsonld: [
       faqSchema(pack.faq || []),
-      {
-        "@context": "https://schema.org",
-        "@type": "WebPage",
-        name: pack.question || pack.title,
-        description: pack.direct_answer,
-        image: ogImage,
-        inLanguage: langBCP47[lang] || "en-US",
-        isPartOf: { "@type": "WebSite", name: site.brand, url: site.domain },
-      },
+      articleLd,
       breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
     ],
   };
