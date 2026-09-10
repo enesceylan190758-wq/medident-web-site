@@ -2210,7 +2210,7 @@
     "bucket": "kategori",
     "question": "What is a Hollywood Smile package in Istanbul?",
     "title": "What is a Hollywood Smile package in Istanbul",
-    "direct_answer": "A Hollywood Smile package typically combines digital smile design with veneers or zirconia crowns, often bundled with transfer and hotel for international patients.",
+    "direct_answer": "A Hollywood Smile package in Istanbul typically combines digital smile design with veneers or zirconia crowns for international patients, often with transfer and hotel. The real plan is tooth-by-tooth: which units are bonding, veneers or crowns — not a one-shade full-arch template.",
     "coverImage": "blog/blog-06-gulush.jpg",
     "bullets": [
       "Digital smile design first",
@@ -2240,7 +2240,8 @@
     ],
     "source": "seo-ende-expand",
     "publishedAt": "2026-07-23",
-    "updatedAt": "2026-09-10"
+    "updatedAt": "2026-09-10",
+    "author": "MediDent Istanbul Clinical Team"
   },
   {
     "lang": "en",
@@ -2429,7 +2430,7 @@
     "bucket": "kategori",
     "question": "Was ist ein Hollywood-Smile-Paket in Istanbul?",
     "title": "Was ist ein Hollywood-Smile-Paket in Istanbul",
-    "direct_answer": "Ein Hollywood-Smile-Paket kombiniert meist digitales Smile Design mit Veneers oder Zirkonkronen und oft Transfer/Hotel für internationale Patienten.",
+    "direct_answer": "Ein Hollywood-Smile-Paket in Istanbul kombiniert meist digitales Smile Design mit Veneers oder Zirkonkronen — oft plus Transfer und Hotel für internationale Patienten. Der Plan muss zahnweise klären, was Bonding, Veneer oder Krone wird; ein Einheits-Full-Arch-Set ist kein Befund.",
     "coverImage": "blog/blog-06-gulush.jpg",
     "bullets": [
       "Zuerst digitales Smile Design",
@@ -2439,8 +2440,16 @@
     ],
     "faq": [
       {
+        "q": "Was ist in einem Hollywood-Smile-Paket enthalten?",
+        "a": "In der Regel digitales Design, Provisorien und finale Keramik; Transfer/Hotel können dazukommen. Materialmarken und behandelte Zähne sollten vor der Anzahlung schriftlich stehen."
+      },
+      {
         "q": "Veneers oder Kronen?",
-        "a": "Veneers bei minimaler Präparation; Kronen bei hoher Belastung oder großen Restaurationen."
+        "a": "Strukturell gesunde Frontzähne eignen sich oft für Veneers oder Bonding. Kronen sind für Zähne mit Bedarf an vollständiger Überkronung nach Schaden oder großen Restaurationen."
+      },
+      {
+        "q": "Wie viele Tage Aufenthalt?",
+        "a": "Viele ästhetische Fälle liegen bei 5–10 Tagen. Bonding kann kürzer sein. Planen Sie einen Puffertag vor dem Rückflug ein."
       }
     ],
     "internal_links": [
@@ -2455,7 +2464,8 @@
     ],
     "source": "seo-ende-expand",
     "publishedAt": "2026-07-23",
-    "updatedAt": "2026-09-10"
+    "updatedAt": "2026-09-10",
+    "author": "MediDent Istanbul Clinical Team"
   },
   {
     "lang": "de",
