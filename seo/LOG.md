@@ -150,3 +150,25 @@ Protokol: ~1 saat kesintisiz; yeşil bölgede onay beklemeden; kırmızı kuyru�
 **Kalan risk**
 - Primary mirror olan ama 7’nin dışında kalan generated blog’lar (pedodonti, endodonti, oral-implantoloji vb.) hâlâ hizmetle %100 örtüşebilir — sonraki tur.
 
+
+### İş kalemi — PR #32 merge + madde 10 turkey teeth genişletme
+
+**Durum:** bitti (PR açılacak)  
+**Süre:** ~40 dk  
+**Branch:** `seo/turkey-teeth-expand`
+
+**Ne yaptım**
+- PR #32 `main`'e merge edildi (Enes onayı).
+- GEO şablonuna opsiyonel `sections[]` + `metaDescription` eklendi (`geoPackPage`).
+- Lint body/similarity GEO `sections` metnini de sayıyor.
+- EN pack `turkey-teeth-what-they-are-and-how-to-avoid-problems` ~500→~2400 kelime; ses: 2. şahıs, answer-first, dürüst klinik modeli; `updatedAt: 2026-09-10`.
+- `reviewer` boş bırakıldı — hekim onayı insan işi.
+
+**Doğrulama**
+- Build 320 sayfa. Article prose ~2419 kelime. Meta 128 karakter.
+- Pack için lint bulgusu yok (site genelinde eski RED’ler duruyor).
+
+**Sonraki**
+- Madde 11 türev URL’ler — #10 indexlenmeden açma.
+- Kırmızı kuyruk: hollywoodlywood, oral-implantoloji, DE homepage title.
+

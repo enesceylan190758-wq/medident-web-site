@@ -1,7 +1,7 @@
 # MediDent SEO — yaşayan plan
 
 Son güncelleme: 2026-09-10 (oturum: Auto)  
-PR: https://github.com/enesceylan190758-wq/medident-web-site/pull/32
+PR: (açılacak — `seo/turkey-teeth-expand`)
 
 Hedef: DACH ticari sorgular + turkey teeth kümesi. SEO 3 ayda lead değil, 12 ayda anlamlı.
 
@@ -18,8 +18,8 @@ Hedef: DACH ticari sorgular + turkey teeth kümesi. SEO 3 ayda lead değil, 12 a
 | 7 | Ana sayfa title/meta'ya Zahnarzt Istanbul | **ONAY BEKLİYOR** | Ana sayfa title kırmızı |
 | 8 | Porzellan-Veneers sayfası (yeni) | **bitti** | `/de/porzellan-veneers-istanbul/` |
 | 9 | GEO şablonuna Article + E-E-A-T | **bitti** | Article schema + byline; reviewer yoksa eklenmiyor |
-| 10 | turkey teeth genişlet (669→2500) | bekliyor | Sonraki oturum |
-| 11 | Türev: turkey-teeth-meaning / -risks / -vs-veneers | bekliyor | Kannibalizasyon dikkat |
+| 10 | turkey teeth genişlet (~500→~2400) | **bitti (PR)** | GEO `sections` + metaDescription; reviewer hâlâ boş |
+| 11 | Türev: turkey-teeth-meaning / -risks / -vs-veneers | bekliyor | Kannibalizasyon dikkat — önce #10 indexle |
 | 12 | İngilizce yamyamlık denetimi | **bitti** (araştırma) | Blog çiftleri temiz; oral↔implant hizmet hâlâ yakın |
 
 ## Madde 1 — bulgular (özet)
