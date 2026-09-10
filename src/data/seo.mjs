@@ -45,7 +45,8 @@ export const blogTopicGroups = [
   },
   {
     id: "smile-design",
-    tr: "hollywoodlywood-smile-nedir-kimlere-uygun",
+    // Was wrongly pointing TR at hollywoodlywood-smile-… (collision with id:hollywoodlywood)
+    tr: "gulush-tasarimi-lamine-veneer-kisisel",
     en: "digital-smile-design-laminate-veneers-istanbul",
     de: "digitales-laecheln-design-veneers-istanbul",
   },
@@ -94,14 +95,64 @@ export const blogTopicGroups = [
   {
     id: "hollywoodlywood",
     tr: "hollywoodlywood-smile-nedir-kimlere-uygun",
+    // EN slug still has live typo (rename+301 = red). DE file is correct: hollywood-…
     en: "hollywoodlywood-smile-turkey-package",
-    de: "hollywoodlywood-smile-tuerkei-paket",
+    de: "hollywood-smile-tuerkei-paket",
   },
   {
     id: "lamina-vs-zirconia",
     tr: "porselen-lamina-mi-zirkonyum-mu",
     en: "veneers-vs-zirconia-crowns-istanbul",
     de: "veneers-vs-zirkonkronen-istanbul",
+  },
+  // Classic service-topic blogs (were orphan hreflang — only self)
+  {
+    id: "aesthetic-dentistry",
+    tr: "estetik-dis-tedavileri",
+    en: "cosmetic-dentistry",
+    de: "aesthetische-zahnmedizin",
+  },
+  {
+    id: "implant-treatment",
+    tr: "implant-tedavisi",
+    en: "dental-implant-treatment",
+    de: "implantatbehandlung",
+  },
+  {
+    id: "oral-surgery",
+    tr: "cene-ve-dis-cerrahisi-rehberi",
+    en: "dental-and-maxillofacial-surgery",
+    de: "mund-kiefer-gesichtschirurgie",
+  },
+  {
+    id: "same-day-treatment",
+    tr: "bir-gunde-dis-tedavisi",
+    en: "same-day-dental-treatments",
+    de: "taggleiche-behandlung",
+  },
+  {
+    id: "teeth-whitening-guide",
+    tr: "dis-beyazlatma-rehberi",
+    en: "teeth-whitening",
+    de: "zahnaufhellung",
+  },
+  {
+    id: "dental-hygiene",
+    tr: null,
+    en: "dental-care-and-hygiene",
+    de: "zahnpflege-und-mundhygiene",
+  },
+  {
+    id: "dentures",
+    tr: "dis-protezleri",
+    en: "dentures",
+    de: "zahnprothese",
+  },
+  {
+    id: "implant-explained",
+    tr: null,
+    en: "dental-implants-explained-istanbul",
+    de: "zahnimplantat-erklaert-istanbul",
   },
 ];
 
@@ -232,6 +283,19 @@ export const geoTopicGroups = [
     tr: null,
     en: "why-is-dental-treatment-cheaper-in-turkey",
     de: "warum-ist-zahnbehandlung-in-der-tuerkei-guenstiger",
+  },
+  {
+    id: "whitening-geo",
+    tr: null,
+    en: "professional-teeth-whitening",
+    de: "professionelle-zahnaufhellung",
+  },
+  {
+    // Live GEO slugs still contain "hollywoodlywood" typo — link as-is until rename+301 approved
+    id: "hollywoodwood-geo",
+    tr: "hollywood-smile-nedir",
+    en: "hollywoodlywood-smile-package-istanbul",
+    de: "hollywoodlywood-smile-paket-istanbul",
   },
 ];
 

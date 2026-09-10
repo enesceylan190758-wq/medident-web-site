@@ -9,8 +9,8 @@ Hedef: DACH ticari sorgular + turkey teeth kümesi. SEO 3 ayda lead değil, 12 a
 | # | Madde | Durum | Not |
 |---|--------|--------|-----|
 | 1 | Duplicate doğrulama (canonical, 6 dil, sitemap, robots, iç link) | **bitti** | Hüküm: KRİTİK — her URL kendini canonical gösteriyor |
-| 2 | Duplicate'i build.mjs kaynağında çöz | **bitti** | article.html artık sadece blog'da; hizmet→blog deep link |
-| 3 | hreflang boşlukları + ölü mapping | bekliyor | DE blog `hollywoodlywood` → gerçek slug `hollywood-smile-…` |
+| 2 | Duplicate'i build.mjs kaynağında çöz | **bitti** | PR #32 — article.html sadece blogda |
+| 3 | hreflang boşlukları + ölü mapping | **devam ediyor** | DE orphan 11→0 hedefi; ölü hollywood mapping |
 | 4 | hollywoodlywood slug hatası + 301 | **ONAY BEKLİYOR** | Canlı URL/301 kırmızı bölge |
 | 5 | oral-implantoloji → implantoloji birleştirme | **ONAY BEKLİYOR** | Sayfa kaldırma/301 kırmızı |
 | 6 | Alt sorgu title/meta (all-on-4, sofortimplantate, bonding…) | bekliyor | Ana sayfa hariç — yeşil |
@@ -52,4 +52,10 @@ Hedef: DACH ticari sorgular + turkey teeth kümesi. SEO 3 ayda lead değil, 12 a
 
 ## Oturumda eklenenler
 
-_(keşif oldukça buraya)_
+### 2b — Hizmet sayfaları ince içerik (yeni, düşük öncelik)
+Duplicate kesilince hizmet sayfaları ortak `serviceFallback` şablonuna düştü (sadece başlık değişiyor). Birebir uzun duplike'den iyi; yine de dil/hizmete özel 150–250 kelimelik kısa gövde ileride yazılmalı. **Bekliyor** — içerik işi, teknik değil.
+
+### 3 — hreflang (bulgular)
+- DE 75 sayfadan 11'i hreflang ağının dışındaydı (sadece self).
+- Ölü mapping: `blogTopicGroups` hollywood `de: hollywoodlywood-…` ama dosya `hollywood-…`.
+- Ek sessiz bug: `smile-design` grubunun TR slug'ı hollywood grubuyla çakışıyordu → TR hollywood sayfası yanlış EN/DE'ye bağlanıyordu.
