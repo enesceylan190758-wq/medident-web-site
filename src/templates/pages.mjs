@@ -64,9 +64,8 @@ export function servicesIndexPage(lang) {
   };
 }
 
-// Single service page. Long-form article.html lives only on /blog/ — never inject it
-// here (that created self-canonical duplicate pairs across TR/EN/DE).
-export function servicePage(lang, service, _article = null, relatedBlog = null) {
+// Single service (article body when this service's primary mirror article exists).
+export function servicePage(lang, service, article = null) {
   const t = i18n[lang];
   const title = L(service.titles, lang);
   const crumbs = [
@@ -74,15 +73,14 @@ export function servicePage(lang, service, _article = null, relatedBlog = null) 
     { name: t.nav.services, href: url(lang, "hizmetler/") },
     { name: title, href: url(lang, "hizmetler/" + service.slug + "/") },
   ];
-  const bodyHtml = (serviceFallback[lang] || serviceFallback.en)(title);
-  const faqs = serviceFaqs[service.slug]?.[lang] || [];
+  const bodyHtml = article ? article.html : (serviceFallback[lang] || serviceFallback.en)(title);
+  const faqs =
+    (article && article.faq && article.faq.length ? article.faq : null) ||
+    serviceFaqs[service.slug]?.[lang] ||
+    [];
   const faqBlock =
     faqs.length > 0
       ? `<h2>${faqHeading[lang] || faqHeading.en}</h2>${faqs.map((f) => `<h3>${f.q}</h3><p>${f.a}</p>`).join("")}`
-      : "";
-  const blogDeepLink =
-    relatedBlog && relatedBlog.slug
-      ? `<p style="margin:20px 0 0;"><a href="${url(lang, "blog/" + relatedBlog.slug + "/")}" class="link-more">${relatedBlog.title || t.blogTitle} — ${t.readMore} ${icons.arrowSm}</a></p>`
       : "";
   const related = services.filter((s) => s.slug !== service.slug && s.home).slice(0, 4);
   const heroImg = service.image
@@ -93,7 +91,6 @@ export function servicePage(lang, service, _article = null, relatedBlog = null) 
     ${heroImg}
     <div style="display:grid;grid-template-columns:1fr;gap:40px;">
       <article class="prose">${bodyHtml}
-        ${blogDeepLink}
         ${faqBlock}
         <div style="margin-top:32px;display:flex;flex-wrap:wrap;gap:12px;">
           <a href="${url(lang, "iletisim/")}" class="btn btn-primary">${t.bookNow} ${icons.arrow()}</a>

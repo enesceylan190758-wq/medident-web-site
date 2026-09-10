@@ -124,3 +124,29 @@ Protokol: ~1 saat kesintisiz; yeşil bölgede onay beklemeden; kırmızı kuyru�
 **Doğrulama**
 - Build 340 sayfa. Canonical self. Sitemap’te var. 3 iç link hedefi mevcut. Yasaklı DE terim yok.
 
+
+### İş kalemi 2-rev — Duplicate yönü tersine (hizmette gövde + blog 301)
+
+**Durum:** bitti  
+**Süre:** ~25 dk  
+**PR:** #32
+
+**Karar**
+- Önceki çözüm (blogda gövde, hizmette şablon) yanlıştı: link gücü hizmette, içerik blogdaydı.
+- Yeni: 7 ticari hizmetin primary mirror blog’u üretilmiyor → 301 hizmet sayfasına.
+- Özgün blog’lara (all-on-4, bonding-vs-veneers, hollywood-smile, …) dokunulmadı.
+
+**301 listesi (20 URL)**
+- TR 6, EN 7, DE 7 (TR’de konservatif için mirror yok). FR/AR/RU blog yok.
+
+**Doğrulama**
+- Build 320 sayfa, hatasız.
+- DE 7 hizmet kelime: 902/746/736/673/680/661/608 — main ile birebir (Δ0).
+- <300 kelime: 39/90 (önceki ters çözümde 50; kalan çoğunluk AR/RU şablon).
+- DE core benzerlik ≥%70: 1/105 (önce 105/105). DE7 kendi arası: 0/21.
+- Mirror blog dist’te yok, sitemap’te yok, kırık iç link 0, 301 zinciri 0.
+- Do-not-touch blog’lar duruyor.
+
+**Kalan risk**
+- Primary mirror olan ama 7’nin dışında kalan generated blog’lar (pedodonti, endodonti, oral-implantoloji vb.) hâlâ hizmetle %100 örtüşebilir — sonraki tur.
+

@@ -105,49 +105,6 @@ export const blogTopicGroups = [
     en: "veneers-vs-zirconia-crowns-istanbul",
     de: "veneers-vs-zirkonkronen-istanbul",
   },
-  // Classic service-topic blogs (were orphan hreflang — only self)
-  {
-    id: "aesthetic-dentistry",
-    tr: "estetik-dis-tedavileri",
-    en: "cosmetic-dentistry",
-    de: "aesthetische-zahnmedizin",
-  },
-  {
-    id: "implant-treatment",
-    tr: "implant-tedavisi",
-    en: "dental-implant-treatment",
-    de: "implantatbehandlung",
-  },
-  {
-    id: "oral-surgery",
-    tr: "cene-ve-dis-cerrahisi-rehberi",
-    en: "dental-and-maxillofacial-surgery",
-    de: "mund-kiefer-gesichtschirurgie",
-  },
-  {
-    id: "same-day-treatment",
-    tr: "bir-gunde-dis-tedavisi",
-    en: "same-day-dental-treatments",
-    de: "taggleiche-behandlung",
-  },
-  {
-    id: "teeth-whitening-guide",
-    tr: "dis-beyazlatma-rehberi",
-    en: "teeth-whitening",
-    de: "zahnaufhellung",
-  },
-  {
-    id: "dental-hygiene",
-    tr: null,
-    en: "dental-care-and-hygiene",
-    de: "zahnpflege-und-mundhygiene",
-  },
-  {
-    id: "dentures",
-    tr: "dis-protezleri",
-    en: "dentures",
-    de: "zahnprothese",
-  },
   {
     id: "implant-explained",
     tr: null,

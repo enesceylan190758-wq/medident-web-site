@@ -10,7 +10,7 @@ Hedef: DACH ticari sorgular + turkey teeth kümesi. SEO 3 ayda lead değil, 12 a
 | # | Madde | Durum | Not |
 |---|--------|--------|-----|
 | 1 | Duplicate doğrulama (canonical, 6 dil, sitemap, robots, iç link) | **bitti** | Hüküm: KRİTİK idi — self-canonical + çift URL |
-| 2 | Duplicate'i build.mjs kaynağında çöz | **bitti** | PR #32 — article.html sadece blogda |
+| 2 | Duplicate'i build.mjs kaynağında çöz | **bitti (yön tersine)** | Gövde HİZMETTE; mirror blog → 301 |
 | 3 | hreflang boşlukları + ölü mapping | **bitti** | DE orphan 11→0 |
 | 4 | hollywoodlywood slug hatası + 301 | **ONAY BEKLİYOR** | Canlı URL/301 kırmızı |
 | 5 | oral-implantoloji → implantoloji birleştirme | **ONAY BEKLİYOR** | Sayfa kaldırma/301 kırmızı |
@@ -43,8 +43,10 @@ Hedef: DACH ticari sorgular + turkey teeth kümesi. SEO 3 ayda lead değil, 12 a
 
 ## Oturumda eklenenler
 
-### 2b — Hizmet sayfaları ince / benzer gövde (yeni)
-Duplicate kesilince tüm hizmet sayfaları ortak `serviceFallback` kullanıyor. Kritik duplike bitti; ince içerik riski kaldı. **Sonraki:** dil+hizmete özel 150–250 kelime kısa gövde.
+### 2b — Hizmet sayfaları ince / benzer gövde
+7 ticari hizmet DE/EN/TR’de uzun gövdeye döndü (mirror blog 301).  
+Kalan ince sayfalar: AR/RU tamamı + birkaç TR/DE fallback (çene eklemi, ağız kokusu, oral-implantoloji).  
+Hâlâ %100 mirror olabilecek generated primary’ler (pedodonti vb.) — sonraki turda aynı 301 kalıbı.
 
 ### 12 — EN yamyamlık (bulgular)
 - EN blog çiftleri jaccard ≥0.55: **0** (temiz).
