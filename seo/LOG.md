@@ -172,3 +172,18 @@ Protokol: ~1 saat kesintisiz; yeşil bölgede onay beklemeden; kırmızı kuyru�
 - Madde 11 türev URL’ler — #10 indexlenmeden açma.
 - Kırmızı kuyruk: hollywoodlywood, oral-implantoloji, DE homepage title.
 
+
+### İş kalemi — Kırmızı kuyruk 4+5+7 (Enes onayı)
+
+**Durum:** bitti  
+**Branch:** `seo/red-queue-approved`
+
+**Ne yaptım**
+- #4: `hollywoodlywood` → `hollywood` (EN/DE GEO, EN/TR blog); 301’ler; hreflang güncel; GEO smile-design TR → `gulush-tasarimi-lamine-veneer-nedir`.
+- #5: `oral-implantoloji` service kaldırıldı; All-on-4 kartı + calc + blog service + packs link → `implantoloji-implant-tedavisi`; 6 dil 301 + legacy `/oral-implantoloji/` + `dis-hekimi-istanbul`.
+- #7: DE title `Zahnarzt Istanbul — …`; DE-only metaDescription; H1/lead aynı.
+
+**Doğrulama**
+- Build 314 sayfa (−6 oral dil). Typo URL dist’te yok. Oral hizmet dist’te yok. Dist iç link oral=0.
+- DE title/meta “Zahnarzt Istanbul”; H1 hâlâ “Ihr Traum-lächeln…”.
+

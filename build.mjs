@@ -300,10 +300,21 @@ Redirect 301 /ss/ ${site.domain}/sss/
 Redirect 301 /randevu/ ${site.domain}/iletisim/
 Redirect 301 /randevu-al/ ${site.domain}/iletisim/
 Redirect 301 /uykuda-dis-tedavisi/ ${site.domain}/hizmetler/genel-anestezi-ve-sedasyon/
-Redirect 301 /dis-hekimi-istanbul/ ${site.domain}/hizmetler/oral-implantoloji/
+Redirect 301 /dis-hekimi-istanbul/ ${site.domain}/hizmetler/implantoloji-implant-tedavisi/
 Redirect 301 /service/dental-care/ ${site.domain}/hizmetler/
 Redirect 301 /price_tables_categories/ ${site.domain}/hizmetler/
 Redirect 301 /geo/hollywoodlywood-smile-nedir/ ${site.domain}/geo/hollywood-smile-nedir/
+Redirect 301 /en/geo/hollywoodlywood-smile-package-istanbul/ ${site.domain}/en/geo/hollywood-smile-package-istanbul/
+Redirect 301 /de/geo/hollywoodlywood-smile-paket-istanbul/ ${site.domain}/de/geo/hollywood-smile-paket-istanbul/
+Redirect 301 /en/blog/hollywoodlywood-smile-turkey-package/ ${site.domain}/en/blog/hollywood-smile-turkey-package/
+Redirect 301 /blog/hollywoodlywood-smile-nedir-kimlere-uygun/ ${site.domain}/blog/hollywood-smile-nedir-kimlere-uygun/
+Redirect 301 /oral-implantoloji/ ${site.domain}/hizmetler/implantoloji-implant-tedavisi/
+Redirect 301 /hizmetler/oral-implantoloji/ ${site.domain}/hizmetler/implantoloji-implant-tedavisi/
+Redirect 301 /en/hizmetler/oral-implantoloji/ ${site.domain}/en/hizmetler/implantoloji-implant-tedavisi/
+Redirect 301 /de/hizmetler/oral-implantoloji/ ${site.domain}/de/hizmetler/implantoloji-implant-tedavisi/
+Redirect 301 /fr/hizmetler/oral-implantoloji/ ${site.domain}/fr/hizmetler/implantoloji-implant-tedavisi/
+Redirect 301 /ar/hizmetler/oral-implantoloji/ ${site.domain}/ar/hizmetler/implantoloji-implant-tedavisi/
+Redirect 301 /ru/hizmetler/oral-implantoloji/ ${site.domain}/ru/hizmetler/implantoloji-implant-tedavisi/
 
 # ---- Service-body mirror blogs → commercial service pages (301) ----
 ${mirrorRedirects}
@@ -364,7 +375,7 @@ function writeLlmsTxt() {
 ## Primary (TR / EN / DE)
 - Home: ${site.domain}/ · ${site.domain}/en/ · ${site.domain}/de/
 - Services: ${site.domain}/hizmetler/ · ${site.domain}/en/hizmetler/ · ${site.domain}/de/hizmetler/
-- Implants: ${site.domain}/hizmetler/oral-implantoloji/ · ${site.domain}/en/hizmetler/oral-implantoloji/ · ${site.domain}/de/hizmetler/oral-implantoloji/
+- Implants: ${site.domain}/hizmetler/implantoloji-implant-tedavisi/ · ${site.domain}/en/hizmetler/implantoloji-implant-tedavisi/ · ${site.domain}/de/hizmetler/implantoloji-implant-tedavisi/
 - Cosmetic: ${site.domain}/hizmetler/estetik-dis-hekimligi/ · ${site.domain}/en/hizmetler/estetik-dis-hekimligi/ · ${site.domain}/de/hizmetler/estetik-dis-hekimligi/
 - Blog: ${site.domain}/blog/ · ${site.domain}/en/blog/ · ${site.domain}/de/blog/
 - GEO Q&A: ${site.domain}/geo/ · ${site.domain}/en/geo/ · ${site.domain}/de/geo/

@@ -1,25 +1,6 @@
 // Services (legacy WP slugs preserved) + doctors + packages.
 export const services = [
   {
-    slug: "oral-implantoloji",
-    icon: "implant",
-    image: "blog/blog-04-implant.jpg",
-    home: true,
-    titles: { tr: "Oral İmplantoloji", en: "Oral Implantology", de: "Orale Implantologie", fr: "Implantologie orale" },
-    short: {
-      tr: "Eksik dişleriniz için kalıcı, sağlam ve doğal köke en yakın çözüm.",
-      en: "A lasting, strong solution closest to a natural tooth root.",
-      de: "Eine dauerhafte, stabile Lösung – so nah wie möglich an der natürlichen Zahnwurzel.",
-      fr: "Une solution durable et solide, la plus proche de la racine naturelle de la dent.",
-    },
-    meta: {
-      tr: "İstanbul’da oral implantoloji ve dental implant tedavisi. MediDent İstanbul ile güvenli, kalıcı çözümler.",
-      en: "Dental implants in Istanbul, Turkey — oral implantology, All-on-4 packages, hotel & transfer. Free consult at MediDent Istanbul Üsküdar.",
-      de: "Zahnimplantate in Istanbul (Türkei) — orale Implantologie, All-on-4, Hotel & Transfer. Kostenlose Beratung bei MediDent Istanbul Üsküdar.",
-      fr: "Implants dentaires à Istanbul, Turquie — implantologie orale, forfaits All-on-4, hôtel & transfert. Consultation gratuite chez MediDent Istanbul Üsküdar.",
-    },
-  },
-  {
     slug: "implantoloji-implant-tedavisi",
     icon: "implant",
     image: "jun-8-3.jpg",
@@ -295,7 +276,7 @@ export const homeCards = [
   { service: "implantoloji-implant-tedavisi", titles: { tr: "Dental İmplant", en: "Dental Implant", de: "Zahnimplantat", fr: "Implant dentaire" }, short: { tr: "Eksik dişleriniz için kalıcı, sağlam ve doğal köke en yakın çözüm.", en: "A lasting solution closest to a natural tooth root.", de: "Dauerhafte Lösung – so nah wie möglich an der natürlichen Wurzel.", fr: "Une solution durable, la plus proche de la racine naturelle de la dent." }, icon: "implant" },
   { service: "estetik-dis-hekimligi", titles: { tr: "Hollywood Smile", en: "Hollywood Smile", de: "Hollywood Smile", fr: "Hollywood Smile" }, short: { tr: "Beyaz, simetrik ve ışıltılı bir gülüş için bütünsel dönüşüm.", en: "A full smile transformation — white, symmetrical, radiant.", de: "Komplette Smile-Transformation — weiß, symmetrisch, strahlend.", fr: "Une transformation complète du sourire — blanc, symétrique, éclatant." }, icon: "sparkle" },
   { service: "dis-beyazlatma", titles: { tr: "Diş Beyazlatma", en: "Teeth Whitening", de: "Zahnaufhellung", fr: "Blanchiment dentaire" }, short: { tr: "Klinik tipi profesyonel beyazlatmayla tonlarca daha parlak bir gülümseme.", en: "Professional whitening for a brighter smile.", de: "Professionelle Aufhellung für ein helleres Lächeln.", fr: "Blanchiment professionnel pour un sourire plus éclatant." }, icon: "sparkle" },
-  { service: "oral-implantoloji", titles: { tr: "All-on-4 / All-on-6", en: "All-on-4 / All-on-6", de: "All-on-4 / All-on-6", fr: "All-on-4 / All-on-6" }, short: { tr: "Tek seansta sabit dişler: tam dişsizliğe kalıcı çözüm.", en: "Fixed teeth in one session: lasting solution for full edentulism.", de: "Feste Zähne in einer Sitzung: dauerhafte Lösung bei Zahnlosigkeit.", fr: "Dents fixes en une seule séance : solution durable pour l'édentation complète." }, icon: "allon" },
+  { service: "implantoloji-implant-tedavisi", titles: { tr: "All-on-4 / All-on-6", en: "All-on-4 / All-on-6", de: "All-on-4 / All-on-6", fr: "All-on-4 / All-on-6" }, short: { tr: "Tek seansta sabit dişler: tam dişsizliğe kalıcı çözüm.", en: "Fixed teeth in one session: lasting solution for full edentulism.", de: "Feste Zähne in einer Sitzung: dauerhafte Lösung bei Zahnlosigkeit.", fr: "Dents fixes en une seule séance : solution durable pour l'édentation complète." }, icon: "allon" },
   { service: "seffaf-plaklar-invisalign", titles: { tr: "Şeffaf Plak Tedavisi", en: "Clear Aligners", de: "Transparente Schienen", fr: "Gouttières transparentes" }, short: { tr: "Görünmez plaklarla fark edilmeden düzelen diş dizilimi.", en: "Discreet alignment with clear aligners.", de: "Unauffällige Korrektur mit transparenten Schienen.", fr: "Alignement discret avec des gouttières transparentes." }, icon: "align" },
 ];
 
@@ -460,7 +441,7 @@ export const priceCalc = [
       { qty: 12, price: 9000 },
     ],
     defaultQty: 10,
-    serviceSlug: "oral-implantoloji",
+    serviceSlug: "implantoloji-implant-tedavisi",
     titles: {
       tr: "Tam Ağız İmplant Paketi (Üst+Alt)",
       en: "Full Mouth Implant Package (Upper+Lower)",

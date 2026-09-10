@@ -94,9 +94,8 @@ export const blogTopicGroups = [
   },
   {
     id: "hollywoodlywood",
-    tr: "hollywoodlywood-smile-nedir-kimlere-uygun",
-    // EN slug still has live typo (rename+301 = red). DE file is correct: hollywood-…
-    en: "hollywoodlywood-smile-turkey-package",
+    tr: "hollywood-smile-nedir-kimlere-uygun",
+    en: "hollywood-smile-turkey-package",
     de: "hollywood-smile-tuerkei-paket",
   },
   {
@@ -147,7 +146,7 @@ export const geoTopicGroups = [
   },
   {
     id: "smile-design",
-    tr: "hollywoodlywood-smile-nedir",
+    tr: "gulush-tasarimi-lamine-veneer-nedir",
     en: "digital-smile-design-istanbul",
     de: "digitales-laecheln-design-istanbul",
   },
@@ -248,11 +247,10 @@ export const geoTopicGroups = [
     de: "professionelle-zahnaufhellung",
   },
   {
-    // Live GEO slugs still contain "hollywoodlywood" typo — link as-is until rename+301 approved
     id: "hollywoodwood-geo",
     tr: "hollywood-smile-nedir",
-    en: "hollywoodlywood-smile-package-istanbul",
-    de: "hollywoodlywood-smile-paket-istanbul",
+    en: "hollywood-smile-package-istanbul",
+    de: "hollywood-smile-paket-istanbul",
   },
 ];
 
@@ -343,42 +341,29 @@ export function absFromPath(lang, pathNoLang) {
 
 /** FAQ sets for service money pages (TR/EN/DE). */
 export const serviceFaqs = {
-  "oral-implantoloji": {
-    tr: [
-      { q: "Oral implantoloji nedir?", a: "Eksik dişlerin yerine çene kemiğine yerleştirilen titanyum kökler (implantlar) ve üzerlerine sabitlenen protezlerle doğal dişe en yakın çözümün planlanmasıdır." },
-      { q: "İmplant tedavisi ne kadar sürer?", a: "Tek diş implantlarında genellikle birkaç ay (kemik kaynaşması dahil); All-on-4 gibi protokollerle uygun vakalarda aynı gün geçici dişler mümkün olabilir." },
-      { q: "İstanbul’da implant turizmi güvenli mi?", a: "Deneyimli cerrahi ekip, steril klinik ve dijital planlama ile güvenli yürütülür. MediDent İstanbul Üsküdar’da transfer ve konaklama koordinasyonu sunar." },
-    ],
-    en: [
-      { q: "What is oral implantology?", a: "It is the placement of titanium roots (implants) into the jawbone and fixed teeth on top — the closest long-term solution to natural teeth." },
-      { q: "How long does dental implant treatment take in Istanbul?", a: "Single implants usually take a few months including osseointegration. With All-on-4 protocols, temporary teeth can be possible the same day in suitable cases." },
-      { q: "Is dental implant tourism in Turkey safe?", a: "With an experienced surgical team, sterile clinic and digital planning it is safe. MediDent Istanbul in Üsküdar also coordinates transfer and hotel stays." },
-      { q: "How much do dental implants cost in Istanbul?", a: "Costs depend on bone condition, number of implants and prosthetic type. After a free photo consult we share a transparent written plan." },
-    ],
-    de: [
-      { q: "Was ist orale Implantologie?", a: "Titanwurzeln (Implantate) werden in den Kiefer gesetzt und mit festem Zahnersatz versorgt – die dauerhafteste Lösung nahe am natürlichen Zahn." },
-      { q: "Wie lange dauert eine Implantatbehandlung in Istanbul?", a: "Einzelimplantate brauchen meist einige Monate inkl. Einheilung. Mit All-on-4 sind bei geeigneten Fällen provisorische Zähne am selben Tag möglich." },
-      { q: "Ist Zahntourismus für Implantate in der Türkei sicher?", a: "Mit erfahrenem OP-Team, steriler Klinik und digitaler Planung ja. MediDent Istanbul in Üsküdar organisiert Transfer und Hotel." },
-      { q: "Was kosten Zahnimplantate in Istanbul?", a: "Abhängig von Knochen, Implantatzahl und Zahnersatz. Nach kostenloser Foto-Beratung erhalten Sie einen transparenten Plan." },
-    ],
-  },
   "implantoloji-implant-tedavisi": {
     tr: [
       { q: "İmplant kimlere uygulanır?", a: "Genel sağlığı uygun, yeterli kemik hacmi olan veya greft ile desteklenebilen erişkin hastalara uygulanır." },
       { q: "İmplant ağrılı mı?", a: "İşlem lokal anestezi veya sedasyon altında yapılır; çoğu hasta işlem sonrası hafif bir rahatsızlık tarif eder." },
-      { q: "Ömür boyu kalır mı?", a: "İyi ağız bakımı ve düzenli kontrollerle implantlar uzun yıllar kullanılabilir; garanti ve bakım planı vaka bazında anlatılır." },
+      { q: "Ömür boyu kalır mı?", a: "İyi ağız bakımı ve düzenli kontrollerle implantlar uzun yıllar kullanılabilir; bakım planı vaka bazında anlatılır." },
+      { q: "Oral implantoloji nedir?", a: "Eksik dişlerin yerine çene kemiğine yerleştirilen titanyum kökler (implantlar) ve üzerlerine sabitlenen protezlerle doğal dişe en yakın çözümün planlanmasıdır." },
+      { q: "İmplant tedavisi ne kadar sürer?", a: "Tek diş implantlarında genellikle birkaç ay (kemik kaynaşması dahil); All-on-4 gibi protokollerle uygun vakalarda aynı gün geçici dişler mümkün olabilir." },
     ],
     en: [
       { q: "Who can get dental implants?", a: "Adults in good general health with adequate bone — or bone that can be grafted — are candidates after clinical assessment." },
       { q: "Do implants hurt?", a: "Treatment is done under local anaesthetic or sedation; most patients report only mild discomfort afterwards." },
-      { q: "How long do implants last?", a: "With good hygiene and check-ups, implants can last many years. Warranty and maintenance are explained case by case." },
-      { q: "Why choose Istanbul for implants?", a: "Experienced teams, modern labs and competitive packages including hotel/transfer make Istanbul a leading dental tourism hub." },
+      { q: "How long do implants last?", a: "With good hygiene and check-ups, implants can last many years. Maintenance is explained case by case." },
+      { q: "What is oral implantology?", a: "It is the placement of titanium roots (implants) into the jawbone and fixed teeth on top — the closest long-term solution to natural teeth." },
+      { q: "How long does dental implant treatment take in Istanbul?", a: "Single implants usually take a few months including osseointegration. With All-on-4 protocols, temporary teeth can be possible the same day in suitable cases." },
+      { q: "How much do dental implants cost in Istanbul?", a: "Costs depend on bone condition, number of implants and prosthetic type. After a free photo consult we share a transparent written plan." },
     ],
     de: [
       { q: "Für wen sind Zahnimplantate geeignet?", a: "Für Erwachsene mit guter Allgemeingesundheit und ausreichendem Knochen – oder aufbaubarem Knochen – nach klinischer Prüfung." },
       { q: "Tun Implantate weh?", a: "Eingriffe erfolgen unter lokaler Betäubung oder Sedierung; danach ist meist nur leichte Beschwerde zu erwarten." },
-      { q: "Wie lange halten Implantate?", a: "Bei guter Pflege und Kontrollen viele Jahre. Garantie und Prophylaxe werden individuell erklärt." },
-      { q: "Warum Implantate in Istanbul?", a: "Erfahrene Teams, moderne Labore und Pakete inkl. Hotel/Transfer machen Istanbul zu einem Top-Ziel für Zahntourismus." },
+      { q: "Wie lange halten Implantate?", a: "Bei guter Pflege und Kontrollen viele Jahre. Prophylaxe wird individuell erklärt." },
+      { q: "Was ist orale Implantologie?", a: "Titanwurzeln (Implantate) werden in den Kiefer gesetzt und mit festem Zahnersatz versorgt – die dauerhafteste Lösung nahe am natürlichen Zahn." },
+      { q: "Wie lange dauert eine Implantatbehandlung in Istanbul?", a: "Einzelimplantate brauchen meist einige Monate inkl. Einheilung. Mit All-on-4 sind bei geeigneten Fällen provisorische Zähne am selben Tag möglich." },
+      { q: "Was kosten Zahnimplantate in Istanbul?", a: "Abhängig von Knochen, Implantatzahl und Zahnersatz. Nach kostenloser Foto-Beratung erhalten Sie einen transparenten Plan." },
     ],
   },
   "estetik-dis-hekimligi": {

@@ -195,8 +195,8 @@ const EN = [
     ],
   },
   {
-    slug: "hollywoodlywood-smile-turkey-package",
-    geoSlug: "hollywoodlywood-smile-package-istanbul",
+    slug: "hollywood-smile-turkey-package",
+    geoSlug: "hollywood-smile-package-istanbul",
     service: "estetik-dis-hekimligi",
     tag: "Smile design",
     bucket: "kategori",
@@ -271,7 +271,7 @@ const EN = [
   {
     slug: "dental-implants-explained-istanbul",
     geoSlug: "what-is-a-dental-implant",
-    service: "oral-implantoloji",
+    service: "implantoloji-implant-tedavisi",
     tag: "Implants",
     bucket: "kategori",
     image: IMG.implant,
@@ -414,7 +414,7 @@ const DE = [
   },
   {
     slug: "hollywood-smile-tuerkei-paket",
-    geoSlug: "hollywoodlywood-smile-paket-istanbul",
+    geoSlug: "hollywood-smile-paket-istanbul",
     service: "estetik-dis-hekimligi",
     tag: "Smile Design",
     bucket: "kategori",
@@ -487,7 +487,7 @@ const DE = [
   {
     slug: "zahnimplantat-erklaert-istanbul",
     geoSlug: "was-ist-ein-zahnimplantat",
-    service: "oral-implantoloji",
+    service: "implantoloji-implant-tedavisi",
     tag: "Implantate",
     bucket: "kategori",
     image: IMG.implant,

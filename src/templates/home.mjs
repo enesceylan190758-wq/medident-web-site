@@ -510,7 +510,7 @@ export function homePage(lang) {
   return {
     body,
     title: `${site.brand} — ${L(uiBits.homeTitle, lang)}`,
-    description: h.lead,
+    description: (uiBits.homeDescription && uiBits.homeDescription[lang]) || h.lead,
     jsonld,
     image: site.domain + src(img.hero),
   };
