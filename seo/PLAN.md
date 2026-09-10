@@ -1,7 +1,7 @@
 # MediDent SEO — yaşayan plan
 
 Son güncelleme: 2026-09-10 (oturum: Auto)  
-PR: (açılacak — `seo/turkey-teeth-expand`)
+PR: https://github.com/enesceylan190758-wq/medident-web-site/pull/33
 
 Hedef: DACH ticari sorgular + turkey teeth kümesi. SEO 3 ayda lead değil, 12 ayda anlamlı.
 
