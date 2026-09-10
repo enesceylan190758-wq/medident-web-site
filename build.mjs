@@ -97,11 +97,13 @@ function build() {
     // Home
     emit(lang, "", homePage(lang));
 
-    // Services
+    // Services — do NOT inject blog article.html (that duplicated the same body on
+    // /hizmetler/{slug}/ and /blog/{article}/ with self-canonicals on both URLs).
+    // Long-form copy stays on blog; service pages use fallback + serviceFaqs.
     emit(lang, "hizmetler/", servicesIndexPage(lang));
     for (const s of services) {
-      const article = byLang.find((a) => a.service === s.slug);
-      emit(lang, "hizmetler/" + s.slug + "/", servicePage(lang, s, article));
+      const relatedBlog = byLang.find((a) => a.service === s.slug);
+      emit(lang, "hizmetler/" + s.slug + "/", servicePage(lang, s, null, relatedBlog));
     }
 
     // Doctors
