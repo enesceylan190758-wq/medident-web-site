@@ -132,8 +132,24 @@ if (newSlugs) {
 const seenQuery = new Map();
 
 for (const p of scoped) {
-  const body = p.type === "blog" ? p.html : [p.direct_answer, ...(p.bullets || [])].join(" ");
-  const full = [p.title, p.excerpt, p.metaDescription, p.question, p.direct_answer, strip(p.html), (p.bullets || []).join(" "), (p.faq || []).map((f) => `${f.q} ${f.a}`).join(" ")]
+  const geoSectionsText = (p.sections || [])
+    .map((s) => `${s.h2 || ""} ${(s.paragraphs || []).join(" ")}`)
+    .join(" ");
+  const body =
+    p.type === "blog"
+      ? p.html
+      : [p.direct_answer, ...(p.bullets || []), geoSectionsText].join(" ");
+  const full = [
+    p.title,
+    p.excerpt,
+    p.metaDescription,
+    p.question,
+    p.direct_answer,
+    strip(p.html),
+    (p.bullets || []).join(" "),
+    geoSectionsText,
+    (p.faq || []).map((f) => `${f.q} ${f.a}`).join(" "),
+  ]
     .filter(Boolean)
     .join(" \n ");
 
@@ -207,7 +223,19 @@ for (const p of scoped) {
 }
 
 // ---- 10. DUPLICATE (ayni dil, ayni tip) ----
-const sig = new Map(all.map((p) => [`${p.lang}/${p.type}/${p.slug}`, trigrams(p.type === "blog" ? p.html : [p.direct_answer, ...(p.bullets || [])].join(" "))]));
+const sig = new Map(
+  all.map((p) => {
+    const geoBody =
+      p.type === "blog"
+        ? p.html
+        : [
+            p.direct_answer,
+            ...(p.bullets || []),
+            ...(p.sections || []).flatMap((s) => [s.h2, ...(s.paragraphs || [])]),
+          ].join(" ");
+    return [`${p.lang}/${p.type}/${p.slug}`, trigrams(geoBody)];
+  })
+);
 for (const p of scoped) {
   const pk = `${p.lang}/${p.type}/${p.slug}`;
   let worst = { s: 0, other: null };

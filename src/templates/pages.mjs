@@ -644,7 +644,7 @@ export function geoIndexPage(lang, packs) {
   };
 }
 
-/** Single GEO pack — answer-first + Article + FAQPage (E-E-A-T when fields exist) */
+/** Single GEO pack — answer-first + optional long sections + Article + FAQPage */
 export function geoPackPage(lang, pack) {
   const crumbs = [
     crumbHome(lang),
@@ -662,11 +662,17 @@ export function geoPackPage(lang, pack) {
   const bylineBits = [];
   if (pack.author) bylineBits.push(pack.author);
   if (pack.reviewer) bylineBits.push(`${reviewedByLabel[lang] || reviewedByLabel.en}: ${pack.reviewer}`);
-  if (pack.publishedAt) bylineBits.push(pack.publishedAt);
+  if (pack.updatedAt || pack.publishedAt) bylineBits.push(pack.updatedAt || pack.publishedAt);
   const byline =
     bylineBits.length > 0
       ? `<p style="font-size:13px;color:var(--muted-2);margin:0 0 18px;">${bylineBits.join(" · ")}</p>`
       : "";
+  const sectionsHtml = (pack.sections || [])
+    .map((s) => {
+      const paras = (s.paragraphs || []).map((p) => `<p>${p}</p>`).join("");
+      return `<h2>${s.h2}</h2>${paras}`;
+    })
+    .join("");
   const body = `${pageHero(lang, "GEO", pack.question || pack.title, "", crumbs)}
   <section class="section" style="padding-top:clamp(24px,3vw,40px);"><div class="container" style="max-width:760px;">
     <article class="prose">
@@ -675,6 +681,7 @@ export function geoPackPage(lang, pack) {
       <p><strong>${pack.direct_answer}</strong></p>
       <h2>${keyPointsHeading[lang] || keyPointsHeading.en}</h2>
       <ul>${(pack.bullets || []).map((b) => `<li>${b}</li>`).join("")}</ul>
+      ${sectionsHtml}
       <h2>${faqHeading[lang] || faqHeading.en}</h2>
       ${(pack.faq || []).map((f) => `<h3>${f.q}</h3><p>${f.a}</p>`).join("")}
       <div style="margin-top:28px;display:flex;flex-wrap:wrap;gap:10px;">${links}</div>
@@ -683,11 +690,14 @@ export function geoPackPage(lang, pack) {
   const authorNode = pack.author
     ? { "@type": "Person", name: pack.author }
     : { "@id": site.domain + "/#organization" };
+  const metaDesc =
+    pack.metaDescription ||
+    (pack.direct_answer ? pack.direct_answer.slice(0, 155) : pack.title || "");
   const articleLd = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: pack.question || pack.title,
-    description: pack.direct_answer,
+    description: metaDesc,
     image: ogImage,
     inLanguage: langBCP47[lang] || "en-US",
     datePublished: pack.publishedAt || undefined,
@@ -703,10 +713,11 @@ export function geoPackPage(lang, pack) {
   return {
     body,
     title: `${pack.question || pack.title} — ${site.brand}`,
-    description: pack.direct_answer.slice(0, 155),
+    description: metaDesc,
     image: ogImage,
     ogType: "article",
     publishedTime: pack.publishedAt || undefined,
+    modifiedTime: pack.updatedAt || undefined,
     jsonld: [
       faqSchema(pack.faq || []),
       articleLd,
