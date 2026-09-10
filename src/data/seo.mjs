@@ -341,6 +341,11 @@ export function resolveHreflangPaths(lang, pathNoLang) {
     return { de: "composite-bonding-tuerkei/", en: "composite-bonding-turkey/", fr: "composite-bonding-turquie/" };
   }
 
+  // Porzellan-Veneers commercial landing — DE only for now
+  if (p === "porzellan-veneers-istanbul") {
+    return { de: "porzellan-veneers-istanbul/" };
+  }
+
   // Blog article
   if (p.startsWith("blog/") && p !== "blog") {
     const slug = p.slice("blog/".length);

@@ -1,6 +1,7 @@
 # MediDent SEO — yaşayan plan
 
-Son güncelleme: 2026-09-10 (oturum: Auto)
+Son güncelleme: 2026-09-10 (oturum: Auto)  
+PR: https://github.com/enesceylan190758-wq/medident-web-site/pull/32
 
 Hedef: DACH ticari sorgular + turkey teeth kümesi. SEO 3 ayda lead değil, 12 ayda anlamlı.
 
@@ -8,54 +9,49 @@ Hedef: DACH ticari sorgular + turkey teeth kümesi. SEO 3 ayda lead değil, 12 a
 
 | # | Madde | Durum | Not |
 |---|--------|--------|-----|
-| 1 | Duplicate doğrulama (canonical, 6 dil, sitemap, robots, iç link) | **bitti** | Hüküm: KRİTİK — her URL kendini canonical gösteriyor |
+| 1 | Duplicate doğrulama (canonical, 6 dil, sitemap, robots, iç link) | **bitti** | Hüküm: KRİTİK idi — self-canonical + çift URL |
 | 2 | Duplicate'i build.mjs kaynağında çöz | **bitti** | PR #32 — article.html sadece blogda |
-| 3 | hreflang boşlukları + ölü mapping | **bitti** | DE orphan 11→0; PR #32 |
-| 4 | hollywoodlywood slug hatası + 301 | **ONAY BEKLİYOR** | Canlı URL/301 kırmızı bölge |
+| 3 | hreflang boşlukları + ölü mapping | **bitti** | DE orphan 11→0 |
+| 4 | hollywoodlywood slug hatası + 301 | **ONAY BEKLİYOR** | Canlı URL/301 kırmızı |
 | 5 | oral-implantoloji → implantoloji birleştirme | **ONAY BEKLİYOR** | Sayfa kaldırma/301 kırmızı |
-| 6 | Alt sorgu title/meta (all-on-4, sofortimplantate, bonding…) | **bitti** | DE blog + preise + bonding landing |
+| 6 | Alt sorgu title/meta (all-on-4, sofortimplantate, bonding…) | **bitti** | DE blog + preise + bonding |
 | 7 | Ana sayfa title/meta'ya Zahnarzt Istanbul | **ONAY BEKLİYOR** | Ana sayfa title kırmızı |
-| 8 | Porzellan-Veneers sayfası (yeni) | bekliyor | Dile özel slug, sharedPrefixes dışı |
-| 9 | GEO şablonuna Article + E-E-A-T | bekliyor | |
-| 10 | turkey teeth genişlet (669→2500) | bekliyor | |
+| 8 | Porzellan-Veneers sayfası (yeni) | **bitti** | `/de/porzellan-veneers-istanbul/` |
+| 9 | GEO şablonuna Article + E-E-A-T | **bitti** | Article schema + byline; reviewer yoksa eklenmiyor |
+| 10 | turkey teeth genişlet (669→2500) | bekliyor | Sonraki oturum |
 | 11 | Türev: turkey-teeth-meaning / -risks / -vs-veneers | bekliyor | Kannibalizasyon dikkat |
-| 12 | İngilizce yamyamlık denetimi | bekliyor | |
+| 12 | İngilizce yamyamlık denetimi | **bitti** (araştırma) | Blog çiftleri temiz; oral↔implant hizmet hâlâ yakın |
 
-## Madde 1 — bulgular (2026-09-10)
+## Madde 1 — bulgular (özet)
 
-- Kaynak: `build.mjs` aynı `article` nesnesini `servicePage` + `articlePage`'e veriyor.
-- Canonical: `layout.mjs` → `absUrl(lang, path)` — her sayfa kendini gösterir. Cross-canonical yok.
-- Meta robots: tümünde `index,follow`. robots.txt: `Allow: /`.
-- Sitemap: 36/36 çiftin her iki URL'si de listeleniyor.
-- Gerçek duplike çift (aynı article.html iki URL'de): **TR 10 · EN 13 · DE 13 · FR/AR/RU 0** = **36 çift / 72 URL**.
-- Canlı teyit: `/de/blog/implantatbehandlung/` ve `/de/hizmetler/implantoloji-implant-tedavisi/` ikisi de self-canonical.
-- İç link: 36/36'da **hizmet** tarafı baskın (nav/footer/home). Blog 2–5 sayfadan link alıyor.
+- 36 çift / 72 URL (TR10 EN13 DE13). Her sayfa self-canonical, sitemap’te ikisi de, robots Allow.
+- İç link hizmet tarafında.
 
 ## ONAY BEKLİYOR (kırmızı)
 
 ### 4 — hollywoodlywood slug + 301
-- Canlı hatalı URL'ler: `/de/geo/hollywoodlywood-smile-paket-istanbul/`, `/en/geo/hollywoodlywood-smile-package-istanbul/`, EN blog `hollywoodlywood-smile-turkey-package`.
-- DE blog dosyası doğru: `hollywood-smile-tuerkei-paket` (hreflang tablosu yanlış yazıyor).
-- **Öneri:** Slug'ları `hollywood-…` yap + eski URL'lere 301. Enes onaylamadan uygulama yok.
+- Canlı hatalı: `/de/geo/hollywoodlywood-…`, `/en/geo/hollywoodlywood-…`, EN blog `hollywoodlywood-smile-turkey-package`.
+- DE blog dosyası doğru: `hollywood-smile-tuerkei-paket` (hreflang düzeltildi).
+- **Öneri:** Typo slug’ları `hollywood-…` yap + eski URL’lere 301. Onaysız uygulama yok.
 
 ### 5 — oral-implantoloji birleştirme
-- `/hizmetler/oral-implantoloji/` ile `/hizmetler/implantoloji-implant-tedavisi/` yüksek örtüşme.
-- **Öneri:** oral-implantoloji → implantoloji-implant-tedavisi 301; content.mjs'den kaldırma Enes onayıyla. Bu oturumda dokunulmadı.
+- Hizmet sayfaları artık ikisi de kısa fallback — benzerlik sürüyor (~0.68 EN).
+- **Öneri:** `oral-implantoloji` → `implantoloji-implant-tedavisi` 301; content.mjs’den kaldırma senin onayınla.
 
 ### 7 — Ana sayfa "Zahnarzt Istanbul"
-- **Öneri:** Sadece DE `/de/` title/meta'ya ekle; H1/marka mesajına dokunma. Onay sonrası.
-
-## Erteleme (bilinçli)
-
-- DE/EN hizmet slug migration (sharedPrefixes/hreflang kırılma riski) → ~3. ay.
-- Google Ads → SEO geliri kısa vadede getirmez; hasta için reklam ayrı konuşulmalı.
+- **Öneri:** Sadece DE `/de/` title/meta; H1/markaya dokunma.
 
 ## Oturumda eklenenler
 
-### 2b — Hizmet sayfaları ince içerik (yeni, düşük öncelik)
-Duplicate kesilince hizmet sayfaları ortak `serviceFallback` şablonuna düştü (sadece başlık değişiyor). Birebir uzun duplike'den iyi; yine de dil/hizmete özel 150–250 kelimelik kısa gövde ileride yazılmalı. **Bekliyor** — içerik işi, teknik değil.
+### 2b — Hizmet sayfaları ince / benzer gövde (yeni)
+Duplicate kesilince tüm hizmet sayfaları ortak `serviceFallback` kullanıyor. Kritik duplike bitti; ince içerik riski kaldı. **Sonraki:** dil+hizmete özel 150–250 kelime kısa gövde.
 
-### 3 — hreflang (bulgular)
-- DE 75 sayfadan 11'i hreflang ağının dışındaydı (sadece self).
-- Ölü mapping: `blogTopicGroups` hollywood `de: hollywoodlywood-…` ama dosya `hollywood-…`.
-- Ek sessiz bug: `smile-design` grubunun TR slug'ı hollywood grubuyla çakışıyordu → TR hollywood sayfası yanlış EN/DE'ye bağlanıyordu.
+### 12 — EN yamyamlık (bulgular)
+- EN blog çiftleri jaccard ≥0.55: **0** (temiz).
+- turkey teeth = GEO pack (`/en/geo/turkey-teeth-what-they-are-and-how-to-avoid-problems/`), blog değil.
+- oral-implantoloji vs implantoloji hizmet: hâlâ yakın (fallback) → madde 5 ile çözülür.
+
+## Erteleme
+
+- DE/EN hizmet slug migration → ~3. ay (sharedPrefixes).
+- Ads ayrı konuşulmalı; SEO kısa vadeli hasta kolu değil.

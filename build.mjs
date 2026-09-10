@@ -31,6 +31,7 @@ import {
   geoPackPage,
   pricesPage,
   bondingPage,
+  veneersPage,
 } from "./src/templates/pages.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -143,6 +144,9 @@ function build() {
     if (lang === "de") emit(lang, "composite-bonding-tuerkei/", bondingPage(lang));
     if (lang === "en") emit(lang, "composite-bonding-turkey/", bondingPage(lang));
     if (lang === "fr") emit(lang, "composite-bonding-turquie/", bondingPage(lang));
+
+    // Porzellan-Veneers commercial landing — DE only (query: porzellanveneers istanbul)
+    if (lang === "de") emit(lang, "porzellan-veneers-istanbul/", veneersPage(lang));
   }
 
   writeSitemap();

@@ -82,3 +82,45 @@ Protokol: ~1 saat kesintisiz; yeşil bölgede onay beklemeden; kırmızı kuyru�
 - Build OK; dist title/H1/meta spot-check geçti.
 - Ana sayfaya dokunulmadı. Fiyat rakamları mevcut metinden (yeni iddia yok).
 
+
+### İş kalemi 9 — GEO Article + E-E-A-T şablonu
+
+**Durum:** bitti  
+**Süre:** ~10 dk  
+**PR:** #32
+
+**Ne yaptım**
+- `geoPackPage`: WebPage → Article schema; og:type=article; published_time; görünür byline (author/tarih); reviewer sadece alanda varsa.
+
+**Doğrulama**
+- Build 339→ sonra 340. turkey-teeth GEO: Article + byline + published_time OK. AR/RU geo index ayakta.
+
+---
+
+### İş kalemi 12 — EN yamyamlık denetimi (araştırma)
+
+**Durum:** bitti (rapor)  
+**Süre:** ~5 dk
+
+**Bulgular**
+- EN blog-blog yüksek benzerlik çifti yok.
+- oral vs implant hizmet sayfaları hâlâ yakın (ortak fallback) — madde 5 / 2b.
+- turkey teeth GEO’da; kelime genişletme madde 10.
+
+---
+
+### İş kalemi 8 — Porzellan-Veneers landing (DE)
+
+**Durum:** bitti  
+**Süre:** ~15 dk  
+**PR:** #32
+
+**Ne yaptım**
+- Yeni URL: `/de/porzellan-veneers-istanbul/` (sharedPrefixes dışı).
+- `veneersPage` + DE i18n; build emit; seo.mjs hreflang (DE-only).
+- İç link: GEO tanım, bonding landing, bonding-vs-veneers blog.
+- Fiyat: mevcut bonding sayfasındaki “ab 200 €” ile uyumlu; yeni rakam uydurulmadı.
+
+**Doğrulama**
+- Build 340 sayfa. Canonical self. Sitemap’te var. 3 iç link hedefi mevcut. Yasaklı DE terim yok.
+
