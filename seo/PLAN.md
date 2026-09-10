@@ -10,10 +10,10 @@ Hedef: DACH ticari sorgular + turkey teeth kümesi. SEO 3 ayda lead değil, 12 a
 |---|--------|--------|-----|
 | 1 | Duplicate doğrulama (canonical, 6 dil, sitemap, robots, iç link) | **bitti** | Hüküm: KRİTİK — her URL kendini canonical gösteriyor |
 | 2 | Duplicate'i build.mjs kaynağında çöz | **bitti** | PR #32 — article.html sadece blogda |
-| 3 | hreflang boşlukları + ölü mapping | **devam ediyor** | DE orphan 11→0 hedefi; ölü hollywood mapping |
+| 3 | hreflang boşlukları + ölü mapping | **bitti** | DE orphan 11→0; PR #32 |
 | 4 | hollywoodlywood slug hatası + 301 | **ONAY BEKLİYOR** | Canlı URL/301 kırmızı bölge |
 | 5 | oral-implantoloji → implantoloji birleştirme | **ONAY BEKLİYOR** | Sayfa kaldırma/301 kırmızı |
-| 6 | Alt sorgu title/meta (all-on-4, sofortimplantate, bonding…) | bekliyor | Ana sayfa hariç — yeşil |
+| 6 | Alt sorgu title/meta (all-on-4, sofortimplantate, bonding…) | **bitti** | DE blog + preise + bonding landing |
 | 7 | Ana sayfa title/meta'ya Zahnarzt Istanbul | **ONAY BEKLİYOR** | Ana sayfa title kırmızı |
 | 8 | Porzellan-Veneers sayfası (yeni) | bekliyor | Dile özel slug, sharedPrefixes dışı |
 | 9 | GEO şablonuna Article + E-E-A-T | bekliyor | |

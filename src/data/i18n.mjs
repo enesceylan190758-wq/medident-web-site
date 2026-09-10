@@ -543,8 +543,8 @@ export const i18n = {
     },
     pricesPage: {
       eyebrow: "Preise 2026",
-      h1: "Zahnimplantate, Zirkonkronen & Zahnersatz Türkei: Preise",
-      lead: "Echte MediDent Istanbul Preise — ohne versteckte Kosten. Sehen Sie unten die genauen Zahlen oder nutzen Sie den Rechner für ein persönliches Angebot.",
+      h1: "Zahnbehandlung Istanbul: Implantate, Zirkonkronen & Zahnersatz Preise",
+      lead: "Transparente MediDent Istanbul Preise für Patienten aus DE/AT/CH — ohne versteckte Kosten. Unten die Zahlen oder Rechner für ein persönliches Angebot.",
       tableTitle: "Vollständige Preisliste",
       tableTreatment: "Behandlung",
       tablePrice: "Preis",
@@ -570,8 +570,8 @@ export const i18n = {
     },
     bondingPage: {
       eyebrow: "Composite Bonding",
-      h1: "Composite Bonding Türkei: Preis & No-Drill Veneers",
-      lead: "Eine schonende No-Drill-Alternative zu Veneers — Ihr Lächeln in einer Sitzung neu geformt und aufgehellt, ab 110 € pro Zahn.",
+      h1: "Composite Bonding Istanbul: Preis, Ablauf & Veneers-Vergleich",
+      lead: "Schonende Alternative zu Veneers in Istanbul — Lächeln in einer Sitzung neu geformt und aufgehellt, ab 110 € pro Zahn. Ideal für kurze Aufenthalte aus DE/AT/CH.",
       introTitle: "Was ist Composite Bonding?",
       introText: "Composite Bonding verwendet ein zahnfarbenes Kunststoffmaterial, das direkt auf den Zahn modelliert wird, um Absplitterungen, Lücken und Verfärbungen zu korrigieren — meist ohne Bohren oder Betäubung, in einer einzigen Sitzung. Im Gegensatz zu Veneers oder Kronen ist es reversibel, da kein Zahnschmelz dauerhaft entfernt wird.",
       compareTitle: "Composite Bonding vs. Porzellan-Veneers",

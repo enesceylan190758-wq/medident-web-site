@@ -50,3 +50,35 @@ Protokol: ~1 saat kesintisiz; yeşil bölgede onay beklemeden; kırmızı kuyru�
 
 **Risk / takip**
 - Hizmet sayfaları artık kısa fallback metin paylaşıyor (başlık değişiyor). İnce içerik riski var ama birebir uzun duplike'den çok daha iyi. İleride hizmete özel kısa gövde yazılabilir (yeni madde adayı).
+
+### İş kalemi 3 — hreflang + ölü mapping
+
+**Durum:** bitti  
+**Süre:** ~15 dk  
+**PR:** #32 (aynı branch)
+
+**Ne yaptım**
+- `blogTopicGroups`: 8 klasik TR/EN/DE eşlemesi eklendi; hollywood DE slug düzeltildi; smile-design TR çakışması giderildi.
+- `geoTopicGroups`: whitening + hollywoodlywood (mevcut typo slug) eklendi.
+
+**Doğrulama**
+- Build 339 OK. DE orphan hreflang: **11 → 0**. Slug çakışması 0.
+- Dist HTML: DE hollywood blog hreflang TR/EN/DE doğru.
+
+---
+
+### İş kalemi 6 — DE title/meta yeniden konumlandırma
+
+**Durum:** bitti  
+**Süre:** ~12 dk  
+**PR:** #32
+
+**Ne yaptım**
+- `articles.json` (DE): implantatbehandlung, taggleiche-behandlung, aesthetische-zahnmedizin, zahnprothese, zahnaufhellung — title + metaDescription.
+- `generated-blog.json` (DE): sofortimplantate, all-on-4, bonding-vs-veneers.
+- `i18n.mjs` DE: `/de/preise/` ve `/de/composite-bonding-tuerkei/` H1/lead.
+
+**Doğrulama**
+- Build OK; dist title/H1/meta spot-check geçti.
+- Ana sayfaya dokunulmadı. Fiyat rakamları mevcut metinden (yeni iddia yok).
+
