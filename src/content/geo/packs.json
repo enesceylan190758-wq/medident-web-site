@@ -2206,7 +2206,7 @@
   },
   {
     "lang": "en",
-    "slug": "hollywoodlywood-smile-package-istanbul",
+    "slug": "hollywood-smile-package-istanbul",
     "bucket": "kategori",
     "question": "What is a Hollywood Smile package in Istanbul?",
     "title": "What is a Hollywood Smile package in Istanbul",
@@ -2239,7 +2239,8 @@
       }
     ],
     "source": "seo-ende-expand",
-    "publishedAt": "2026-07-23"
+    "publishedAt": "2026-07-23",
+    "updatedAt": "2026-09-10"
   },
   {
     "lang": "en",
@@ -2308,7 +2309,7 @@
         "label": "Contact"
       },
       {
-        "href": "/en/hizmetler/oral-implantoloji/",
+        "href": "/en/hizmetler/implantoloji-implant-tedavisi/",
         "label": "Services"
       }
     ],
@@ -2424,7 +2425,7 @@
   },
   {
     "lang": "de",
-    "slug": "hollywoodlywood-smile-paket-istanbul",
+    "slug": "hollywood-smile-paket-istanbul",
     "bucket": "kategori",
     "question": "Was ist ein Hollywood-Smile-Paket in Istanbul?",
     "title": "Was ist ein Hollywood-Smile-Paket in Istanbul",
@@ -2453,7 +2454,8 @@
       }
     ],
     "source": "seo-ende-expand",
-    "publishedAt": "2026-07-23"
+    "publishedAt": "2026-07-23",
+    "updatedAt": "2026-09-10"
   },
   {
     "lang": "de",
@@ -2514,7 +2516,7 @@
         "label": "Kontakt"
       },
       {
-        "href": "/de/hizmetler/oral-implantoloji/",
+        "href": "/de/hizmetler/implantoloji-implant-tedavisi/",
         "label": "Leistungen"
       }
     ],

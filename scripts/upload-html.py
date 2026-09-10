@@ -79,7 +79,7 @@ def main() -> int:
         "blog/index.html",
         "geo/index.html",
         "hizmetler/index.html",
-        "hizmetler/oral-implantoloji/index.html",
+        "hizmetler/implantoloji-implant-tedavisi/index.html",
         "hizmetler/implantoloji-implant-tedavisi/index.html",
         "hizmetler/estetik-dis-hekimligi/index.html",
         "hizmetler/dis-beyazlatma/index.html",

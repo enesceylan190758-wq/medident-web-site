@@ -45,10 +45,13 @@ export const uiBits = {
   homeTitle: {
     tr: "Gülüş Tasarımı & Estetik Diş Hekimliği",
     en: "Smile Design & Aesthetic Dentistry",
-    de: "Smile Design & Ästhetische Zahnmedizin",
+    de: "Zahnarzt Istanbul — Smile Design & Ästhetische Zahnmedizin",
     fr: "Design du sourire & dentisterie esthétique",
     ar: "تصميم الابتسامة وطب الأسنان التجميلي",
     ru: "Дизайн улыбки и эстетическая стоматология",
+  },
+  homeDescription: {
+    de: "Zahnarzt Istanbul: Smile Design, Veneers, Implantate und Bonding bei MediDent in Üsküdar. Deutschsprachige Koordination, klarer Plan nach Befund.",
   },
   notSure: {
     tr: "Henüz emin değilim",
