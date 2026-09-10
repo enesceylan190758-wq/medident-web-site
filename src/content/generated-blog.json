@@ -104,7 +104,9 @@
     "publishedAt": "2026-07-23",
     "tag": "Estetik",
     "updatedAt": "2026-09-10",
-    "author": "MediDent Istanbul Clinical Team"
+    "author": "MediDent Istanbul Clinical Team",
+    "reviewer": "Dr. Ahmet Çelik",
+    "reviewedAt": "2026-09-10"
   },
   {
     "lang": "tr",
@@ -1411,7 +1413,9 @@
     "publishedAt": "2026-07-23",
     "tag": "Smile design",
     "updatedAt": "2026-09-10",
-    "author": "MediDent Istanbul Clinical Team"
+    "author": "MediDent Istanbul Clinical Team",
+    "reviewer": "Dr. Ahmet Çelik",
+    "reviewedAt": "2026-09-10"
   },
   {
     "lang": "en",
