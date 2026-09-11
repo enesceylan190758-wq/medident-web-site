@@ -266,6 +266,17 @@ em {
   align-items: center;
 }
 
+.grid-2 > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* Contact form: desktop ratio without inline styles (inline styles break mobile stack) */
+.contact-layout {
+  grid-template-columns: 1fr 1.05fr;
+  align-items: start;
+}
+
 .grid-auto {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(258px, 1fr));
@@ -923,9 +934,12 @@ em {
 .form-card {
   background: var(--cream);
   border-radius: 24px;
-  padding: clamp(26px, 3vw, 38px);
+  padding: clamp(22px, 3vw, 38px);
   box-shadow: 0 50px 90px -50px rgba(0, 0, 0, 0.7);
   color: var(--ink);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .form-card h3 {
@@ -1385,8 +1399,12 @@ textarea:focus {
   .burger {
     display: inline-flex;
   }
+  /* !important: many templates set desktop column ratios via inline style */
   .grid-2 {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
+  }
+  .contact-layout {
+    gap: 28px;
   }
   .float-card.top-left,
   .float-card.bottom-right {
