@@ -30,6 +30,61 @@ const reviewedByLabel = {
   ru: "Медицинская проверка",
 };
 
+const viewProfileLabel = { tr: "Doktor profilini gör", en: "View doctor profile", de: "Zum Ärzteprofil", fr: "Voir le profil du médecin" };
+
+/** Find a doctor by slug (content.mjs `doctors`). Returns null if not found — never fabricate a name. */
+function findDoctor(slug) {
+  return doctors.find((d) => d.slug === slug) || null;
+}
+
+/** Visible "medically reviewed by <real doctor>" block, linking to their real doctor page — no headshot (none on file). */
+function reviewedByBlock(lang, doctorSlug) {
+  const doctor = findDoctor(doctorSlug);
+  if (!doctor) return "";
+  return `<p style="font-size:13.5px;color:var(--muted-2);margin:0 0 24px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+    <span>${reviewedByLabel[lang] || reviewedByLabel.en}: <strong style="color:var(--ink-soft);">${doctor.name}</strong> — ${L(doctor.titles, lang)}</span>
+    <a href="${url(lang, "doktorlar/" + doctor.slug + "/")}" class="link-more" style="font-size:13px;">${L(viewProfileLabel, lang)} ${icons.arrowSm}</a>
+  </p>`;
+}
+
+/** Person schema node for a real doctor (content.mjs `doctors`), for Article authorship/reviewedBy. */
+function doctorPersonSchema(lang, doctorSlug) {
+  const doctor = findDoctor(doctorSlug);
+  if (!doctor) return null;
+  return {
+    "@type": "Person",
+    name: doctor.name,
+    jobTitle: L(doctor.titles, lang),
+    url: site.domain + url(lang, "doktorlar/" + doctor.slug + "/"),
+  };
+}
+
+/** Article schema for a commercial landing page, with a real reviewing doctor (never invented). */
+function landingArticleSchema({ lang, pageUrl, headline, description, image, doctorSlug, publishedAt, updatedAt }) {
+  const reviewer = doctorPersonSchema(lang, doctorSlug);
+  const node = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline,
+    description,
+    image,
+    inLanguage: langBCP47[lang] || "en-US",
+    datePublished: publishedAt,
+    dateModified: updatedAt || publishedAt,
+    author: reviewer || { "@id": site.domain + "/#organization" },
+    publisher: { "@id": site.domain + "/#organization" },
+    mainEntityOfPage: pageUrl,
+    url: pageUrl,
+  };
+  if (reviewer) node.reviewedBy = reviewer;
+  return node;
+}
+
+/** Real, topic-labelled case photo (src/data/images.mjs `img.cases`) — never a stock/unrelated image. */
+function caseImageBlock(file, alt) {
+  return `<figure style="margin:0 0 28px;"><img src="${src(file)}" alt="${alt}" width="960" height="640" loading="lazy" style="width:100%;height:auto;border-radius:16px;display:block;"></figure>`;
+}
+
 function pageHero(lang, eyebrow, title, lead, crumbs) {
   return `<section class="page-hero"><div class="container">
     ${breadcrumb(lang, crumbs)}
@@ -547,8 +602,14 @@ export function implantsCostPage(lang) {
     .map((l) => `<a href="${l.href}" class="btn btn-ghost" style="padding:10px 16px;">${l.label}</a>`)
     .join("");
 
+  const reviewerSlug = "dr-ahmet-celik";
+  const publishedAt = "2026-09-11";
+  const updatedAt = "2026-09-11";
+  const pageUrl = site.domain + url(lang, slug);
+
   const body = `${pageHero(lang, p.eyebrow, p.h1, p.lead, crumbs)}
   <section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">
+    ${reviewedByBlock(lang, reviewerSlug)}
     <h2 style="font-size:22px;margin:0 0 14px;">${p.introTitle}</h2>
     <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0 0 28px;">${p.introText}</p>
     <h2 style="font-size:24px;margin:0 0 20px;">${p.tableTitle}</h2>
@@ -579,9 +640,20 @@ export function implantsCostPage(lang) {
     body,
     title: `${p.h1} — ${site.brand}`,
     description: p.lead,
+    publishedTime: publishedAt,
+    modifiedTime: updatedAt,
     jsonld: [
       orgSchema(lang),
       faqSchema(p.faqs),
+      landingArticleSchema({
+        lang,
+        pageUrl,
+        headline: p.h1,
+        description: p.lead,
+        doctorSlug: reviewerSlug,
+        publishedAt,
+        updatedAt,
+      }),
       breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
     ],
   };
