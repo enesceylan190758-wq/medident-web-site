@@ -1669,8 +1669,8 @@
     "lang": "de",
     "slug": "zahntourismus-istanbul-deutschland",
     "bucket": "marka",
-    "question": "Wie funktioniert Zahntourismus in Istanbul für Patienten aus Deutschland?",
-    "title": "Wie funktioniert Zahntourismus in Istanbul für Patienten aus Deutschland",
+    "question": "Zahnarzt Türkei: Ablauf, Vor- und Nachteile für Patienten aus Deutschland",
+    "title": "Zahnarzt Türkei: Ablauf, Vor- und Nachteile für Patienten aus Deutschland",
     "direct_answer": "Zahntourismus in Istanbul verbindet Behandlung (Zirkon, Bonding, Implantate, Smile Design) mit einem Kurzurlaub. MediDent Istanbul koordiniert Online-Beratung, Flughafentransfer, Hoteloptionen und einen verdichteten Behandlungsplan — mit deutscher Betreuung und klarer Nachsorge.",
     "coverImage": "blog/blog-10-klinik.jpg",
     "bullets": [
@@ -1699,6 +1699,22 @@
     ],
     "internal_links": [
       {
+        "href": "/de/zahnimplantate-tuerkei-kosten/",
+        "label": "Zahnimplantate Türkei: Kosten 2026"
+      },
+      {
+        "href": "/de/all-on-4-zahnimplantate-tuerkei/",
+        "label": "All-on-4 Türkei: Ablauf & Preis"
+      },
+      {
+        "href": "/de/hollywood-smile-tuerkei-paket/",
+        "label": "Hollywood Smile Türkei: Paket & Preis"
+      },
+      {
+        "href": "/de/porzellan-veneers-istanbul/",
+        "label": "Veneers Türkei: Preis 2026"
+      },
+      {
         "href": "/de/hizmetler/",
         "label": "Leistungen"
       },
@@ -1716,7 +1732,39 @@
       }
     ],
     "publishedAt": "2026-07-23",
-    "source": "ende-tourism-pack"
+    "source": "ende-tourism-pack",
+    "metaDescription": "Zahnarzt Türkei: Ablauf, Vor-/Nachteile, Krankenkasse, Finanzierung und Zertifizierung — was Patienten aus Deutschland vor der Buchung wissen müssen.",
+    "author": "MediDent Istanbul Clinical Team",
+    "updatedAt": "2026-09-11",
+    "sections": [
+      {
+        "h2": "Krankenkasse: Übernimmt sie die Kosten?",
+        "paragraphs": [
+          "Gesetzliche Krankenkassen in Deutschland übernehmen geplante ästhetische oder implantologische Behandlungen im Ausland in aller Regel nicht — auch nicht über die Europäische Krankenversicherungskarte, die nur für akute, ungeplante Behandlungen während eines Aufenthalts gilt. Private Krankenversicherungen können in Einzelfällen einen Zuschuss leisten, wenn die Behandlung auch in Deutschland medizinisch notwendig und erstattungsfähig wäre — das trifft auf die meisten Zahntourismus-Leistungen (Veneers, Hollywood Smile, elektive Implantate) nicht zu.",
+          "[DOLDUR: Stellt MediDent Istanbul eine Rechnung/Bescheinigung aus, die für eine Kostenerstattungsanfrage bei der eigenen Kasse geeignet ist?] Fragen Sie im Einzelfall vorab bei Ihrer Kasse nach, bevor Sie buchen."
+        ]
+      },
+      {
+        "h2": "Finanzierung und Ratenzahlung",
+        "paragraphs": [
+          "[DOLDUR: Bietet die Klinik eine Ratenzahlung oder Finanzierungspartner an, und zu welchen Konditionen?] Klären Sie Finanzierungsfragen schriftlich vor der Buchung, nicht erst vor Ort."
+        ]
+      },
+      {
+        "h2": "Zertifizierung: worauf achten?",
+        "paragraphs": [
+          "Seriöse Kliniken in der Türkei verfügen über eine Sağlık Turizmi Yetki Belgesi (Gesundheitstourismus-Zulassung) des türkischen Gesundheitsministeriums — das ist das relevante offizielle Zertifikat für internationale Patienten, nicht eine deutsche TÜV-Prüfung, die es für Zahnkliniken in der Türkei nicht gibt. [DOLDUR: Liegt für MediDent Istanbul eine aktuelle Kopie dieser Zulassung zum Vorzeigen vor?]",
+          "Fragen Sie zusätzlich vor der Buchung nach dem vollständigen Namen und der Approbation des behandelnden Zahnarztes sowie nach der verwendeten Implantat- oder Keramikmarke — schriftlich, nicht nur mündlich."
+        ]
+      },
+      {
+        "h2": "Vor- und Nachteile im Überblick",
+        "paragraphs": [
+          "Vorteile: spürbar niedrigere Preise als bei vielen Privatpraxen in DE/AT/CH, moderne CAD/CAM-Digitaltechnik, deutschsprachige Koordination und ein verdichteter Behandlungsplan, der sich mit einem Kurzaufenthalt verbinden lässt.",
+          "Nachteile: Die Nachsorge findet größtenteils aus der Ferne statt, bei Komplikationen kann ein zweiter Zahnarzt vor Ort nötig sein, und Reise- und Terminplanung brauchen mehr Vorlauf als ein Termin bei der Hauszahnärztin. Das größte Risiko ist ein unseriöses Pauschalangebot ohne zahnweisen Plan — mehr dazu in unserem Turkey-Teeth-Ratgeber."
+        ]
+      }
+    ]
   },
   {
     "lang": "de",
