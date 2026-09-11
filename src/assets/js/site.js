@@ -191,14 +191,21 @@
   const calcCard = $("[data-calc]");
   const fmtEUR = (n) => "€" + Math.round(n).toLocaleString("de-DE");
   if (calcCard && calcData.length) {
+    const situationSel = $("[data-calc-situation]", calcCard);
+    const pricedFields = $("[data-calc-priced-fields]", calcCard);
+    const situationNote = $("[data-calc-situation-note]", calcCard);
+    const resultRow = $("[data-calc-result-row]", calcCard);
+    const resultLabel = $("[data-calc-result-label]", calcCard);
     const treatmentSel = $("[data-calc-treatment]", calcCard);
     const qtySel = $("[data-calc-qty]", calcCard);
     const qtyWrap = $("[data-calc-qty-wrap]", calcCard);
     const qtyLabel = $("[data-calc-qty-label]", calcCard);
     const resultEl = $("[data-calc-result]", calcCard);
     const ctaBtn = $("[data-calc-cta]", calcCard);
+    const waBtn = $("[data-calc-wa]", calcCard);
 
     const findItem = (key) => calcData.find((d) => d.key === key) || calcData[0];
+    const situation = () => (situationSel && situationSel.value) || "priced";
 
     const qtyLabelFor = (unit) =>
       unit === "implant" ? calcI18n.qtyLabelImplant || "" :
@@ -206,9 +213,11 @@
       calcI18n.qtyLabelTooth || "";
 
     const populateQty = (item) => {
-      if (item.priceOnRequest || item.options.length <= 1) {
+      if (!item || item.priceOnRequest || !item.options || item.options.length <= 1) {
         if (qtyWrap) qtyWrap.style.display = "none";
-        if (!item.priceOnRequest && qtySel) qtySel.innerHTML = `<option value="${item.options[0].qty}" selected>${item.options[0].qty}</option>`;
+        if (item && !item.priceOnRequest && item.options && qtySel) {
+          qtySel.innerHTML = `<option value="${item.options[0].qty}" selected>${item.options[0].qty}</option>`;
+        }
         return;
       }
       if (qtyWrap) qtyWrap.style.display = "";
@@ -220,18 +229,61 @@
     };
 
     const currentOption = (item) => {
-      if (item.priceOnRequest) return null;
+      if (!item || item.priceOnRequest) return null;
       const qty = parseInt(qtySel?.value, 10) || item.defaultQty;
       return item.options.find((o) => o.qty === qty) || item.options[0];
     };
 
+    const applySituation = () => {
+      const sit = situation();
+      const isPriced = sit === "priced";
+      if (pricedFields) pricedFields.style.display = isPriced ? "" : "none";
+      if (situationNote) {
+        if (sit === "existing-implants") {
+          situationNote.style.display = "block";
+          situationNote.textContent = calcI18n.noteExisting || "";
+        } else if (sit === "not-sure") {
+          situationNote.style.display = "block";
+          situationNote.textContent = calcI18n.noteNotSure || "";
+        } else if (sit === "photos") {
+          situationNote.style.display = "block";
+          situationNote.textContent = calcI18n.notePhotos || "";
+        } else {
+          situationNote.style.display = "none";
+          situationNote.textContent = "";
+        }
+      }
+      if (resultLabel) {
+        resultLabel.textContent = isPriced ? (calcI18n.resultLabel || "") : (calcI18n.planLabel || calcI18n.resultLabel || "");
+      }
+      if (ctaBtn) {
+        const priced = ctaBtn.getAttribute("data-cta-priced") || calcI18n.cta || "";
+        const plan = ctaBtn.getAttribute("data-cta-plan") || calcI18n.ctaPlan || priced;
+        const arrow = ctaBtn.querySelector("svg");
+        const arrowHtml = arrow ? arrow.outerHTML : "";
+        ctaBtn.innerHTML = `${isPriced ? priced : plan} ${arrowHtml}`.trim();
+        ctaBtn.style.display = sit === "photos" ? "none" : "";
+      }
+      if (waBtn) {
+        waBtn.style.display =
+          sit === "photos" || sit === "existing-implants" || sit === "not-sure" ? "" : "none";
+      }
+    };
+
     const updateResult = () => {
+      applySituation();
+      const sit = situation();
+      if (sit !== "priced") {
+        if (resultEl) resultEl.textContent = calcI18n.onRequest || "—";
+        return { item: null, opt: null, sit };
+      }
       const item = findItem(treatmentSel?.value);
       const opt = currentOption(item);
       if (resultEl) resultEl.textContent = opt ? fmtEUR(opt.price) : calcI18n.onRequest || "—";
-      return { item, opt };
+      return { item, opt, sit };
     };
 
+    if (situationSel) situationSel.addEventListener("change", updateResult);
     if (treatmentSel) {
       treatmentSel.addEventListener("change", () => {
         populateQty(findItem(treatmentSel.value));
@@ -246,17 +298,26 @@
     if (ctaBtn) {
       ctaBtn.addEventListener("click", (e) => {
         e.preventDefault();
-        const { item, opt } = updateResult();
+        const { item, opt, sit } = updateResult();
         const base = ctaBtn.getAttribute("data-quote-url") || ctaBtn.getAttribute("href");
         const params = new URLSearchParams();
-        params.set("tx", item.title);
-        if (opt) {
-          params.set("qty", opt.qty);
-          params.set("price", opt.price);
-        } else {
+        if (sit && sit !== "priced") {
+          const title = (calcI18n.situationTitles && calcI18n.situationTitles[sit]) || sit;
+          params.set("tx", title);
           params.set("price", "onrequest");
+          params.set("situation", sit);
+          if (sit === "existing-implants") params.set("treatment", "existing-implants");
+          else if (sit === "not-sure") params.set("treatment", "not-sure-plan");
+        } else if (item) {
+          params.set("tx", item.title);
+          if (opt) {
+            params.set("qty", opt.qty);
+            params.set("price", opt.price);
+          } else {
+            params.set("price", "onrequest");
+          }
+          if (item.matchTitle) params.set("svc", item.matchTitle);
         }
-        if (item.matchTitle) params.set("svc", item.matchTitle);
         window.location.href = base + "?" + params.toString();
       });
     }
@@ -287,14 +348,35 @@
       if (leadForm) {
         const msg = $("textarea[name=message]", leadForm);
         if (msg && !msg.value) msg.value = `${tx}${qty ? ` (${qty})` : ""} — ${priceText}`;
-        const svc = qp.get("svc");
         const treatSel = $("select[name=treatment]", leadForm);
-        if (treatSel && svc) {
-          const match = Array.from(treatSel.options).find((o) => o.text === svc);
-          if (match) treatSel.value = match.value;
+        const treatmentParam = qp.get("treatment");
+        const svc = qp.get("svc");
+        if (treatSel) {
+          if (treatmentParam && Array.from(treatSel.options).some((o) => o.value === treatmentParam)) {
+            treatSel.value = treatmentParam;
+          } else if (svc) {
+            const match = Array.from(treatSel.options).find((o) => o.text === svc);
+            if (match) treatSel.value = match.value;
+          }
+          treatSel.dispatchEvent(new Event("change"));
         }
       }
     }
+  }
+
+  // Contact form: show WhatsApp photo hint for photo / complex situations
+  const treatSelect = $("[data-treatment-select]");
+  const photosHint = $("[data-photos-hint]");
+  if (treatSelect && photosHint) {
+    const syncHint = () => {
+      const v = treatSelect.value;
+      photosHint.style.display =
+        v === "photos-xray" || v === "existing-implants" || v === "failed-veneers" || v === "not-sure-plan"
+          ? "block"
+          : "none";
+    };
+    treatSelect.addEventListener("change", syncHint);
+    syncHint();
   }
 
   // Contact form → Estesof endpoint (if configured) else WhatsApp fallback
@@ -320,12 +402,14 @@
         }
       }
       if (!ok && cfg.whatsapp) {
+        const treatSel = form.querySelector("[name=treatment]");
+        const treatLabel = treatSel?.selectedOptions?.[0]?.text || data.treatment || "";
         const msg = [
           "Merhaba MediDent İstanbul,",
           `Ad: ${data.name || ""}`,
           `Telefon: ${data.phone || ""}`,
           `E-posta: ${data.email || ""}`,
-          `Tedavi: ${data.treatment || ""}`,
+          `Tedavi: ${treatLabel}`,
           data.message ? `Mesaj: ${data.message}` : "",
         ]
           .filter(Boolean)

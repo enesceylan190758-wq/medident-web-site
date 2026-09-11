@@ -120,6 +120,14 @@ function clinicVideoSection(lang) {
 export function priceCalcSection(lang) {
   const c = i18n[lang].calc || i18n.en.calc;
   const treatmentOpts = priceCalc.map((p) => `<option value="${p.key}">${L(p.titles, lang)}</option>`).join("");
+  const situationOpts = [
+    ["priced", c.situationPriced],
+    ["existing-implants", c.situationExistingImplants],
+    ["not-sure", c.situationNotSure],
+    ["photos", c.situationPhotos],
+  ]
+    .map(([v, label]) => `<option value="${v}">${label}</option>`)
+    .join("");
   const calcData = priceCalc.map((p) => ({
     key: p.key,
     unit: p.unit,
@@ -129,6 +137,7 @@ export function priceCalcSection(lang) {
     title: L(p.titles, lang),
     matchTitle: L(services.find((s) => s.slug === p.serviceSlug)?.titles, lang),
   }));
+  const waPhotos = waHref(c.waPhotosMessage);
   return `<section class="section section-alt" id="fiyat-hesapla">
     <div class="container" style="max-width:880px;">
       <div style="text-align:center;max-width:620px;margin:0 auto clamp(30px,4vw,44px);">
@@ -138,17 +147,23 @@ export function priceCalcSection(lang) {
       </div>
       <div class="form-card" data-reveal data-calc>
         <div class="form-stack">
-          <div class="form-grid">
+          <label><span class="lbl">${c.situationLabel}</span><select data-calc-situation>${situationOpts}</select></label>
+          <div class="form-grid" data-calc-priced-fields>
             <label><span class="lbl">${c.treatmentLabel}</span><select data-calc-treatment>${treatmentOpts}</select></label>
             <label data-calc-qty-wrap><span class="lbl" data-calc-qty-label>${c.qtyLabelTooth}</span><select data-calc-qty></select></label>
           </div>
-          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:20px 22px;background:var(--cream-2);border-radius:14px;">
-            <span style="font-size:13px;color:var(--muted-2);font-weight:700;">${c.resultLabel}</span>
+          <div data-calc-situation-note style="display:none;padding:16px 18px;background:var(--cream-2);border-radius:14px;font-size:14.5px;line-height:1.55;color:var(--ink-soft);"></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:20px 22px;background:var(--cream-2);border-radius:14px;" data-calc-result-row>
+            <span style="font-size:13px;color:var(--muted-2);font-weight:700;" data-calc-result-label>${c.resultLabel}</span>
             <span style="font-family:var(--font-serif);font-weight:700;font-size:28px;color:var(--ink);" data-calc-result>€0</span>
           </div>
           <p style="font-size:12.5px;color:var(--muted-2);margin:0;">${c.disclaimer}</p>
           <p style="font-size:12.5px;color:var(--muted-2);margin:0;">${c.hotelPolicy}</p>
-          <a href="${url(lang, "iletisim/")}" class="btn btn-primary btn-block" data-calc-cta data-quote-url="${url(lang, "iletisim/")}">${c.cta} ${icons.arrow()}</a>
+            <div style="display:grid;gap:10px;" data-calc-actions>
+            <a href="${url(lang, "iletisim/")}" class="btn btn-primary btn-block" data-calc-cta data-quote-url="${url(lang, "iletisim/")}" data-cta-priced="${c.cta}" data-cta-plan="${c.ctaPlan}">${c.cta} ${icons.arrow()}</a>
+            <a href="${waPhotos}" target="_blank" rel="noopener" class="btn btn-block" style="background:#25D366;color:#fff;display:none;" data-calc-wa>${icons.wa} ${c.ctaPhotos}</a>
+          </div>
+          <p style="font-size:12.5px;color:var(--muted-2);margin:0;text-align:center;">${c.photosHint}</p>
         </div>
       </div>
     </div>
@@ -157,6 +172,19 @@ export function priceCalcSection(lang) {
       qtyLabelImplant: c.qtyLabelImplant,
       qtyLabelImplantPkg: c.qtyLabelImplantPkg,
       onRequest: c.onRequest,
+      resultLabel: c.resultLabel,
+      planLabel: c.planLabel,
+      noteExisting: c.noteExisting,
+      noteNotSure: c.noteNotSure,
+      notePhotos: c.notePhotos,
+      cta: c.cta,
+      ctaPlan: c.ctaPlan,
+      ctaPhotos: c.ctaPhotos,
+      situationTitles: {
+        "existing-implants": c.situationExistingImplants,
+        "not-sure": c.situationNotSure,
+        photos: c.situationPhotos,
+      },
     })};</script>
   </section>`;
 }
@@ -522,7 +550,17 @@ const miniPlus = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" st
 // Reusable contact section (also used on /iletisim/)
 export function contactSection(lang, { heading = true } = {}) {
   const t = i18n[lang];
-  const treatments = services.filter((s) => s.home).map((s) => L(s.titles, lang));
+  const fs = t.formSituations || i18n.en.formSituations;
+  const treatments = [
+    ...services.filter((s) => s.home).map((s) => ({ value: s.slug, label: L(s.titles, lang) })),
+    { value: "existing-implants", label: fs.existingImplants },
+    { value: "not-sure-plan", label: fs.notSurePlan },
+    { value: "photos-xray", label: fs.photosXray },
+    { value: "failed-veneers", label: fs.failedVeneers },
+    { value: "bridge-vs-implant", label: fs.bridgeVsImplant },
+    { value: "other", label: L(uiBits.notSure, lang) },
+  ];
+  const waPhotos = waHref((t.calc && t.calc.waPhotosMessage) || i18n.en.calc.waPhotosMessage);
   return `<section class="section contact-band" id="iletisim">
     <div class="container">
       <div class="grid-2" style="grid-template-columns:1fr 1.05fr;">
@@ -548,8 +586,15 @@ export function contactSection(lang, { heading = true } = {}) {
                   <label><span class="lbl">${t.formPhone}</span><input type="tel" name="phone" required placeholder="+90 ..."></label>
                 </div>
                 <label><span class="lbl">${t.formEmail}</span><input type="email" name="email" required placeholder="ornek@eposta.com"></label>
-                <label><span class="lbl">${t.formTreatment}</span><select name="treatment">${treatments.map((x) => `<option>${x}</option>`).join("")}<option>${L(uiBits.notSure, lang)}</option></select></label>
-                <label><span class="lbl">${t.formMessage} <span style="color:#9AA;font-weight:500;">${t.formOptional}</span></span><textarea name="message" rows="3"></textarea></label>
+                <label><span class="lbl">${t.formTreatment}</span><select name="treatment" data-treatment-select>${treatments
+                  .map((x) => `<option value="${x.value}">${x.label}</option>`)
+                  .join("")}</select></label>
+                <p data-photos-hint style="display:none;font-size:13.5px;line-height:1.5;color:var(--ink-soft);margin:0;padding:12px 14px;background:var(--cream-2);border-radius:12px;">${
+                  fs.photosHint
+                } <a href="${waPhotos}" target="_blank" rel="noopener" style="color:var(--gold);font-weight:700;">${fs.photosCta}</a></p>
+                <label><span class="lbl">${t.formMessage} <span style="color:#9AA;font-weight:500;">${t.formOptional}</span></span><textarea name="message" rows="3" placeholder="${
+                  fs.messagePlaceholder || ""
+                }"></textarea></label>
                 <button type="submit" class="btn btn-primary btn-block" style="padding:16px;">${t.formSubmit}</button>
                 <p style="font-size:11.5px;color:var(--muted-2);text-align:center;margin:2px 0 0;line-height:1.5;">${t.formKvkk}</p>
               </div>

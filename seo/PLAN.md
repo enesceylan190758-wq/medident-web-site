@@ -29,6 +29,8 @@ _(boş)_
 
 ## Sonraki adaylar (yeşil)
 
+- **Conversion:** hesaplayıcı durum seçenekleri + form esnetme (PR `feat/calc-form-situations`)
 - Hub turkey teeth GSC’de görünürlük / impressiyon izle; #11 ancak farklı sorgu kanıtı olursa.
+- Karmaşık vaka GEO’ları (failed veneers, existing implants) — Ads tavsiyesi madde 3.
 - AR/RU ince hizmet gövdeleri (şablon) — düşük öncelik.
 - DE/EN hizmet slug migration → ~3. ay.
