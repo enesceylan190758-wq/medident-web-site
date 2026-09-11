@@ -311,6 +311,11 @@ export function resolveHreflangPaths(lang, pathNoLang) {
     return { de: "hollywood-smile-tuerkei-paket/", en: "hollywood-smile-turkey-package/" };
   }
 
+  // All-on-4 landing page — DE/EN only
+  if (p === "all-on-4-zahnimplantate-tuerkei" || p === "all-on-4-turkey-package") {
+    return { de: "all-on-4-zahnimplantate-tuerkei/", en: "all-on-4-turkey-package/" };
+  }
+
   // Blog article
   if (p.startsWith("blog/") && p !== "blog") {
     const slug = p.slice("blog/".length);

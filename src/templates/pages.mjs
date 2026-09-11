@@ -856,6 +856,98 @@ export function hollywoodSmilePage(lang) {
   };
 }
 
+/** All-on-4 commercial landing — DE (`all-on-4-zahnimplantate-tuerkei/`) + EN (`all-on-4-turkey-package/`).
+ * Price is intentionally NOT taken from the `fullmouth` priceCalc package (10–12 individual
+ * implants, €8,000–€9,000) — that is a different protocol and must not be relabelled All-on-4. */
+export function allOn4Page(lang) {
+  const t = i18n[lang];
+  const p = t.allOn4Page;
+  if (!p) {
+    throw new Error(`allOn4Page copy missing for lang=${lang}`);
+  }
+  const slug = lang === "de" ? "all-on-4-zahnimplantate-tuerkei/" : "all-on-4-turkey-package/";
+  const crumbs = [crumbHome(lang), { name: p.eyebrow, href: url(lang, slug) }];
+  const faqItem = (f) =>
+    `<div class="faq-item" data-faq-item><button class="faq-q" data-faq-toggle><span>${f.q}</span><span class="faq-icon"><span class="minus">${miniMinus}</span><span class="plus">${miniPlus}</span></span></button><div class="faq-a"><p style="margin:0;">${f.a}</p></div></div>`;
+  const steps = (p.steps || [])
+    .map(
+      (s, i) => `<div style="display:flex;gap:14px;margin:0 0 16px;">
+      <div style="flex:0 0 28px;height:28px;border-radius:50%;background:var(--burgundy);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;">${i + 1}</div>
+      <div><div style="font-weight:700;margin:0 0 4px;">${s.t}</div><p style="margin:0;color:var(--muted);font-size:15px;line-height:1.55;">${s.d}</p></div>
+    </div>`
+    )
+    .join("");
+  const prosList = (p.pros || []).map((x) => `<li style="margin:0 0 8px;">${x}</li>`).join("");
+  const consList = (p.cons || []).map((x) => `<li style="margin:0 0 8px;">${x}</li>`).join("");
+
+  const geoSlug = lang === "de" ? "was-ist-all-on-4" : "what-is-all-on-4";
+  const priceListSlug = lang === "de" ? "preise/" : "turkey-teeth-price/";
+  const implantsSlug = lang === "de" ? "zahnimplantate-tuerkei-kosten/" : "dental-implants-turkey-cost/";
+  const riskHref = url("en", "geo/turkey-teeth-what-they-are-and-how-to-avoid-problems/");
+  const publishedAt = "2026-09-11";
+  const updatedAt = "2026-09-11";
+  const pageUrl = site.domain + url(lang, slug);
+  const xrayImg = i18n[lang].xray || i18n.en.xray;
+
+  const body = `${pageHero(lang, p.eyebrow, p.h1, p.lead, crumbs)}
+  <section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">
+    ${reviewedByBlock(lang)}
+    ${caseImageBlock("xray-example-allonx.jpg", p.caseImageAlt || xrayImg.exampleAlt)}
+    <h2 style="font-size:22px;margin:0 0 14px;">${p.introTitle}</h2>
+    <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0 0 28px;">${p.introText}</p>
+    <h2 style="font-size:22px;margin:0 0 14px;">${p.priceTitle}</h2>
+    <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0;">${p.priceText}</p>
+  </div></section>
+  <section class="section section-alt"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:22px;margin:0 0 18px;">${p.stepsTitle}</h2>
+    ${steps}
+  </div></section>
+  <section class="section"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:22px;margin:0 0 18px;">${p.prosConsTitle}</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;margin:0 0 28px;">
+      <div><ul style="font-size:15px;line-height:1.65;color:var(--muted);padding-left:20px;margin:0;">${prosList}</ul></div>
+      <div><ul style="font-size:15px;line-height:1.65;color:var(--muted);padding-left:20px;margin:0;">${consList}</ul></div>
+    </div>
+    <h2 style="font-size:22px;margin:0 0 14px;">${p.risksTitle}</h2>
+    <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0 0 14px;">${p.risksText}</p>
+    <p style="margin:0 0 28px;"><a href="${riskHref}" class="link-more">${p.riskLinkLabel} ${icons.arrowSm}</a></p>
+    <h2 style="font-size:22px;margin:0 0 14px;">${p.aftercareTitle}</h2>
+    <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0;">${p.aftercareText}</p>
+    <p style="margin:20px 0 0;"><a href="${url(lang, "geo/" + geoSlug + "/")}" class="link-more">${p.geoLinkLabel} ${icons.arrowSm}</a>
+    · <a href="${url(lang, implantsSlug)}" class="link-more">${p.implantsLinkLabel} ${icons.arrowSm}</a>
+    · <a href="${url(lang, priceListSlug)}" class="link-more">${p.priceListLinkLabel} ${icons.arrowSm}</a></p>
+  </div></section>
+  ${priceCalcSection(lang)}
+  ${xraySection(lang)}
+  ${brandsSection(lang)}
+  <section class="section section-alt"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:24px;margin:0 0 20px;">${p.faqTitle}</h2>
+    <div class="faq" data-reveal>${p.faqs.map(faqItem).join("")}</div>
+  </div></section>
+  ${contactSection(lang)}`;
+
+  return {
+    body,
+    title: `${p.h1} — ${site.brand}`,
+    description: p.lead,
+    publishedTime: publishedAt,
+    modifiedTime: updatedAt,
+    jsonld: [
+      orgSchema(lang),
+      faqSchema(p.faqs),
+      landingArticleSchema({
+        lang,
+        pageUrl,
+        headline: p.h1,
+        description: p.lead,
+        publishedAt,
+        updatedAt,
+      }),
+      breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
+    ],
+  };
+}
+
 // Reviews
 export function reviewsPage(lang) {
   const t = i18n[lang];
