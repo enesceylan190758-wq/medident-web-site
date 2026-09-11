@@ -187,3 +187,21 @@ Protokol: ~1 saat kesintisiz; yeşil bölgede onay beklemeden; kırmızı kuyru�
 - Build 314 sayfa (−6 oral dil). Typo URL dist’te yok. Oral hizmet dist’te yok. Dist iç link oral=0.
 - DE title/meta “Zahnarzt Istanbul”; H1 hâlâ “Ihr Traum-lächeln…”.
 
+
+### İş kalemi — Plan devam 2026-09-11 (2b wave 2 + #11 ertele)
+
+**Durum:** bitti (PR)  
+**Branch:** `seo/mirror-wave-2`
+
+**Karar #11**
+- Hub (~2400 kelime) meaning / risks / crowns-vs-veneers’i zaten kapsıyor.
+- Üç türev URL şimdi açmak kannibal riski → **ertelendi** (GSC sorgu kanıtı sonrası).
+
+**Ne yaptım (2b wave 2)**
+- `SERVICE_BODY_MIRROR_SERVICES` +5: invisalign, ağız-çene cerrahi, periodontoloji, pedodonti, endodonti.
+- 14 primary mirror blog → 301 hizmet; gövde hizmette kaldı.
+- Turkey teeth hub `seo:approve` → Dr. Ahmet Çelik @ 2026-09-11.
+
+**Doğrulama**
+- Build 300 sayfa (314−14). Unique blog’lar (bonding-vs-veneers, all-on-4, hollywood) duruyor.
+

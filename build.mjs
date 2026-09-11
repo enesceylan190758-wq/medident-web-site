@@ -62,6 +62,12 @@ const SERVICE_BODY_MIRROR_SERVICES = new Set([
   "dis-beyazlatma",
   "genel-anestezi-ve-sedasyon",
   "konservatif-dis-tedavileri",
+  // Wave 2 — remaining primary body mirrors (blog URL 301 → hizmet)
+  "seffaf-plaklar-invisalign",
+  "agiz-dis-ve-cene-cerrahisi",
+  "periodontoloji-diseti-hastaliklari",
+  "pedodonti-cocuk-dis-hekimligi",
+  "endodonti-kanal-tedavileri",
 ]);
 
 function primaryArticleForService(byLang, serviceSlug) {
