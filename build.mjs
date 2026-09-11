@@ -32,6 +32,9 @@ import {
   pricesPage,
   bondingPage,
   veneersPage,
+  implantsCostPage,
+  hollywoodSmilePage,
+  allOn4Page,
 } from "./src/templates/pages.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -182,8 +185,21 @@ function build() {
     if (lang === "en") emit(lang, "composite-bonding-turkey/", bondingPage(lang));
     if (lang === "fr") emit(lang, "composite-bonding-turquie/", bondingPage(lang));
 
-    // Porzellan-Veneers commercial landing — DE only (query: porzellanveneers istanbul)
+    // Veneers commercial landing — DE (query: porzellanveneers istanbul) + EN (veneers turkey)
     if (lang === "de") emit(lang, "porzellan-veneers-istanbul/", veneersPage(lang));
+    if (lang === "en") emit(lang, "veneers-turkey/", veneersPage(lang));
+
+    // Dental implants cost landing — DE/EN only (query: Zahnimplantate Türkei Kosten / dental implants turkey cost)
+    if (lang === "de") emit(lang, "zahnimplantate-tuerkei-kosten/", implantsCostPage(lang));
+    if (lang === "en") emit(lang, "dental-implants-turkey-cost/", implantsCostPage(lang));
+
+    // Hollywood Smile package landing — DE/EN only
+    if (lang === "de") emit(lang, "hollywood-smile-tuerkei-paket/", hollywoodSmilePage(lang));
+    if (lang === "en") emit(lang, "hollywood-smile-turkey-package/", hollywoodSmilePage(lang));
+
+    // All-on-4 landing — DE/EN only (price intentionally [DOLDUR], not the fullmouth priceCalc package)
+    if (lang === "de") emit(lang, "all-on-4-zahnimplantate-tuerkei/", allOn4Page(lang));
+    if (lang === "en") emit(lang, "all-on-4-turkey-package/", allOn4Page(lang));
   }
 
   writeSitemap();

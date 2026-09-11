@@ -1669,8 +1669,8 @@
     "lang": "de",
     "slug": "zahntourismus-istanbul-deutschland",
     "bucket": "marka",
-    "question": "Wie funktioniert Zahntourismus in Istanbul für Patienten aus Deutschland?",
-    "title": "Wie funktioniert Zahntourismus in Istanbul für Patienten aus Deutschland",
+    "question": "Zahnarzt Türkei: Ablauf, Vor- und Nachteile für Patienten aus Deutschland",
+    "title": "Zahnarzt Türkei: Ablauf, Vor- und Nachteile für Patienten aus Deutschland",
     "direct_answer": "Zahntourismus in Istanbul verbindet Behandlung (Zirkon, Bonding, Implantate, Smile Design) mit einem Kurzurlaub. MediDent Istanbul koordiniert Online-Beratung, Flughafentransfer, Hoteloptionen und einen verdichteten Behandlungsplan — mit deutscher Betreuung und klarer Nachsorge.",
     "coverImage": "blog/blog-10-klinik.jpg",
     "bullets": [
@@ -1699,6 +1699,22 @@
     ],
     "internal_links": [
       {
+        "href": "/de/zahnimplantate-tuerkei-kosten/",
+        "label": "Zahnimplantate Türkei: Kosten 2026"
+      },
+      {
+        "href": "/de/all-on-4-zahnimplantate-tuerkei/",
+        "label": "All-on-4 Türkei: Ablauf & Preis"
+      },
+      {
+        "href": "/de/hollywood-smile-tuerkei-paket/",
+        "label": "Hollywood Smile Türkei: Paket & Preis"
+      },
+      {
+        "href": "/de/porzellan-veneers-istanbul/",
+        "label": "Veneers Türkei: Preis 2026"
+      },
+      {
         "href": "/de/hizmetler/",
         "label": "Leistungen"
       },
@@ -1716,7 +1732,39 @@
       }
     ],
     "publishedAt": "2026-07-23",
-    "source": "ende-tourism-pack"
+    "source": "ende-tourism-pack",
+    "metaDescription": "Zahnarzt Türkei: Ablauf, Vor-/Nachteile, Krankenkasse, Finanzierung und Zertifizierung — was Patienten aus Deutschland vor der Buchung wissen müssen.",
+    "author": "MediDent Istanbul Clinical Team",
+    "updatedAt": "2026-09-11",
+    "sections": [
+      {
+        "h2": "Krankenkasse: Übernimmt sie die Kosten?",
+        "paragraphs": [
+          "Gesetzliche Krankenkassen in Deutschland übernehmen geplante ästhetische oder implantologische Behandlungen im Ausland in aller Regel nicht — auch nicht über die Europäische Krankenversicherungskarte, die nur für akute, ungeplante Behandlungen während eines Aufenthalts gilt. Private Krankenversicherungen können in Einzelfällen einen Zuschuss leisten, wenn die Behandlung auch in Deutschland medizinisch notwendig und erstattungsfähig wäre — das trifft auf die meisten Zahntourismus-Leistungen (Veneers, Hollywood Smile, elektive Implantate) nicht zu.",
+          "[DOLDUR: Stellt MediDent Istanbul eine Rechnung/Bescheinigung aus, die für eine Kostenerstattungsanfrage bei der eigenen Kasse geeignet ist?] Fragen Sie im Einzelfall vorab bei Ihrer Kasse nach, bevor Sie buchen."
+        ]
+      },
+      {
+        "h2": "Finanzierung und Ratenzahlung",
+        "paragraphs": [
+          "[DOLDUR: Bietet die Klinik eine Ratenzahlung oder Finanzierungspartner an, und zu welchen Konditionen?] Klären Sie Finanzierungsfragen schriftlich vor der Buchung, nicht erst vor Ort."
+        ]
+      },
+      {
+        "h2": "Zertifizierung: worauf achten?",
+        "paragraphs": [
+          "Seriöse Kliniken in der Türkei verfügen über eine Sağlık Turizmi Yetki Belgesi (Gesundheitstourismus-Zulassung) des türkischen Gesundheitsministeriums — das ist das relevante offizielle Zertifikat für internationale Patienten, nicht eine deutsche TÜV-Prüfung, die es für Zahnkliniken in der Türkei nicht gibt. [DOLDUR: Liegt für MediDent Istanbul eine aktuelle Kopie dieser Zulassung zum Vorzeigen vor?]",
+          "Fragen Sie zusätzlich vor der Buchung nach dem vollständigen Namen und der Approbation des behandelnden Zahnarztes sowie nach der verwendeten Implantat- oder Keramikmarke — schriftlich, nicht nur mündlich."
+        ]
+      },
+      {
+        "h2": "Vor- und Nachteile im Überblick",
+        "paragraphs": [
+          "Vorteile: spürbar niedrigere Preise als bei vielen Privatpraxen in DE/AT/CH, moderne CAD/CAM-Digitaltechnik, deutschsprachige Koordination und ein verdichteter Behandlungsplan, der sich mit einem Kurzaufenthalt verbinden lässt.",
+          "Nachteile: Die Nachsorge findet größtenteils aus der Ferne statt, bei Komplikationen kann ein zweiter Zahnarzt vor Ort nötig sein, und Reise- und Terminplanung brauchen mehr Vorlauf als ein Termin bei der Hauszahnärztin. Das größte Risiko ist ein unseriöses Pauschalangebot ohne zahnweisen Plan — mehr dazu in unserem Turkey-Teeth-Ratgeber."
+        ]
+      }
+    ]
   },
   {
     "lang": "de",
@@ -2119,6 +2167,10 @@
     ],
     "internal_links": [
       {
+        "href": "/en/all-on-4-turkey-package/",
+        "label": "All-on-4 Turkey: process & price 2026"
+      },
+      {
         "href": "/en/iletisim/",
         "label": "Contact"
       },
@@ -2230,6 +2282,10 @@
     ],
     "internal_links": [
       {
+        "href": "/en/hollywood-smile-turkey-package/",
+        "label": "Hollywood Smile Turkey: package & price 2026"
+      },
+      {
         "href": "/en/iletisim/",
         "label": "Contact"
       },
@@ -2271,6 +2327,10 @@
     ],
     "internal_links": [
       {
+        "href": "/en/veneers-turkey/",
+        "label": "Veneers Turkey: price 2026"
+      },
+      {
         "href": "/en/iletisim/",
         "label": "Contact"
       },
@@ -2308,6 +2368,10 @@
     ],
     "internal_links": [
       {
+        "href": "/en/dental-implants-turkey-cost/",
+        "label": "Dental implants Turkey: real cost 2026"
+      },
+      {
         "href": "/en/iletisim/",
         "label": "Contact"
       },
@@ -2344,6 +2408,10 @@
       }
     ],
     "internal_links": [
+      {
+        "href": "/de/all-on-4-zahnimplantate-tuerkei/",
+        "label": "All-on-4 Türkei: Ablauf & Preis 2026"
+      },
       {
         "href": "/de/iletisim/",
         "label": "Kontakt"
@@ -2456,6 +2524,10 @@
     ],
     "internal_links": [
       {
+        "href": "/de/hollywood-smile-tuerkei-paket/",
+        "label": "Hollywood Smile Türkei: Paket & Preis 2026"
+      },
+      {
         "href": "/de/iletisim/",
         "label": "Kontakt"
       },
@@ -2493,6 +2565,10 @@
     ],
     "internal_links": [
       {
+        "href": "/de/porzellan-veneers-istanbul/",
+        "label": "Veneers Türkei: Preis 2026"
+      },
+      {
         "href": "/de/iletisim/",
         "label": "Kontakt"
       },
@@ -2526,6 +2602,10 @@
     ],
     "internal_links": [
       {
+        "href": "/de/zahnimplantate-tuerkei-kosten/",
+        "label": "Zahnimplantate Türkei: Kosten 2026"
+      },
+      {
         "href": "/de/iletisim/",
         "label": "Kontakt"
       },
@@ -2541,11 +2621,11 @@
     "lang": "en",
     "slug": "turkey-teeth-what-they-are-and-how-to-avoid-problems",
     "bucket": "trust",
-    "question": "What are Turkey teeth and how do you avoid problems?",
-    "title": "What are Turkey teeth and how do you avoid problems",
+    "question": "Turkey Teeth: Risks, Real Cost 2026 & How to Avoid Problems",
+    "title": "Turkey Teeth: Risks, Real Cost 2026 & How to Avoid Problems",
     "coverImage": "blog/blog-10-klinik.jpg",
     "author": "MediDent Istanbul Clinical Team",
-    "metaDescription": "Turkey teeth = aggressive crowns abroad, not all Turkish dentistry. Enamel cut, red flags, and careful planning before you book.",
+    "metaDescription": "What “Turkey teeth” really means, real 2026 price ranges, common risks, and how to avoid a bad result — MediDent Istanbul's honest guide.",
     "direct_answer": "\"Turkey teeth\" means aggressive full-mouth crowns or veneers placed abroad after heavy preparation of teeth that often did not need that much cutting. The country is not the problem. Speed-driven clinic models that skip a tooth-by-tooth plan are.",
     "bullets": [
       "Turkey teeth is a social-media nickname, not a diagnosis. It usually means a full arch of very white crowns after healthy enamel was reduced far more than a conservative plan would allow.",
@@ -2704,7 +2784,7 @@
       }
     ],
     "publishedAt": "2026-07-29",
-    "updatedAt": "2026-09-10",
+    "updatedAt": "2026-09-11",
     "source": "turkey-teeth-trust-page",
     "reviewer": "Dr. Ahmet Çelik",
     "reviewedAt": "2026-09-11"
@@ -2798,6 +2878,10 @@
     ],
     "internal_links": [
       {
+        "href": "/en/dental-implants-turkey-cost/",
+        "label": "Dental implants Turkey: real cost 2026"
+      },
+      {
         "href": "/en/geo/turkey-teeth-what-they-are-and-how-to-avoid-problems/",
         "label": "Turkey teeth guide"
       },
@@ -2851,6 +2935,10 @@
       }
     ],
     "internal_links": [
+      {
+        "href": "/de/zahnimplantate-tuerkei-kosten/",
+        "label": "Zahnimplantate Türkei: Kosten 2026"
+      },
       {
         "href": "/de/hizmetler/",
         "label": "Leistungen"
@@ -3067,6 +3155,10 @@
     ],
     "internal_links": [
       {
+        "href": "/en/dental-implants-turkey-cost/",
+        "label": "Dental implants Turkey: real cost 2026"
+      },
+      {
         "href": "/en/geo/what-are-zirconia-crowns/",
         "label": "Zirconia crowns"
       },
@@ -3120,6 +3212,10 @@
       }
     ],
     "internal_links": [
+      {
+        "href": "/de/zahnimplantate-tuerkei-kosten/",
+        "label": "Zahnimplantate Türkei: Kosten 2026"
+      },
       {
         "href": "/de/geo/was-sind-zirkonkronen/",
         "label": "Zirkonkronen"
@@ -3229,6 +3325,10 @@
     ],
     "internal_links": [
       {
+        "href": "/en/dental-implants-turkey-cost/",
+        "label": "Dental implants Turkey: real cost 2026"
+      },
+      {
         "href": "/en/geo/zirconia-vs-emax-implant-brands-turkey/",
         "label": "Materials & brands"
       },
@@ -3282,6 +3382,10 @@
       }
     ],
     "internal_links": [
+      {
+        "href": "/de/zahnimplantate-tuerkei-kosten/",
+        "label": "Zahnimplantate Türkei: Kosten 2026"
+      },
       {
         "href": "/de/geo/materialien-marken-zirkon-implantate-tuerkei/",
         "label": "Materialien & Marken"

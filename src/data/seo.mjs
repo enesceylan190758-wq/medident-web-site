@@ -296,9 +296,24 @@ export function resolveHreflangPaths(lang, pathNoLang) {
     return { de: "composite-bonding-tuerkei/", en: "composite-bonding-turkey/", fr: "composite-bonding-turquie/" };
   }
 
-  // Porzellan-Veneers commercial landing — DE only for now
-  if (p === "porzellan-veneers-istanbul") {
-    return { de: "porzellan-veneers-istanbul/" };
+  // Veneers commercial landing — DE + EN
+  if (p === "porzellan-veneers-istanbul" || p === "veneers-turkey") {
+    return { de: "porzellan-veneers-istanbul/", en: "veneers-turkey/" };
+  }
+
+  // Dental implants cost landing page — DE/EN only
+  if (p === "zahnimplantate-tuerkei-kosten" || p === "dental-implants-turkey-cost") {
+    return { de: "zahnimplantate-tuerkei-kosten/", en: "dental-implants-turkey-cost/" };
+  }
+
+  // Hollywood Smile package landing page — DE/EN only
+  if (p === "hollywood-smile-tuerkei-paket" || p === "hollywood-smile-turkey-package") {
+    return { de: "hollywood-smile-tuerkei-paket/", en: "hollywood-smile-turkey-package/" };
+  }
+
+  // All-on-4 landing page — DE/EN only
+  if (p === "all-on-4-zahnimplantate-tuerkei" || p === "all-on-4-turkey-package") {
+    return { de: "all-on-4-zahnimplantate-tuerkei/", en: "all-on-4-turkey-package/" };
   }
 
   // Blog article

@@ -1,6 +1,6 @@
 import { site } from "../data/site.mjs";
 import { i18n } from "../data/i18n.mjs";
-import { services, doctors, serviceFallback, priceCalc } from "../data/content.mjs";
+import { services, doctors, serviceFallback, priceCalc, packages } from "../data/content.mjs";
 import { img } from "../data/images.mjs";
 import { serviceFaqs } from "../data/seo.mjs";
 import { L, langBCP47, uiBits } from "../data/locale.mjs";
@@ -29,6 +29,53 @@ const reviewedByLabel = {
   ar: "مراجعة طبية",
   ru: "Медицинская проверка",
 };
+
+const reviewerPlaceholder = {
+  tr: "[DOLDUR: kontrol eden hekim adı ve unvanı]",
+  en: "[DOLDUR: kontrol eden hekim adı ve unvanı]",
+  de: "[DOLDUR: kontrol eden hekim adı ve unvanı]",
+  fr: "[DOLDUR: kontrol eden hekim adı ve unvanı]",
+};
+
+// NOTE: content.mjs `doctors` names (Ahmet Çelik, Elif Kara, Can Yıldız, Aslı Yılmaz) are NOT
+// verified real-world identities — repo history shows them rewritten multiple times by prior
+// agent commits (placeholder photos removed, names renamed twice within the same session on
+// 2026-07-29: fac6648 "remove all doctor profiles (placeholder names removed)" → 6702dfd
+// "replace doctor names, remove all photos" → 0862595 "rename: Faruk → Dr. Ahmet Çelik, Nilüfer
+// → Dr. Aslı Yılmaz"). Do not surface these names as reviewers/authors until confirmed by the
+// clinic. Landing pages show a [DOLDUR] placeholder instead; schema author/publisher stays the
+// Organization node only (no invented Person).
+
+/** Visible "medically reviewed by [DOLDUR]" placeholder block — no doctor name until verified (see note above). */
+function reviewedByBlock(lang) {
+  return `<p style="font-size:13.5px;color:var(--muted-2);margin:0 0 24px;">
+    ${reviewedByLabel[lang] || reviewedByLabel.en}: <strong style="color:var(--ink-soft);">${reviewerPlaceholder[lang] || reviewerPlaceholder.en}</strong>
+  </p>`;
+}
+
+/** Article schema for a commercial landing page. Author/publisher is the Organization only — no
+ * Person/reviewedBy until a real reviewing doctor is confirmed (see note above `reviewedByBlock`). */
+function landingArticleSchema({ lang, pageUrl, headline, description, image, publishedAt, updatedAt }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline,
+    description,
+    image,
+    inLanguage: langBCP47[lang] || "en-US",
+    datePublished: publishedAt,
+    dateModified: updatedAt || publishedAt,
+    author: { "@id": site.domain + "/#organization" },
+    publisher: { "@id": site.domain + "/#organization" },
+    mainEntityOfPage: pageUrl,
+    url: pageUrl,
+  };
+}
+
+/** Real, topic-labelled case photo (src/data/images.mjs `img.cases`) — never a stock/unrelated image. */
+function caseImageBlock(file, alt) {
+  return `<figure style="margin:0 0 28px;"><img src="${src(file)}" alt="${alt}" width="960" height="640" loading="lazy" style="width:100%;height:auto;border-radius:16px;display:block;"></figure>`;
+}
 
 function pageHero(lang, eyebrow, title, lead, crumbs) {
   return `<section class="page-hero"><div class="container">
@@ -475,14 +522,141 @@ export function bondingPage(lang) {
   };
 }
 
-/** Porzellan-Veneers commercial landing — DE (`porzellan-veneers-istanbul/`). */
+/** Dental implants cost landing — DE (`zahnimplantate-tuerkei-kosten/`) + EN (`dental-implants-turkey-cost/`). */
+export function implantsCostPage(lang) {
+  const t = i18n[lang];
+  const p = t.implantsCostPage;
+  if (!p) {
+    throw new Error(`implantsCostPage copy missing for lang=${lang}`);
+  }
+  const slug = lang === "de" ? "zahnimplantate-tuerkei-kosten/" : "dental-implants-turkey-cost/";
+  const crumbs = [crumbHome(lang), { name: p.eyebrow, href: url(lang, slug) }];
+  const implantItem = priceCalc.find((i) => i.key === "implant");
+  const unitLabel = (qty) =>
+    lang === "de" ? (qty > 1 ? "Implantate" : "Implantat") : qty > 1 ? "implants" : "implant";
+  const priceTable = implantItem
+    ? `<div style="overflow-x:auto;border-radius:16px;border:1px solid rgba(43,35,24,.1);">
+    <table style="width:100%;border-collapse:collapse;font-size:15px;">
+      <thead><tr style="background:var(--cream-2);">
+        <th style="text-align:left;padding:14px 18px;font-weight:700;color:var(--ink);">${t.pricesPage.tableTreatment}</th>
+        <th style="text-align:right;padding:14px 18px;font-weight:700;color:var(--ink);">${t.pricesPage.tablePrice}</th>
+      </tr></thead>
+      <tbody>
+        ${implantItem.options
+          .map(
+            (opt, i) => `<tr style="${i % 2 ? "background:var(--cream);" : ""}border-top:1px solid rgba(43,35,24,.08);">
+          <td style="padding:14px 18px;color:var(--ink-soft);">${opt.qty} ${unitLabel(opt.qty)}</td>
+          <td style="padding:14px 18px;text-align:right;font-weight:700;color:var(--ink);">€${opt.price.toLocaleString("de-DE")}</td>
+        </tr>`
+          )
+          .join("")}
+      </tbody>
+    </table>
+  </div>`
+    : "";
+
+  const faqItem = (f) =>
+    `<div class="faq-item" data-faq-item><button class="faq-q" data-faq-toggle><span>${f.q}</span><span class="faq-icon"><span class="minus">${miniMinus}</span><span class="plus">${miniPlus}</span></span></button><div class="faq-a"><p style="margin:0;">${f.a}</p></div></div>`;
+
+  const steps = (p.steps || [])
+    .map(
+      (s, i) => `<div style="display:flex;gap:14px;margin:0 0 16px;">
+      <div style="flex:0 0 28px;height:28px;border-radius:50%;background:var(--burgundy);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;">${i + 1}</div>
+      <div><div style="font-weight:700;margin:0 0 4px;">${s.t}</div><p style="margin:0;color:var(--muted);font-size:15px;line-height:1.55;">${s.d}</p></div>
+    </div>`
+    )
+    .join("");
+
+  const safetyList = (p.safetyItems || []).map((s) => `<li style="margin:0 0 8px;">${s}</li>`).join("");
+
+  const geoSlugs =
+    lang === "de"
+      ? {
+          def: "was-ist-ein-zahnimplantat",
+          materials: "materialien-marken-zirkon-implantate-tuerkei",
+          safety: "ist-zahnbehandlung-in-der-tuerkei-sicher",
+          whyCheaper: "warum-ist-zahnbehandlung-in-der-tuerkei-guenstiger",
+        }
+      : {
+          def: "what-is-a-dental-implant",
+          materials: "zirconia-vs-emax-implant-brands-turkey",
+          safety: "is-dental-treatment-in-turkey-safe",
+          whyCheaper: "why-is-dental-treatment-cheaper-in-turkey",
+        };
+  const priceListSlug = lang === "de" ? "preise/" : "turkey-teeth-price/";
+  const links = [
+    { href: url(lang, "geo/" + geoSlugs.def + "/"), label: p.geoLinkLabel },
+    { href: url(lang, "geo/" + geoSlugs.materials + "/"), label: p.materialsLinkLabel },
+    { href: url(lang, "geo/" + geoSlugs.safety + "/"), label: p.safetyLinkLabel },
+    { href: url(lang, "geo/" + geoSlugs.whyCheaper + "/"), label: p.whyCheaperLinkLabel },
+    { href: url(lang, priceListSlug), label: p.priceListLinkLabel },
+  ]
+    .map((l) => `<a href="${l.href}" class="btn btn-ghost" style="padding:10px 16px;">${l.label}</a>`)
+    .join("");
+
+  const publishedAt = "2026-09-11";
+  const updatedAt = "2026-09-11";
+  const pageUrl = site.domain + url(lang, slug);
+
+  const body = `${pageHero(lang, p.eyebrow, p.h1, p.lead, crumbs)}
+  <section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">
+    ${reviewedByBlock(lang)}
+    <h2 style="font-size:22px;margin:0 0 14px;">${p.introTitle}</h2>
+    <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0 0 28px;">${p.introText}</p>
+    <h2 style="font-size:24px;margin:0 0 20px;">${p.tableTitle}</h2>
+    ${priceTable}
+    <p style="font-size:13px;color:var(--muted-2);margin:16px 0 0;">${p.priceNote}</p>
+  </div></section>
+  <section class="section section-alt"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:22px;margin:0 0 18px;">${p.stepsTitle}</h2>
+    ${steps}
+  </div></section>
+  <section class="section"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:22px;margin:0 0 14px;">${p.safetyTitle}</h2>
+    <ul style="font-size:15.5px;line-height:1.7;color:var(--muted);padding-left:20px;margin:0 0 28px;">${safetyList}</ul>
+    <h2 style="font-size:22px;margin:0 0 14px;">${p.aftercareTitle}</h2>
+    <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0;">${p.aftercareText}</p>
+    <div style="margin-top:28px;display:flex;flex-wrap:wrap;gap:10px;">${links}</div>
+  </div></section>
+  ${priceCalcSection(lang)}
+  ${xraySection(lang)}
+  ${brandsSection(lang)}
+  <section class="section section-alt"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:24px;margin:0 0 20px;">${p.faqTitle}</h2>
+    <div class="faq" data-reveal>${p.faqs.map(faqItem).join("")}</div>
+  </div></section>
+  ${contactSection(lang)}`;
+
+  return {
+    body,
+    title: `${p.h1} — ${site.brand}`,
+    description: p.lead,
+    publishedTime: publishedAt,
+    modifiedTime: updatedAt,
+    jsonld: [
+      orgSchema(lang),
+      faqSchema(p.faqs),
+      landingArticleSchema({
+        lang,
+        pageUrl,
+        headline: p.h1,
+        description: p.lead,
+        publishedAt,
+        updatedAt,
+      }),
+      breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
+    ],
+  };
+}
+
+/** Veneers commercial landing — DE (`porzellan-veneers-istanbul/`) + EN (`veneers-turkey/`). */
 export function veneersPage(lang) {
   const t = i18n[lang];
   const p = t.veneersPage;
   if (!p) {
     throw new Error(`veneersPage copy missing for lang=${lang}`);
   }
-  const slug = "porzellan-veneers-istanbul/";
+  const slug = lang === "de" ? "porzellan-veneers-istanbul/" : "veneers-turkey/";
   const crumbs = [crumbHome(lang), { name: p.eyebrow, href: url(lang, slug) }];
   const faqItem = (f) =>
     `<div class="faq-item" data-faq-item><button class="faq-q" data-faq-toggle><span>${f.q}</span><span class="faq-icon"><span class="minus">${miniMinus}</span><span class="plus">${miniPlus}</span></span></button><div class="faq-a"><p style="margin:0;">${f.a}</p></div></div>`;
@@ -494,17 +668,44 @@ export function veneersPage(lang) {
     </div>`
     )
     .join("");
+  const prosList = (p.pros || []).map((x) => `<li style="margin:0 0 8px;">${x}</li>`).join("");
+  const consList = (p.cons || []).map((x) => `<li style="margin:0 0 8px;">${x}</li>`).join("");
+  const geoSlug = lang === "de" ? "was-sind-porzellan-veneers" : "what-are-porcelain-veneers";
+  const bondingSlug = lang === "de" ? "composite-bonding-tuerkei" : "composite-bonding-turkey";
+  const compareBlogSlug = lang === "de" ? "bonding-vs-veneers-istanbul" : "dental-bonding-vs-veneers-istanbul";
+  const riskHref = url("en", "geo/turkey-teeth-what-they-are-and-how-to-avoid-problems/");
+  const publishedAt = "2026-09-11";
+  const updatedAt = "2026-09-11";
+  const pageUrl = site.domain + url(lang, slug);
+  const caseImage = img.cases.find((c) => c.file === "sep-27-3.jpg");
+
   const body = `${pageHero(lang, p.eyebrow, p.h1, p.lead, crumbs)}
   <section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">
+    ${reviewedByBlock(lang)}
+    ${caseImage ? caseImageBlock(caseImage.file, p.caseImageAlt || L(caseImage.label, lang)) : ""}
     <h2 style="font-size:22px;margin:0 0 14px;">${p.introTitle}</h2>
     <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0 0 28px;">${p.introText}</p>
     <h2 style="font-size:22px;margin:0 0 18px;">${p.stepsTitle}</h2>
     ${steps}
     <p style="font-size:15px;line-height:1.62;color:var(--muted);margin:24px 0 0;">${p.travelNote}</p>
     <p style="font-size:13px;color:var(--muted-2);margin:16px 0 0;">${p.priceNote}</p>
-    <p style="margin:20px 0 0;"><a href="${url(lang, "geo/was-sind-porzellan-veneers/")}" class="link-more">${p.geoLinkLabel} ${icons.arrowSm}</a>
-    · <a href="${url(lang, "composite-bonding-tuerkei/")}" class="link-more">${p.bondingLinkLabel} ${icons.arrowSm}</a>
-    · <a href="${url(lang, "blog/bonding-vs-veneers-istanbul/")}" class="link-more">${p.compareLinkLabel} ${icons.arrowSm}</a></p>
+  </div></section>
+  <section class="section section-alt"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:22px;margin:0 0 18px;">${p.prosConsTitle}</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;">
+      <div><ul style="font-size:15px;line-height:1.65;color:var(--muted);padding-left:20px;margin:0;">${prosList}</ul></div>
+      <div><ul style="font-size:15px;line-height:1.65;color:var(--muted);padding-left:20px;margin:0;">${consList}</ul></div>
+    </div>
+  </div></section>
+  <section class="section"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:22px;margin:0 0 14px;">${p.risksTitle}</h2>
+    <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0 0 14px;">${p.risksText}</p>
+    <p style="margin:0 0 28px;"><a href="${riskHref}" class="link-more">${p.riskLinkLabel} ${icons.arrowSm}</a></p>
+    <h2 style="font-size:22px;margin:0 0 14px;">${p.aftercareTitle}</h2>
+    <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0;">${p.aftercareText}</p>
+    <p style="margin:20px 0 0;"><a href="${url(lang, "geo/" + geoSlug + "/")}" class="link-more">${p.geoLinkLabel} ${icons.arrowSm}</a>
+    · <a href="${url(lang, bondingSlug + "/")}" class="link-more">${p.bondingLinkLabel} ${icons.arrowSm}</a>
+    · <a href="${url(lang, "blog/" + compareBlogSlug + "/")}" class="link-more">${p.compareLinkLabel} ${icons.arrowSm}</a></p>
   </div></section>
   ${priceCalcSection(lang)}
   ${xraySection(lang)}
@@ -518,9 +719,230 @@ export function veneersPage(lang) {
     body,
     title: `${p.h1} — ${site.brand}`,
     description: p.lead,
+    publishedTime: publishedAt,
+    modifiedTime: updatedAt,
     jsonld: [
       orgSchema(lang),
       faqSchema(p.faqs),
+      landingArticleSchema({
+        lang,
+        pageUrl,
+        headline: p.h1,
+        description: p.lead,
+        publishedAt,
+        updatedAt,
+      }),
+      breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
+    ],
+  };
+}
+
+/** Hollywood Smile package commercial landing — DE (`hollywood-smile-tuerkei-paket/`) + EN (`hollywood-smile-turkey-package/`). */
+export function hollywoodSmilePage(lang) {
+  const t = i18n[lang];
+  const p = t.hollywoodPage;
+  if (!p) {
+    throw new Error(`hollywoodPage copy missing for lang=${lang}`);
+  }
+  const slug = lang === "de" ? "hollywood-smile-tuerkei-paket/" : "hollywood-smile-turkey-package/";
+  const crumbs = [crumbHome(lang), { name: p.eyebrow, href: url(lang, slug) }];
+  const faqItem = (f) =>
+    `<div class="faq-item" data-faq-item><button class="faq-q" data-faq-toggle><span>${f.q}</span><span class="faq-icon"><span class="minus">${miniMinus}</span><span class="plus">${miniPlus}</span></span></button><div class="faq-a"><p style="margin:0;">${f.a}</p></div></div>`;
+  const steps = (p.steps || [])
+    .map(
+      (s, i) => `<div style="display:flex;gap:14px;margin:0 0 16px;">
+      <div style="flex:0 0 28px;height:28px;border-radius:50%;background:var(--burgundy);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;">${i + 1}</div>
+      <div><div style="font-weight:700;margin:0 0 4px;">${s.t}</div><p style="margin:0;color:var(--muted);font-size:15px;line-height:1.55;">${s.d}</p></div>
+    </div>`
+    )
+    .join("");
+  const prosList = (p.pros || []).map((x) => `<li style="margin:0 0 8px;">${x}</li>`).join("");
+  const consList = (p.cons || []).map((x) => `<li style="margin:0 0 8px;">${x}</li>`).join("");
+
+  const hollywoodPkg = packages.find((pk) => pk.key === "hollywood");
+  const packageItems = hollywoodPkg ? L(hollywoodPkg.items, lang) : [];
+  const packageItemsList = packageItems.map((x) => `<li style="margin:0 0 8px;">${x}</li>`).join("");
+
+  const hollywoodPrice = priceCalc.find((i) => i.key === "hollywood");
+  const unitLabel = (qty) => (lang === "de" ? "Zähne" : "teeth");
+  const priceTable = hollywoodPrice
+    ? `<div style="overflow-x:auto;border-radius:16px;border:1px solid rgba(43,35,24,.1);">
+    <table style="width:100%;border-collapse:collapse;font-size:15px;">
+      <thead><tr style="background:var(--cream-2);">
+        <th style="text-align:left;padding:14px 18px;font-weight:700;color:var(--ink);">${t.pricesPage.tableTreatment}</th>
+        <th style="text-align:right;padding:14px 18px;font-weight:700;color:var(--ink);">${t.pricesPage.tablePrice}</th>
+      </tr></thead>
+      <tbody>
+        ${hollywoodPrice.options
+          .map(
+            (opt, i) => `<tr style="${i % 2 ? "background:var(--cream);" : ""}border-top:1px solid rgba(43,35,24,.08);">
+          <td style="padding:14px 18px;color:var(--ink-soft);">${opt.qty} ${unitLabel(opt.qty)}</td>
+          <td style="padding:14px 18px;text-align:right;font-weight:700;color:var(--ink);">€${opt.price.toLocaleString("de-DE")}</td>
+        </tr>`
+          )
+          .join("")}
+      </tbody>
+    </table>
+  </div>`
+    : "";
+
+  const geoSlug = lang === "de" ? "hollywood-smile-paket-istanbul" : "hollywood-smile-package-istanbul";
+  const veneersSlug = lang === "de" ? "porzellan-veneers-istanbul" : "veneers-turkey";
+  const bondingSlug = lang === "de" ? "composite-bonding-tuerkei" : "composite-bonding-turkey";
+  const riskHref = url("en", "geo/turkey-teeth-what-they-are-and-how-to-avoid-problems/");
+  const publishedAt = "2026-09-11";
+  const updatedAt = "2026-09-11";
+  const pageUrl = site.domain + url(lang, slug);
+  const caseImage = img.cases.find((c) => c.file === "jun-8-3.jpg");
+
+  const body = `${pageHero(lang, p.eyebrow, p.h1, p.lead, crumbs)}
+  <section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">
+    ${reviewedByBlock(lang)}
+    ${caseImage ? caseImageBlock(caseImage.file, p.caseImageAlt || L(caseImage.label, lang)) : ""}
+    <h2 style="font-size:22px;margin:0 0 14px;">${p.introTitle}</h2>
+    <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0 0 28px;">${p.introText}</p>
+    <h2 style="font-size:22px;margin:0 0 14px;">${p.packageItemsTitle}</h2>
+    <ul style="font-size:15.5px;line-height:1.7;color:var(--muted);padding-left:20px;margin:0 0 28px;">${packageItemsList}</ul>
+    <h2 style="font-size:24px;margin:0 0 20px;">${p.tableTitle}</h2>
+    ${priceTable}
+  </div></section>
+  <section class="section section-alt"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:22px;margin:0 0 18px;">${p.stepsTitle}</h2>
+    ${steps}
+  </div></section>
+  <section class="section"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:22px;margin:0 0 18px;">${p.prosConsTitle}</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;margin:0 0 28px;">
+      <div><ul style="font-size:15px;line-height:1.65;color:var(--muted);padding-left:20px;margin:0;">${prosList}</ul></div>
+      <div><ul style="font-size:15px;line-height:1.65;color:var(--muted);padding-left:20px;margin:0;">${consList}</ul></div>
+    </div>
+    <h2 style="font-size:22px;margin:0 0 14px;">${p.risksTitle}</h2>
+    <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0 0 14px;">${p.risksText}</p>
+    <p style="margin:0 0 28px;"><a href="${riskHref}" class="link-more">${p.riskLinkLabel} ${icons.arrowSm}</a></p>
+    <h2 style="font-size:22px;margin:0 0 14px;">${p.aftercareTitle}</h2>
+    <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0;">${p.aftercareText}</p>
+    <p style="margin:20px 0 0;"><a href="${url(lang, "geo/" + geoSlug + "/")}" class="link-more">${p.geoLinkLabel} ${icons.arrowSm}</a>
+    · <a href="${url(lang, veneersSlug + "/")}" class="link-more">${p.veneersLinkLabel} ${icons.arrowSm}</a>
+    · <a href="${url(lang, bondingSlug + "/")}" class="link-more">${p.bondingLinkLabel} ${icons.arrowSm}</a></p>
+  </div></section>
+  ${priceCalcSection(lang)}
+  ${xraySection(lang)}
+  ${brandsSection(lang)}
+  <section class="section section-alt"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:24px;margin:0 0 20px;">${p.faqTitle}</h2>
+    <div class="faq" data-reveal>${p.faqs.map(faqItem).join("")}</div>
+  </div></section>
+  ${contactSection(lang)}`;
+
+  return {
+    body,
+    title: `${p.h1} — ${site.brand}`,
+    description: p.lead,
+    publishedTime: publishedAt,
+    modifiedTime: updatedAt,
+    jsonld: [
+      orgSchema(lang),
+      faqSchema(p.faqs),
+      landingArticleSchema({
+        lang,
+        pageUrl,
+        headline: p.h1,
+        description: p.lead,
+        publishedAt,
+        updatedAt,
+      }),
+      breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
+    ],
+  };
+}
+
+/** All-on-4 commercial landing — DE (`all-on-4-zahnimplantate-tuerkei/`) + EN (`all-on-4-turkey-package/`).
+ * Price is intentionally NOT taken from the `fullmouth` priceCalc package (10–12 individual
+ * implants, €8,000–€9,000) — that is a different protocol and must not be relabelled All-on-4. */
+export function allOn4Page(lang) {
+  const t = i18n[lang];
+  const p = t.allOn4Page;
+  if (!p) {
+    throw new Error(`allOn4Page copy missing for lang=${lang}`);
+  }
+  const slug = lang === "de" ? "all-on-4-zahnimplantate-tuerkei/" : "all-on-4-turkey-package/";
+  const crumbs = [crumbHome(lang), { name: p.eyebrow, href: url(lang, slug) }];
+  const faqItem = (f) =>
+    `<div class="faq-item" data-faq-item><button class="faq-q" data-faq-toggle><span>${f.q}</span><span class="faq-icon"><span class="minus">${miniMinus}</span><span class="plus">${miniPlus}</span></span></button><div class="faq-a"><p style="margin:0;">${f.a}</p></div></div>`;
+  const steps = (p.steps || [])
+    .map(
+      (s, i) => `<div style="display:flex;gap:14px;margin:0 0 16px;">
+      <div style="flex:0 0 28px;height:28px;border-radius:50%;background:var(--burgundy);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;">${i + 1}</div>
+      <div><div style="font-weight:700;margin:0 0 4px;">${s.t}</div><p style="margin:0;color:var(--muted);font-size:15px;line-height:1.55;">${s.d}</p></div>
+    </div>`
+    )
+    .join("");
+  const prosList = (p.pros || []).map((x) => `<li style="margin:0 0 8px;">${x}</li>`).join("");
+  const consList = (p.cons || []).map((x) => `<li style="margin:0 0 8px;">${x}</li>`).join("");
+
+  const geoSlug = lang === "de" ? "was-ist-all-on-4" : "what-is-all-on-4";
+  const priceListSlug = lang === "de" ? "preise/" : "turkey-teeth-price/";
+  const implantsSlug = lang === "de" ? "zahnimplantate-tuerkei-kosten/" : "dental-implants-turkey-cost/";
+  const riskHref = url("en", "geo/turkey-teeth-what-they-are-and-how-to-avoid-problems/");
+  const publishedAt = "2026-09-11";
+  const updatedAt = "2026-09-11";
+  const pageUrl = site.domain + url(lang, slug);
+  const xrayImg = i18n[lang].xray || i18n.en.xray;
+
+  const body = `${pageHero(lang, p.eyebrow, p.h1, p.lead, crumbs)}
+  <section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">
+    ${reviewedByBlock(lang)}
+    ${caseImageBlock("xray-example-allonx.jpg", p.caseImageAlt || xrayImg.exampleAlt)}
+    <h2 style="font-size:22px;margin:0 0 14px;">${p.introTitle}</h2>
+    <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0 0 28px;">${p.introText}</p>
+    <h2 style="font-size:22px;margin:0 0 14px;">${p.priceTitle}</h2>
+    <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0;">${p.priceText}</p>
+  </div></section>
+  <section class="section section-alt"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:22px;margin:0 0 18px;">${p.stepsTitle}</h2>
+    ${steps}
+  </div></section>
+  <section class="section"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:22px;margin:0 0 18px;">${p.prosConsTitle}</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;margin:0 0 28px;">
+      <div><ul style="font-size:15px;line-height:1.65;color:var(--muted);padding-left:20px;margin:0;">${prosList}</ul></div>
+      <div><ul style="font-size:15px;line-height:1.65;color:var(--muted);padding-left:20px;margin:0;">${consList}</ul></div>
+    </div>
+    <h2 style="font-size:22px;margin:0 0 14px;">${p.risksTitle}</h2>
+    <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0 0 14px;">${p.risksText}</p>
+    <p style="margin:0 0 28px;"><a href="${riskHref}" class="link-more">${p.riskLinkLabel} ${icons.arrowSm}</a></p>
+    <h2 style="font-size:22px;margin:0 0 14px;">${p.aftercareTitle}</h2>
+    <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0;">${p.aftercareText}</p>
+    <p style="margin:20px 0 0;"><a href="${url(lang, "geo/" + geoSlug + "/")}" class="link-more">${p.geoLinkLabel} ${icons.arrowSm}</a>
+    · <a href="${url(lang, implantsSlug)}" class="link-more">${p.implantsLinkLabel} ${icons.arrowSm}</a>
+    · <a href="${url(lang, priceListSlug)}" class="link-more">${p.priceListLinkLabel} ${icons.arrowSm}</a></p>
+  </div></section>
+  ${priceCalcSection(lang)}
+  ${xraySection(lang)}
+  ${brandsSection(lang)}
+  <section class="section section-alt"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:24px;margin:0 0 20px;">${p.faqTitle}</h2>
+    <div class="faq" data-reveal>${p.faqs.map(faqItem).join("")}</div>
+  </div></section>
+  ${contactSection(lang)}`;
+
+  return {
+    body,
+    title: `${p.h1} — ${site.brand}`,
+    description: p.lead,
+    publishedTime: publishedAt,
+    modifiedTime: updatedAt,
+    jsonld: [
+      orgSchema(lang),
+      faqSchema(p.faqs),
+      landingArticleSchema({
+        lang,
+        pageUrl,
+        headline: p.h1,
+        description: p.lead,
+        publishedAt,
+        updatedAt,
+      }),
       breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
     ],
   };
