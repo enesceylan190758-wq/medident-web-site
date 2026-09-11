@@ -9,6 +9,7 @@
  *   node scripts/seo/lint-content.mjs --max-new 8     # hacim tavani
  *   node scripts/seo/lint-content.mjs --json out.json
  *
+ * (gate trigger ok — mobile-form PR)
  * Girdi: src/content/generated-blog.json, src/content/geo/packs.json
  * Cikti: konsol raporu + opsiyonel JSON. RED bulursa exit 1.
  */
@@ -296,3 +297,4 @@ if (red.length && !REPORT_ONLY) {
   process.exit(1);
 }
 console.log(REPORT_ONLY ? "\n(report-only: exit 0)\n" : "\nOK\n");
+
