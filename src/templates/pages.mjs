@@ -30,33 +30,23 @@ const reviewedByLabel = {
   ru: "Медицинская проверка",
 };
 
-const reviewerPlaceholder = {
-  tr: "[DOLDUR: kontrol eden hekim adı ve unvanı]",
-  en: "[DOLDUR: kontrol eden hekim adı ve unvanı]",
-  de: "[DOLDUR: kontrol eden hekim adı ve unvanı]",
-  fr: "[DOLDUR: kontrol eden hekim adı ve unvanı]",
-};
+/** Clinic-confirmed reviewing doctor for commercial DE/EN landings (filled 2026-09-11). */
+const reviewingDoctor = doctors.find((d) => d.slug === "dr-ahmet-celik");
 
-// NOTE: content.mjs `doctors` names (Ahmet Çelik, Elif Kara, Can Yıldız, Aslı Yılmaz) are NOT
-// verified real-world identities — repo history shows them rewritten multiple times by prior
-// agent commits (placeholder photos removed, names renamed twice within the same session on
-// 2026-07-29: fac6648 "remove all doctor profiles (placeholder names removed)" → 6702dfd
-// "replace doctor names, remove all photos" → 0862595 "rename: Faruk → Dr. Ahmet Çelik, Nilüfer
-// → Dr. Aslı Yılmaz"). Do not surface these names as reviewers/authors until confirmed by the
-// clinic. Landing pages show a [DOLDUR] placeholder instead; schema author/publisher stays the
-// Organization node only (no invented Person).
-
-/** Visible "medically reviewed by [DOLDUR]" placeholder block — no doctor name until verified (see note above). */
+/** Visible "medically reviewed by …" block with confirmed doctor name + title. */
 function reviewedByBlock(lang) {
+  if (!reviewingDoctor) return "";
+  const title = (reviewingDoctor.titles && (reviewingDoctor.titles[lang] || reviewingDoctor.titles.en)) || "";
+  const href = url(lang, "doktorlar/" + reviewingDoctor.slug + "/");
+  const label = reviewedByLabel[lang] || reviewedByLabel.en;
   return `<p style="font-size:13.5px;color:var(--muted-2);margin:0 0 24px;">
-    ${reviewedByLabel[lang] || reviewedByLabel.en}: <strong style="color:var(--ink-soft);">${reviewerPlaceholder[lang] || reviewerPlaceholder.en}</strong>
+    ${label}: <a href="${href}" style="color:var(--ink-soft);font-weight:700;text-decoration:underline;">${reviewingDoctor.name}</a>${title ? ` <span style="font-weight:500;">· ${title}</span>` : ""}
   </p>`;
 }
 
-/** Article schema for a commercial landing page. Author/publisher is the Organization only — no
- * Person/reviewedBy until a real reviewing doctor is confirmed (see note above `reviewedByBlock`). */
+/** Article schema for a commercial landing page — Organization author + confirmed reviewing doctor. */
 function landingArticleSchema({ lang, pageUrl, headline, description, image, publishedAt, updatedAt }) {
-  return {
+  const schema = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline,
@@ -70,6 +60,16 @@ function landingArticleSchema({ lang, pageUrl, headline, description, image, pub
     mainEntityOfPage: pageUrl,
     url: pageUrl,
   };
+  if (reviewingDoctor) {
+    const title = (reviewingDoctor.titles && (reviewingDoctor.titles[lang] || reviewingDoctor.titles.en)) || "";
+    schema.reviewedBy = {
+      "@type": "Person",
+      name: reviewingDoctor.name,
+      ...(title ? { jobTitle: title } : {}),
+      url: site.domain + url(lang, "doktorlar/" + reviewingDoctor.slug + "/"),
+    };
+  }
+  return schema;
 }
 
 /** Real, topic-labelled case photo (src/data/images.mjs `img.cases`) — never a stock/unrelated image. */
