@@ -296,9 +296,9 @@ export function resolveHreflangPaths(lang, pathNoLang) {
     return { de: "composite-bonding-tuerkei/", en: "composite-bonding-turkey/", fr: "composite-bonding-turquie/" };
   }
 
-  // Porzellan-Veneers commercial landing — DE only for now
-  if (p === "porzellan-veneers-istanbul") {
-    return { de: "porzellan-veneers-istanbul/" };
+  // Veneers commercial landing — DE + EN
+  if (p === "porzellan-veneers-istanbul" || p === "veneers-turkey") {
+    return { de: "porzellan-veneers-istanbul/", en: "veneers-turkey/" };
   }
 
   // Dental implants cost landing page — DE/EN only

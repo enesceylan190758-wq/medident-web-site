@@ -183,8 +183,9 @@ function build() {
     if (lang === "en") emit(lang, "composite-bonding-turkey/", bondingPage(lang));
     if (lang === "fr") emit(lang, "composite-bonding-turquie/", bondingPage(lang));
 
-    // Porzellan-Veneers commercial landing — DE only (query: porzellanveneers istanbul)
+    // Veneers commercial landing — DE (query: porzellanveneers istanbul) + EN (veneers turkey)
     if (lang === "de") emit(lang, "porzellan-veneers-istanbul/", veneersPage(lang));
+    if (lang === "en") emit(lang, "veneers-turkey/", veneersPage(lang));
 
     // Dental implants cost landing — DE/EN only (query: Zahnimplantate Türkei Kosten / dental implants turkey cost)
     if (lang === "de") emit(lang, "zahnimplantate-tuerkei-kosten/", implantsCostPage(lang));

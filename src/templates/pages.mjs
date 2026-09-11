@@ -659,14 +659,14 @@ export function implantsCostPage(lang) {
   };
 }
 
-/** Porzellan-Veneers commercial landing — DE (`porzellan-veneers-istanbul/`). */
+/** Veneers commercial landing — DE (`porzellan-veneers-istanbul/`) + EN (`veneers-turkey/`). */
 export function veneersPage(lang) {
   const t = i18n[lang];
   const p = t.veneersPage;
   if (!p) {
     throw new Error(`veneersPage copy missing for lang=${lang}`);
   }
-  const slug = "porzellan-veneers-istanbul/";
+  const slug = lang === "de" ? "porzellan-veneers-istanbul/" : "veneers-turkey/";
   const crumbs = [crumbHome(lang), { name: p.eyebrow, href: url(lang, slug) }];
   const faqItem = (f) =>
     `<div class="faq-item" data-faq-item><button class="faq-q" data-faq-toggle><span>${f.q}</span><span class="faq-icon"><span class="minus">${miniMinus}</span><span class="plus">${miniPlus}</span></span></button><div class="faq-a"><p style="margin:0;">${f.a}</p></div></div>`;
@@ -678,17 +678,45 @@ export function veneersPage(lang) {
     </div>`
     )
     .join("");
+  const prosList = (p.pros || []).map((x) => `<li style="margin:0 0 8px;">${x}</li>`).join("");
+  const consList = (p.cons || []).map((x) => `<li style="margin:0 0 8px;">${x}</li>`).join("");
+  const geoSlug = lang === "de" ? "was-sind-porzellan-veneers" : "what-are-porcelain-veneers";
+  const bondingSlug = lang === "de" ? "composite-bonding-tuerkei" : "composite-bonding-turkey";
+  const compareBlogSlug = lang === "de" ? "bonding-vs-veneers-istanbul" : "dental-bonding-vs-veneers-istanbul";
+  const riskHref = url("en", "geo/turkey-teeth-what-they-are-and-how-to-avoid-problems/");
+  const reviewerSlug = "dr-elif-kara";
+  const publishedAt = "2026-09-11";
+  const updatedAt = "2026-09-11";
+  const pageUrl = site.domain + url(lang, slug);
+  const caseImage = img.cases.find((c) => c.file === "sep-27-3.jpg");
+
   const body = `${pageHero(lang, p.eyebrow, p.h1, p.lead, crumbs)}
   <section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">
+    ${reviewedByBlock(lang, reviewerSlug)}
+    ${caseImage ? caseImageBlock(caseImage.file, p.caseImageAlt || L(caseImage.label, lang)) : ""}
     <h2 style="font-size:22px;margin:0 0 14px;">${p.introTitle}</h2>
     <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0 0 28px;">${p.introText}</p>
     <h2 style="font-size:22px;margin:0 0 18px;">${p.stepsTitle}</h2>
     ${steps}
     <p style="font-size:15px;line-height:1.62;color:var(--muted);margin:24px 0 0;">${p.travelNote}</p>
     <p style="font-size:13px;color:var(--muted-2);margin:16px 0 0;">${p.priceNote}</p>
-    <p style="margin:20px 0 0;"><a href="${url(lang, "geo/was-sind-porzellan-veneers/")}" class="link-more">${p.geoLinkLabel} ${icons.arrowSm}</a>
-    · <a href="${url(lang, "composite-bonding-tuerkei/")}" class="link-more">${p.bondingLinkLabel} ${icons.arrowSm}</a>
-    · <a href="${url(lang, "blog/bonding-vs-veneers-istanbul/")}" class="link-more">${p.compareLinkLabel} ${icons.arrowSm}</a></p>
+  </div></section>
+  <section class="section section-alt"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:22px;margin:0 0 18px;">${p.prosConsTitle}</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;">
+      <div><ul style="font-size:15px;line-height:1.65;color:var(--muted);padding-left:20px;margin:0;">${prosList}</ul></div>
+      <div><ul style="font-size:15px;line-height:1.65;color:var(--muted);padding-left:20px;margin:0;">${consList}</ul></div>
+    </div>
+  </div></section>
+  <section class="section"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:22px;margin:0 0 14px;">${p.risksTitle}</h2>
+    <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0 0 14px;">${p.risksText}</p>
+    <p style="margin:0 0 28px;"><a href="${riskHref}" class="link-more">${p.riskLinkLabel} ${icons.arrowSm}</a></p>
+    <h2 style="font-size:22px;margin:0 0 14px;">${p.aftercareTitle}</h2>
+    <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0;">${p.aftercareText}</p>
+    <p style="margin:20px 0 0;"><a href="${url(lang, "geo/" + geoSlug + "/")}" class="link-more">${p.geoLinkLabel} ${icons.arrowSm}</a>
+    · <a href="${url(lang, bondingSlug + "/")}" class="link-more">${p.bondingLinkLabel} ${icons.arrowSm}</a>
+    · <a href="${url(lang, "blog/" + compareBlogSlug + "/")}" class="link-more">${p.compareLinkLabel} ${icons.arrowSm}</a></p>
   </div></section>
   ${priceCalcSection(lang)}
   ${xraySection(lang)}
@@ -702,9 +730,20 @@ export function veneersPage(lang) {
     body,
     title: `${p.h1} — ${site.brand}`,
     description: p.lead,
+    publishedTime: publishedAt,
+    modifiedTime: updatedAt,
     jsonld: [
       orgSchema(lang),
       faqSchema(p.faqs),
+      landingArticleSchema({
+        lang,
+        pageUrl,
+        headline: p.h1,
+        description: p.lead,
+        doctorSlug: reviewerSlug,
+        publishedAt,
+        updatedAt,
+      }),
       breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
     ],
   };
