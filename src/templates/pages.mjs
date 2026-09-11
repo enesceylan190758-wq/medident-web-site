@@ -475,6 +475,118 @@ export function bondingPage(lang) {
   };
 }
 
+/** Dental implants cost landing — DE (`zahnimplantate-tuerkei-kosten/`) + EN (`dental-implants-turkey-cost/`). */
+export function implantsCostPage(lang) {
+  const t = i18n[lang];
+  const p = t.implantsCostPage;
+  if (!p) {
+    throw new Error(`implantsCostPage copy missing for lang=${lang}`);
+  }
+  const slug = lang === "de" ? "zahnimplantate-tuerkei-kosten/" : "dental-implants-turkey-cost/";
+  const crumbs = [crumbHome(lang), { name: p.eyebrow, href: url(lang, slug) }];
+  const implantItem = priceCalc.find((i) => i.key === "implant");
+  const unitLabel = (qty) =>
+    lang === "de" ? (qty > 1 ? "Implantate" : "Implantat") : qty > 1 ? "implants" : "implant";
+  const priceTable = implantItem
+    ? `<div style="overflow-x:auto;border-radius:16px;border:1px solid rgba(43,35,24,.1);">
+    <table style="width:100%;border-collapse:collapse;font-size:15px;">
+      <thead><tr style="background:var(--cream-2);">
+        <th style="text-align:left;padding:14px 18px;font-weight:700;color:var(--ink);">${t.pricesPage.tableTreatment}</th>
+        <th style="text-align:right;padding:14px 18px;font-weight:700;color:var(--ink);">${t.pricesPage.tablePrice}</th>
+      </tr></thead>
+      <tbody>
+        ${implantItem.options
+          .map(
+            (opt, i) => `<tr style="${i % 2 ? "background:var(--cream);" : ""}border-top:1px solid rgba(43,35,24,.08);">
+          <td style="padding:14px 18px;color:var(--ink-soft);">${opt.qty} ${unitLabel(opt.qty)}</td>
+          <td style="padding:14px 18px;text-align:right;font-weight:700;color:var(--ink);">€${opt.price.toLocaleString("de-DE")}</td>
+        </tr>`
+          )
+          .join("")}
+      </tbody>
+    </table>
+  </div>`
+    : "";
+
+  const faqItem = (f) =>
+    `<div class="faq-item" data-faq-item><button class="faq-q" data-faq-toggle><span>${f.q}</span><span class="faq-icon"><span class="minus">${miniMinus}</span><span class="plus">${miniPlus}</span></span></button><div class="faq-a"><p style="margin:0;">${f.a}</p></div></div>`;
+
+  const steps = (p.steps || [])
+    .map(
+      (s, i) => `<div style="display:flex;gap:14px;margin:0 0 16px;">
+      <div style="flex:0 0 28px;height:28px;border-radius:50%;background:var(--burgundy);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;">${i + 1}</div>
+      <div><div style="font-weight:700;margin:0 0 4px;">${s.t}</div><p style="margin:0;color:var(--muted);font-size:15px;line-height:1.55;">${s.d}</p></div>
+    </div>`
+    )
+    .join("");
+
+  const safetyList = (p.safetyItems || []).map((s) => `<li style="margin:0 0 8px;">${s}</li>`).join("");
+
+  const geoSlugs =
+    lang === "de"
+      ? {
+          def: "was-ist-ein-zahnimplantat",
+          materials: "materialien-marken-zirkon-implantate-tuerkei",
+          safety: "ist-zahnbehandlung-in-der-tuerkei-sicher",
+          whyCheaper: "warum-ist-zahnbehandlung-in-der-tuerkei-guenstiger",
+        }
+      : {
+          def: "what-is-a-dental-implant",
+          materials: "zirconia-vs-emax-implant-brands-turkey",
+          safety: "is-dental-treatment-in-turkey-safe",
+          whyCheaper: "why-is-dental-treatment-cheaper-in-turkey",
+        };
+  const priceListSlug = lang === "de" ? "preise/" : "turkey-teeth-price/";
+  const links = [
+    { href: url(lang, "geo/" + geoSlugs.def + "/"), label: p.geoLinkLabel },
+    { href: url(lang, "geo/" + geoSlugs.materials + "/"), label: p.materialsLinkLabel },
+    { href: url(lang, "geo/" + geoSlugs.safety + "/"), label: p.safetyLinkLabel },
+    { href: url(lang, "geo/" + geoSlugs.whyCheaper + "/"), label: p.whyCheaperLinkLabel },
+    { href: url(lang, priceListSlug), label: p.priceListLinkLabel },
+  ]
+    .map((l) => `<a href="${l.href}" class="btn btn-ghost" style="padding:10px 16px;">${l.label}</a>`)
+    .join("");
+
+  const body = `${pageHero(lang, p.eyebrow, p.h1, p.lead, crumbs)}
+  <section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:22px;margin:0 0 14px;">${p.introTitle}</h2>
+    <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0 0 28px;">${p.introText}</p>
+    <h2 style="font-size:24px;margin:0 0 20px;">${p.tableTitle}</h2>
+    ${priceTable}
+    <p style="font-size:13px;color:var(--muted-2);margin:16px 0 0;">${p.priceNote}</p>
+  </div></section>
+  <section class="section section-alt"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:22px;margin:0 0 18px;">${p.stepsTitle}</h2>
+    ${steps}
+  </div></section>
+  <section class="section"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:22px;margin:0 0 14px;">${p.safetyTitle}</h2>
+    <ul style="font-size:15.5px;line-height:1.7;color:var(--muted);padding-left:20px;margin:0 0 28px;">${safetyList}</ul>
+    <h2 style="font-size:22px;margin:0 0 14px;">${p.aftercareTitle}</h2>
+    <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0;">${p.aftercareText}</p>
+    <div style="margin-top:28px;display:flex;flex-wrap:wrap;gap:10px;">${links}</div>
+  </div></section>
+  ${priceCalcSection(lang)}
+  ${xraySection(lang)}
+  ${brandsSection(lang)}
+  <section class="section section-alt"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:24px;margin:0 0 20px;">${p.faqTitle}</h2>
+    <div class="faq" data-reveal>${p.faqs.map(faqItem).join("")}</div>
+  </div></section>
+  ${contactSection(lang)}`;
+
+  return {
+    body,
+    title: `${p.h1} — ${site.brand}`,
+    description: p.lead,
+    jsonld: [
+      orgSchema(lang),
+      faqSchema(p.faqs),
+      breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
+    ],
+  };
+}
+
 /** Porzellan-Veneers commercial landing — DE (`porzellan-veneers-istanbul/`). */
 export function veneersPage(lang) {
   const t = i18n[lang];

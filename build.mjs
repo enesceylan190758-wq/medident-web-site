@@ -32,6 +32,7 @@ import {
   pricesPage,
   bondingPage,
   veneersPage,
+  implantsCostPage,
 } from "./src/templates/pages.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -184,6 +185,10 @@ function build() {
 
     // Porzellan-Veneers commercial landing — DE only (query: porzellanveneers istanbul)
     if (lang === "de") emit(lang, "porzellan-veneers-istanbul/", veneersPage(lang));
+
+    // Dental implants cost landing — DE/EN only (query: Zahnimplantate Türkei Kosten / dental implants turkey cost)
+    if (lang === "de") emit(lang, "zahnimplantate-tuerkei-kosten/", implantsCostPage(lang));
+    if (lang === "en") emit(lang, "dental-implants-turkey-cost/", implantsCostPage(lang));
   }
 
   writeSitemap();

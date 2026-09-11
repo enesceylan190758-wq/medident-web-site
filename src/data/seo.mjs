@@ -301,6 +301,11 @@ export function resolveHreflangPaths(lang, pathNoLang) {
     return { de: "porzellan-veneers-istanbul/" };
   }
 
+  // Dental implants cost landing page — DE/EN only
+  if (p === "zahnimplantate-tuerkei-kosten" || p === "dental-implants-turkey-cost") {
+    return { de: "zahnimplantate-tuerkei-kosten/", en: "dental-implants-turkey-cost/" };
+  }
+
   // Blog article
   if (p.startsWith("blog/") && p !== "blog") {
     const slug = p.slice("blog/".length);
