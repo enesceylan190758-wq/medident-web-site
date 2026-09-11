@@ -389,6 +389,23 @@ export const i18n = {
         { q: "Composite bonding or veneers — which is right for me?", a: "Bonding suits minor chips, gaps and shape changes in one visit. Veneers suit bigger colour/shape changes and last longer. We advise after your free photo assessment." },
       ],
     },
+    landingUi: {
+      resultsEyebrow: "Results",
+      resultsTitle: "Real patient outcomes",
+      resultsLead: "Drag to compare before and after, then browse more cases from the clinic.",
+      galleryTitle: "More real cases",
+      compareTitle: "Cost comparison",
+      compareHome: "At home (private)",
+      compareHere: "MediDent Istanbul",
+      tripTitle: "Your trip at a glance",
+      inclusionsTitle: "What's included",
+      doctorTitle: "Clinical review",
+      ctaTitle: "Free photo assessment",
+      ctaLead: "Send photos or an X-ray on WhatsApp — get a written plan before you book flights.",
+      ctaWa: "WhatsApp assessment",
+      ctaForm: "Contact form",
+      dragHint: "Drag to compare",
+    },
     implantsCostPage: {
       eyebrow: "Dental Implants · Cost 2026",
       h1: "Dental Implants Turkey: Real Cost 2026",
@@ -427,6 +444,35 @@ export const i18n = {
         { q: "Are hotel and airport transfer included in the price?", a: "Yes, for larger treatments (8+ teeth, implants, full-mouth packages) — free of charge. For smaller treatments (1–3 units) patients cover their own accommodation and transfer." },
         { q: "Is there a warranty?", a: "Implant treatments are delivered with a written warranty: lifetime coverage on the implant fixture itself. Prosthetic (crown) terms are confirmed in writing before you book — we do not publish a blanket crown duration here." },
         { q: "Is dental treatment in Turkey safe?", a: "It depends entirely on the clinic. Check for a Ministry of Health Health Tourism Authorization Certificate, real doctor credentials, and a written warranty before booking — we provide all three." },
+      ],
+          compareRows: [
+            {
+                  "item": "Single implant (fixture)",
+                  "home": "Often €1,500–3,000+",
+                  "here": "From €400"
+            },
+            {
+                  "item": "Written plan before travel",
+                  "home": "Varies by clinic",
+                  "here": "Yes — before you book flights"
+            },
+            {
+                  "item": "Typical visits",
+                  "home": "Local appointments",
+                  "here": "2 visits · ~3 + ~6 nights"
+            }
+      ],
+      tripStages: [
+            {
+                  "t": "Visit 1 — placement",
+                  "d": "Consultation, planning and implant placement under local anaesthetic.",
+                  "meta": "~3 nights · ~65% payment"
+            },
+            {
+                  "t": "Visit 2 — final crown",
+                  "d": "After osseointegration, the permanent crown is fitted and checked.",
+                  "meta": "~6 nights · remaining balance"
+            }
       ],
     },
     veneersPage: {
@@ -471,6 +517,41 @@ export const i18n = {
         { q: "Are hotel and transfer included?", a: "For larger treatments (8+ teeth under our current clinic policy), hotel and airport transfer are included. Smaller units: the patient arranges their own accommodation and transfer — details are confirmed in your quote." },
         { q: "How are veneers different from \"Turkey teeth\"?", a: "\"Turkey teeth\" usually means aggressive full crowns placed on many teeth. Veneers aim for the most conservative front-tooth aesthetics possible. We plan after a real assessment — not from a fixed package." },
         { q: "Does insurance cover veneers?", a: "Cosmetic veneers are usually an elective, out-of-pocket treatment and are not typically covered by UK/Irish private dental insurance — check with your own insurer. At MediDent Istanbul, payment is usually staged: about 65% at the first visit and the remainder at the second visit." },
+      ],
+          compareRows: [
+            {
+                  "item": "Porcelain veneer / tooth",
+                  "home": "Often €700–1,200+",
+                  "here": "From €200"
+            },
+            {
+                  "item": "Digital mock-up",
+                  "home": "Not always included",
+                  "here": "Included in plan"
+            },
+            {
+                  "item": "Payment",
+                  "home": "Usually full upfront",
+                  "here": "~65% / remainder on visit 2"
+            }
+      ],
+      tripStages: [
+            {
+                  "t": "Visit 1 — prep & temps",
+                  "d": "Preparation and temporary veneers while the lab works.",
+                  "meta": "~3 nights · ~65% payment"
+            },
+            {
+                  "t": "Visit 2 — final fit",
+                  "d": "Fit, adjust and check the finished ceramics.",
+                  "meta": "~6 nights · remaining balance"
+            }
+      ],
+      inclusions: [
+            "Tooth-by-tooth written plan",
+            "Digital design / mock-up before final fit",
+            "Staged payment (~65% / remainder)",
+            "WhatsApp aftercare after you fly home"
       ],
     },
     hollywoodPage: {
@@ -517,6 +598,41 @@ export const i18n = {
         { q: "Is there a warranty?", a: "Per the package description, a warranty certificate is included. Implant fixtures (when used) have a lifetime written warranty; crown and veneer terms are confirmed in writing before you book — we do not publish a blanket duration for prosthetic work." },
         { q: "How is a Hollywood Smile different from \"Turkey teeth\"?", a: "The difference is in the plan, not the name: \"Turkey teeth\" means unnecessary full crowns on healthy teeth. A carefully planned Hollywood Smile package combines crowns, veneers and bonding based on your actual case." },
       ],
+          compareRows: [
+            {
+                  "item": "16–20 teeth package",
+                  "home": "Often €8,000–15,000+",
+                  "here": "From €3,200 (16 teeth)"
+            },
+            {
+                  "item": "Hotel + transfers",
+                  "home": "Usually separate",
+                  "here": "Included in package"
+            },
+            {
+                  "item": "Payment",
+                  "home": "Varies",
+                  "here": "~65% / remainder on visit 2"
+            }
+      ],
+      tripStages: [
+            {
+                  "t": "Visit 1 — design & prep",
+                  "d": "Digital smile design, preparation and temporaries.",
+                  "meta": "~3 nights · ~65% payment"
+            },
+            {
+                  "t": "Visit 2 — try-in & fit",
+                  "d": "Try-in, adjustments and final fitting.",
+                  "meta": "~6 nights · remaining balance"
+            }
+      ],
+      inclusions: [
+            "Digital smile design before prep",
+            "Premium ceramics on the agreed tooth count",
+            "Hotel & VIP transfers (package terms)",
+            "Interpreter + warranty certificate"
+      ],
     },
     allOn4Page: {
       eyebrow: "All-on-4 Turkey",
@@ -561,6 +677,41 @@ export const i18n = {
         { q: "Can I really get fixed teeth in one day?", a: "In suitable cases, yes — a fixed temporary bridge can be fitted the same day as implant placement. This depends on bone quality and stability confirmed at your exam, not on marketing promises." },
         { q: "How long does the whole process take?", a: "Typical travel is two visits: about 3 nights for implant placement (and a temporary bridge when suitable), then about 6 nights later for the final bridge after healing." },
         { q: "Is there a warranty?", a: "The implant fixtures have a lifetime written warranty; prosthetic (bridge) terms are confirmed in writing before you book — we do not publish a blanket bridge duration here." },
+      ],
+          compareRows: [
+            {
+                  "item": "All-on-4 per jaw",
+                  "home": "Often €8,000–15,000+",
+                  "here": "From €4,000 / jaw"
+            },
+            {
+                  "item": "Same-day temporary bridge",
+                  "home": "Case-dependent",
+                  "here": "When clinically suitable"
+            },
+            {
+                  "item": "Payment",
+                  "home": "Varies",
+                  "here": "~65% / remainder on visit 2"
+            }
+      ],
+      tripStages: [
+            {
+                  "t": "Visit 1 — implants + temp",
+                  "d": "Placement and, when suitable, a fixed temporary bridge.",
+                  "meta": "~3 nights · ~65% payment"
+            },
+            {
+                  "t": "Visit 2 — final bridge",
+                  "d": "After healing, the final fixed bridge is fitted.",
+                  "meta": "~6 nights · remaining balance"
+            }
+      ],
+      inclusions: [
+            "3D planning from CT before travel",
+            "Classic 4-implant All-on-4 protocol per jaw",
+            "Written aftercare + WhatsApp follow-up",
+            "Lifetime written warranty on implant fixtures"
       ],
     },
     xray: {
@@ -829,6 +980,23 @@ export const i18n = {
         { q: "Composite Bonding oder Veneers — was passt zu mir?", a: "Bonding eignet sich für kleinere Absplitterungen, Lücken und Formkorrekturen in einer Sitzung. Veneers eignen sich für größere Farb-/Formänderungen und halten länger. Wir beraten Sie nach der kostenlosen Foto-Einschätzung." },
       ],
     },
+    landingUi: {
+      resultsEyebrow: "Ergebnisse",
+      resultsTitle: "Echte Patientenergebnisse",
+      resultsLead: "Ziehen Sie zum Vorher-Nachher-Vergleich — danach weitere Fälle aus der Klinik.",
+      galleryTitle: "Weitere echte Fälle",
+      compareTitle: "Kostenvergleich",
+      compareHome: "Zuhause (privat)",
+      compareHere: "MediDent Istanbul",
+      tripTitle: "Ihre Reise auf einen Blick",
+      inclusionsTitle: "Im Preis enthalten",
+      doctorTitle: "Medizinische Prüfung",
+      ctaTitle: "Kostenlose Foto-Einschätzung",
+      ctaLead: "Senden Sie Fotos oder ein Röntgenbild per WhatsApp — erhalten Sie einen schriftlichen Plan vor der Flugbuchung.",
+      ctaWa: "WhatsApp-Einschätzung",
+      ctaForm: "Kontaktformular",
+      dragHint: "Zum Vergleichen ziehen",
+    },
     implantsCostPage: {
       eyebrow: "Zahnimplantate · Kosten 2026",
       h1: "Zahnimplantate Türkei: Kosten 2026 im Überblick",
@@ -867,6 +1035,35 @@ export const i18n = {
         { q: "Sind Hotel und Flughafentransfer im Preis inbegriffen?", a: "Ja, bei größeren Behandlungen (ab 8 Zähnen, Implantaten, Vollversorgung) kostenlos. Bei kleineren Behandlungen (1–3 Einheiten) übernimmt der Patient Unterkunft und Transfer selbst." },
         { q: "Gibt es eine Garantie?", a: "Implantatbehandlungen werden mit schriftlicher Garantie geliefert: lebenslang für das Implantat selbst. Die Bedingungen für Kronen/prothetische Arbeiten werden vor der Buchung schriftlich bestätigt — eine pauschale Kronen-Laufzeit veröffentlichen wir hier nicht." },
         { q: "Ist eine Zahnbehandlung in der Türkei sicher?", a: "Das hängt vollständig von der Klinik ab. Achten Sie vor der Buchung auf eine Sağlık Turizmi Yetki Belgesi des Gesundheitsministeriums, echte Arztqualifikationen und eine schriftliche Garantie — bei uns erhalten Sie alle drei." },
+      ],
+          compareRows: [
+            {
+                  "item": "Einzelimplantat (Körper)",
+                  "home": "Häufig 1.500–3.000 €+",
+                  "here": "Ab 400 €"
+            },
+            {
+                  "item": "Schriftlicher Plan vor Reise",
+                  "home": "Je nach Praxis",
+                  "here": "Ja — vor der Flugbuchung"
+            },
+            {
+                  "item": "Typische Aufenthalte",
+                  "home": "Lokale Termine",
+                  "here": "2 Reisen · ca. 3 + 6 Nächte"
+            }
+      ],
+      tripStages: [
+            {
+                  "t": "Reise 1 — Insertion",
+                  "d": "Beratung, Planung und Insertion unter lokaler Betäubung.",
+                  "meta": "ca. 3 Nächte · ca. 65 % Zahlung"
+            },
+            {
+                  "t": "Reise 2 — finale Krone",
+                  "d": "Nach der Osseointegration wird die endgültige Krone eingesetzt und kontrolliert.",
+                  "meta": "ca. 6 Nächte · Restzahlung"
+            }
       ],
     },
     veneersPage: {
@@ -911,6 +1108,41 @@ export const i18n = {
         { q: "Werden Hotel und Transfer gestellt?", a: "Bei größeren Behandlungen (ab 8 Zähnen laut aktueller Klinikregel) sind Hotel und Flughafentransfer inklusive. Kleinere Einheiten: Unterkunft und Transfer organisiert der Patient selbst — Details stehen im Angebot." },
         { q: "Unterscheiden sich Porzellan-Veneers von „Turkey Teeth“?", a: "Turkey Teeth meint oft aggressive Vollkronen auf vielen Zähnen. Veneers zielen auf möglichst substanzschonende Frontzahnästhetik. Wir planen erst nach Befund — nicht nach Pauschalpaket." },
         { q: "Übernimmt die Krankenkasse die Kosten für Veneers?", a: "Ästhetische Veneers gelten meist als Eigenleistung und werden von gesetzlichen oder privaten Kassen in der Regel nicht übernommen — fragen Sie vorab bei Ihrer eigenen Kasse nach. MediDent Istanbul stellt eine Rechnung/Bescheinigung für Ihre Anfrage aus. Die Zahlung erfolgt üblicherweise gestaffelt: etwa 65 % beim ersten Aufenthalt, der Rest beim zweiten." },
+      ],
+          compareRows: [
+            {
+                  "item": "Porzellan-Veneer / Zahn",
+                  "home": "Häufig 700–1.200 €+",
+                  "here": "Ab 200 €"
+            },
+            {
+                  "item": "Digitales Mock-up",
+                  "home": "Nicht immer inklusive",
+                  "here": "Im Plan enthalten"
+            },
+            {
+                  "item": "Zahlung",
+                  "home": "Meist vollständig im Voraus",
+                  "here": "ca. 65 % / Rest bei Reise 2"
+            }
+      ],
+      tripStages: [
+            {
+                  "t": "Reise 1 — Präp & Provisorium",
+                  "d": "Vorbereitung und Provisorien, während das Labor arbeitet.",
+                  "meta": "ca. 3 Nächte · ca. 65 % Zahlung"
+            },
+            {
+                  "t": "Reise 2 — finales Einsetzen",
+                  "d": "Einsetzen, Anpassen und Kontrolle der fertigen Keramik.",
+                  "meta": "ca. 6 Nächte · Restzahlung"
+            }
+      ],
+      inclusions: [
+            "Zahnweiser schriftlicher Plan",
+            "Digitales Design / Mock-up vor dem finalen Einsetzen",
+            "Gestaffelte Zahlung (ca. 65 % / Rest)",
+            "WhatsApp-Nachsorge nach der Rückreise"
       ],
     },
     hollywoodPage: {
@@ -957,6 +1189,41 @@ export const i18n = {
         { q: "Gibt es eine Garantie?", a: "Laut Paketbeschreibung ist eine Garantieurkunde enthalten. Implantatkörper (falls verwendet) haben eine lebenslange schriftliche Garantie; Kronen- und Veneer-Bedingungen werden vor der Buchung schriftlich bestätigt — eine pauschale Laufzeit für prothetische Arbeiten veröffentlichen wir hier nicht." },
         { q: "Unterscheidet sich Hollywood Smile von „Turkey Teeth“?", a: "Der Unterschied liegt im Plan, nicht im Namen: „Turkey Teeth“ meint unnötige Vollkronen auf gesunden Zähnen. Ein sorgfältig geplantes Hollywood-Smile-Paket kombiniert Kronen, Veneers und Bonding je nach Zahnbefund." },
       ],
+          compareRows: [
+            {
+                  "item": "Paket 16–20 Zähne",
+                  "home": "Häufig 8.000–15.000 €+",
+                  "here": "Ab 3.200 € (16 Zähne)"
+            },
+            {
+                  "item": "Hotel + Transfer",
+                  "home": "Meist separat",
+                  "here": "Im Paket enthalten"
+            },
+            {
+                  "item": "Zahlung",
+                  "home": "Unterschiedlich",
+                  "here": "ca. 65 % / Rest bei Reise 2"
+            }
+      ],
+      tripStages: [
+            {
+                  "t": "Reise 1 — Design & Präp",
+                  "d": "Digitales Smile Design, Vorbereitung und Provisorien.",
+                  "meta": "ca. 3 Nächte · ca. 65 % Zahlung"
+            },
+            {
+                  "t": "Reise 2 — Anprobe & Einsetzen",
+                  "d": "Anprobe, Anpassungen und finales Einsetzen.",
+                  "meta": "ca. 6 Nächte · Restzahlung"
+            }
+      ],
+      inclusions: [
+            "Digitales Smile Design vor der Präparation",
+            "Premium-Keramik auf der vereinbarten Zahnanzahl",
+            "Hotel & VIP-Transfer (laut Paket)",
+            "Dolmetscher + Garantieurkunde"
+      ],
     },
     allOn4Page: {
       eyebrow: "All-on-4 Türkei",
@@ -1001,6 +1268,41 @@ export const i18n = {
         { q: "Bekomme ich wirklich an einem Tag feste Zähne?", a: "In geeigneten Fällen ja — eine feste provisorische Brücke kann am selben Tag wie die Implantation eingesetzt werden. Das hängt von Knochenqualität und Stabilität ab, die bei Ihrer Untersuchung bestätigt werden — nicht von Werbeversprechen." },
         { q: "Wie lange dauert der gesamte Prozess?", a: "Typisch sind zwei Reisen: etwa 3 Nächte für die Implantation (und ggf. die provisorische Brücke), später etwa 6 Nächte für die finale Brücke nach der Einheilung." },
         { q: "Gibt es eine Garantie?", a: "Für die Implantatkörper gilt eine lebenslange schriftliche Garantie; die Bedingungen für die Brücke werden vor der Buchung schriftlich bestätigt — eine pauschale Brücken-Laufzeit veröffentlichen wir hier nicht." },
+      ],
+          compareRows: [
+            {
+                  "item": "All-on-4 pro Kiefer",
+                  "home": "Häufig 8.000–15.000 €+",
+                  "here": "Ab 4.000 € / Kiefer"
+            },
+            {
+                  "item": "Provisorische Brücke am OP-Tag",
+                  "home": "Fallabhängig",
+                  "here": "Wenn klinisch geeignet"
+            },
+            {
+                  "item": "Zahlung",
+                  "home": "Unterschiedlich",
+                  "here": "ca. 65 % / Rest bei Reise 2"
+            }
+      ],
+      tripStages: [
+            {
+                  "t": "Reise 1 — Implantate + Prov.",
+                  "d": "Insertion und, wenn geeignet, feste provisorische Brücke.",
+                  "meta": "ca. 3 Nächte · ca. 65 % Zahlung"
+            },
+            {
+                  "t": "Reise 2 — finale Brücke",
+                  "d": "Nach der Einheilung wird die endgültige feste Brücke eingesetzt.",
+                  "meta": "ca. 6 Nächte · Restzahlung"
+            }
+      ],
+      inclusions: [
+            "3D-Planung anhand CT vor der Reise",
+            "Klassisches 4-Implantat-All-on-4 je Kiefer",
+            "Schriftliche Nachsorge + WhatsApp-Follow-up",
+            "Lebenslange schriftliche Garantie auf Implantatkörper"
       ],
     },
     xray: {
