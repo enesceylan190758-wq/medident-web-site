@@ -306,6 +306,11 @@ export function resolveHreflangPaths(lang, pathNoLang) {
     return { de: "zahnimplantate-tuerkei-kosten/", en: "dental-implants-turkey-cost/" };
   }
 
+  // Hollywood Smile package landing page — DE/EN only
+  if (p === "hollywood-smile-tuerkei-paket" || p === "hollywood-smile-turkey-package") {
+    return { de: "hollywood-smile-tuerkei-paket/", en: "hollywood-smile-turkey-package/" };
+  }
+
   // Blog article
   if (p.startsWith("blog/") && p !== "blog") {
     const slug = p.slice("blog/".length);

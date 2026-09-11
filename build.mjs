@@ -33,6 +33,7 @@ import {
   bondingPage,
   veneersPage,
   implantsCostPage,
+  hollywoodSmilePage,
 } from "./src/templates/pages.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -190,6 +191,10 @@ function build() {
     // Dental implants cost landing — DE/EN only (query: Zahnimplantate Türkei Kosten / dental implants turkey cost)
     if (lang === "de") emit(lang, "zahnimplantate-tuerkei-kosten/", implantsCostPage(lang));
     if (lang === "en") emit(lang, "dental-implants-turkey-cost/", implantsCostPage(lang));
+
+    // Hollywood Smile package landing — DE/EN only
+    if (lang === "de") emit(lang, "hollywood-smile-tuerkei-paket/", hollywoodSmilePage(lang));
+    if (lang === "en") emit(lang, "hollywood-smile-turkey-package/", hollywoodSmilePage(lang));
   }
 
   writeSitemap();

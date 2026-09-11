@@ -737,6 +737,125 @@ export function veneersPage(lang) {
   };
 }
 
+/** Hollywood Smile package commercial landing — DE (`hollywood-smile-tuerkei-paket/`) + EN (`hollywood-smile-turkey-package/`). */
+export function hollywoodSmilePage(lang) {
+  const t = i18n[lang];
+  const p = t.hollywoodPage;
+  if (!p) {
+    throw new Error(`hollywoodPage copy missing for lang=${lang}`);
+  }
+  const slug = lang === "de" ? "hollywood-smile-tuerkei-paket/" : "hollywood-smile-turkey-package/";
+  const crumbs = [crumbHome(lang), { name: p.eyebrow, href: url(lang, slug) }];
+  const faqItem = (f) =>
+    `<div class="faq-item" data-faq-item><button class="faq-q" data-faq-toggle><span>${f.q}</span><span class="faq-icon"><span class="minus">${miniMinus}</span><span class="plus">${miniPlus}</span></span></button><div class="faq-a"><p style="margin:0;">${f.a}</p></div></div>`;
+  const steps = (p.steps || [])
+    .map(
+      (s, i) => `<div style="display:flex;gap:14px;margin:0 0 16px;">
+      <div style="flex:0 0 28px;height:28px;border-radius:50%;background:var(--burgundy);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;">${i + 1}</div>
+      <div><div style="font-weight:700;margin:0 0 4px;">${s.t}</div><p style="margin:0;color:var(--muted);font-size:15px;line-height:1.55;">${s.d}</p></div>
+    </div>`
+    )
+    .join("");
+  const prosList = (p.pros || []).map((x) => `<li style="margin:0 0 8px;">${x}</li>`).join("");
+  const consList = (p.cons || []).map((x) => `<li style="margin:0 0 8px;">${x}</li>`).join("");
+
+  const hollywoodPkg = packages.find((pk) => pk.key === "hollywood");
+  const packageItems = hollywoodPkg ? L(hollywoodPkg.items, lang) : [];
+  const packageItemsList = packageItems.map((x) => `<li style="margin:0 0 8px;">${x}</li>`).join("");
+
+  const hollywoodPrice = priceCalc.find((i) => i.key === "hollywood");
+  const unitLabel = (qty) => (lang === "de" ? "Zähne" : "teeth");
+  const priceTable = hollywoodPrice
+    ? `<div style="overflow-x:auto;border-radius:16px;border:1px solid rgba(43,35,24,.1);">
+    <table style="width:100%;border-collapse:collapse;font-size:15px;">
+      <thead><tr style="background:var(--cream-2);">
+        <th style="text-align:left;padding:14px 18px;font-weight:700;color:var(--ink);">${t.pricesPage.tableTreatment}</th>
+        <th style="text-align:right;padding:14px 18px;font-weight:700;color:var(--ink);">${t.pricesPage.tablePrice}</th>
+      </tr></thead>
+      <tbody>
+        ${hollywoodPrice.options
+          .map(
+            (opt, i) => `<tr style="${i % 2 ? "background:var(--cream);" : ""}border-top:1px solid rgba(43,35,24,.08);">
+          <td style="padding:14px 18px;color:var(--ink-soft);">${opt.qty} ${unitLabel(opt.qty)}</td>
+          <td style="padding:14px 18px;text-align:right;font-weight:700;color:var(--ink);">€${opt.price.toLocaleString("de-DE")}</td>
+        </tr>`
+          )
+          .join("")}
+      </tbody>
+    </table>
+  </div>`
+    : "";
+
+  const geoSlug = lang === "de" ? "hollywood-smile-paket-istanbul" : "hollywood-smile-package-istanbul";
+  const veneersSlug = lang === "de" ? "porzellan-veneers-istanbul" : "veneers-turkey";
+  const bondingSlug = lang === "de" ? "composite-bonding-tuerkei" : "composite-bonding-turkey";
+  const riskHref = url("en", "geo/turkey-teeth-what-they-are-and-how-to-avoid-problems/");
+  const publishedAt = "2026-09-11";
+  const updatedAt = "2026-09-11";
+  const pageUrl = site.domain + url(lang, slug);
+  const caseImage = img.cases.find((c) => c.file === "jun-8-3.jpg");
+
+  const body = `${pageHero(lang, p.eyebrow, p.h1, p.lead, crumbs)}
+  <section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">
+    ${reviewedByBlock(lang)}
+    ${caseImage ? caseImageBlock(caseImage.file, p.caseImageAlt || L(caseImage.label, lang)) : ""}
+    <h2 style="font-size:22px;margin:0 0 14px;">${p.introTitle}</h2>
+    <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0 0 28px;">${p.introText}</p>
+    <h2 style="font-size:22px;margin:0 0 14px;">${p.packageItemsTitle}</h2>
+    <ul style="font-size:15.5px;line-height:1.7;color:var(--muted);padding-left:20px;margin:0 0 28px;">${packageItemsList}</ul>
+    <h2 style="font-size:24px;margin:0 0 20px;">${p.tableTitle}</h2>
+    ${priceTable}
+  </div></section>
+  <section class="section section-alt"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:22px;margin:0 0 18px;">${p.stepsTitle}</h2>
+    ${steps}
+  </div></section>
+  <section class="section"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:22px;margin:0 0 18px;">${p.prosConsTitle}</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;margin:0 0 28px;">
+      <div><ul style="font-size:15px;line-height:1.65;color:var(--muted);padding-left:20px;margin:0;">${prosList}</ul></div>
+      <div><ul style="font-size:15px;line-height:1.65;color:var(--muted);padding-left:20px;margin:0;">${consList}</ul></div>
+    </div>
+    <h2 style="font-size:22px;margin:0 0 14px;">${p.risksTitle}</h2>
+    <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0 0 14px;">${p.risksText}</p>
+    <p style="margin:0 0 28px;"><a href="${riskHref}" class="link-more">${p.riskLinkLabel} ${icons.arrowSm}</a></p>
+    <h2 style="font-size:22px;margin:0 0 14px;">${p.aftercareTitle}</h2>
+    <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0;">${p.aftercareText}</p>
+    <p style="margin:20px 0 0;"><a href="${url(lang, "geo/" + geoSlug + "/")}" class="link-more">${p.geoLinkLabel} ${icons.arrowSm}</a>
+    · <a href="${url(lang, veneersSlug + "/")}" class="link-more">${p.veneersLinkLabel} ${icons.arrowSm}</a>
+    · <a href="${url(lang, bondingSlug + "/")}" class="link-more">${p.bondingLinkLabel} ${icons.arrowSm}</a></p>
+  </div></section>
+  ${priceCalcSection(lang)}
+  ${xraySection(lang)}
+  ${brandsSection(lang)}
+  <section class="section section-alt"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:24px;margin:0 0 20px;">${p.faqTitle}</h2>
+    <div class="faq" data-reveal>${p.faqs.map(faqItem).join("")}</div>
+  </div></section>
+  ${contactSection(lang)}`;
+
+  return {
+    body,
+    title: `${p.h1} — ${site.brand}`,
+    description: p.lead,
+    publishedTime: publishedAt,
+    modifiedTime: updatedAt,
+    jsonld: [
+      orgSchema(lang),
+      faqSchema(p.faqs),
+      landingArticleSchema({
+        lang,
+        pageUrl,
+        headline: p.h1,
+        description: p.lead,
+        publishedAt,
+        updatedAt,
+      }),
+      breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
+    ],
+  };
+}
+
 // Reviews
 export function reviewsPage(lang) {
   const t = i18n[lang];
