@@ -205,3 +205,18 @@ Protokol: ~1 saat kesintisiz; yeşil bölgede onay beklemeden; kırmızı kuyru�
 **Doğrulama**
 - Build 300 sayfa (314−14). Unique blog’lar (bonding-vs-veneers, all-on-4, hollywood) duruyor.
 
+
+### İş kalemi — Conversion: calc + form situations (2026-09-11)
+
+**Durum:** PR  
+**Branch:** `feat/calc-form-situations`
+
+**Ne yaptım**
+- Hesaplayıcıya durum: priced / existing implants / not sure / photos+X-ray.
+- Photos → WhatsApp CTA; diğerleri → iletişim + on-request plan.
+- İletişim select: existing implants, not sure plan, photos, failed veneers, bridge vs implant + foto ipucu.
+- EN/DE/FR calc + 6 dil formSituations.
+
+**Neden**
+- Nicole tipi lead “hiçbiri bana uymadı” → form artık o vakaları yakalıyor.
+
