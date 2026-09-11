@@ -1,15 +1,20 @@
 # Katman A — uretim. Haftalik icerik uretir ve PR ACAR. main'e YAZMAZ, DEPLOY ETMEZ.
 # Deploy tek yerde: deploy.yml (main'e merge sonrasi).
 #
-# Akis: Pzt 06:00 UTC -> generate -> lint (yumusak) -> branch -> Draft PR
-#       -> content-lint.yml PR'da sert kapiyi calistirir
-#       -> hekim onayi -> merge -> deploy.yml
+# DURDURULDU (2026-09-11): schedule tetigi kaldirildi — sadece workflow_dispatch.
+# Neden: Draft PR'lar merge edilmeden her hafta ayni TR iskelet icerigi
+# yeniden uretiliyordu; hreflang kaydi yoktu; seffaf-plak GEO gibi ticari
+# sorgular mevcut hizmet sayfalariyla yamyamlik riski tasiyordu.
+# Yeniden acmadan once: seo/AUTOMATION-RULES.md maddelerinin TAMAMI
+# (kod + checklist) saglanmis olmali. Kurallar yazilmadan / lint RED ile
+# PR acan uretim geri gelmeyecek.
+#
+# Eski akis (pasif): Pzt 06:00 UTC -> generate -> lint (yumusak) -> Draft PR
+#       -> content-lint.yml PR'da sert kapi -> hekim onayi -> merge -> deploy.yml
 
 name: Weekly content (PR)
 
 on:
-  schedule:
-    - cron: "0 6 * * 1"
   workflow_dispatch:
     inputs:
       blog:
@@ -89,6 +94,7 @@ jobs:
           - [ ] Hekim tibbi onayi (rakam / sure / endikasyon satirlari)
           - [ ] TR yasal kontrol (garanti, fiyat, hasta yorumu, oncesi-sonrasi yok)
           - [ ] author / reviewer / reviewedAt dolduruldu
+          - [ ] seo/AUTOMATION-RULES.md kontrol listesi
 
           Lint raporu asagida; RED kalirsa merge edilemez.
           EOF
