@@ -1,6 +1,6 @@
 import { site } from "../data/site.mjs";
 import { i18n } from "../data/i18n.mjs";
-import { services, doctors, serviceFallback, priceCalc } from "../data/content.mjs";
+import { services, doctors, serviceFallback, priceCalc, packages } from "../data/content.mjs";
 import { img } from "../data/images.mjs";
 import { serviceFaqs } from "../data/seo.mjs";
 import { L, langBCP47, uiBits } from "../data/locale.mjs";
@@ -30,39 +30,33 @@ const reviewedByLabel = {
   ru: "Медицинская проверка",
 };
 
-const viewProfileLabel = { tr: "Doktor profilini gör", en: "View doctor profile", de: "Zum Ärzteprofil", fr: "Voir le profil du médecin" };
+const reviewerPlaceholder = {
+  tr: "[DOLDUR: kontrol eden hekim adı ve unvanı]",
+  en: "[DOLDUR: kontrol eden hekim adı ve unvanı]",
+  de: "[DOLDUR: kontrol eden hekim adı ve unvanı]",
+  fr: "[DOLDUR: kontrol eden hekim adı ve unvanı]",
+};
 
-/** Find a doctor by slug (content.mjs `doctors`). Returns null if not found — never fabricate a name. */
-function findDoctor(slug) {
-  return doctors.find((d) => d.slug === slug) || null;
-}
+// NOTE: content.mjs `doctors` names (Ahmet Çelik, Elif Kara, Can Yıldız, Aslı Yılmaz) are NOT
+// verified real-world identities — repo history shows them rewritten multiple times by prior
+// agent commits (placeholder photos removed, names renamed twice within the same session on
+// 2026-07-29: fac6648 "remove all doctor profiles (placeholder names removed)" → 6702dfd
+// "replace doctor names, remove all photos" → 0862595 "rename: Faruk → Dr. Ahmet Çelik, Nilüfer
+// → Dr. Aslı Yılmaz"). Do not surface these names as reviewers/authors until confirmed by the
+// clinic. Landing pages show a [DOLDUR] placeholder instead; schema author/publisher stays the
+// Organization node only (no invented Person).
 
-/** Visible "medically reviewed by <real doctor>" block, linking to their real doctor page — no headshot (none on file). */
-function reviewedByBlock(lang, doctorSlug) {
-  const doctor = findDoctor(doctorSlug);
-  if (!doctor) return "";
-  return `<p style="font-size:13.5px;color:var(--muted-2);margin:0 0 24px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-    <span>${reviewedByLabel[lang] || reviewedByLabel.en}: <strong style="color:var(--ink-soft);">${doctor.name}</strong> — ${L(doctor.titles, lang)}</span>
-    <a href="${url(lang, "doktorlar/" + doctor.slug + "/")}" class="link-more" style="font-size:13px;">${L(viewProfileLabel, lang)} ${icons.arrowSm}</a>
+/** Visible "medically reviewed by [DOLDUR]" placeholder block — no doctor name until verified (see note above). */
+function reviewedByBlock(lang) {
+  return `<p style="font-size:13.5px;color:var(--muted-2);margin:0 0 24px;">
+    ${reviewedByLabel[lang] || reviewedByLabel.en}: <strong style="color:var(--ink-soft);">${reviewerPlaceholder[lang] || reviewerPlaceholder.en}</strong>
   </p>`;
 }
 
-/** Person schema node for a real doctor (content.mjs `doctors`), for Article authorship/reviewedBy. */
-function doctorPersonSchema(lang, doctorSlug) {
-  const doctor = findDoctor(doctorSlug);
-  if (!doctor) return null;
+/** Article schema for a commercial landing page. Author/publisher is the Organization only — no
+ * Person/reviewedBy until a real reviewing doctor is confirmed (see note above `reviewedByBlock`). */
+function landingArticleSchema({ lang, pageUrl, headline, description, image, publishedAt, updatedAt }) {
   return {
-    "@type": "Person",
-    name: doctor.name,
-    jobTitle: L(doctor.titles, lang),
-    url: site.domain + url(lang, "doktorlar/" + doctor.slug + "/"),
-  };
-}
-
-/** Article schema for a commercial landing page, with a real reviewing doctor (never invented). */
-function landingArticleSchema({ lang, pageUrl, headline, description, image, doctorSlug, publishedAt, updatedAt }) {
-  const reviewer = doctorPersonSchema(lang, doctorSlug);
-  const node = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline,
@@ -71,13 +65,11 @@ function landingArticleSchema({ lang, pageUrl, headline, description, image, doc
     inLanguage: langBCP47[lang] || "en-US",
     datePublished: publishedAt,
     dateModified: updatedAt || publishedAt,
-    author: reviewer || { "@id": site.domain + "/#organization" },
+    author: { "@id": site.domain + "/#organization" },
     publisher: { "@id": site.domain + "/#organization" },
     mainEntityOfPage: pageUrl,
     url: pageUrl,
   };
-  if (reviewer) node.reviewedBy = reviewer;
-  return node;
 }
 
 /** Real, topic-labelled case photo (src/data/images.mjs `img.cases`) — never a stock/unrelated image. */
@@ -602,14 +594,13 @@ export function implantsCostPage(lang) {
     .map((l) => `<a href="${l.href}" class="btn btn-ghost" style="padding:10px 16px;">${l.label}</a>`)
     .join("");
 
-  const reviewerSlug = "dr-ahmet-celik";
   const publishedAt = "2026-09-11";
   const updatedAt = "2026-09-11";
   const pageUrl = site.domain + url(lang, slug);
 
   const body = `${pageHero(lang, p.eyebrow, p.h1, p.lead, crumbs)}
   <section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">
-    ${reviewedByBlock(lang, reviewerSlug)}
+    ${reviewedByBlock(lang)}
     <h2 style="font-size:22px;margin:0 0 14px;">${p.introTitle}</h2>
     <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0 0 28px;">${p.introText}</p>
     <h2 style="font-size:24px;margin:0 0 20px;">${p.tableTitle}</h2>
@@ -650,7 +641,6 @@ export function implantsCostPage(lang) {
         pageUrl,
         headline: p.h1,
         description: p.lead,
-        doctorSlug: reviewerSlug,
         publishedAt,
         updatedAt,
       }),
@@ -684,7 +674,6 @@ export function veneersPage(lang) {
   const bondingSlug = lang === "de" ? "composite-bonding-tuerkei" : "composite-bonding-turkey";
   const compareBlogSlug = lang === "de" ? "bonding-vs-veneers-istanbul" : "dental-bonding-vs-veneers-istanbul";
   const riskHref = url("en", "geo/turkey-teeth-what-they-are-and-how-to-avoid-problems/");
-  const reviewerSlug = "dr-elif-kara";
   const publishedAt = "2026-09-11";
   const updatedAt = "2026-09-11";
   const pageUrl = site.domain + url(lang, slug);
@@ -692,7 +681,7 @@ export function veneersPage(lang) {
 
   const body = `${pageHero(lang, p.eyebrow, p.h1, p.lead, crumbs)}
   <section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">
-    ${reviewedByBlock(lang, reviewerSlug)}
+    ${reviewedByBlock(lang)}
     ${caseImage ? caseImageBlock(caseImage.file, p.caseImageAlt || L(caseImage.label, lang)) : ""}
     <h2 style="font-size:22px;margin:0 0 14px;">${p.introTitle}</h2>
     <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0 0 28px;">${p.introText}</p>
@@ -740,7 +729,6 @@ export function veneersPage(lang) {
         pageUrl,
         headline: p.h1,
         description: p.lead,
-        doctorSlug: reviewerSlug,
         publishedAt,
         updatedAt,
       }),
