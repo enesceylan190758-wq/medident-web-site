@@ -30,33 +30,204 @@ const reviewedByLabel = {
   ru: "Медицинская проверка",
 };
 
-const reviewerPlaceholder = {
-  tr: "[DOLDUR: kontrol eden hekim adı ve unvanı]",
-  en: "[DOLDUR: kontrol eden hekim adı ve unvanı]",
-  de: "[DOLDUR: kontrol eden hekim adı ve unvanı]",
-  fr: "[DOLDUR: kontrol eden hekim adı ve unvanı]",
-};
+/** Clinic-confirmed reviewing doctor for commercial DE/EN landings (filled 2026-09-11). */
+const reviewingDoctor = doctors.find((d) => d.slug === "dr-ahmet-celik");
 
-// NOTE: content.mjs `doctors` names (Ahmet Çelik, Elif Kara, Can Yıldız, Aslı Yılmaz) are NOT
-// verified real-world identities — repo history shows them rewritten multiple times by prior
-// agent commits (placeholder photos removed, names renamed twice within the same session on
-// 2026-07-29: fac6648 "remove all doctor profiles (placeholder names removed)" → 6702dfd
-// "replace doctor names, remove all photos" → 0862595 "rename: Faruk → Dr. Ahmet Çelik, Nilüfer
-// → Dr. Aslı Yılmaz"). Do not surface these names as reviewers/authors until confirmed by the
-// clinic. Landing pages show a [DOLDUR] placeholder instead; schema author/publisher stays the
-// Organization node only (no invented Person).
-
-/** Visible "medically reviewed by [DOLDUR]" placeholder block — no doctor name until verified (see note above). */
+/** Visible "medically reviewed by …" block with confirmed doctor name + title. */
 function reviewedByBlock(lang) {
+  if (!reviewingDoctor) return "";
+  const title = (reviewingDoctor.titles && (reviewingDoctor.titles[lang] || reviewingDoctor.titles.en)) || "";
+  const href = url(lang, "doktorlar/" + reviewingDoctor.slug + "/");
+  const label = reviewedByLabel[lang] || reviewedByLabel.en;
   return `<p style="font-size:13.5px;color:var(--muted-2);margin:0 0 24px;">
-    ${reviewedByLabel[lang] || reviewedByLabel.en}: <strong style="color:var(--ink-soft);">${reviewerPlaceholder[lang] || reviewerPlaceholder.en}</strong>
+    ${label}: <a href="${href}" style="color:var(--ink-soft);font-weight:700;text-decoration:underline;">${reviewingDoctor.name}</a>${title ? ` <span style="font-weight:500;">· ${title}</span>` : ""}
   </p>`;
 }
 
-/** Article schema for a commercial landing page. Author/publisher is the Organization only — no
- * Person/reviewedBy until a real reviewing doctor is confirmed (see note above `reviewedByBlock`). */
+
+/** Shared UI chrome for rich commercial landings (DE/EN). */
+function landingUi(lang) {
+  const t = i18n[lang] || i18n.en;
+  return (
+    t.landingUi || {
+      resultsEyebrow: "Results",
+      resultsTitle: "Real patient outcomes",
+      resultsLead: "Drag to compare before and after, then browse more cases.",
+      galleryTitle: "More real cases",
+      compareTitle: "Cost comparison",
+      compareHome: "At home (private)",
+      compareHere: "MediDent Istanbul",
+      tripTitle: "Your trip at a glance",
+      inclusionsTitle: "What’s included",
+      doctorTitle: "Clinical review",
+      ctaTitle: "Free photo assessment",
+      ctaLead: "Send photos or an X-ray on WhatsApp — get a written plan before you book flights.",
+      ctaWa: "WhatsApp assessment",
+      ctaForm: "Contact form",
+      dragHint: "Drag to compare",
+    }
+  );
+}
+
+function landingCtaBand(lang) {
+  const ui = landingUi(lang);
+  const wa = waHref(
+    lang === "de"
+      ? "Hallo, ich möchte eine kostenlose Foto-/Röntgen-Einschätzung."
+      : "Hello, I’d like a free photo / X-ray assessment."
+  );
+  return `<section class="section" style="padding-top:8px;padding-bottom:8px;"><div class="container" style="max-width:960px;">
+    <div data-reveal style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;padding:22px 24px;border-radius:20px;background:linear-gradient(135deg,var(--ink),#3a2f24);color:#fff;">
+      <div style="flex:1;min-width:220px;">
+        <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;opacity:.72;font-weight:700;margin:0 0 6px;">${ui.ctaTitle}</div>
+        <p style="margin:0;font-size:15.5px;line-height:1.5;opacity:.92;">${ui.ctaLead}</p>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;">
+        <a href="${wa}" target="_blank" rel="noopener" class="btn" style="background:#25D366;color:#fff;">${icons.wa || ""} ${ui.ctaWa}</a>
+        <a href="${url(lang, "iletisim/")}" class="btn btn-ghost" style="border-color:rgba(255,255,255,.35);color:#fff;">${ui.ctaForm}</a>
+      </div>
+    </div>
+  </div></section>`;
+}
+
+function landingBaSection(lang) {
+  const t = i18n[lang];
+  const ui = landingUi(lang);
+  return `<section class="section section-alt"><div class="container">
+    <div class="grid-2" style="grid-template-columns:.92fr 1.08fr;gap:clamp(28px,4vw,48px);align-items:center;">
+      <div>
+        <div class="eyebrow" data-reveal>${ui.resultsEyebrow}</div>
+        <h2 data-reveal style="margin:0 0 12px;">${ui.resultsTitle}</h2>
+        <p class="lead" data-reveal style="margin:0 0 18px;">${ui.resultsLead}</p>
+      </div>
+      <div data-reveal>
+        <div class="ba" data-ba>
+          <img src="${src(img.after)}" alt="${t.after}">
+          <img class="ba-before" src="${src(img.before)}" alt="${t.before}">
+          <span class="ba-label before">${t.before}</span>
+          <span class="ba-label after">${t.after}</span>
+          <div class="ba-handle"><div class="ba-knob"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 8L6 12l3.5 4M14.5 8l3.5 4-3.5 4"></path></svg></div></div>
+        </div>
+        <p style="text-align:center;font-size:13px;color:var(--muted-2);margin:14px 0 0;">${ui.dragHint || t.drag}</p>
+      </div>
+    </div>
+  </div></section>`;
+}
+
+function landingCasesStrip(lang, preferredFiles = []) {
+  const ui = landingUi(lang);
+  const t = i18n[lang];
+  const preferred = preferredFiles
+    .map((f) => (img.cases || []).find((c) => c.file === f))
+    .filter(Boolean);
+  const rest = (img.cases || []).filter((c) => !preferred.some((p) => p.file === c.file));
+  const list = [...preferred, ...rest].slice(0, 4);
+  if (!list.length) return "";
+  const cards = list
+    .map((c) => {
+      const label = (c.label && (c.label[lang] || c.label.en || c.label.tr)) || "";
+      const href = src(c.file);
+      return `<button data-reveal data-lightbox-src="${href}" class="case-card">
+        <img src="${href}" alt="${label} — ${site.brand}" loading="lazy">
+        <div class="shade"></div>
+        <span class="case-badge">${t.before} &amp; ${t.after}</span>
+        <span class="case-title">${label}</span>
+      </button>`;
+    })
+    .join("");
+  return `<section class="section" style="padding-top:0;"><div class="container">
+    <h2 data-reveal style="font-size:22px;margin:0 0 18px;">${ui.galleryTitle}</h2>
+    <div class="case-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">${cards}</div>
+  </div></section>`;
+}
+
+function landingCompareTable(lang, rows = []) {
+  if (!rows.length) return "";
+  const ui = landingUi(lang);
+  const body = rows
+    .map(
+      (r, i) => `<tr style="${i % 2 ? "background:var(--cream);" : ""}border-top:1px solid rgba(43,35,24,.08);">
+      <td style="padding:14px 16px;color:var(--ink-soft);font-weight:600;">${r.item}</td>
+      <td style="padding:14px 16px;color:var(--muted);">${r.home}</td>
+      <td style="padding:14px 16px;font-weight:700;color:var(--ink);">${r.here}</td>
+    </tr>`
+    )
+    .join("");
+  return `<section class="section section-alt"><div class="container" style="max-width:900px;">
+    <h2 data-reveal style="font-size:22px;margin:0 0 16px;">${ui.compareTitle}</h2>
+    <div data-reveal style="overflow-x:auto;border-radius:16px;border:1px solid rgba(43,35,24,.1);">
+      <table style="width:100%;border-collapse:collapse;font-size:15px;">
+        <thead><tr style="background:var(--cream-2);">
+          <th style="text-align:left;padding:14px 16px;"></th>
+          <th style="text-align:left;padding:14px 16px;">${ui.compareHome}</th>
+          <th style="text-align:left;padding:14px 16px;">${ui.compareHere}</th>
+        </tr></thead>
+        <tbody>${body}</tbody>
+      </table>
+    </div>
+  </div></section>`;
+}
+
+function landingTripTimeline(lang, stages = []) {
+  if (!stages.length) return "";
+  const ui = landingUi(lang);
+  const cards = stages
+    .map(
+      (s, i) => `<div class="step" data-reveal style="padding:22px;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+        <span class="step-n">${i + 1}</span>
+        <span style="flex:1;height:1px;background:linear-gradient(90deg,var(--gold),transparent);"></span>
+      </div>
+      <h3 style="font-size:17px;margin:0 0 6px;">${s.t}</h3>
+      <p style="font-size:14px;line-height:1.55;color:var(--muted);margin:0 0 8px;">${s.d}</p>
+      ${s.meta ? `<div style="font-size:13px;font-weight:700;color:var(--burgundy);">${s.meta}</div>` : ""}
+    </div>`
+    )
+    .join("");
+  return `<section class="section"><div class="container" style="max-width:960px;">
+    <h2 data-reveal style="font-size:22px;margin:0 0 18px;">${ui.tripTitle}</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;">${cards}</div>
+  </div></section>`;
+}
+
+function landingInclusions(lang, items = []) {
+  if (!items.length) return "";
+  const ui = landingUi(lang);
+  const list = items
+    .map(
+      (x) => `<li style="display:flex;gap:10px;align-items:flex-start;margin:0 0 10px;">
+      <span style="flex:0 0 22px;height:22px;border-radius:50%;background:rgba(37,99,80,.12);color:var(--burgundy);display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;">✓</span>
+      <span style="font-size:15px;line-height:1.5;color:var(--ink-soft);">${x}</span>
+    </li>`
+    )
+    .join("");
+  return `<div data-reveal class="pkg" style="padding:22px 24px;margin:0 0 28px;">
+    <h3 style="margin:0 0 14px;font-size:18px;">${ui.inclusionsTitle}</h3>
+    <ul class="pkg-list" style="list-style:none;padding:0;margin:0;">${list}</ul>
+  </div>`;
+}
+
+function landingDoctorCard(lang) {
+  if (!reviewingDoctor) return "";
+  const ui = landingUi(lang);
+  const title = (reviewingDoctor.titles && (reviewingDoctor.titles[lang] || reviewingDoctor.titles.en)) || "";
+  const href = url(lang, "doktorlar/" + reviewingDoctor.slug + "/");
+  const bio = (reviewingDoctor.bio && (reviewingDoctor.bio[lang] || reviewingDoctor.bio.en)) || "";
+  return `<div data-reveal class="doctor-card" style="display:flex;gap:16px;align-items:flex-start;padding:18px 20px;margin:0 0 28px;border-radius:18px;border:1px solid rgba(43,35,24,.1);background:var(--cream);">
+    <div style="flex:0 0 56px;height:56px;border-radius:50%;background:var(--burgundy);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;">AC</div>
+    <div>
+      <div style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted-2);font-weight:700;margin:0 0 4px;">${ui.doctorTitle}</div>
+      <a href="${href}" style="font-weight:800;color:var(--ink);text-decoration:none;font-size:16px;">${reviewingDoctor.name}</a>
+      <div style="font-size:13.5px;color:var(--muted);margin:4px 0 8px;">${title}</div>
+      <p style="margin:0;font-size:14px;line-height:1.55;color:var(--muted-2);">${bio}</p>
+    </div>
+  </div>`;
+}
+
+
+/** Article schema for a commercial landing page — Organization author + confirmed reviewing doctor. */
 function landingArticleSchema({ lang, pageUrl, headline, description, image, publishedAt, updatedAt }) {
-  return {
+  const schema = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline,
@@ -70,6 +241,16 @@ function landingArticleSchema({ lang, pageUrl, headline, description, image, pub
     mainEntityOfPage: pageUrl,
     url: pageUrl,
   };
+  if (reviewingDoctor) {
+    const title = (reviewingDoctor.titles && (reviewingDoctor.titles[lang] || reviewingDoctor.titles.en)) || "";
+    schema.reviewedBy = {
+      "@type": "Person",
+      name: reviewingDoctor.name,
+      ...(title ? { jobTitle: title } : {}),
+      url: site.domain + url(lang, "doktorlar/" + reviewingDoctor.slug + "/"),
+    };
+  }
+  return schema;
 }
 
 /** Real, topic-labelled case photo (src/data/images.mjs `img.cases`) — never a stock/unrelated image. */
@@ -599,14 +780,19 @@ export function implantsCostPage(lang) {
   const pageUrl = site.domain + url(lang, slug);
 
   const body = `${pageHero(lang, p.eyebrow, p.h1, p.lead, crumbs)}
+  ${landingCtaBand(lang)}
   <section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">
-    ${reviewedByBlock(lang)}
+    ${landingDoctorCard(lang)}
     <h2 style="font-size:22px;margin:0 0 14px;">${p.introTitle}</h2>
     <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0 0 28px;">${p.introText}</p>
     <h2 style="font-size:24px;margin:0 0 20px;">${p.tableTitle}</h2>
     ${priceTable}
     <p style="font-size:13px;color:var(--muted-2);margin:16px 0 0;">${p.priceNote}</p>
   </div></section>
+  ${landingBaSection(lang)}
+  ${landingCasesStrip(lang, ["aug-17-2.jpg", "sep-27-3.jpg", "jun-8-3.jpg"])}
+  ${landingCompareTable(lang, p.compareRows || [])}
+  ${landingTripTimeline(lang, p.tripStages || [])}
   <section class="section section-alt"><div class="container" style="max-width:820px;">
     <h2 style="font-size:22px;margin:0 0 18px;">${p.stepsTitle}</h2>
     ${steps}
@@ -625,6 +811,7 @@ export function implantsCostPage(lang) {
     <h2 style="font-size:24px;margin:0 0 20px;">${p.faqTitle}</h2>
     <div class="faq" data-reveal>${p.faqs.map(faqItem).join("")}</div>
   </div></section>
+  ${landingCtaBand(lang)}
   ${contactSection(lang)}`;
 
   return {
@@ -680,16 +867,22 @@ export function veneersPage(lang) {
   const caseImage = img.cases.find((c) => c.file === "sep-27-3.jpg");
 
   const body = `${pageHero(lang, p.eyebrow, p.h1, p.lead, crumbs)}
+  ${landingCtaBand(lang)}
   <section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">
-    ${reviewedByBlock(lang)}
+    ${landingDoctorCard(lang)}
     ${caseImage ? caseImageBlock(caseImage.file, p.caseImageAlt || L(caseImage.label, lang)) : ""}
     <h2 style="font-size:22px;margin:0 0 14px;">${p.introTitle}</h2>
     <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0 0 28px;">${p.introText}</p>
+    ${landingInclusions(lang, p.inclusions || [])}
     <h2 style="font-size:22px;margin:0 0 18px;">${p.stepsTitle}</h2>
     ${steps}
     <p style="font-size:15px;line-height:1.62;color:var(--muted);margin:24px 0 0;">${p.travelNote}</p>
     <p style="font-size:13px;color:var(--muted-2);margin:16px 0 0;">${p.priceNote}</p>
   </div></section>
+  ${landingBaSection(lang)}
+  ${landingCasesStrip(lang, ["sep-27-3.jpg", "jun-8-3.jpg", "jul-27-3.jpg"])}
+  ${landingCompareTable(lang, p.compareRows || [])}
+  ${landingTripTimeline(lang, p.tripStages || [])}
   <section class="section section-alt"><div class="container" style="max-width:820px;">
     <h2 style="font-size:22px;margin:0 0 18px;">${p.prosConsTitle}</h2>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;">
@@ -714,6 +907,7 @@ export function veneersPage(lang) {
     <h2 style="font-size:24px;margin:0 0 20px;">${p.faqTitle}</h2>
     <div class="faq" data-reveal>${p.faqs.map(faqItem).join("")}</div>
   </div></section>
+  ${landingCtaBand(lang)}
   ${contactSection(lang)}`;
   return {
     body,
@@ -796,16 +990,22 @@ export function hollywoodSmilePage(lang) {
   const caseImage = img.cases.find((c) => c.file === "jun-8-3.jpg");
 
   const body = `${pageHero(lang, p.eyebrow, p.h1, p.lead, crumbs)}
+  ${landingCtaBand(lang)}
   <section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">
-    ${reviewedByBlock(lang)}
+    ${landingDoctorCard(lang)}
     ${caseImage ? caseImageBlock(caseImage.file, p.caseImageAlt || L(caseImage.label, lang)) : ""}
     <h2 style="font-size:22px;margin:0 0 14px;">${p.introTitle}</h2>
     <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0 0 28px;">${p.introText}</p>
+    ${landingInclusions(lang, p.inclusions || [])}
     <h2 style="font-size:22px;margin:0 0 14px;">${p.packageItemsTitle}</h2>
     <ul style="font-size:15.5px;line-height:1.7;color:var(--muted);padding-left:20px;margin:0 0 28px;">${packageItemsList}</ul>
     <h2 style="font-size:24px;margin:0 0 20px;">${p.tableTitle}</h2>
     ${priceTable}
   </div></section>
+  ${landingBaSection(lang)}
+  ${landingCasesStrip(lang, ["jun-8-3.jpg", "sep-27-3.jpg", "jul-27-3.jpg"])}
+  ${landingCompareTable(lang, p.compareRows || [])}
+  ${landingTripTimeline(lang, p.tripStages || [])}
   <section class="section section-alt"><div class="container" style="max-width:820px;">
     <h2 style="font-size:22px;margin:0 0 18px;">${p.stepsTitle}</h2>
     ${steps}
@@ -832,6 +1032,7 @@ export function hollywoodSmilePage(lang) {
     <h2 style="font-size:24px;margin:0 0 20px;">${p.faqTitle}</h2>
     <div class="faq" data-reveal>${p.faqs.map(faqItem).join("")}</div>
   </div></section>
+  ${landingCtaBand(lang)}
   ${contactSection(lang)}`;
 
   return {
@@ -890,14 +1091,20 @@ export function allOn4Page(lang) {
   const xrayImg = i18n[lang].xray || i18n.en.xray;
 
   const body = `${pageHero(lang, p.eyebrow, p.h1, p.lead, crumbs)}
+  ${landingCtaBand(lang)}
   <section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">
-    ${reviewedByBlock(lang)}
+    ${landingDoctorCard(lang)}
     ${caseImageBlock("xray-example-allonx.jpg", p.caseImageAlt || xrayImg.exampleAlt)}
     <h2 style="font-size:22px;margin:0 0 14px;">${p.introTitle}</h2>
     <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0 0 28px;">${p.introText}</p>
+    ${landingInclusions(lang, p.inclusions || [])}
     <h2 style="font-size:22px;margin:0 0 14px;">${p.priceTitle}</h2>
     <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0;">${p.priceText}</p>
   </div></section>
+  ${landingBaSection(lang)}
+  ${landingCasesStrip(lang, ["aug-17-2.jpg", "jun-8-3.jpg", "jul-27-3.jpg"])}
+  ${landingCompareTable(lang, p.compareRows || [])}
+  ${landingTripTimeline(lang, p.tripStages || [])}
   <section class="section section-alt"><div class="container" style="max-width:820px;">
     <h2 style="font-size:22px;margin:0 0 18px;">${p.stepsTitle}</h2>
     ${steps}
@@ -924,6 +1131,7 @@ export function allOn4Page(lang) {
     <h2 style="font-size:24px;margin:0 0 20px;">${p.faqTitle}</h2>
     <div class="faq" data-reveal>${p.faqs.map(faqItem).join("")}</div>
   </div></section>
+  ${landingCtaBand(lang)}
   ${contactSection(lang)}`;
 
   return {
