@@ -39,12 +39,11 @@ const reviewerPlaceholder = {
 
 // NOTE: content.mjs `doctors` names (Ahmet Çelik, Elif Kara, Can Yıldız, Aslı Yılmaz) are NOT
 // verified real-world identities — repo history shows them rewritten multiple times by prior
-// agent commits (placeholder photos removed, names renamed twice within the same session on
-// 2026-07-29: fac6648 "remove all doctor profiles (placeholder names removed)" → 6702dfd
-// "replace doctor names, remove all photos" → 0862595 "rename: Faruk → Dr. Ahmet Çelik, Nilüfer
-// → Dr. Aslı Yılmaz"). Do not surface these names as reviewers/authors until confirmed by the
-// clinic. Landing pages show a [DOLDUR] placeholder instead; schema author/publisher stays the
-// Organization node only (no invented Person).
+// agent commits within the same session on 2026-07-29 (placeholder photos removed, then the
+// doctor roster renamed twice over — commits fac6648, 6702dfd, 0862595). The earlier names from
+// that history are intentionally not repeated here; do not surface any doctor name as a
+// reviewer/author until confirmed by the clinic. Landing pages show a [DOLDUR] placeholder
+// instead; schema author/publisher stays the Organization node only (no invented Person).
 
 /** Visible "medically reviewed by [DOLDUR]" placeholder block — no doctor name until verified (see note above). */
 function reviewedByBlock(lang) {
