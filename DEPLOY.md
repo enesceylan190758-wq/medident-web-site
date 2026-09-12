@@ -130,6 +130,21 @@ Turhost panel → **FTP Hesapları** → bilgileri al:
 1. Eski WP’yi `public_html/wordpress-eski/` altına taşı
 2. `dist/` **içeriğini** (klasörün kendisini değil) `public_html/` köküne yükle
 
+### Yöntem D — repo script'leri (upload-html.py, upload-pages.py, upload-all-imgs.py, enable-router.py, deploy-ftp.py)
+
+Bu script'ler FTP bilgilerini **koddan değil**, ortam değişkenlerinden okur —
+biri eksikse script açık bir hatayla durur, sessizce yanlış/varsayılan bir
+sunucuya bağlanmaz.
+
+```bash
+cp .env.example .env      # bir kez — gerçek FTP_PASS'i .env'e gir
+set -a && source .env && set +a
+python3 scripts/upload-html.py
+```
+
+`.env` asla commit edilmez (`.gitignore`'da). Turhost şifresi değiştiğinde
+sadece `.env`'i güncellemeniz yeterli, script'lere dokunmanız gerekmez.
+
 ### Yöntem C — Hazır zip (repo script)
 
 ```bash

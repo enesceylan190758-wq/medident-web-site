@@ -3,11 +3,23 @@
 from __future__ import annotations
 
 import ftplib
+import os
 import subprocess
+import sys
 import time
 from pathlib import Path
 
-HOST, USER, PW = "ftp.medidentistanbul.com", "medident", "kAx#5YC#8u1Jn4"
+
+def _require_env(name: str) -> str:
+    value = os.environ.get(name)
+    if not value:
+        sys.exit(f"{name} ortam değişkeni gerekli — export {name}=... ile ayarlayın.")
+    return value
+
+
+HOST = _require_env("FTP_HOST")
+USER = _require_env("FTP_USER")
+PW = _require_env("FTP_PASS")
 DIST = Path("/workspace/dist")
 
 
