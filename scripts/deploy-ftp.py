@@ -7,9 +7,16 @@ import time
 import urllib.request
 from pathlib import Path
 
-HOST = os.environ.get("FTP_HOST", "94.199.205.197")
-USER = os.environ.get("FTP_USER", "medident")
-PASS = os.environ.get("FTP_PASSWORD", "")
+def _require_env(name: str) -> str:
+    value = os.environ.get(name)
+    if not value:
+        sys.exit(f"{name} ortam değişkeni gerekli — export {name}=... ile ayarlayın.")
+    return value
+
+
+HOST = _require_env("FTP_HOST")
+USER = _require_env("FTP_USER")
+PASS = _require_env("FTP_PASS")
 REMOTE = "public_html"
 DIST = Path(__file__).resolve().parents[1] / "dist"
 TMP_NAME = "_md"
@@ -80,9 +87,6 @@ def deploy_file(rel: str):
 
 
 def main():
-    if not PASS:
-        print("FTP_PASSWORD required", file=sys.stderr)
-        return 1
     files = sorted(p.relative_to(DIST).as_posix() for p in DIST.rglob("*") if p.is_file())
     print(f"Deploying {len(files)} files...")
     for i, rel in enumerate(files, 1):
