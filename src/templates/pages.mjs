@@ -662,10 +662,44 @@ export function pricesPage(lang) {
 
   const faqItem = (f) => `<div class="faq-item" data-faq-item><button class="faq-q" data-faq-toggle><span>${f.q}</span><span class="faq-icon"><span class="minus">${miniMinus}</span><span class="plus">${miniPlus}</span></span></button><div class="faq-a"><p style="margin:0;">${f.a}</p></div></div>`;
 
+  const compareTable =
+    lang === "de" && p.compareRows
+      ? `<div style="overflow-x:auto;border-radius:16px;border:1px solid rgba(43,35,24,.1);">
+    <table style="width:100%;border-collapse:collapse;font-size:14.5px;">
+      <thead><tr style="background:var(--cream-2);">
+        <th style="text-align:left;padding:14px 16px;font-weight:700;color:var(--ink);">${p.compareTreatment}</th>
+        <th style="text-align:right;padding:14px 16px;font-weight:700;color:var(--ink);">${p.compareTurkey}</th>
+        <th style="text-align:right;padding:14px 16px;font-weight:700;color:var(--ink);">${p.compareGermany}</th>
+        <th style="text-align:right;padding:14px 16px;font-weight:700;color:var(--ink);">${p.compareSavings}</th>
+      </tr></thead>
+      <tbody>
+        ${p.compareRows
+          .map(
+            (r, i) => `<tr style="${i % 2 ? "background:var(--cream);" : ""}border-top:1px solid rgba(43,35,24,.08);">
+          <td style="padding:12px 16px;color:var(--ink-soft);">${r.treatment}</td>
+          <td style="padding:12px 16px;text-align:right;font-weight:700;color:var(--ink);">${r.turkey}</td>
+          <td style="padding:12px 16px;text-align:right;color:var(--muted-2);">${r.germany}</td>
+          <td style="padding:12px 16px;text-align:right;font-weight:700;color:var(--red);">${r.savings}</td>
+        </tr>`
+          )
+          .join("")}
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:12.5px;color:var(--muted-2);margin:14px 0 0;">${p.compareFootnote}</p>`
+      : "";
+
   const body = `${pageHero(lang, p.eyebrow, p.h1, p.lead, crumbs)}
   <section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">
     <h2 style="font-size:24px;margin:0 0 20px;">${p.tableTitle}</h2>
     ${table}
+    ${
+      compareTable
+        ? `<h2 style="font-size:24px;margin:36px 0 12px;">${p.compareTitle}</h2>
+    <p style="font-size:15px;line-height:1.6;color:var(--muted);margin:0 0 20px;">${p.compareIntro}</p>
+    ${compareTable}`
+        : ""
+    }
   </div></section>
   ${priceCalcSection(lang)}
   ${xraySection(lang)}

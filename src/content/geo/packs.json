@@ -1699,6 +1699,10 @@
     ],
     "internal_links": [
       {
+        "href": "/de/preise/",
+        "label": "Preisvergleich Türkei vs. Deutschland"
+      },
+      {
         "href": "/de/zahnimplantate-tuerkei-kosten/",
         "label": "Zahnimplantate Türkei: Kosten 2026"
       },
@@ -1735,7 +1739,7 @@
     "source": "ende-tourism-pack",
     "metaDescription": "Zahnarzt Türkei: Ablauf, Vor-/Nachteile, Krankenkasse, Finanzierung und Zertifizierung — was Patienten aus Deutschland vor der Buchung wissen müssen.",
     "author": "MediDent Istanbul Clinical Team",
-    "updatedAt": "2026-09-11",
+    "updatedAt": "2026-09-14",
     "sections": [
       {
         "h2": "Krankenkasse: Übernimmt sie die Kosten?",
@@ -1755,6 +1759,13 @@
         "paragraphs": [
           "Seriöse Kliniken in der Türkei verfügen über eine Sağlık Turizmi Yetki Belgesi (Gesundheitstourismus-Zulassung) des türkischen Gesundheitsministeriums — das ist das relevante offizielle Zertifikat für internationale Patienten, nicht eine deutsche TÜV-Prüfung, die es für Zahnkliniken in der Türkei nicht gibt.",
           "Fragen Sie zusätzlich vor der Buchung nach dem vollständigen Namen und der Approbation des behandelnden Zahnarztes sowie nach der verwendeten Implantat- oder Keramikmarke — schriftlich, nicht nur mündlich."
+        ]
+      },
+      {
+        "h2": "Preisvergleich: Türkei vs. Deutschland",
+        "paragraphs": [
+          "Bei den meisten Behandlungen liegt die Ersparnis gegenüber privaten Zahnarztpraxen in Deutschland bei rund 50–80 % — je nach Behandlung und Praxis. Zum Beispiel: eine Zirkonkrone kostet bei MediDent Istanbul ab 200 € (Deutschland-Richtwert: 600–900 €), ein Zahnimplantat ab 400 € (Deutschland-Richtwert: 1.500–2.000 €).",
+          "Die vollständige Preistabelle mit Deutschland-Vergleich finden Sie auf unserer Preise-Seite."
         ]
       },
       {
