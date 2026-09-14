@@ -258,6 +258,53 @@ function caseImageBlock(file, alt) {
   return `<figure style="margin:0 0 28px;"><img src="${src(file)}" alt="${alt}" width="960" height="640" loading="lazy" style="width:100%;height:auto;border-radius:16px;display:block;"></figure>`;
 }
 
+const geoConversionCopy = {
+  en: {
+    eyebrow: "Real MediDent Istanbul prices",
+    items: [
+      { amount: "€400", label: "per dental implant" },
+      { amount: "€1,600", label: "8 zirconia crowns" },
+      { amount: "€3,200", label: "Hollywood Smile, 16 teeth" },
+    ],
+    waLabel: "Send photos on WhatsApp",
+    waMessage: "Hello, I'd like a free photo assessment and price quote.",
+    priceListLabel: "See the full price list",
+    priceListHref: "turkey-teeth-price/",
+  },
+  de: {
+    eyebrow: "Reale MediDent Istanbul Preise",
+    items: [
+      { amount: "400 €", label: "pro Zahnimplantat" },
+      { amount: "1.600 €", label: "8 Zirkonkronen" },
+      { amount: "3.200 €", label: "Hollywood Smile, 16 Zähne" },
+    ],
+    waLabel: "Fotos per WhatsApp senden",
+    waMessage: "Hallo, ich möchte eine kostenlose Foto-Einschätzung und ein Preisangebot.",
+    priceListLabel: "Zur vollständigen Preisliste",
+    priceListHref: "preise/",
+  },
+};
+
+/** Above-the-fold price glance + WhatsApp CTA for a high-traffic, low-conversion GEO page.
+ * Real numbers only, pulled from the same priceCalc figures used sitewide — never invented. */
+function geoConversionBand(lang) {
+  const c = geoConversionCopy[lang] || geoConversionCopy.en;
+  const wa = waHref(c.waMessage);
+  const stats = c.items
+    .map(
+      (it) => `<div><div style="font-size:21px;font-weight:800;color:var(--ink);">${it.amount}</div><div style="font-size:13px;color:var(--muted-2);">${it.label}</div></div>`
+    )
+    .join("");
+  return `<div style="margin:22px 0 34px;padding:22px 24px;border-radius:18px;background:var(--cream-2);border:1px solid rgba(43,35,24,.08);">
+    <div style="font-size:12.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--gold-ink);margin:0 0 14px;">${c.eyebrow}</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:14px;margin:0 0 20px;">${stats}</div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;">
+      <a href="${wa}" class="btn" style="background:#25D366;color:#fff;" target="_blank" rel="noopener">${icons.wa} ${c.waLabel}</a>
+      <a href="${url(lang, c.priceListHref)}" class="btn btn-ghost">${c.priceListLabel}</a>
+    </div>
+  </div>`;
+}
+
 function pageHero(lang, eyebrow, title, lead, crumbs) {
   return `<section class="page-hero"><div class="container">
     ${breadcrumb(lang, crumbs)}
@@ -1309,11 +1356,13 @@ export function geoPackPage(lang, pack) {
       ${cover}
       ${byline}
       <p><strong>${pack.direct_answer}</strong></p>
+      ${pack.showConversionBand ? geoConversionBand(lang) : ""}
       <h2>${keyPointsHeading[lang] || keyPointsHeading.en}</h2>
       <ul>${(pack.bullets || []).map((b) => `<li>${b}</li>`).join("")}</ul>
       ${sectionsHtml}
       <h2>${faqHeading[lang] || faqHeading.en}</h2>
       ${(pack.faq || []).map((f) => `<h3>${f.q}</h3><p>${f.a}</p>`).join("")}
+      ${pack.showConversionBand ? geoConversionBand(lang) : ""}
       <div style="margin-top:28px;display:flex;flex-wrap:wrap;gap:10px;">${links}</div>
     </article>
   </div></section>`;

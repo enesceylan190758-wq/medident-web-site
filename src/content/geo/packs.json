@@ -2787,7 +2787,8 @@
     "updatedAt": "2026-09-11",
     "source": "turkey-teeth-trust-page",
     "reviewer": "Dr. Ahmet Çelik",
-    "reviewedAt": "2026-09-11"
+    "reviewedAt": "2026-09-11",
+    "showConversionBand": true
   },
   {
     "lang": "tr",
