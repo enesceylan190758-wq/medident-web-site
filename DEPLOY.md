@@ -179,7 +179,6 @@ Require all denied
 | Eski | Yeni |
 |------|------|
 | `/oral-implantoloji/` | `/hizmetler/oral-implantoloji/` |
-| `/dr-faruk-ogutlu/` | `/doktorlar/dr-faruk-ogutlu/` |
 | `/musteri-yorumlari/` | `/yorumlar/` |
 | `/foto-galeri/` | `/galeri/` |
 | `/ss/` | `/sss/` |
