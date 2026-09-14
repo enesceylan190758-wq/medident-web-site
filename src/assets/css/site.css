@@ -266,6 +266,13 @@ em {
   align-items: center;
 }
 
+/* Grid items default to min-width:auto, which floors a 1fr track at its
+   content's min-content size (e.g. a <select>'s longest option) and can
+   force the whole document wider than the viewport on mobile. */
+.grid-2 > * {
+  min-width: 0;
+}
+
 .grid-auto {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(258px, 1fr));
@@ -328,9 +335,14 @@ em {
   margin: 0 auto;
 }
 
+.logo {
+  flex-shrink: 0;
+}
+
 .logo img {
   height: 44px;
   width: auto;
+  flex-shrink: 0;
 }
 
 .nav {
@@ -1385,8 +1397,12 @@ textarea:focus {
   .burger {
     display: inline-flex;
   }
+  /* !important: many .grid-2 usages set their desktop column ratio via an
+     inline style attribute (e.g. style="grid-template-columns:1fr 1.06fr"),
+     which otherwise defeats this rule on every viewport since inline styles
+     always outrank a plain class selector regardless of media query. */
   .grid-2 {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
   }
   .float-card.top-left,
   .float-card.bottom-right {
@@ -1403,6 +1419,14 @@ textarea:focus {
 @media (max-width: 620px) {
   .form-grid {
     grid-template-columns: 1fr;
+  }
+  /* Frees the header for the logo — the same language switcher is already
+     duplicated in the mobile menu (.mobile-panel), so nothing is lost. */
+  .header-inner .lang-switch {
+    display: none;
+  }
+  .logo img {
+    height: 34px;
   }
   .hide-sm {
     display: none !important;
