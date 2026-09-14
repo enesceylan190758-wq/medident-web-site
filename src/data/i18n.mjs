@@ -930,11 +930,24 @@ export const i18n = {
     },
     pricesPage: {
       eyebrow: "Preise 2026",
-      h1: "Zahnbehandlung Istanbul: Implantate, Zirkonkronen & Zahnersatz Preise",
-      lead: "Transparente MediDent Istanbul Preise für Patienten aus DE/AT/CH — ohne versteckte Kosten. Unten die Zahlen oder Rechner für ein persönliches Angebot.",
+      h1: "Zahnbehandlung Türkei vs. Deutschland: Preise & Ersparnis 2026",
+      lead: "Transparente MediDent Istanbul Preise für Patienten aus DE/AT/CH — ohne versteckte Kosten. Unten die Zahlen, der Deutschland-Vergleich oder der Rechner für ein persönliches Angebot.",
       tableTitle: "Vollständige Preisliste",
       tableTreatment: "Behandlung",
       tablePrice: "Preis",
+      compareTitle: "Türkei vs. Deutschland: was Sie sparen",
+      compareIntro: "Richtwerte für private Zahnarztpraxen in Deutschland — Ihr tatsächliches Angebot vor Ort kann je nach Praxis und Region abweichen. Die MediDent-Preise sind unsere echte, aktuelle Preisliste.",
+      compareTreatment: "Behandlung",
+      compareTurkey: "MediDent Istanbul",
+      compareGermany: "Deutschland (Richtwert, privat)",
+      compareSavings: "Ersparnis",
+      compareRows: [
+        { treatment: "Zirkonkrone (pro Zahn)", turkey: "ab 200 €", germany: "600–900 €", savings: "bis zu ~75 %" },
+        { treatment: "Zahnimplantat (Implantatkörper)", turkey: "ab 400 €", germany: "1.500–2.000 €", savings: "bis zu ~75 %" },
+        { treatment: "Hollywood Smile (16 Zähne)", turkey: "ab 3.200 €", germany: "15.000–25.000 €", savings: "bis zu ~80 %" },
+        { treatment: "Composite Bonding (pro Zahn)", turkey: "ab 110 €", germany: "150–300 €", savings: "bis zu ~50 %" },
+      ],
+      compareFootnote: "Deutschland-Richtwerte basieren auf marktüblichen, öffentlich bekannten Durchschnittspreisen privater Zahnarztpraxen — keine Einzelangebote einer bestimmten Praxis. MediDent-Preise sind unsere reale Preisliste; Ihr persönliches Angebot folgt nach einer kostenlosen Foto-Einschätzung.",
       faqTitle: "Häufige Fragen zu Zahnbehandlung-Preisen in der Türkei",
       faqs: [
         {
