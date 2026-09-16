@@ -2265,3 +2265,319 @@ export function beforeYouBookCrownsVsVeneersPage(lang) {
     ],
   };
 }
+
+export function beforeYouBookGuaranteePage(lang) {
+  const crumbs = [
+    crumbHome(lang),
+    beforeYouBookCrumb(lang),
+    { name: "Guarantee and what happens if something fails", href: url(lang, "before-you-book/guarantee-and-what-happens-if-something-fails/") },
+  ];
+
+  const faqs = [
+    { q: "Are Turkish dental guarantees enforceable?", a: "They are contracts under Turkish law. Their practical value depends on how specific they are and whether the clinic still exists. A written, itemised document is worth considerably more than a verbal promise." },
+    { q: "Does the guarantee cover flights back?", a: "Usually not — check before you book, because this is what determines whether you can actually use it." },
+    { q: "What voids a dental guarantee?", a: "Commonly trauma, smoking after implants, missed recall visits, not wearing a prescribed night guard, and poor oral hygiene." },
+    { q: "What if the clinic closes?", a: "You have no remedy against a closed business. Clinic longevity is a reasonable thing to weigh." },
+  ];
+  const faqItem = (f) =>
+    `<div class="faq-item" data-faq-item><button class="faq-q" data-faq-toggle><span>${f.q}</span><span class="faq-icon"><span class="minus">${miniMinus}</span><span class="plus">${miniPlus}</span></span></button><div class="faq-a"><p style="margin:0;">${f.a}</p></div></div>`;
+
+  // OPS NOTE: the source draft's "Our terms" table + travel/claim-process copy is marked
+  // TASLAK (draft) in the delivered content and explicitly requires legal review + Enes's
+  // sign-off before anything is stated as a real commitment ("Kliniğin fiilen ödemeyeceği
+  // hiçbir şart burada yazmamalı"). Kept out of the live page — wrapped below — until that
+  // approval happens. The surrounding educational content (how to read a guarantee, what
+  // "lifetime" means) does not make any clinic-specific commitment and is safe to publish.
+  const draftTermsSection = `
+  <!-- OPS NOTE: DRAFT — needs legal review + Enes's approval before publishing as a real
+       commitment. Source: content/before-you-book/pages/09-guarantee.md, "Our terms" table.
+  <h2>Our terms</h2>
+  <table>
+    <thead><tr><th>Item</th><th>Period</th><th>Covered</th><th>Not covered</th></tr></thead>
+    <tbody>
+      <tr><td>Implant fixture</td><td>10 years</td><td>Failure to integrate or loss of the fixture: replacement fixture and the surgery to place it, at no charge</td><td>Failure caused by smoking, uncontrolled systemic disease, trauma, or missed recall visits</td></tr>
+      <tr><td>Implant-supported crown or bridge</td><td>5 years</td><td>Fracture, debonding, or loss of fit not caused by trauma: remake at no charge</td><td>Trauma, bruxism where a prescribed night guard was not worn, poor hygiene</td></tr>
+      <tr><td>Zirconia crown</td><td>5 years</td><td>Fracture or ceramic failure under normal function: remake at no charge</td><td>Trauma, bruxism without night guard, decay at the margin from poor hygiene</td></tr>
+      <tr><td>E.max crown / veneer</td><td>3 years</td><td>Fracture or debonding under normal function: remake at no charge</td><td>Trauma, bruxism without night guard, biting non-food objects</td></tr>
+      <tr><td>Composite bonding</td><td>1 year</td><td>Chipping or debonding under normal function: repair at no charge</td><td>Normal wear and staining, which are expected and are repaired as routine maintenance</td></tr>
+      <tr><td>Removable prosthesis</td><td>2 years</td><td>Fracture of the base or teeth under normal function</td><td>Relines and adjustments required by normal bone resorption</td></tr>
+    </tbody>
+  </table>
+  Conditions required: hygiene visit every 6 months (with receipt/record), night guard worn where
+  prescribed, one radiographic review per year for implant cases (sent for remote review), no
+  smoking for 3 months after implant surgery.
+  Travel: revision treatment itself free within the periods above; flights/accommodation to
+  receive it are {{onayla — öneri: revizyon için gelen hastaya konaklama ve havaalanı transferi
+  klinik tarafından karşılanır; uçuş hastaya ait}}.
+  Claim process: email {{aftercare e-posta adresi}} with photographs and, where relevant, a
+  recent radiograph from your local dentist; response within 3 working days; remote assessment
+  first; decision in writing.
+  -->`;
+
+  const body = `${pageHero(lang, "Before You Book", "The guarantee — what it covers, and who pays", "", crumbs)}
+  <section class="section" style="padding-top:clamp(30px,4vw,48px);"><div class="container" style="max-width:820px;">
+    <article class="prose">
+      <p>"Lifetime guarantee" appears on a great many Turkish clinic websites. Read the document behind the phrase and it frequently excludes the things that actually fail, or requires you to fund your own return trip to claim it. A guarantee you cannot afford to use is marketing.</p>
+      <p>Here is how to read one, and what ours says.</p>
+
+      <h2>The eight questions that expose a weak guarantee</h2>
+      <p><strong>1. What exactly is covered — the ceramic, the implant fixture, or the whole restoration?</strong> Many guarantees cover only the implant fixture (which rarely fails) and not the crown on top of it (which is what actually breaks). Manufacturer implant warranties typically replace the component only, not the surgery or the restoration.</p>
+      <p><strong>2. How long, per item?</strong> Implants, crowns, veneers, bridges and dentures usually carry different periods. A single "lifetime" number covering all of them is a sign nobody has read it.</p>
+      <p><strong>3. Who pays for the revision treatment?</strong></p>
+      <p><strong>4. Who pays for flights and accommodation to receive it?</strong> This is the question that decides whether the guarantee is usable. If the answer is "the patient", a £300 crown remake costs you £700.</p>
+      <p><strong>5. What voids it?</strong> Standard and reasonable exclusions: trauma, not wearing the night guard, missing recall appointments, smoking after implant placement, poor hygiene. Unreasonable: any exclusion so broad that the clinic can always invoke it.</p>
+      <p><strong>6. What evidence must you supply?</strong> Typically proof of hygiene visits and recalls. Know this before you fly home, not after — you cannot retrospectively produce a year of records.</p>
+      <p><strong>7. How is a claim made, and in what timeframe must they respond?</strong></p>
+      <p><strong>8. Is the treatment covered by a third-party medical malpractice insurance, and in which jurisdiction can you bring a claim?</strong> Turkish clinics operate under Turkish law. Ask, and get the answer in writing.</p>
+
+      <h2>What "lifetime" actually means</h2>
+      <p>Nothing in dentistry lasts a lifetime. Crowns and veneers have a normal service life, after which they are replaced; implants can integrate for decades but their restorations do not. A clinic promising a lifetime guarantee on ceramics is either redefining "lifetime" in the small print or has not thought about it. Be more reassured by a clinic that says "five years, here is precisely what that includes" than by one that says "forever" and hands you nothing to read.</p>
+      ${draftTermsSection}
+      <h2>If a clinic will not give you the document</h2>
+      <p>Then the guarantee does not exist in any enforceable form. This is item 9 of <a href="${url(lang, "before-you-book/turkey-dentist-red-flags/")}">the red flags</a>, and it is one of the few that should end the conversation on its own.</p>
+    </article>
+  </div></section>
+  <section class="section section-alt"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:24px;margin:0 0 20px;">${faqHeading[lang] || faqHeading.en}</h2>
+    <div class="faq" data-reveal>${faqs.map(faqItem).join("")}</div>
+  </div></section>
+  ${contactSection(lang)}`;
+
+  return {
+    body,
+    title: "Dental Guarantee in Turkey: What It Covers and Who Pays",
+    description:
+      "Most Turkish dental guarantees exclude the failures most likely to happen. How to read one, what to demand in writing, and what ours actually says.",
+    ogType: "article",
+    jsonld: [
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: "The guarantee — what it covers, and who pays",
+        description:
+          "Most Turkish dental guarantees exclude the failures most likely to happen. How to read one, what to demand in writing, and what ours actually says.",
+        inLanguage: langBCP47[lang] || "en-US",
+        publisher: { "@id": site.domain + "/#organization" },
+        mainEntityOfPage: site.domain + url(lang, "before-you-book/guarantee-and-what-happens-if-something-fails/"),
+      },
+      faqSchema(faqs),
+      breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: c.url || site.domain + c.href }))),
+    ],
+  };
+}
+
+export function beforeYouBookQuestionsPage(lang) {
+  const crumbs = [
+    crumbHome(lang),
+    beforeYouBookCrumb(lang),
+    { name: "21 questions to ask before you pay a deposit", href: url(lang, "before-you-book/questions-to-ask-before-you-pay-a-deposit/") },
+  ];
+
+  const groups = [
+    {
+      name: "Diagnosis",
+      items: [
+        "What is your diagnosis, and what did you base it on?",
+        "Will you need X-rays before finalising the plan, and does the plan change if they show something different? (Expect: yes, and yes.)",
+        "Which of my teeth are healthy, and which are already compromised?",
+        "What is causing the problem I came to you with? (A plan that treats appearance without naming a cause is a shopping list.)",
+      ],
+    },
+    {
+      name: "The treatment itself",
+      items: [
+        "How much tooth structure will be removed, per tooth, in millimetres?",
+        "What is the least invasive option that would give an acceptable result, and why have you not recommended it?",
+        "Will any teeth be root-treated or extracted? Why?",
+        "What is the alternative if I refuse crowns?",
+        "Will I see a trial smile or mock-up before anything irreversible is done?",
+      ],
+    },
+    {
+      name: "People",
+      items: [
+        "Which dentist will treat me — full name and registration?",
+        "What is their specialty and how long have they practised it?",
+        "Will one dentist do all of it, or several? Who does the surgery, who does the prosthetics?",
+        "Can I speak to the treating dentist directly before I book? (Refusal here is disqualifying.)",
+      ],
+    },
+    {
+      name: "Materials",
+      items: [
+        "Which implant system — manufacturer and product line?",
+        "Which ceramic — brand, type, and which lab?",
+        "Will I receive implant passports and lot documentation on discharge?",
+      ],
+    },
+    {
+      name: "Money",
+      items: [
+        "Please send the itemised plan with the total, and list explicitly what is not included.",
+        "What are the most common additional costs that arise after arrival, and how much are they?",
+        "What is the deposit, is it refundable, and under what conditions?",
+      ],
+    },
+    {
+      name: "Afterwards",
+      items: [
+        "Send me the guarantee document. Who pays for revision treatment, and who pays for travel to receive it?",
+        "What is the aftercare protocol, who do I contact from my country, and what will my dentist at home receive?",
+      ],
+    },
+  ];
+  const questions = groups.flatMap((g) => g.items);
+
+  const faqs = [
+    { q: "What if a clinic refuses to answer some of these?", a: "Note which ones. The pattern of refusals usually maps exactly to where the weakness is." },
+    { q: "Is it rude to send 21 questions?", a: "No. It is a permanent medical decision involving a few thousand pounds and an international flight." },
+    { q: "Which question matters most?", a: "Number 6 — the least invasive option, and why it was rejected." },
+  ];
+  const faqItem = (f) =>
+    `<div class="faq-item" data-faq-item><button class="faq-q" data-faq-toggle><span>${f.q}</span><span class="faq-icon"><span class="minus">${miniMinus}</span><span class="plus">${miniPlus}</span></span></button><div class="faq-a"><p style="margin:0;">${f.a}</p></div></div>`;
+
+  let counter = 0;
+  const groupHtml = groups
+    .map(
+      (g) => `<h2>${g.name}</h2>
+      <ol start="${counter + 1}">
+        ${g.items.map((it) => { counter += 1; return `<li>${it}</li>`; }).join("\n        ")}
+      </ol>`
+    )
+    .join("\n      ");
+
+  const body = `${pageHero(lang, "Before You Book", "21 questions to ask before you pay a deposit", "", crumbs)}
+  <section class="section" style="padding-top:clamp(30px,4vw,48px);"><div class="container" style="max-width:820px;">
+    <article class="prose">
+      <p>Copy these into the chat window. Send all of them at once — how a clinic handles a long list of direct questions tells you as much as the answers do. A good clinic answers in a day. A sales operation answers the easy ones and ignores the rest.</p>
+      ${groupHtml}
+
+      <h2>How to read the answers</h2>
+      <ul>
+        <li><strong>Speed matters less than specificity.</strong> "Straumann BLX, 4.1 × 10 mm" is an answer. "Premium Swiss implant" is not.</li>
+        <li><strong>A clinic that says "we'll confirm after the X-rays"</strong> is being careful, not evasive. That is a good sign.</li>
+        <li><strong>Any question ignored twice</strong> has been answered.</li>
+        <li><strong>Discomfort at question 6 or 8</strong> is the most informative reaction on this list. A clinician confident in their plan explains why the conservative option falls short. A salesperson gets defensive.</li>
+      </ul>
+
+      <h2>Ask us</h2>
+      <p>We will answer all 21 in writing before you pay anything. So should anyone else. <a href="${url(lang, "before-you-book/check-my-turkey-dental-quote/")}">Send them with your quote →</a></p>
+    </article>
+  </div></section>
+  <section class="section section-alt"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:24px;margin:0 0 20px;">${faqHeading[lang] || faqHeading.en}</h2>
+    <div class="faq" data-reveal>${faqs.map(faqItem).join("")}</div>
+  </div></section>
+  ${contactSection(lang)}`;
+
+  return {
+    body,
+    title: "21 Questions to Ask Before You Pay a Dental Deposit in Turkey",
+    description:
+      "A printable list of the questions that separate a clinic from a sales operation — with the answers you should expect. Ask us the same ones.",
+    ogType: "article",
+    jsonld: [
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: "21 questions to ask before you pay a deposit",
+        description:
+          "A printable list of the questions that separate a clinic from a sales operation — with the answers you should expect. Ask us the same ones.",
+        inLanguage: langBCP47[lang] || "en-US",
+        publisher: { "@id": site.domain + "/#organization" },
+        mainEntityOfPage: site.domain + url(lang, "before-you-book/questions-to-ask-before-you-pay-a-deposit/"),
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        name: "21 questions to ask before you pay a dental deposit in Turkey",
+        step: questions.map((q) => ({ "@type": "HowToStep", text: q })),
+      },
+      faqSchema(faqs),
+      breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: c.url || site.domain + c.href }))),
+    ],
+  };
+}
+
+export function beforeYouBookWhenNotToComePage(lang) {
+  const crumbs = [
+    crumbHome(lang),
+    beforeYouBookCrumb(lang),
+    { name: "When you should not come to Turkey", href: url(lang, "before-you-book/when-you-should-not-come-to-turkey/") },
+  ];
+
+  const faqs = [
+    { q: "Do you turn patients away?", a: "Yes — the categories above." },
+    { q: "Can I come later if I fix the problem?", a: "In most cases yes. Treated gum disease, controlled diabetes and stopping smoking all change the answer." },
+    { q: "Is dental tourism worth it for one crown?", a: "Generally no, once travel is counted." },
+  ];
+  const faqItem = (f) =>
+    `<div class="faq-item" data-faq-item><button class="faq-q" data-faq-toggle><span>${f.q}</span><span class="faq-icon"><span class="minus">${miniMinus}</span><span class="plus">${miniPlus}</span></span></button><div class="faq-a"><p style="margin:0;">${f.a}</p></div></div>`;
+
+  const body = `${pageHero(lang, "Before You Book", "When you should not come to Turkey for dental treatment", "", crumbs)}
+  <section class="section" style="padding-top:clamp(30px,4vw,48px);"><div class="container" style="max-width:820px;">
+    <article class="prose">
+      <p>We run a dental clinic in Istanbul and we are about to spend a page telling you not to come. Not as a technique — these are the cases where travelling produces worse outcomes than treatment at home, and we decline them.</p>
+
+      <h2>1. You have active gum disease that has not been treated</h2>
+      <p>Restorations placed on an unstable periodontal foundation fail, regardless of how good the ceramics are. Periodontal treatment takes months of staged care and re-evaluation. That is not a trip; it is a relationship with a local clinician. Treat it at home. Come afterwards, if you still want to.</p>
+
+      <h2>2. Your case genuinely needs 6–12 months of staged treatment</h2>
+      <p>Orthodontics before restoration. Grafting that needs healing before implants. Full-mouth rehabilitation with progressive changes to the bite. These can be done with two or three trips, but if your budget or leave allows only one, you will be offered a compressed version — and the compressed version is how bad outcomes happen.</p>
+
+      <h2>3. You have an unstable medical condition</h2>
+      <p>Uncontrolled diabetes, recent cardiac events, bisphosphonate or antiresorptive therapy, immunosuppression, active cancer treatment, or any condition requiring close medical supervision. Surgery abroad puts distance between you and the physician who manages you. Some of these are absolute contraindications for implants; all of them need your own doctor's involvement, not a phone call from another country.</p>
+
+      <h2>4. You smoke heavily and want implants</h2>
+      <p>Smoking substantially raises early implant failure and peri-implantitis risk. If you are not going to stop around the surgical period, spend the money on something that does not depend on bone healing. We would rather say this now than remove a failed implant later.</p>
+
+      <h2>5. Your real problem is not your teeth</h2>
+      <p>Some patients arrive with teeth within normal aesthetic range and a conviction that something is deeply wrong with them. Irreversible cosmetic dentistry does not resolve that, and repeated treatment tends to make it worse. If you have had several cosmetic procedures and none has felt right, please do not have another one until you have talked it through with someone who is not selling you anything.</p>
+
+      <h2>6. You cannot arrange aftercare at home</h2>
+      <p>If you have no dentist, cannot get one, and cannot travel back, you are acquiring restorations you cannot maintain. Sort the maintenance first — <a href="${url(lang, "before-you-book/aftercare-after-turkey-teeth/")}">the aftercare page</a> explains what is needed and how to arrange it.</p>
+
+      <h2>7. You cannot afford the revision</h2>
+      <p>Budget for your case going imperfectly. Revision, a second trip, an unexpected root canal. If the quoted price is the absolute maximum you can spend and there is nothing behind it, the financial risk is higher than the clinical one.</p>
+
+      <h2>8. You are being rushed — by a clinic or by yourself</h2>
+      <p>A discount expiring on Friday, a flight already booked, a wedding in six weeks. Permanent decisions made against a deadline are the ones people regret. The price will be approximately the same next quarter.</p>
+
+      <h2>9. Your treatment is straightforward and cheap at home</h2>
+      <p>A single crown, one filling, a scale and polish. Once you add flights and hotel, there is no saving and you have introduced distance into your aftercare for no reason. Dental tourism makes sense for multi-unit and complex work. For small treatment, it does not.</p>
+
+      <h2>If none of these apply to you</h2>
+      <p>Then Turkey is a reasonable option and the question becomes which clinic, not which country. Start with <a href="${url(lang, "before-you-book/turkey-dentist-red-flags/")}">the red flags</a>, <a href="${url(lang, "before-you-book/how-to-verify-a-turkish-dental-clinic/")}">how to verify a clinic</a>, and send us whatever quote you are holding — <a href="${url(lang, "before-you-book/check-my-turkey-dental-quote/")}">we will review it free</a>.</p>
+
+      <h2>And if one of these does apply</h2>
+      <p>Tell us anyway. We will say so plainly and, where we can, tell you what to ask for at home. We would rather lose the booking than take it.</p>
+    </article>
+  </div></section>
+  <section class="section section-alt"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:24px;margin:0 0 20px;">${faqHeading[lang] || faqHeading.en}</h2>
+    <div class="faq" data-reveal>${faqs.map(faqItem).join("")}</div>
+  </div></section>
+  ${contactSection(lang)}`;
+
+  return {
+    body,
+    title: "When You Should NOT Come to Turkey for Dental Treatment",
+    description:
+      "An Istanbul clinic's list of the cases we decline or advise to treat at home. If you are on this list, have the treatment where you live.",
+    ogType: "article",
+    jsonld: [
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: "When you should not come to Turkey for dental treatment",
+        description:
+          "An Istanbul clinic's list of the cases we decline or advise to treat at home. If you are on this list, have the treatment where you live.",
+        inLanguage: langBCP47[lang] || "en-US",
+        publisher: { "@id": site.domain + "/#organization" },
+        mainEntityOfPage: site.domain + url(lang, "before-you-book/when-you-should-not-come-to-turkey/"),
+      },
+      faqSchema(faqs),
+      breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: c.url || site.domain + c.href }))),
+    ],
+  };
+}

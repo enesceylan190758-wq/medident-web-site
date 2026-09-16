@@ -44,6 +44,9 @@ import {
   beforeYouBookAftercarePage,
   beforeYouBookGoneWrongPage,
   beforeYouBookCrownsVsVeneersPage,
+  beforeYouBookGuaranteePage,
+  beforeYouBookQuestionsPage,
+  beforeYouBookWhenNotToComePage,
 } from "./src/templates/pages.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -221,6 +224,9 @@ function build() {
       emit(lang, "before-you-book/aftercare-after-turkey-teeth/", beforeYouBookAftercarePage(lang));
       emit(lang, "before-you-book/turkey-teeth-gone-wrong/", beforeYouBookGoneWrongPage(lang));
       emit(lang, "before-you-book/crowns-vs-veneers-what-you-actually-need/", beforeYouBookCrownsVsVeneersPage(lang));
+      emit(lang, "before-you-book/guarantee-and-what-happens-if-something-fails/", beforeYouBookGuaranteePage(lang));
+      emit(lang, "before-you-book/questions-to-ask-before-you-pay-a-deposit/", beforeYouBookQuestionsPage(lang));
+      emit(lang, "before-you-book/when-you-should-not-come-to-turkey/", beforeYouBookWhenNotToComePage(lang));
     }
   }
 
