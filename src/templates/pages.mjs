@@ -1440,6 +1440,7 @@ export function beforeYouBookHubPage(lang) {
     <article class="prose">
       <p>Most pages you will read on this subject were written by a clinic that wants your deposit. This one was too — so read it with that in mind, and then use it to check us against everybody else, including the clinic you have already been talking to.</p>
       <p>We are a dental clinic in Istanbul. We treat international patients. We also see, several times a month, people who arrive with a treatment plan from another clinic that we would not have recommended, or a quote that does not include things they will be charged for. That is the reason this section exists.</p>
+      <p>For the longer explainer first — what "Turkey teeth" actually means, and why the clinic, not the country, is the variable that decides your outcome — see <a href="${url(lang, "geo/turkey-teeth-what-they-are-and-how-to-avoid-problems/")}">Turkey Teeth: Risks, Real Cost 2026 &amp; How to Avoid Problems</a>.</p>
 
       <h3>What is on these pages</h3>
       ${linkGroup("Start here if you are still deciding", [
@@ -1543,6 +1544,7 @@ export function beforeYouBookIsSafePage(lang) {
     <article class="prose">
       <p><strong>Short answer: the country is not the variable. The clinic is.</strong> Türkiye has dental faculties, specialists and equipment equal to anywhere in Europe, and it also has high-volume operations that will file down eight healthy teeth in an afternoon. Both are legal, both advertise on the same Instagram feed, and the price difference between them is often under £500. That is the real risk — not Turkey.</p>
       <p>So the useful question is not "is Turkey safe". It is: <strong>what does a bad outcome actually look like, and what predicts it?</strong></p>
+      <p>For the longer explainer — what "Turkey teeth" means, why prices are lower, and how many days treatment actually needs — see <a href="${url(lang, "geo/turkey-teeth-what-they-are-and-how-to-avoid-problems/")}">Turkey Teeth: Risks, Real Cost 2026 &amp; How to Avoid Problems</a>.</p>
 
       <h2>What actually goes wrong</h2>
       <p>In the cases we see for revision, the failures cluster into four types. Almost none of them are the dramatic things people fear.</p>
