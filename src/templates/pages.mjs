@@ -1606,3 +1606,130 @@ export function beforeYouBookIsSafePage(lang) {
   };
 }
 
+export function beforeYouBookCheckQuotePage(lang) {
+  const crumbs = [
+    crumbHome(lang),
+    beforeYouBookCrumb(lang),
+    { name: "Check my Turkey dental quote", href: url(lang, "before-you-book/check-my-turkey-dental-quote/") },
+  ];
+
+  const faqs = [
+    { q: "Is it really free?", a: "Yes. There is no charge and no obligation to book with us." },
+    { q: "Will you review a quote from another Istanbul clinic?", a: "Yes — that is the main use. We also review Antalya, İzmir, Budapest and Albania quotes." },
+    { q: "How long does it take?", a: "Within 48 hours on working days. Complex full-mouth cases may take longer; we will tell you if so." },
+    { q: "Do you contact the other clinic?", a: "No. Nothing is shared with anyone. Your quote and images stay with the reviewing dentist." },
+    {
+      q: "What if you think I should not have the treatment at all?",
+      a: `Then we will say that. See <a href="${url(lang, "before-you-book/when-you-should-not-come-to-turkey/")}">when you should not come to Turkey</a>.`,
+    },
+  ];
+  const faqItem = (f) =>
+    `<div class="faq-item" data-faq-item><button class="faq-q" data-faq-toggle><span>${f.q}</span><span class="faq-icon"><span class="minus">${miniMinus}</span><span class="plus">${miniPlus}</span></span></button><div class="faq-a"><p style="margin:0;">${f.a}</p></div></div>`;
+
+  // File input is visual only: the shared lead-form AJAX handler (site.js) JSON.stringifies
+  // the form data, which silently drops File objects — there is no multipart upload backend
+  // yet. Kept per explicit instruction; do not wire this up without a real upload endpoint.
+  const form = `<div class="form-card">
+    <form class="form-main" data-lead-form data-quote-check-form>
+      <h3>Upload your quote</h3>
+      <p style="font-size:14px;color:var(--muted-2);margin:0 0 24px;">Send us the quote you have been given and a dentist will write back within 48 hours.</p>
+      <div class="form-stack">
+        <div class="form-grid">
+          <label><span class="lbl">Name</span><input type="text" name="name" required placeholder="Name"></label>
+          <label><span class="lbl">Country</span><input type="text" name="country" required placeholder="Country"></label>
+        </div>
+        <label><span class="lbl">Email</span><input type="email" name="email" required placeholder="you@example.com"></label>
+        <label><span class="lbl">Upload your quote / X-rays / photos</span><input type="file" name="attachments" multiple accept="image/*,.pdf"></label>
+        <label><span class="lbl">Describe your situation</span><textarea name="message" rows="4" required placeholder="What clinic quoted you, what were you told, what is bothering you about the plan or price…"></textarea></label>
+        <button type="submit" class="btn btn-primary btn-block" style="padding:16px;">Send for free review</button>
+        <p style="font-size:11.5px;color:var(--muted-2);text-align:center;margin:2px 0 0;line-height:1.5;">Do not send your passport, ID or payment details.</p>
+      </div>
+    </form>
+    <div class="form-success">
+      <div style="width:74px;height:74px;border-radius:50%;background:var(--cream-2);display:flex;align-items:center;justify-content:center;margin:0 auto 22px;color:var(--gold);">${icons.check({ w: 38 })}</div>
+      <h3 style="font-size:30px;">Thank you</h3>
+      <p style="font-size:15.5px;line-height:1.6;color:var(--muted-2);margin:0 auto 26px;max-width:360px;">A dentist will review your quote and write back within 48 hours.</p>
+      <a href="${waHref()}" class="btn btn-block" style="background:#25D366;color:#fff;" target="_blank" rel="noopener">${icons.wa} WhatsApp us</a>
+    </div>
+  </div>`;
+
+  const body = `${pageHero(
+    lang,
+    "Before You Book",
+    "Check my Turkey dental quote",
+    "",
+    crumbs
+  )}
+  <section class="section" style="padding-top:clamp(30px,4vw,48px);"><div class="container" style="max-width:820px;">
+    <article class="prose">
+      <p>Send us the quote you have been given — from any clinic, including ours — and a dentist at MediDent will read it and write back within 48 hours with a plain-English assessment. No cost, no obligation, and we will tell you if the quote you are holding is a good one.</p>
+    </article>
+  </div></section>
+  <section class="section" style="padding-top:0;"><div class="container" style="max-width:560px;">${form}</div></section>
+  <section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">
+    <article class="prose">
+      <h2>Why we do this</h2>
+      <p>Because most of the quotes we see have the same three problems, and the patient has no way to know. We would rather have the conversation before you pay a deposit somewhere than after. And frankly: if reviewing our competitors' quotes honestly does not win us work, the model does not deserve to.</p>
+
+      <h2>What we check, item by item</h2>
+      <p><strong>1. Is the treatment proportionate to the problem?</strong> The commonest finding. A quote for 16–20 crowns where the presenting complaint was "my front teeth are discoloured and slightly crooked" is over-treatment. We will tell you what the conservative alternative would have been and roughly what it costs. See <a href="${url(lang, "before-you-book/crowns-vs-veneers-what-you-actually-need/")}">crowns vs veneers vs neither</a>.</p>
+      <p><strong>2. Is anything irreversible, and was it justified?</strong> We flag every line item that permanently removes tooth structure or extracts a tooth that may be restorable.</p>
+      <p><strong>3. Is the diagnosis missing?</strong> Gum treatment, root canals, extractions and bone grafting are the four things most often absent from a WhatsApp quote and most often added — at extra cost — once you are in the chair in Istanbul. If your quote has no periodontal assessment line, the number you have been given is provisional and you should treat it that way.</p>
+      <p><strong>4. Are the materials named?</strong> Implant system by brand and line. Ceramic by brand and type (zirconia, e.max, monolithic vs layered). "Premium European implant" is not a material specification. Unnamed materials make like-for-like comparison impossible, which is usually the point.</p>
+      <p><strong>5. What is not included?</strong> Typical omissions: temporary crowns, night guard, CBCT scan, sedation, the second trip's flights, hotel beyond a fixed number of nights, and revision costs. We list what is missing so you can ask them directly.</p>
+      <p><strong>6. Is the timeline honest?</strong> We say whether the treatment can actually be delivered in the number of days quoted, or whether it needs a second trip that has not been mentioned.</p>
+      <p><strong>7. Is the guarantee real?</strong> A guarantee that excludes the most likely failure modes, or that requires you to fly to Istanbul at your own cost to claim it, is a marketing line. We will tell you which one you have. See <a href="${url(lang, "before-you-book/guarantee-and-what-happens-if-something-fails/")}">guarantee and what happens if something fails</a>.</p>
+
+      <h2>What you get back</h2>
+      <p>A written response from a named dentist — not a sales message — containing:</p>
+      <ul>
+        <li>a line-by-line note on the quote you sent</li>
+        <li>what we would have proposed instead, and why</li>
+        <li>the questions to put back to that clinic, written out so you can copy them</li>
+        <li>our own price for the treatment we think you actually need, only if you ask for it</li>
+      </ul>
+      <p>If your existing quote is sound, we will say so and tell you to go ahead with them. That happens more often than you would expect.</p>
+
+      <h2>What we need from you</h2>
+      <ul>
+        <li>The written quote or treatment plan (photo or PDF is fine)</li>
+        <li>Any X-rays or OPG you have — a panoramic radiograph makes the review far more useful</li>
+        <li>Photos of your teeth: front, upper arch, lower arch, natural light</li>
+        <li>One or two lines on what is actually bothering you</li>
+      </ul>
+      <p>Do not send us your passport, ID or payment details. We do not need them and we will not ask for them at this stage.</p>
+
+      <h2>The honest limits of a remote review</h2>
+      <p>This is a document review, not a diagnosis. Nobody — not us, not the clinic that quoted you — can diagnose from photographs. What we can do is tell you whether the reasoning on the page is sound, whether anything obvious is missing, and whether the price is inside the normal range. A definitive plan requires clinical examination and radiographs. Any clinic that tells you otherwise is the reason this page exists.</p>
+
+      <!-- OPS NOTE: do not go live until the 48-hour SLA and the named reviewing dentist are operationally committed. This page's entire value is that the promise is kept. -->
+    </article>
+  </div></section>
+  <section class="section section-alt"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:24px;margin:0 0 20px;">${faqHeading[lang] || faqHeading.en}</h2>
+    <div class="faq" data-reveal>${faqs.map(faqItem).join("")}</div>
+  </div></section>
+  ${contactSection(lang)}`;
+
+  return {
+    body,
+    title: "Check My Turkey Dental Quote — Free Review by a Dentist",
+    description:
+      "Send us any Istanbul or Antalya clinic's quote. A dentist here reviews it and writes back in 48 hours: what's missing, what's over-treatment, what it should cost. Free.",
+    ogType: "article",
+    jsonld: [
+      {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        name: "Free dental quote review",
+        serviceType: "Second opinion on a dental treatment quote",
+        provider: { "@id": site.domain + "/#organization" },
+        areaServed: ["GB", "IE", "DE", "US", "NL", "FR"],
+        offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" },
+      },
+      faqSchema(faqs.map((f) => ({ q: f.q, a: f.a.replace(/<[^>]+>/g, "") }))),
+      breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: c.url || site.domain + c.href }))),
+    ],
+  };
+}
+

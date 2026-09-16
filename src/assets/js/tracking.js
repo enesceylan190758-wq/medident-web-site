@@ -143,6 +143,22 @@
     }
   }, true);
 
+  /* --- 5) "CHECK MY QUOTE" FORMU (before-you-book/check-my-turkey-dental-quote/) */
+  /* İlk etkileşimde quote_check_start, gönderimde quote_check_submit. */
+
+  var quoteForm = document.querySelector('[data-quote-check-form]');
+  if (quoteForm) {
+    var quoteStartFired = false;
+    quoteForm.addEventListener('focusin', function () {
+      if (quoteStartFired) return;
+      quoteStartFired = true;
+      track('quote_check_start', { source: 'quote_check' });
+    });
+    quoteForm.addEventListener('submit', function () {
+      track('quote_check_submit', { source: 'quote_check' });
+    });
+  }
+
   /* --- BAŞLAT -------------------------------------------------------------- */
 
   if (document.readyState === 'loading') {

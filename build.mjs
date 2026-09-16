@@ -37,6 +37,7 @@ import {
   allOn4Page,
   beforeYouBookHubPage,
   beforeYouBookIsSafePage,
+  beforeYouBookCheckQuotePage,
 } from "./src/templates/pages.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -207,6 +208,7 @@ function build() {
     if (lang === "en") {
       emit(lang, "before-you-book/", beforeYouBookHubPage(lang));
       emit(lang, "before-you-book/is-dental-treatment-in-turkey-safe/", beforeYouBookIsSafePage(lang));
+      emit(lang, "before-you-book/check-my-turkey-dental-quote/", beforeYouBookCheckQuotePage(lang));
     }
   }
 
