@@ -1482,7 +1482,7 @@ export function beforeYouBookHubPage(lang) {
 
   return {
     body,
-    title: "Before You Book Dental Treatment in Turkey | MediDent İstanbul",
+    title: "Before You Book Dental Treatment in Turkey | MediDent",
     description:
       "An honest pre-booking guide from an Istanbul clinic: how to check a quote, verify a clinic, spot red flags, and decide whether you should travel at all.",
     jsonld: [
@@ -1584,9 +1584,9 @@ export function beforeYouBookIsSafePage(lang) {
 
   return {
     body,
-    title: "Is Dental Treatment in Turkey Safe? An Istanbul Dentist Answers",
+    title: "Is Dental Treatment in Turkey Safe? A Dentist Answers",
     description:
-      "Straight answer from an Istanbul clinic: Turkey is not uniformly safe or unsafe — clinic selection is the variable. What actually goes wrong, and how to check.",
+      "Straight answer from an Istanbul clinic: Turkey isn't uniformly safe or unsafe — the clinic is the variable. What goes wrong, and how to check.",
     ogType: "article",
     jsonld: [
       {
@@ -1594,7 +1594,7 @@ export function beforeYouBookIsSafePage(lang) {
         "@type": "Article",
         headline: "Is dental treatment in Turkey safe?",
         description:
-          "Straight answer from an Istanbul clinic: Turkey is not uniformly safe or unsafe — clinic selection is the variable. What actually goes wrong, and how to check.",
+          "Straight answer from an Istanbul clinic: Turkey isn't uniformly safe or unsafe — the clinic is the variable. What goes wrong, and how to check.",
         about: { "@type": "MedicalProcedure", name: "Dental treatment abroad" },
         inLanguage: langBCP47[lang] || "en-US",
         publisher: { "@id": site.domain + "/#organization" },
@@ -1626,20 +1626,27 @@ export function beforeYouBookCheckQuotePage(lang) {
   const faqItem = (f) =>
     `<div class="faq-item" data-faq-item><button class="faq-q" data-faq-toggle><span>${f.q}</span><span class="faq-icon"><span class="minus">${miniMinus}</span><span class="plus">${miniPlus}</span></span></button><div class="faq-a"><p style="margin:0;">${f.a}</p></div></div>`;
 
-  // File input is visual only: the shared lead-form AJAX handler (site.js) JSON.stringifies
-  // the form data, which silently drops File objects — there is no multipart upload backend
-  // yet. Kept per explicit instruction; do not wire this up without a real upload endpoint.
+  // No multipart upload backend exists: the shared lead-form AJAX handler (site.js)
+  // JSON.stringifies the form data, which silently drops File objects. Rather than show a
+  // file input that does nothing, quote/X-ray attachments go through two channels that
+  // actually carry a file: email (mailto:, subject prefilled) and WhatsApp.
+  const quoteMailto = `mailto:${site.email}?subject=${encodeURIComponent("Quote review request")}`;
+  const quoteWa = waHref("Hello, I'd like a free review of my Turkey dental quote. Attaching my quote and X-ray/photos here.");
   const form = `<div class="form-card">
+    <h3>Send your quote &amp; X-rays</h3>
+    <p style="font-size:14px;color:var(--muted-2);margin:0 0 18px;">Attach the quote you were given, plus any X-rays or photos, through either channel below — a dentist will write back within 48 hours.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;margin:0 0 26px;">
+      <a href="${quoteMailto}" class="btn btn-primary" style="flex:1;min-width:200px;">${icons.mail || ""} Email your quote &amp; X-rays</a>
+      <a href="${quoteWa}" class="btn" style="flex:1;min-width:200px;background:#25D366;color:#fff;" target="_blank" rel="noopener">${icons.wa || ""} WhatsApp your quote &amp; X-rays</a>
+    </div>
     <form class="form-main" data-lead-form data-quote-check-form>
-      <h3>Upload your quote</h3>
-      <p style="font-size:14px;color:var(--muted-2);margin:0 0 24px;">Send us the quote you have been given and a dentist will write back within 48 hours.</p>
+      <p style="font-size:13px;font-weight:700;color:var(--muted-2);text-transform:uppercase;letter-spacing:.04em;margin:0 0 14px;">Or tell us the situation here — attach the quote/X-rays via email or WhatsApp above</p>
       <div class="form-stack">
         <div class="form-grid">
           <label><span class="lbl">Name</span><input type="text" name="name" required placeholder="Name"></label>
           <label><span class="lbl">Country</span><input type="text" name="country" required placeholder="Country"></label>
         </div>
         <label><span class="lbl">Email</span><input type="email" name="email" required placeholder="you@example.com"></label>
-        <label><span class="lbl">Upload your quote / X-rays / photos</span><input type="file" name="attachments" multiple accept="image/*,.pdf"></label>
         <label><span class="lbl">Describe your situation</span><textarea name="message" rows="4" required placeholder="What clinic quoted you, what were you told, what is bothering you about the plan or price…"></textarea></label>
         <button type="submit" class="btn btn-primary btn-block" style="padding:16px;">Send for free review</button>
         <p style="font-size:11.5px;color:var(--muted-2);text-align:center;margin:2px 0 0;line-height:1.5;">Do not send your passport, ID or payment details.</p>
@@ -1715,7 +1722,7 @@ export function beforeYouBookCheckQuotePage(lang) {
     body,
     title: "Check My Turkey Dental Quote — Free Review by a Dentist",
     description:
-      "Send us any Istanbul or Antalya clinic's quote. A dentist here reviews it and writes back in 48 hours: what's missing, what's over-treatment, what it should cost. Free.",
+      "Send us any clinic's quote. A dentist reviews it and writes back in 48 hours: what's missing, what's over-treatment, what it should cost. Free.",
     ogType: "article",
     jsonld: [
       {
@@ -1875,7 +1882,7 @@ export function beforeYouBookVerifyClinicPage(lang) {
     body,
     title: "How to Verify a Turkish Dental Clinic (Step by Step)",
     description:
-      "Check a Turkish clinic's Ministry of Health authorisation, the dentist's registration and the implant brand — independently, in under ten minutes. Including how to check us.",
+      "Check a Turkish clinic's authorisation, the dentist's credentials and the implant brand yourself — independently, in under ten minutes.",
     ogType: "article",
     jsonld: [
       {
@@ -1883,7 +1890,7 @@ export function beforeYouBookVerifyClinicPage(lang) {
         "@type": "Article",
         headline: "How to verify a Turkish dental clinic yourself",
         description:
-          "Check a Turkish clinic's Ministry of Health authorisation, the dentist's registration and the implant brand — independently, in under ten minutes.",
+          "Check a Turkish clinic's authorisation, the dentist's credentials and the implant brand yourself — independently, in under ten minutes.",
         inLanguage: langBCP47[lang] || "en-US",
         publisher: { "@id": site.domain + "/#organization" },
         mainEntityOfPage: site.domain + url(lang, "before-you-book/how-to-verify-a-turkish-dental-clinic/"),
@@ -1966,7 +1973,7 @@ export function beforeYouBookSecondOpinionPage(lang) {
 
   return {
     body,
-    title: "Second Opinion on Dental Treatment Abroad | MediDent İstanbul",
+    title: "Second Opinion on Dental Treatment Abroad",
     description:
       "A written clinical second opinion on any treatment plan — from Turkey, your home dentist, or anywhere else. Reviewed by a named dentist, no obligation.",
     ogType: "article",
@@ -2075,7 +2082,7 @@ export function beforeYouBookAftercarePage(lang) {
     body,
     title: "Aftercare After Turkey Teeth: The Full Protocol",
     description:
-      "What to do in the first 72 hours, the first year and every year after — plus what to do if your dentist at home refuses to see you. Written by an Istanbul clinic.",
+      "What to do in the first 72 hours, the first year, and every year after — plus what to do if your dentist at home won't see you.",
     ogType: "article",
     jsonld: [
       {
@@ -2083,7 +2090,7 @@ export function beforeYouBookAftercarePage(lang) {
         "@type": "Article",
         headline: "Aftercare after Turkey teeth",
         description:
-          "What to do in the first 72 hours, the first year and every year after — plus what to do if your dentist at home refuses to see you.",
+          "What to do in the first 72 hours, the first year, and every year after — plus what to do if your dentist at home won't see you.",
         inLanguage: langBCP47[lang] || "en-US",
         publisher: { "@id": site.domain + "/#organization" },
         mainEntityOfPage: site.domain + url(lang, "before-you-book/aftercare-after-turkey-teeth/"),
@@ -2247,7 +2254,7 @@ export function beforeYouBookCrownsVsVeneersPage(lang) {
     body,
     title: "Crowns, Veneers or Neither? What You Actually Need",
     description:
-      "The most common over-treatment in dental tourism is crowns on healthy teeth. How to tell what your case needs, and what to ask before anything is filed down.",
+      "The most common over-treatment in dental tourism is crowns on healthy teeth. How to tell what your case needs before anything is filed down.",
     ogType: "article",
     jsonld: [
       {
@@ -2255,7 +2262,7 @@ export function beforeYouBookCrownsVsVeneersPage(lang) {
         "@type": "Article",
         headline: "Crowns, veneers, or neither?",
         description:
-          "The most common over-treatment in dental tourism is crowns on healthy teeth. How to tell what your case needs, and what to ask before anything is filed down.",
+          "The most common over-treatment in dental tourism is crowns on healthy teeth. How to tell what your case needs before anything is filed down.",
         inLanguage: langBCP47[lang] || "en-US",
         publisher: { "@id": site.domain + "/#organization" },
         mainEntityOfPage: site.domain + url(lang, "before-you-book/crowns-vs-veneers-what-you-actually-need/"),
@@ -2472,7 +2479,7 @@ export function beforeYouBookQuestionsPage(lang) {
 
   return {
     body,
-    title: "21 Questions to Ask Before You Pay a Dental Deposit in Turkey",
+    title: "21 Questions to Ask Before You Pay a Dental Deposit",
     description:
       "A printable list of the questions that separate a clinic from a sales operation — with the answers you should expect. Ask us the same ones.",
     ogType: "article",
