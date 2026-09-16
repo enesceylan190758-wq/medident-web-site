@@ -1733,3 +1733,170 @@ export function beforeYouBookCheckQuotePage(lang) {
   };
 }
 
+export function beforeYouBookRedFlagsPage(lang) {
+  const crumbs = [
+    crumbHome(lang),
+    beforeYouBookCrumb(lang),
+    { name: "Turkey dentist red flags", href: url(lang, "before-you-book/turkey-dentist-red-flags/") },
+  ];
+
+  const flags = [
+    ["A fixed price before anyone has examined you", "A precise total quoted from three phone photos is a price list, not a treatment plan. Expect a range before examination and a final figure after radiographs."],
+    ["The plan does not change after you arrive", "If nothing was learned from the X-rays, the X-rays were decorative."],
+    ["Crowns proposed for a cosmetic complaint", `The biggest single red flag in this industry. Healthy teeth reduced for crowns because a patient wanted them whiter and straighter. Always ask what the reversible option was. <a href="${url(lang, "before-you-book/crowns-vs-veneers-what-you-actually-need/")}">More here</a>.`],
+    ["Materials are not named", "\"German implant\", \"premium zirconia\". Ask for the brand, the product line, and the lot documentation you will be given on discharge."],
+    ["You cannot find out who will treat you", `Not "our expert team" — a name, a registration, and a profile you can verify off their own website. <a href="${url(lang, "before-you-book/how-to-verify-a-turkish-dental-clinic/")}">How to check</a>.`],
+    ["Pressure and expiring discounts", "\"This price is valid until Friday.\" Dentistry is not a flash sale. Any deadline attached to an irreversible medical decision is a sales technique."],
+    ["Before-and-afters with no case detail", "Stock photography, or real cases with no treatment described, no timeline, no failures shown. A clinic with thousands of cases has some that needed revision. None of them ever show one."],
+    ["No written treatment plan before the deposit", "If the document you are asked to pay against is a WhatsApp message, there is nothing to enforce later."],
+    ["A guarantee with no document", `Ask for the warranty text before you pay. Read what it excludes and who pays travel. <a href="${url(lang, "before-you-book/guarantee-and-what-happens-if-something-fails/")}">What a real guarantee looks like</a>.`],
+    ["Everything fits in your annual leave", "Some treatments genuinely need two trips. A clinic that has never once told a patient \"this needs a second visit\" is scheduling around flights."],
+    ["No aftercare pathway", "Ask: who do I contact at 11 pm three months from now, in my time zone, and what documentation will my dentist at home receive? If there is no answer, there is no plan."],
+    ["The clinic will not tell you about anyone it turned away", "Every honest clinic declines cases. If they cannot name a category of patient they refuse, they refuse none."],
+  ];
+
+  const faqs = [
+    { q: "What is the single biggest warning sign?", a: "A large number of crowns proposed for a cosmetic complaint, quoted before examination." },
+    { q: "Is a cheap price a red flag on its own?", a: "No. Cheap diagnosis is. Ask how long the examination appointment is and whether radiographs are included." },
+    { q: "Should I avoid clinics that advertise on social media?", a: "No — but judge the clinical content, not the production quality of the reel." },
+  ];
+  const faqItem = (f) =>
+    `<div class="faq-item" data-faq-item><button class="faq-q" data-faq-toggle><span>${f.q}</span><span class="faq-icon"><span class="minus">${miniMinus}</span><span class="plus">${miniPlus}</span></span></button><div class="faq-a"><p style="margin:0;">${f.a}</p></div></div>`;
+
+  const body = `${pageHero(lang, "Before You Book", "Turkey dentist red flags: 12 signs you should walk away", "", crumbs)}
+  <section class="section" style="padding-top:clamp(30px,4vw,48px);"><div class="container" style="max-width:820px;">
+    <article class="prose">
+      <p>Every clinic in Istanbul publishes a red-flags article. Almost all of them list flags their own clinic passes and omit the ones it does not. Here is the list we use, with our own answer against each one, so you can hold us to it.</p>
+
+      ${flags.map(([h, p], i) => `<h3>${i + 1}. ${h}</h3>\n      <p>${p}</p>`).join("\n      ")}
+
+      <h2>Flags that are not actually flags</h2>
+      <p>Balance matters, so: a clinic being much cheaper than your home country is not in itself a red flag — that gap is labour, rent and currency. A clinic advertising heavily is not a red flag. A clinic having a hotel and transfer package is not a red flag. A dentist whose English is imperfect is not a red flag; a clinic that will not let you speak to the dentist at all is.</p>
+
+      <h2>Use this on us</h2>
+      <p>Number 12: cases we decline are listed on <a href="${url(lang, "before-you-book/when-you-should-not-come-to-turkey/")}">when you should not come to Turkey</a>. Numbers 1–4 and 8–9: send us a quote and we will apply all of them in writing — <a href="${url(lang, "before-you-book/check-my-turkey-dental-quote/")}">free quote review</a>.</p>
+    </article>
+  </div></section>
+  <section class="section section-alt"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:24px;margin:0 0 20px;">${faqHeading[lang] || faqHeading.en}</h2>
+    <div class="faq" data-reveal>${faqs.map(faqItem).join("")}</div>
+  </div></section>
+  ${contactSection(lang)}`;
+
+  return {
+    body,
+    title: "Turkey Dentist Red Flags: 12 Signs to Walk Away",
+    description:
+      "Twelve warning signs, from an Istanbul clinic — including the ones most \"red flag\" articles leave out because their own clinic would fail them.",
+    ogType: "article",
+    jsonld: [
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: "Turkey dentist red flags: 12 signs you should walk away",
+        description:
+          "Twelve warning signs, from an Istanbul clinic — including the ones most \"red flag\" articles leave out because their own clinic would fail them.",
+        inLanguage: langBCP47[lang] || "en-US",
+        publisher: { "@id": site.domain + "/#organization" },
+        mainEntityOfPage: site.domain + url(lang, "before-you-book/turkey-dentist-red-flags/"),
+      },
+      faqSchema(faqs),
+      breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: c.url || site.domain + c.href }))),
+    ],
+  };
+}
+
+export function beforeYouBookVerifyClinicPage(lang) {
+  const crumbs = [
+    crumbHome(lang),
+    beforeYouBookCrumb(lang),
+    { name: "How to verify a Turkish dental clinic", href: url(lang, "before-you-book/how-to-verify-a-turkish-dental-clinic/") },
+  ];
+
+  const steps = [
+    {
+      name: "Ministry of Health authorisation",
+      text: `<p>Facilities in Türkiye that treat international patients are required to hold an International Health Tourism Authorisation certificate from the Ministry of Health, and authorised providers are published in a public government directory (<code>healthturkiye.gov.tr</code> → certified health service providers).</p>
+      <p>Ask the clinic for its certificate number, then look the facility up in the directory yourself. A clinic that will not give you the number, or gives you a facilitator's certificate rather than the treating facility's, has answered your question.</p>`,
+    },
+    {
+      name: "The dentist, not the brand",
+      text: `<p>Clinic brands are marketing entities; the person who drills your teeth is a licensed individual. Ask for:</p>
+      <ul>
+        <li>full name as registered (Turkish spelling, with diacritics)</li>
+        <li>dental faculty and year of graduation</li>
+        <li>specialty training, if they are presented as a specialist</li>
+        <li>membership of the provincial dental chamber</li>
+      </ul>
+      <p>Then verify off-site: the university's alumni or faculty listings, the dental chamber, PubMed or Google Scholar if they claim academic work, and LinkedIn for continuity of employment. What you are checking for is that the person exists, is qualified in the field they are presented in, and has been doing this for more than a year.</p>
+      <p>A specific warning: AI-generated clinic websites in this sector have been caught publishing dentists who do not exist. If a name returns nothing anywhere except the clinic's own site and its own social accounts, treat that as disqualifying.</p>`,
+    },
+    {
+      name: "The materials",
+      text: `<p>Ask for the implant system by manufacturer and product line, and the ceramic by brand and type. Then check that the manufacturer actually distributes in Türkiye and that the product line exists. On discharge you should receive implant passport / lot labels — ask in advance whether you will.</p>
+      <p>Why it matters practically: if an implant fails in five years, your dentist at home needs the system to obtain matching components. An unidentifiable implant can mean the whole restoration has to be redone rather than repaired.</p>`,
+    },
+    {
+      name: "The premises",
+      text: `<p>Ask for a live video call from the actual treatment room, unedited, before you pay. Sterilisation area, radiography equipment, the chair you will be in. Five minutes. Refusal is informative. Compare what you see with the photos on the website — a surprising number of sites use images of premises they do not occupy.</p>`,
+    },
+    {
+      name: "Reviews, read properly",
+      text: `<p>Ignore the star average. Read the one- and two-star reviews and, more importantly, read the clinic's replies to them. A clinic that responds to a complaint with a specific, factual account has a process. A clinic whose negative reviews all receive the same templated apology, or whose reviews are 400 five-stars posted in two months, does not. Look for reviews that mention a problem that was then fixed — those are the most informative reviews on any clinic page.</p>`,
+    },
+    {
+      name: "The paperwork test",
+      text: `<p>Before any deposit, ask for four documents in one email: the itemised treatment plan, the materials list, the total price with exclusions stated, and the guarantee text. A clinic that can produce all four within a day runs an organised practice. A clinic that produces none of them is asking you to pay against a conversation.</p>`,
+    },
+  ];
+
+  const faqs = [
+    { q: "Can I check a Turkish dentist's licence from abroad?", a: "Yes — registration is verifiable through Turkish dental chamber and health authority listings, and you can cross-check qualifications independently." },
+    { q: "Is a JCI or ISO badge meaningful?", a: "ISO certificates are common and say little about clinical quality. Ministry of Health authorisation is the relevant one for international patients." },
+    { q: "What if the clinic is really a facilitator agency?", a: "Then find out which facility actually treats you, and run every check above on that facility, not the agency." },
+  ];
+  const faqItem = (f) =>
+    `<div class="faq-item" data-faq-item><button class="faq-q" data-faq-toggle><span>${f.q}</span><span class="faq-icon"><span class="minus">${miniMinus}</span><span class="plus">${miniPlus}</span></span></button><div class="faq-a"><p style="margin:0;">${f.a}</p></div></div>`;
+
+  const body = `${pageHero(lang, "Before You Book", "How to verify a Turkish dental clinic yourself", "", crumbs)}
+  <section class="section" style="padding-top:clamp(30px,4vw,48px);"><div class="container" style="max-width:820px;">
+    <article class="prose">
+      <p>Ten minutes of checking removes most of the risk in this decision. None of these steps require you to trust anything a clinic tells you.</p>
+      ${steps.map((s, i) => `<h2>Step ${i + 1} — ${s.name}</h2>\n      ${s.text}`).join("\n      ")}
+    </article>
+  </div></section>
+  <section class="section section-alt"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:24px;margin:0 0 20px;">${faqHeading[lang] || faqHeading.en}</h2>
+    <div class="faq" data-reveal>${faqs.map(faqItem).join("")}</div>
+  </div></section>
+  ${contactSection(lang)}`;
+
+  return {
+    body,
+    title: "How to Verify a Turkish Dental Clinic (Step by Step)",
+    description:
+      "Check a Turkish clinic's Ministry of Health authorisation, the dentist's registration and the implant brand — independently, in under ten minutes. Including how to check us.",
+    ogType: "article",
+    jsonld: [
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: "How to verify a Turkish dental clinic yourself",
+        description:
+          "Check a Turkish clinic's Ministry of Health authorisation, the dentist's registration and the implant brand — independently, in under ten minutes.",
+        inLanguage: langBCP47[lang] || "en-US",
+        publisher: { "@id": site.domain + "/#organization" },
+        mainEntityOfPage: site.domain + url(lang, "before-you-book/how-to-verify-a-turkish-dental-clinic/"),
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        name: "How to verify a Turkish dental clinic yourself",
+        step: steps.map((s) => ({ "@type": "HowToStep", name: s.name, text: s.text.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim() })),
+      },
+      faqSchema(faqs),
+      breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: c.url || site.domain + c.href }))),
+    ],
+  };
+}
+

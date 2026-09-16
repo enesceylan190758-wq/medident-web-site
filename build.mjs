@@ -38,6 +38,8 @@ import {
   beforeYouBookHubPage,
   beforeYouBookIsSafePage,
   beforeYouBookCheckQuotePage,
+  beforeYouBookRedFlagsPage,
+  beforeYouBookVerifyClinicPage,
 } from "./src/templates/pages.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -209,6 +211,8 @@ function build() {
       emit(lang, "before-you-book/", beforeYouBookHubPage(lang));
       emit(lang, "before-you-book/is-dental-treatment-in-turkey-safe/", beforeYouBookIsSafePage(lang));
       emit(lang, "before-you-book/check-my-turkey-dental-quote/", beforeYouBookCheckQuotePage(lang));
+      emit(lang, "before-you-book/turkey-dentist-red-flags/", beforeYouBookRedFlagsPage(lang));
+      emit(lang, "before-you-book/how-to-verify-a-turkish-dental-clinic/", beforeYouBookVerifyClinicPage(lang));
     }
   }
 
