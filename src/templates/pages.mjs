@@ -1405,3 +1405,204 @@ export function geoPackPage(lang, pack) {
   };
 }
 
+// ---------------------------------------------------------------------------
+// "Before You Book" trust cluster (EN-only). Source: content/before-you-book/.
+// Reviewer byline + JSON-LD author/reviewedBy are intentionally omitted until
+// a named clinician has read and approved each page — see REVIEWER BYLINE
+// comments below.
+// ---------------------------------------------------------------------------
+
+const beforeYouBookCrumb = (lang) => ({
+  name: "Before You Book",
+  href: url(lang, "before-you-book/"),
+  url: site.domain + url(lang, "before-you-book/"),
+});
+
+const reviewerBylinePlaceholder =
+  "<!-- REVIEWER BYLINE: hekim onayı alındıktan sonra doldurulacak (isim, unvan, üniversite/mezuniyet yılı, \"last reviewed\" tarihi) -->";
+
+export function beforeYouBookHubPage(lang) {
+  const crumbs = [crumbHome(lang), beforeYouBookCrumb(lang)];
+  const linkGroup = (heading, items) => `
+    <p><strong>${heading}</strong></p>
+    <ul>
+      ${items.map((it) => `<li><a href="${url(lang, "before-you-book/" + it.slug + "/")}">${it.label}</a>${it.note ? ` — ${it.note}` : ""}</li>`).join("\n      ")}
+    </ul>`;
+
+  const body = `${pageHero(
+    lang,
+    "Before You Book",
+    "Before you book dental treatment in Turkey",
+    "",
+    crumbs
+  )}
+  <section class="section" style="padding-top:clamp(30px,4vw,48px);"><div class="container" style="max-width:820px;">
+    <article class="prose">
+      <p>Most pages you will read on this subject were written by a clinic that wants your deposit. This one was too — so read it with that in mind, and then use it to check us against everybody else, including the clinic you have already been talking to.</p>
+      <p>We are a dental clinic in Istanbul. We treat international patients. We also see, several times a month, people who arrive with a treatment plan from another clinic that we would not have recommended, or a quote that does not include things they will be charged for. That is the reason this section exists.</p>
+
+      <h3>What is on these pages</h3>
+      ${linkGroup("Start here if you are still deciding", [
+        { slug: "is-dental-treatment-in-turkey-safe", label: "Is dental treatment in Turkey safe?", note: "what the real risk is, what it is not, and the two things that actually predict outcome." },
+        { slug: "when-you-should-not-come-to-turkey", label: "When you should not come to Turkey", note: "the cases where we tell people to have treatment at home. Read this one first if you want to know whether we are being straight with you." },
+      ])}
+      ${linkGroup("Start here if you already have a quote", [
+        { slug: "check-my-turkey-dental-quote", label: "Check my Turkey dental quote", note: "send us any clinic's quote and a dentist here will write back telling you what is missing, what is over-treatment, and what it should cost. Free, no obligation, and we will review quotes from our competitors." },
+        { slug: "crowns-vs-veneers-what-you-actually-need", label: "Do you actually need crowns, or veneers, or neither?", note: "the single most common over-treatment in this industry is healthy teeth filed down for crowns." },
+        { slug: "dental-treatment-abroad-second-opinion", label: "Get a second opinion on a treatment plan" },
+      ])}
+      ${linkGroup("Start here if you are choosing between clinics", [
+        { slug: "turkey-dentist-red-flags", label: "Turkey dentist red flags: 12 things that should stop you" },
+        { slug: "how-to-verify-a-turkish-dental-clinic", label: "How to verify a Turkish dental clinic yourself", note: "including how to check us, on a government database, in about four minutes." },
+        { slug: "questions-to-ask-before-you-pay-a-deposit", label: "21 questions to ask before you pay a deposit", note: "printable." },
+        { slug: "guarantee-and-what-happens-if-something-fails", label: "What the guarantee actually covers — and who pays to fly you back" },
+      ])}
+      ${linkGroup("Start here if something has already gone wrong", [
+        { slug: "turkey-teeth-gone-wrong", label: "Turkey teeth gone wrong: what actually fails, and what can be fixed" },
+        { slug: "aftercare-after-turkey-teeth", label: "Aftercare after Turkey teeth, and what to do if your dentist at home won't see you" },
+      ])}
+
+      <h3>The short version, if you read nothing else</h3>
+      <ol>
+        <li>Price is the weakest predictor of outcome. The gap between a good and a bad Istanbul clinic is far wider than the gap between Istanbul and London.</li>
+        <li>Ask what is being <em>removed</em>. Anything irreversible — enamel, tooth structure, a healthy tooth — is the part you cannot undo if you change your mind.</li>
+        <li>A clinic that will not put the treatment plan, the materials, the total price and the guarantee in one written document before you fly is telling you something.</li>
+        <li>Plan the aftercare before you book the flight, not after.</li>
+        <li>If a clinic tells you every patient is a candidate, it is a sales operation.</li>
+      </ol>
+
+      ${reviewerBylinePlaceholder}
+
+      <blockquote>
+        <p>Our clinicians are licensed and regulated in Türkiye. We are not regulated by the UK General Dental Council or any equivalent body outside Türkiye, and treatment here is governed by Turkish law.</p>
+      </blockquote>
+    </article>
+  </div></section>
+  ${contactSection(lang)}`;
+
+  return {
+    body,
+    title: "Before You Book Dental Treatment in Turkey | MediDent İstanbul",
+    description:
+      "An honest pre-booking guide from an Istanbul clinic: how to check a quote, verify a clinic, spot red flags, and decide whether you should travel at all.",
+    jsonld: [
+      {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        name: "Before You Book Dental Treatment in Turkey",
+        inLanguage: langBCP47[lang] || "en-US",
+        publisher: { "@id": site.domain + "/#organization" },
+        url: site.domain + url(lang, "before-you-book/"),
+      },
+      breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: c.url || site.domain + c.href }))),
+    ],
+  };
+}
+
+export function beforeYouBookIsSafePage(lang) {
+  const crumbs = [
+    crumbHome(lang),
+    beforeYouBookCrumb(lang),
+    { name: "Is dental treatment in Turkey safe?", href: url(lang, "before-you-book/is-dental-treatment-in-turkey-safe/") },
+  ];
+
+  const faqs = [
+    {
+      q: "Is dental work in Turkey as good as in the UK or Germany?",
+      a: "At a well-run clinic, the standard of materials and technique is equivalent; Turkish dental schools and specialist training are comparable. The variance between clinics within Türkiye is much larger than the variance between countries.",
+    },
+    {
+      q: "Why is it so much cheaper?",
+      a: "Labour, lab, rent and currency — not materials. If the saving is being made on materials or on diagnostic time, that is a different and worse kind of cheap. Ask which one it is.",
+    },
+    {
+      q: "Is it safe to have all my treatment in one week?",
+      a: "Some treatments, yes. Implants that need osseointegration, full-mouth rehabilitation and anything involving gum treatment first generally need two trips. A clinic that fits every case into one week is scheduling around flights, not biology.",
+    },
+    {
+      q: "What happens if something goes wrong after I fly home?",
+      a: "That depends entirely on what your clinic put in writing before you travelled — the guarantee, who pays for revision, and whether they have a documented pathway for your dentist at home. Get it in writing first.",
+    },
+    {
+      q: "Can I check a Turkish clinic's credentials myself?",
+      a: "Yes. The Ministry of Health publishes a directory of authorised international health tourism providers, and dentist registration can be verified independently. Takes a few minutes.",
+    },
+  ];
+
+  const faqItem = (f) =>
+    `<div class="faq-item" data-faq-item><button class="faq-q" data-faq-toggle><span>${f.q}</span><span class="faq-icon"><span class="minus">${miniMinus}</span><span class="plus">${miniPlus}</span></span></button><div class="faq-a"><p style="margin:0;">${f.a}</p></div></div>`;
+
+  const body = `${pageHero(
+    lang,
+    "Before You Book",
+    "Is dental treatment in Turkey safe?",
+    "",
+    crumbs
+  )}
+  <section class="section" style="padding-top:clamp(30px,4vw,48px);"><div class="container" style="max-width:820px;">
+    <article class="prose">
+      <p><strong>Short answer: the country is not the variable. The clinic is.</strong> Türkiye has dental faculties, specialists and equipment equal to anywhere in Europe, and it also has high-volume operations that will file down eight healthy teeth in an afternoon. Both are legal, both advertise on the same Instagram feed, and the price difference between them is often under £500. That is the real risk — not Turkey.</p>
+      <p>So the useful question is not "is Turkey safe". It is: <strong>what does a bad outcome actually look like, and what predicts it?</strong></p>
+
+      <h2>What actually goes wrong</h2>
+      <p>In the cases we see for revision, the failures cluster into four types. Almost none of them are the dramatic things people fear.</p>
+      <p><strong>1. Over-treatment.</strong> By a long way the most common. A patient wants whiter, straighter front teeth. They leave with 16 to 20 crowns, meaning healthy enamel on every one of those teeth has been permanently removed. Whitening, bonding, or aligners would have achieved the same appearance. This is irreversible. Those teeth are now dependent on crowns for life.</p>
+      <p><strong>2. Biological, not cosmetic, failure.</strong> Crowns fitted over untreated gum disease or an undetected root infection. The smile looks correct in the photos taken on discharge day and fails at 6–24 months. This is a diagnostic failure, not a lab failure — and it is why a full periodontal assessment and radiographs before any preparation matter more than the brand of ceramic.</p>
+      <p><strong>3. Timeline compression.</strong> Work that needs two visits three months apart compressed into one seven-day trip because the patient has one week of annual leave. Immediate-load implants are a legitimate protocol for the right bone and the right patient; used as a default so the patient can fly home with teeth, they are a gamble.</p>
+      <p><strong>4. No aftercare pathway.</strong> Nothing goes wrong clinically, but the patient is 3,000 km away when a crown debonds, and no one has told them what to do. See <a href="${url(lang, "before-you-book/aftercare-after-turkey-teeth/")}">aftercare after Turkey teeth</a>.</p>
+
+      <h2>What predicts a good outcome</h2>
+      <p>Two things, and neither is price.</p>
+      <p><strong>Who does the diagnosis, and when.</strong> If your treatment plan was produced from photographs you sent on WhatsApp, and it did not change after you arrived and were X-rayed, no diagnosis happened. A plan that changes slightly after in-person examination is a good sign, not a bad one. A plan quoted to the pound before anyone has looked inside your mouth is a price list, not a diagnosis.</p>
+      <p><strong>Whether anything irreversible is proposed.</strong> Ask of every item on the plan: does this remove tooth structure? If yes, ask what the reversible alternative is and why it was rejected. A clinician who cannot answer that has not considered it.</p>
+
+      <h2>Regulation — what exists and what does not</h2>
+      <p>Türkiye's Ministry of Health operates an International Health Tourism Authorisation system: facilities treating international patients are required to hold a certificate, and authorised providers are listed on a public government directory you can search yourself. Individual dentists are licensed and listed via the national health authorities and the Turkish Dental Association. Implant and material brands used in Türkiye are subject to national medical device regulation.</p>
+      <p>What does <strong>not</strong> exist: any regulator outside Türkiye covering your treatment. If you are a UK patient, the General Dental Council has no jurisdiction over a clinic in Istanbul, and the British Dental Association has publicly warned patients about the risks of dental tourism. That is a fair warning and you should factor it in. It does not mean treatment here is unsafe; it means your recourse if something goes wrong is governed by Turkish law and by whatever your clinic put in writing. Which is why <a href="${url(lang, "before-you-book/guarantee-and-what-happens-if-something-fails/")}">what the guarantee actually says</a> matters more here than it would at home.</p>
+
+      <h2>How to check a specific clinic in about four minutes</h2>
+      <ol>
+        <li>Ask for the treating dentist's full name, dental faculty and graduation year — then find them independently, not on the clinic's own site.</li>
+        <li>Search the clinic on the Ministry of Health authorised-provider directory and note whether it is listed.</li>
+        <li>Ask which implant system and which ceramic, by brand and product name. Vague answers ("premium German implant") are a red flag.</li>
+        <li>Ask for the written treatment plan, itemised, before paying anything.</li>
+        <li>Ask what happens, and who pays, if a crown fails in month 14.</li>
+      </ol>
+      <p>Full method: <a href="${url(lang, "before-you-book/how-to-verify-a-turkish-dental-clinic/")}">how to verify a Turkish dental clinic</a>. The warning signs: <a href="${url(lang, "before-you-book/turkey-dentist-red-flags/")}">12 red flags</a>.</p>
+
+      <h2>When we tell people not to come</h2>
+      <p>Active untreated gum disease, uncontrolled diabetes or other unstable systemic conditions, heavy smoking with planned implants, a case that genuinely needs staged treatment over 6–12 months, or any case where the patient's real problem is dissatisfaction with an appearance that is within normal range. We have a page on this: <a href="${url(lang, "before-you-book/when-you-should-not-come-to-turkey/")}">when you should not come to Turkey</a>. We would rather you read it than book with us and regret it.</p>
+
+      ${reviewerBylinePlaceholder}
+    </article>
+  </div></section>
+  <section class="section section-alt"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:24px;margin:0 0 20px;">${faqHeading[lang] || faqHeading.en}</h2>
+    <div class="faq" data-reveal>${faqs.map(faqItem).join("")}</div>
+  </div></section>
+  ${contactSection(lang)}`;
+
+  return {
+    body,
+    title: "Is Dental Treatment in Turkey Safe? An Istanbul Dentist Answers",
+    description:
+      "Straight answer from an Istanbul clinic: Turkey is not uniformly safe or unsafe — clinic selection is the variable. What actually goes wrong, and how to check.",
+    ogType: "article",
+    jsonld: [
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: "Is dental treatment in Turkey safe?",
+        description:
+          "Straight answer from an Istanbul clinic: Turkey is not uniformly safe or unsafe — clinic selection is the variable. What actually goes wrong, and how to check.",
+        about: { "@type": "MedicalProcedure", name: "Dental treatment abroad" },
+        inLanguage: langBCP47[lang] || "en-US",
+        publisher: { "@id": site.domain + "/#organization" },
+        mainEntityOfPage: site.domain + url(lang, "before-you-book/is-dental-treatment-in-turkey-safe/"),
+      },
+      faqSchema(faqs),
+      breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: c.url || site.domain + c.href }))),
+    ],
+  };
+}
+

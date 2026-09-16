@@ -35,6 +35,8 @@ import {
   implantsCostPage,
   hollywoodSmilePage,
   allOn4Page,
+  beforeYouBookHubPage,
+  beforeYouBookIsSafePage,
 } from "./src/templates/pages.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -200,6 +202,12 @@ function build() {
     // All-on-4 landing — DE/EN only (price intentionally [DOLDUR], not the fullmouth priceCalc package)
     if (lang === "de") emit(lang, "all-on-4-zahnimplantate-tuerkei/", allOn4Page(lang));
     if (lang === "en") emit(lang, "all-on-4-turkey-package/", allOn4Page(lang));
+
+    // "Before You Book" trust cluster — EN only, publishing week 1: hub + S1.
+    if (lang === "en") {
+      emit(lang, "before-you-book/", beforeYouBookHubPage(lang));
+      emit(lang, "before-you-book/is-dental-treatment-in-turkey-safe/", beforeYouBookIsSafePage(lang));
+    }
   }
 
   writeSitemap();
