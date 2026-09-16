@@ -2093,3 +2093,175 @@ export function beforeYouBookAftercarePage(lang) {
     ],
   };
 }
+
+export function beforeYouBookGoneWrongPage(lang) {
+  const crumbs = [
+    crumbHome(lang),
+    beforeYouBookCrumb(lang),
+    { name: "Turkey teeth gone wrong", href: url(lang, "before-you-book/turkey-teeth-gone-wrong/") },
+  ];
+
+  const faqs = [
+    { q: "Can Turkey teeth be reversed?", a: "Removed enamel cannot be restored. Crowns can be replaced with better-fitting ones; the tooth underneath stays as it is." },
+    { q: "How much does it cost to fix?", a: "It varies with what failed and what is underneath — it is consistently more than the original treatment. An assessment gives a real figure; a remote estimate does not." },
+    { q: "Should I go back to the same clinic?", a: "If they will honour their guarantee and you still have confidence in their diagnosis, yes. Get an independent opinion first." },
+    {
+      q: "Is this common?",
+      a: `Bad outcomes are a minority of cases and are concentrated in a recognisable type of clinic. <a href="${url(lang, "before-you-book/turkey-dentist-red-flags/")}">The red flags</a> describe that type.`,
+    },
+  ];
+  const faqItem = (f) =>
+    `<div class="faq-item" data-faq-item><button class="faq-q" data-faq-toggle><span>${f.q}</span><span class="faq-icon"><span class="minus">${miniMinus}</span><span class="plus">${miniPlus}</span></span></button><div class="faq-a"><p style="margin:0;">${f.a}</p></div></div>`;
+
+  const body = `${pageHero(lang, "Before You Book", "Turkey teeth gone wrong: what actually fails", "", crumbs)}
+  <section class="section" style="padding-top:clamp(30px,4vw,48px);"><div class="container" style="max-width:820px;">
+    <article class="prose">
+      <p>"Turkey teeth" became a media story because of a specific, real and avoidable pattern: healthy teeth reduced to pegs for crowns, in patients who wanted a cosmetic change. The coverage was often unfair to Turkish dentistry as a whole and entirely fair about that pattern. Both things are true.</p>
+      <p>Here is what we see, ranked by how often it arrives at our clinic for revision, and what can actually be done about each.</p>
+
+      <h2>1. Over-preparation — healthy teeth crowned unnecessarily</h2>
+      <p><strong>What happened:</strong> enamel removed from sound teeth to fit crowns, usually 8–20 units, for an aesthetic complaint. Often the teeth were also devitalised (root-treated) to make them easier to prepare.</p>
+      <p><strong>Can it be fixed?</strong> The crowns can be replaced with better ones. The tooth structure cannot be replaced, ever. This is why this failure is the serious one: the patient is committed to crowns for life, with a replacement cycle every 10–15 years, and each cycle removes a little more.</p>
+      <p><strong>What we can do:</strong> replace poorly fitting crowns, treat the gum inflammation caused by bad margins, and manage the teeth long-term. We cannot undo it, and anyone who says they can is lying.</p>
+      <p><strong>Prevention</strong> is the whole point of <a href="${url(lang, "before-you-book/crowns-vs-veneers-what-you-actually-need/")}">crowns vs veneers vs neither</a>.</p>
+
+      <h2>2. Marginal failure and gum inflammation</h2>
+      <p><strong>What happened:</strong> crown margins that do not fit the tooth, or sit too far under the gum. Result: persistent bleeding, bad odour, a dark line, and decay under the crown.</p>
+      <p><strong>Can it be fixed?</strong> Usually yes. The crowns are remade with correct margins, after any decay is treated. Outcome is generally good if the underlying tooth is still sound.</p>
+
+      <h2>3. Untreated disease under new restorations</h2>
+      <p><strong>What happened:</strong> crowns or implants placed over untreated periodontal disease or an undiagnosed apical infection. Looks perfect on discharge day, fails at 6–24 months.</p>
+      <p><strong>Can it be fixed?</strong> Yes, but in the right order: treat the disease first, stabilise, then re-restore. It takes months, not a week — which is precisely why it was skipped the first time. Patients often find this the hardest part to accept.</p>
+
+      <h2>4. Implant failure or malposition</h2>
+      <p><strong>What happened:</strong> implants that did not integrate, were placed in insufficient bone, or were angled so that a restoration could only be made by compromising it.</p>
+      <p><strong>Can it be fixed?</strong> Failed implants are removed; the site usually needs grafting and 4–6 months of healing before a new implant. Malpositioned but integrated implants are sometimes restorable, sometimes must be removed. This is the most expensive category to correct.</p>
+      <p><strong>Critical practical point:</strong> bring the implant passport. If the system is unknown, replacement components cannot be ordered and otherwise repairable cases have to be completely redone.</p>
+
+      <h2>5. Bite and joint problems</h2>
+      <p><strong>What happened:</strong> the full-mouth restoration changed the vertical dimension or the way the teeth meet. Symptoms: jaw pain, headaches, teeth that touch unevenly, ceramic that keeps chipping.</p>
+      <p><strong>Can it be fixed?</strong> Often yes, with occlusal adjustment or a splint; sometimes it needs the restorations remade. Diagnosis has to come first — chipping is a symptom, not the disease.</p>
+
+      <h2>6. Aesthetic failure</h2>
+      <p><strong>What happened:</strong> teeth that are too white, too long, too uniform, or that do not match the face. Technically sound, cosmetically wrong.</p>
+      <p><strong>Can it be fixed?</strong> Yes — remake the ceramics with a proper trial (mock-up worn before anything is finalised). This is the least serious category and the most distressing to live with.</p>
+
+      <h2>What revision realistically involves</h2>
+      <ul>
+        <li><strong>Assessment first.</strong> Radiographs, periodontal charting, vitality testing, occlusal analysis. Anyone quoting revision without these is repeating the original mistake.</li>
+        <li><strong>Usually two visits.</strong> Disease treatment and healing cannot be compressed.</li>
+        <li><strong>It costs more than the original.</strong> Removing existing work, treating what is underneath and rebuilding is more work than doing it properly once.</li>
+        <li><strong>Sometimes the answer is to do nothing yet.</strong> Crowns that are functional but aesthetically imperfect on recently devitalised teeth are often better monitored than immediately replaced.</li>
+      </ul>
+      <p>We will tell you which of these applies to you before you travel — send records to the <a href="${url(lang, "before-you-book/dental-treatment-abroad-second-opinion/")}">second opinion</a> page.</p>
+
+      <h2>Where you stand</h2>
+      <p>If the original clinic is still operating, start there: the guarantee, if there is one, is theirs to honour. Keep everything in writing. If they refuse, are unreachable, or you have lost confidence in them, get an independent assessment before spending anything further.</p>
+    </article>
+  </div></section>
+  <section class="section section-alt"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:24px;margin:0 0 20px;">${faqHeading[lang] || faqHeading.en}</h2>
+    <div class="faq" data-reveal>${faqs.map(faqItem).join("")}</div>
+  </div></section>
+  ${contactSection(lang)}`;
+
+  return {
+    body,
+    title: "Turkey Teeth Gone Wrong: What Fails and What Can Be Fixed",
+    description:
+      "An Istanbul clinic on what actually goes wrong with dental work in Turkey, what is repairable, what is not, and what revision realistically costs.",
+    ogType: "article",
+    jsonld: [
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: "Turkey teeth gone wrong: what actually fails",
+        description:
+          "An Istanbul clinic on what actually goes wrong with dental work in Turkey, what is repairable, what is not, and what revision realistically costs.",
+        inLanguage: langBCP47[lang] || "en-US",
+        publisher: { "@id": site.domain + "/#organization" },
+        mainEntityOfPage: site.domain + url(lang, "before-you-book/turkey-teeth-gone-wrong/"),
+      },
+      faqSchema(faqs.map((f) => ({ q: f.q, a: f.a.replace(/<[^>]+>/g, "") }))),
+      breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: c.url || site.domain + c.href }))),
+    ],
+  };
+}
+
+export function beforeYouBookCrownsVsVeneersPage(lang) {
+  const crumbs = [
+    crumbHome(lang),
+    beforeYouBookCrumb(lang),
+    { name: "Crowns, veneers or neither?", href: url(lang, "before-you-book/crowns-vs-veneers-what-you-actually-need/") },
+  ];
+
+  const faqs = [
+    { q: "How much tooth is removed for a crown?", a: "Substantially more than for a veneer — commonly 1.5–2 mm on all surfaces, compared with roughly 0.3–0.7 mm on the front surface for a veneer. Exact figures depend on the tooth and the material." },
+    { q: "Do veneers ruin your teeth?", a: "They are irreversible but conservative. The problem the press called \"Turkey teeth\" is crowns, not veneers." },
+    { q: "Do teeth need root canals before crowns?", a: "Only if the pulp is diseased or the preparation exposes it. Routine devitalisation of healthy teeth to simplify crown preparation is not justifiable." },
+    { q: "Can I have crooked teeth fixed without braces?", a: "Visually, yes, with crowns — at the cost of permanent tooth reduction. Whether that trade is worth it is your decision, and you should be given it explicitly." },
+  ];
+  const faqItem = (f) =>
+    `<div class="faq-item" data-faq-item><button class="faq-q" data-faq-toggle><span>${f.q}</span><span class="faq-icon"><span class="minus">${miniMinus}</span><span class="plus">${miniPlus}</span></span></button><div class="faq-a"><p style="margin:0;">${f.a}</p></div></div>`;
+
+  const body = `${pageHero(lang, "Before You Book", "Crowns, veneers, or neither?", "", crumbs)}
+  <section class="section" style="padding-top:clamp(30px,4vw,48px);"><div class="container" style="max-width:820px;">
+    <article class="prose">
+      <p>If you came to this page because a clinic quoted you 16 or 20 crowns and something felt wrong, your instinct is probably correct. Read this before you agree to anything.</p>
+
+      <h2>The ladder — always start at the bottom</h2>
+      <p>Dental treatment for appearance has a ladder, from reversible to irreversible. Good practice starts at the lowest rung that solves the problem.</p>
+      <p><strong>1. Hygiene and whitening — fully reversible, removes nothing.</strong> Discoloured teeth that are otherwise sound. Professional cleaning and whitening change shade with no loss of tooth structure. Many people quoted for 20 crowns needed this.</p>
+      <p><strong>2. Composite bonding — minimal or no reduction, repairable, reversible in most cases.</strong> Chips, small gaps, worn edges, mild shape corrections. Can be repaired chairside and removed later. Lasts 5–8 years and is then redone — a real limitation, but the teeth underneath stay intact.</p>
+      <p><strong>3. Aligners / orthodontics — removes nothing.</strong> Crooked teeth. Takes 6–18 months, which is why tourism clinics rarely propose it: it does not fit in a week. <strong>Straightening crooked teeth with crowns instead of orthodontics is the defining over-treatment of this industry.</strong> It converts a temporary problem into a permanent dependency.</p>
+      <p><strong>4. Veneers — irreversible, but conservative.</strong> Thin ceramic bonded to the front surface. Typically 0.3–0.7 mm of enamel is reduced; some cases are no-prep. Appropriate when shape and colour need changing on teeth that are structurally sound. Once done, you cannot go back.</p>
+      <p><strong>5. Crowns — irreversible, significant.</strong> The tooth is reduced on all surfaces, often 1.5–2 mm, sometimes 60–70% of the visible crown. <strong>Legitimate</strong> for heavily filled teeth, root-treated teeth, fractured teeth, severe wear, or teeth that need substantial structural support. <strong>Not legitimate</strong> for a sound tooth that is simply the wrong colour or slightly rotated.</p>
+
+      <h2>Why crowns get proposed anyway</h2>
+      <p>Not always malice. Crowns are faster than orthodontics, more predictable to fit in a one-week trip, easier to deliver in volume, produce an immediately dramatic before/after photo, and pay more per unit. A model built on a seven-day trip has a structural incentive towards the treatment that fits in seven days. That is a reason to be sceptical of any plan that fits your annual leave perfectly.</p>
+
+      <h2>The questions that settle it</h2>
+      <p>Ask these of any clinic, including us, and get the answers in writing:</p>
+      <ol>
+        <li>"How much tooth structure will be removed from each tooth, in millimetres?"</li>
+        <li>"Which of these teeth are sound, and which are already heavily filled or root-treated?"</li>
+        <li>"What would you do if I refused crowns entirely — what is the best result achievable without them?"</li>
+        <li>"Why is orthodontics not appropriate in my case?"</li>
+        <li>"Will any teeth be root-treated, and is that because they need it or to make preparation easier?"</li>
+        <li>"Can I see a mock-up or trial smile before anything irreversible is done?"</li>
+      </ol>
+      <p>Question 6 is the practical safeguard: a wax-up or digital design tried in your mouth, before preparation. If a clinic will not do a trial, they are asking you to approve the result after it becomes permanent.</p>
+
+      <h2>What we actually propose, and how often</h2>
+      <p>We quote whitening and bonding more often than veneers, and veneers more often than full crowns, because that is what the diagnoses require. We do place crowns — on teeth that need them. If your case needs orthodontics first, we will tell you, and it will mean a longer timeline and two trips.</p>
+      <p>Send us your plan and we will tell you exactly which rung of the ladder it sits on and whether it needed to: <a href="${url(lang, "before-you-book/check-my-turkey-dental-quote/")}">free quote review</a>.</p>
+    </article>
+  </div></section>
+  <section class="section section-alt"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:24px;margin:0 0 20px;">${faqHeading[lang] || faqHeading.en}</h2>
+    <div class="faq" data-reveal>${faqs.map(faqItem).join("")}</div>
+  </div></section>
+  ${contactSection(lang)}`;
+
+  return {
+    body,
+    title: "Crowns, Veneers or Neither? What You Actually Need",
+    description:
+      "The most common over-treatment in dental tourism is crowns on healthy teeth. How to tell what your case needs, and what to ask before anything is filed down.",
+    ogType: "article",
+    jsonld: [
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: "Crowns, veneers, or neither?",
+        description:
+          "The most common over-treatment in dental tourism is crowns on healthy teeth. How to tell what your case needs, and what to ask before anything is filed down.",
+        inLanguage: langBCP47[lang] || "en-US",
+        publisher: { "@id": site.domain + "/#organization" },
+        mainEntityOfPage: site.domain + url(lang, "before-you-book/crowns-vs-veneers-what-you-actually-need/"),
+      },
+      faqSchema(faqs),
+      breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: c.url || site.domain + c.href }))),
+    ],
+  };
+}

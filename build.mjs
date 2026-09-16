@@ -42,6 +42,8 @@ import {
   beforeYouBookVerifyClinicPage,
   beforeYouBookSecondOpinionPage,
   beforeYouBookAftercarePage,
+  beforeYouBookGoneWrongPage,
+  beforeYouBookCrownsVsVeneersPage,
 } from "./src/templates/pages.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -217,6 +219,8 @@ function build() {
       emit(lang, "before-you-book/how-to-verify-a-turkish-dental-clinic/", beforeYouBookVerifyClinicPage(lang));
       emit(lang, "before-you-book/dental-treatment-abroad-second-opinion/", beforeYouBookSecondOpinionPage(lang));
       emit(lang, "before-you-book/aftercare-after-turkey-teeth/", beforeYouBookAftercarePage(lang));
+      emit(lang, "before-you-book/turkey-teeth-gone-wrong/", beforeYouBookGoneWrongPage(lang));
+      emit(lang, "before-you-book/crowns-vs-veneers-what-you-actually-need/", beforeYouBookCrownsVsVeneersPage(lang));
     }
   }
 
