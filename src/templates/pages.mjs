@@ -1900,3 +1900,196 @@ export function beforeYouBookVerifyClinicPage(lang) {
   };
 }
 
+export function beforeYouBookSecondOpinionPage(lang) {
+  const crumbs = [
+    crumbHome(lang),
+    beforeYouBookCrumb(lang),
+    { name: "Dental treatment abroad: second opinion", href: url(lang, "before-you-book/dental-treatment-abroad-second-opinion/") },
+  ];
+
+  const faqs = [
+    { q: "Do you charge?", a: "No." },
+    { q: "Will you tell my current clinic?", a: "No. Nothing is shared." },
+    { q: "Can I get a second opinion if I have already paid a deposit?", a: "Yes, and it is still worth doing. Deposits are usually much smaller than the cost of the wrong treatment." },
+    {
+      q: "Can you give a second opinion after treatment has been done?",
+      a: `Yes — see <a href="${url(lang, "before-you-book/turkey-teeth-gone-wrong/")}">Turkey teeth gone wrong</a>.`,
+    },
+  ];
+  const faqItem = (f) =>
+    `<div class="faq-item" data-faq-item><button class="faq-q" data-faq-toggle><span>${f.q}</span><span class="faq-icon"><span class="minus">${miniMinus}</span><span class="plus">${miniPlus}</span></span></button><div class="faq-a"><p style="margin:0;">${f.a}</p></div></div>`;
+
+  const body = `${pageHero(lang, "Before You Book", "Getting a second opinion on dental treatment abroad", "", crumbs)}
+  <section class="section" style="padding-top:clamp(30px,4vw,48px);"><div class="container" style="max-width:820px;">
+    <article class="prose">
+      <p>A second opinion is normal in medicine and strangely rare in dentistry. It should not be. Most treatment plans in this field involve permanent removal of tooth structure, and most patients are shown exactly one plan before being asked for a deposit.</p>
+      <p>We give written second opinions on any dental treatment plan, free, whether the first plan came from a Turkish clinic, a UK or German practice, or somewhere else entirely.</p>
+      <p><strong><a href="${url(lang, "iletisim/")}">Request a second opinion →</a></strong> — or go straight to <a href="${url(lang, "before-you-book/check-my-turkey-dental-quote/")}">the quote check</a> if what you have is a price quote rather than a clinical plan.</p>
+
+      <h2>When a second opinion is worth the two days it takes</h2>
+      <ul>
+        <li>The plan involves <strong>four or more crowns</strong> on teeth that are not broken or heavily filled</li>
+        <li>Extraction of a tooth you were not told was failing</li>
+        <li>Full-mouth rehabilitation, All-on-4 or All-on-6</li>
+        <li>Bone grafting or sinus lift</li>
+        <li>A plan that changed substantially and expensively after you arrived at a clinic</li>
+        <li>Two clinics have given you plans that contradict each other</li>
+        <li>You have been told you are "not a candidate" for something you wanted, and want to know if that is correct</li>
+        <li>You simply do not understand what you have been quoted for — which is a good enough reason on its own</li>
+      </ul>
+
+      <h2>What a real second opinion contains</h2>
+      <p>Not "this looks fine" or "come to us instead". A useful second opinion states:</p>
+      <ol>
+        <li><strong>The diagnosis it can and cannot confirm</strong> from the records provided.</li>
+        <li><strong>Whether the proposed treatment follows from that diagnosis.</strong> This is the core of it. Most bad plans are not bad technique; they are treatment that does not follow from the findings.</li>
+        <li><strong>The less invasive alternatives</strong>, and the specific reason each would or would not work in your case.</li>
+        <li><strong>What is missing</strong> from the plan — untreated periodontal disease, an unaddressed root, no occlusal assessment, no discussion of the opposing arch.</li>
+        <li><strong>Sequencing and realistic timeline.</strong></li>
+        <li><strong>The questions to take back to the original clinic</strong>, written out.</li>
+      </ol>
+      <p>You can take that document straight back to your first clinic. That is a legitimate and good use of it, and it is what we expect most people to do.</p>
+
+      <h2>What we need</h2>
+      <p>Treatment plan or quote, any radiographs (a panoramic OPG or CBCT is far more useful than photographs), intraoral photos, and a short description of your symptoms and what you want to achieve. If you have records from your dentist at home, send those too — they usually contain the periodontal history that a tourism quote omits.</p>
+
+      <h2>The limits</h2>
+      <p>A remote second opinion is a review of records, not an examination. It cannot detect a cracked root, test tooth vitality, or measure pockets. What it can do is tell you whether the reasoning holds and whether something obvious is missing — which is enough to stop most of the bad decisions we see.</p>
+      <p>We will also tell you when we think the original plan is right. If your dentist at home has recommended something and a tourism clinic has offered you something cheaper and more extensive, there is a reasonable chance your dentist at home was right, and we will say so.</p>
+    </article>
+  </div></section>
+  <section class="section section-alt"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:24px;margin:0 0 20px;">${faqHeading[lang] || faqHeading.en}</h2>
+    <div class="faq" data-reveal>${faqs.map(faqItem).join("")}</div>
+  </div></section>
+  ${contactSection(lang)}`;
+
+  return {
+    body,
+    title: "Second Opinion on Dental Treatment Abroad | MediDent İstanbul",
+    description:
+      "A written clinical second opinion on any treatment plan — from Turkey, your home dentist, or anywhere else. Reviewed by a named dentist, no obligation.",
+    ogType: "article",
+    jsonld: [
+      {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        name: "Free second opinion on a dental treatment plan",
+        serviceType: "Second opinion on dental treatment",
+        provider: { "@id": site.domain + "/#organization" },
+        areaServed: ["GB", "IE", "DE", "US", "NL", "FR"],
+        offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" },
+      },
+      faqSchema(faqs.map((f) => ({ q: f.q, a: f.a.replace(/<[^>]+>/g, "") }))),
+      breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: c.url || site.domain + c.href }))),
+    ],
+  };
+}
+
+
+export function beforeYouBookAftercarePage(lang) {
+  const crumbs = [
+    crumbHome(lang),
+    beforeYouBookCrumb(lang),
+    { name: "Aftercare after Turkey teeth", href: url(lang, "before-you-book/aftercare-after-turkey-teeth/") },
+  ];
+
+  const faqs = [
+    { q: "Will my NHS or German dentist see me after treatment in Turkey?", a: "Many will for maintenance and emergencies, fewer will take responsibility for the restorations themselves. Sending records in advance materially improves your chances." },
+    { q: "How long do crowns from Turkey last?", a: "The same as crowns anywhere: material, bite control and gum health decide it, not the country. Night guard use and hygiene visits are the two variables you control." },
+    { q: "Do I need to fly back for check-ups?", a: "Not usually. Annual radiographic review can be done locally and reviewed remotely." },
+    { q: "What if a crown falls off?", a: "Keep it, do not glue it, and see any local dentist for recementation — it is a routine procedure." },
+  ];
+  const faqItem = (f) =>
+    `<div class="faq-item" data-faq-item><button class="faq-q" data-faq-toggle><span>${f.q}</span><span class="faq-icon"><span class="minus">${miniMinus}</span><span class="plus">${miniPlus}</span></span></button><div class="faq-a"><p style="margin:0;">${f.a}</p></div></div>`;
+
+  const body = `${pageHero(lang, "Before You Book", "Aftercare after Turkey teeth", "", crumbs)}
+  <section class="section" style="padding-top:clamp(30px,4vw,48px);"><div class="container" style="max-width:820px;">
+    <article class="prose">
+      <p>This is the part of dental tourism that is planned last and matters most. Treatment takes a week. Aftercare takes the rest of your life, and it happens 3,000 km from the clinic that did the work.</p>
+      <p>Plan it <strong>before</strong> you book the flight. Here is the whole protocol.</p>
+
+      <h2>Before you fly home — what you must leave with</h2>
+      <p>Do not board the plane without these. Getting them later is much harder.</p>
+      <ul>
+        <li><strong>Full written treatment record</strong>: every tooth treated, by number, and what was done to it</li>
+        <li><strong>Implant passport / lot labels</strong> — brand, product line, diameter, length, position</li>
+        <li><strong>Ceramic specification</strong>: material, brand, lab name</li>
+        <li><strong>Post-op radiographs</strong> (digital files, not photographs of a screen)</li>
+        <li><strong>Before and after clinical photographs</strong></li>
+        <li><strong>The written guarantee</strong>, with its claims procedure</li>
+        <li><strong>A named contact and a working phone number</strong>, plus stated response times</li>
+        <li><strong>A one-page clinical summary addressed to your dentist at home</strong> — ask for this explicitly; most clinics will produce it and almost no patient asks</li>
+      </ul>
+
+      <h2>First 72 hours</h2>
+      <p>Expect swelling that peaks around day two, and bruising if you had surgery. Ice on, twenty minutes at a time, for the first day; nothing hot. Sleep with your head elevated. Soft diet. No smoking — genuinely, not "as little as possible" — if implants or grafts were placed; smoking is the largest controllable risk factor for early implant failure. Take the prescribed antibiotics to completion.</p>
+      <p><strong>Flying:</strong> cabin pressure is not a problem for crowns or implants, but do not fly within 24 hours of sedation or a sinus lift without your surgeon's clearance. Carry the medication and the clinical summary in hand luggage, not the hold.</p>
+      <p><strong>Contact the clinic immediately if:</strong> bleeding that does not stop with 20 minutes of pressure, swelling that increases after day three, fever, numbness that persists past the expected period, or a temporary crown that comes off before you have flown.</p>
+
+      <h2>Weeks 1–6</h2>
+      <ul>
+        <li><strong>Temporary crowns</strong>: avoid anything sticky or hard. If one debonds, keep it, and call the clinic before improvising — temporary cement from a pharmacy is acceptable for a few days, superglue never is.</li>
+        <li><strong>Sutures</strong> typically dissolve or are removed at 7–10 days; agree before you leave whether the clinic, a local dentist, or nobody needs to do this.</li>
+        <li><strong>Gum contour changes</strong> as tissue settles. Slight aesthetic differences at week one are normal and are not a reason to panic.</li>
+        <li><strong>Bite check</strong>: if the bite feels high, or one tooth touches first, that is not something to live with. High occlusion causes crown fracture and joint pain. Report it immediately; it is a ten-minute adjustment that any dentist can do.</li>
+      </ul>
+
+      <h2>Months 2–12</h2>
+      <ul>
+        <li>Wear the <strong>night guard</strong>. If you were not given one and you have a full-arch or multi-unit ceramic restoration, ask why not. Bruxism is the commonest cause of ceramic fracture, and it is the cheapest problem in this entire field to prevent.</li>
+        <li><strong>Hygiene visit at 3–6 months</strong>, locally. Restored teeth do not get less gum disease; they get more, because margins are harder to clean.</li>
+        <li><strong>Interdental cleaning is mandatory</strong>, not optional, around crown margins and implants. Superfloss or interdental brushes, daily.</li>
+        <li><strong>Radiographic review at 12 months</strong> for implants, locally, comparing bone levels to the post-op films you brought home.</li>
+      </ul>
+
+      <h2>What if your dentist at home will not see you?</h2>
+      <p>This is common enough that you should plan for it, and it is worth understanding why it happens: a dentist at home takes on clinical and medico-legal responsibility for work they did not do, cannot inspect the preparation under the crown, and often cannot identify the implant system. It is rarely spite. It is risk.</p>
+      <p>What works:</p>
+      <ol>
+        <li><strong>Send the records ahead of the appointment</strong>, not on the day. A dentist who has seen the implant passport and post-op radiographs is far more likely to accept you.</li>
+        <li><strong>Ask for maintenance, not adoption.</strong> "I am not asking you to guarantee this work — I am asking for hygiene care and monitoring, and I understand I'll be referred if something needs redoing." That sentence changes the conversation.</li>
+        <li><strong>Hygienist-led practices and independent hygienists</strong> will almost always take you for maintenance.</li>
+        <li><strong>For emergencies</strong>, any dentist will treat pain and infection. Recementing a crown is routine.</li>
+        <li><strong>If nobody will take you</strong>, say so to us and we will identify what care you actually need and arrange it, including remote review of local radiographs.</li>
+      </ol>
+
+      <h2>What we commit to</h2>
+      <ul>
+        <li>Written aftercare protocol issued to every patient on discharge, plus the summary letter for your dentist at home</li>
+        <!-- OPS NOTE: pending clinic-confirmed commitment periods before these can go live —
+             "A named contact reachable in your time zone for {{period}}"
+             "Free remote review of any problem, with radiographs, for {{period}}" -->
+        <li>Revision terms stated in advance: <a href="${url(lang, "before-you-book/guarantee-and-what-happens-if-something-fails/")}">guarantee</a></li>
+      </ul>
+      <p>If something has already failed: <a href="${url(lang, "before-you-book/turkey-teeth-gone-wrong/")}">Turkey teeth gone wrong</a>.</p>
+    </article>
+  </div></section>
+  <section class="section section-alt"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:24px;margin:0 0 20px;">${faqHeading[lang] || faqHeading.en}</h2>
+    <div class="faq" data-reveal>${faqs.map(faqItem).join("")}</div>
+  </div></section>
+  ${contactSection(lang)}`;
+
+  return {
+    body,
+    title: "Aftercare After Turkey Teeth: The Full Protocol",
+    description:
+      "What to do in the first 72 hours, the first year and every year after — plus what to do if your dentist at home refuses to see you. Written by an Istanbul clinic.",
+    ogType: "article",
+    jsonld: [
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: "Aftercare after Turkey teeth",
+        description:
+          "What to do in the first 72 hours, the first year and every year after — plus what to do if your dentist at home refuses to see you.",
+        inLanguage: langBCP47[lang] || "en-US",
+        publisher: { "@id": site.domain + "/#organization" },
+        mainEntityOfPage: site.domain + url(lang, "before-you-book/aftercare-after-turkey-teeth/"),
+      },
+      faqSchema(faqs),
+      breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: c.url || site.domain + c.href }))),
+    ],
+  };
+}

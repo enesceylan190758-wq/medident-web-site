@@ -40,6 +40,8 @@ import {
   beforeYouBookCheckQuotePage,
   beforeYouBookRedFlagsPage,
   beforeYouBookVerifyClinicPage,
+  beforeYouBookSecondOpinionPage,
+  beforeYouBookAftercarePage,
 } from "./src/templates/pages.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -213,6 +215,8 @@ function build() {
       emit(lang, "before-you-book/check-my-turkey-dental-quote/", beforeYouBookCheckQuotePage(lang));
       emit(lang, "before-you-book/turkey-dentist-red-flags/", beforeYouBookRedFlagsPage(lang));
       emit(lang, "before-you-book/how-to-verify-a-turkish-dental-clinic/", beforeYouBookVerifyClinicPage(lang));
+      emit(lang, "before-you-book/dental-treatment-abroad-second-opinion/", beforeYouBookSecondOpinionPage(lang));
+      emit(lang, "before-you-book/aftercare-after-turkey-teeth/", beforeYouBookAftercarePage(lang));
     }
   }
 
