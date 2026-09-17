@@ -366,6 +366,11 @@ Redirect 301 /fr/hizmetler/oral-implantoloji/ ${site.domain}/fr/hizmetler/implan
 Redirect 301 /ar/hizmetler/oral-implantoloji/ ${site.domain}/ar/hizmetler/implantoloji-implant-tedavisi/
 Redirect 301 /ru/hizmetler/oral-implantoloji/ ${site.domain}/ru/hizmetler/implantoloji-implant-tedavisi/
 
+# ---- Low-traffic EN GEO pages merged into /en/before-you-book/ trust cluster (301) ----
+Redirect 301 /en/geo/is-dental-treatment-in-turkey-safe/ ${site.domain}/en/before-you-book/is-dental-treatment-in-turkey-safe/
+Redirect 301 /en/geo/how-to-verify-dental-clinic-accreditation-turkey/ ${site.domain}/en/before-you-book/how-to-verify-a-turkish-dental-clinic/
+Redirect 301 /en/geo/dental-aftercare-when-you-return-home/ ${site.domain}/en/before-you-book/aftercare-after-turkey-teeth/
+
 # ---- Service-body mirror blogs → commercial service pages (301) ----
 ${mirrorRedirects}
 

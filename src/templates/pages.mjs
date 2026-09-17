@@ -812,10 +812,13 @@ export function implantsCostPage(lang) {
           whyCheaper: "why-is-dental-treatment-cheaper-in-turkey",
         };
   const priceListSlug = lang === "de" ? "preise/" : "turkey-teeth-price/";
+  // EN "safety" page merged into the before-you-book cluster (301'd) — point there directly
+  // instead of through the redirect. DE keeps its own live GEO page, unaffected.
+  const safetyHref = lang === "en" ? url(lang, "before-you-book/is-dental-treatment-in-turkey-safe/") : url(lang, "geo/" + geoSlugs.safety + "/");
   const links = [
     { href: url(lang, "geo/" + geoSlugs.def + "/"), label: p.geoLinkLabel },
     { href: url(lang, "geo/" + geoSlugs.materials + "/"), label: p.materialsLinkLabel },
-    { href: url(lang, "geo/" + geoSlugs.safety + "/"), label: p.safetyLinkLabel },
+    { href: safetyHref, label: p.safetyLinkLabel },
     { href: url(lang, "geo/" + geoSlugs.whyCheaper + "/"), label: p.whyCheaperLinkLabel },
     { href: url(lang, priceListSlug), label: p.priceListLinkLabel },
   ]

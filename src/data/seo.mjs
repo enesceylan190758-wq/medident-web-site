@@ -199,21 +199,18 @@ export const geoTopicGroups = [
     de: "was-sind-porzellan-veneers",
   },
   {
+    // EN "safety" GEO page merged into /en/before-you-book/is-dental-treatment-in-turkey-safe/
+    // (301'd, low traffic — see PR #48). en left null: hreflang must not point at a redirecting
+    // URL. TR/DE siblings are live and keep hreflang-linking to each other.
     id: "safety",
     tr: "turkiyede-dis-tedavisi-guvenli-mi",
-    en: "is-dental-treatment-in-turkey-safe",
+    en: null,
     de: "ist-zahnbehandlung-in-der-tuerkei-sicher",
   },
   {
     id: "turkey-teeth",
     tr: null,
     en: "turkey-teeth-what-they-are-and-how-to-avoid-problems",
-    de: null,
-  },
-  {
-    id: "aftercare",
-    tr: null,
-    en: "dental-aftercare-when-you-return-home",
     de: null,
   },
   {
@@ -227,12 +224,6 @@ export const geoTopicGroups = [
     tr: null,
     en: "zirconia-vs-emax-implant-brands-turkey",
     de: "materialien-marken-zirkon-implantate-tuerkei",
-  },
-  {
-    id: "accreditation",
-    tr: null,
-    en: "how-to-verify-dental-clinic-accreditation-turkey",
-    de: null,
   },
   {
     id: "why-cheaper",
