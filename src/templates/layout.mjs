@@ -6,6 +6,15 @@ import { resolveHreflangPaths, hoursLocalized } from "../data/seo.mjs";
 import { rtlLangs, L } from "../data/locale.mjs";
 import { icons } from "./icons.mjs";
 
+// <title> template: appending "— MediDent" pushes long bases past the ~60-char SERP
+// cutoff. Skip the suffix once the base itself already fills that budget.
+export const pageTitle = (base) => {
+  const b = (base || "").trim();
+  // Brand suffix (" — MediDent İstanbul") is 20 chars; base must leave room under the
+  // ~60-char SERP cutoff, so only append it below 40, not right up against 45.
+  return b.length > 40 ? b : `${b} — ${site.brand}`;
+};
+
 export const waHref = (text) =>
   `https://wa.me/${site.whatsappRaw}${text ? `?text=${encodeURIComponent(text)}` : ""}`;
 
