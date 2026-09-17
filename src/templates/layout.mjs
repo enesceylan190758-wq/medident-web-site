@@ -26,7 +26,7 @@ export const url = (lang, path = "") => {
 export const absUrl = (lang, path = "") => site.domain + url(lang, path);
 
 // Head with per-page SEO + hreflang alternates + tracking.
-function head({ lang, title, description, path, image, jsonld = [], ogType = "website", publishedTime }) {
+function head({ lang, title, description, path, image, jsonld = [], ogType = "website", publishedTime, noindex = false }) {
   const t = i18n[lang];
   const canonical = absUrl(lang, path);
   const img = image || site.domain + asset("/assets/img/portrait-a.jpg");
@@ -71,7 +71,7 @@ function head({ lang, title, description, path, image, jsonld = [], ogType = "we
     <meta name="description" content="${escapeAttr(description)}">
     <link rel="canonical" href="${canonical}">
     ${site.tracking.gscVerify ? `<meta name="google-site-verification" content="${site.tracking.gscVerify}">` : ""}
-    <meta name="robots" content="index,follow,max-image-preview:large">
+    <meta name="robots" content="${noindex ? "noindex,follow" : "index,follow,max-image-preview:large"}">
     ${alts}
     <link rel="alternate" hreflang="x-default" href="${xDefaultHref}">
     <meta property="og:type" content="${ogType}">

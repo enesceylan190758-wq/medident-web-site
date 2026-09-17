@@ -107,11 +107,14 @@ function emit(lang, pathNoLang, rendered) {
       jsonld: rendered.jsonld || [],
       ogType: rendered.ogType || "website",
       publishedTime: rendered.publishedTime,
+      noindex: rendered.noindex || false,
     },
     rendered.body
   );
   fs.writeFileSync(path.join(outDir, "index.html"), html);
-  pages.push({ lang, path: pathNoLang, loc: site.domain + url(lang, pathNoLang) });
+  if (!rendered.excludeFromSitemap) {
+    pages.push({ lang, path: pathNoLang, loc: site.domain + url(lang, pathNoLang) });
+  }
 }
 
 function build() {

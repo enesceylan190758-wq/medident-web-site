@@ -506,6 +506,10 @@ export function blogIndexPage(lang, articles) {
     title: `${t.blogTitle} — ${site.brand}`,
     description: t.blogLead,
     jsonld: [breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href })))],
+    // No articles exist yet in this language: an index with zero listings is thin/duplicate
+    // content, not something to rank. Excluded from the sitemap too (see build.mjs).
+    noindex: articles.length === 0,
+    excludeFromSitemap: articles.length === 0,
   };
 }
 
@@ -1276,6 +1280,9 @@ export function legalPage(lang, kind) {
     title: `${title} — ${site.brand}`,
     description: title + " — " + site.brand,
     jsonld: [breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href })))],
+    // Boilerplate legal text, near-identical across languages — not worth ranking for,
+    // but keep it in the sitemap (real page, just not a search target).
+    noindex: true,
   };
 }
 
@@ -1318,6 +1325,10 @@ export function geoIndexPage(lang, packs) {
     title: `${title} — ${site.brand}`,
     description: lead,
     jsonld: [breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href })))],
+    // No packs exist yet in this language: an index with zero entries is thin/duplicate
+    // content, not something to rank. Excluded from the sitemap too (see build.mjs).
+    noindex: packs.length === 0,
+    excludeFromSitemap: packs.length === 0,
   };
 }
 
