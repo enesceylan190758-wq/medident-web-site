@@ -180,7 +180,7 @@ function header(lang, path) {
   <div class="mobile-nav" data-mobile-nav>
     <div class="mobile-panel">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;">
-        <img src="${asset("/assets/img/logo.png")}" alt="${site.brand}" style="height:34px;width:auto;">
+        <img src="${asset("/assets/img/logo.png")}" alt="${site.brand}" width="107" height="34" style="height:34px;width:auto;">
         <button data-close-nav aria-label="Close" style="width:40px;height:40px;border-radius:10px;border:1px solid rgba(43,35,24,.14);display:flex;align-items:center;justify-content:center;background:#fff;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2B2318" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
       </div>
       ${links.map(([label, href]) => `<a href="${href}">${label}</a>`).join("\n      ")}
@@ -197,7 +197,7 @@ function footer(lang) {
   return `<footer class="site-footer">
     <div class="footer-grid">
       <div>
-        <span class="footer-logo"><img src="${asset("/assets/img/logo.png")}" alt="${site.brand}"></span>
+        <span class="footer-logo"><img src="${asset("/assets/img/logo.png")}" alt="${site.brand}" width="600" height="190"></span>
         <p style="font-size:14px;line-height:1.6;color:#8A7F6D;margin:0 0 18px;max-width:280px;">${t.footerTag}</p>
         <div class="socials">
           <a href="${waHref()}" aria-label="WhatsApp" target="_blank" rel="noopener">${icons.wa.replace('width="24" height="24"', 'width="19" height="19"')}</a>

@@ -1,3 +1,6 @@
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { site } from "../data/site.mjs";
 import { i18n } from "../data/i18n.mjs";
 import { services, homeCards, packages, priceCalc, implantBrands } from "../data/content.mjs";
@@ -8,6 +11,30 @@ import { icons } from "./icons.mjs";
 import { url, waHref, orgSchema, faqSchema, breadcrumbSchema, asset } from "./layout.mjs";
 
 const src = (file) => asset(`/assets/img/${file}`);
+
+// Real pixel dimensions for every asset under src/assets/images, keyed by relative path
+// (e.g. "brands/foo.png"). Generated once via `file <img>` — see src/data/image-dimensions.json.
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const IMAGE_DIMENSIONS = JSON.parse(
+  fs.readFileSync(path.join(__dirname, "../data/image-dimensions.json"), "utf8")
+);
+
+// <picture> with a WebP source + the original JPG/PNG as fallback (kept on disk, not
+// deleted). Takes an already-resolved src() path. imgAttrs (width/height/loading/class/
+// style) go straight on the <img> — <picture> itself stays an unstyled, box-less wrapper
+// so it doesn't disturb the layout the original bare <img> relied on. When imgAttrs
+// doesn't already set width/height, they're filled in from the real file dimensions so
+// the browser can reserve space before the image loads (avoids layout shift).
+const picture = (jpgPath, alt, imgAttrs = "") => {
+  const webp = jpgPath.replace(/\.(jpe?g|png)$/i, ".webp");
+  let attrs = imgAttrs;
+  if (!/\bwidth=/.test(attrs)) {
+    const rel = jpgPath.replace(/^.*\/assets\/img\//, "");
+    const dims = IMAGE_DIMENSIONS[rel];
+    if (dims) attrs = `width="${dims[0]}" height="${dims[1]}" ${attrs}`;
+  }
+  return `<picture><source srcset="${webp}" type="image/webp"><img src="${jpgPath}" alt="${alt}" ${attrs}></picture>`;
+};
 
 // Price calculator: DE/EN only (per client request — not shown on TR/AR/RU).
 const CALC_LANGS = ["de", "en", "fr"];
@@ -29,7 +56,7 @@ export function brandsSection(lang) {
           .map(
             (b) => `<div class="card" data-reveal style="padding:24px 22px;">
           <div style="height:42px;display:flex;align-items:center;margin-bottom:16px;${b.logoDark ? "background:var(--ink);border-radius:8px;padding:8px 14px;width:fit-content;" : ""}">
-            <img src="${src("brands/" + b.logo)}" alt="${L(b.titles, lang)}" style="max-height:100%;max-width:140px;object-fit:contain;">
+            ${picture(src("brands/" + b.logo), L(b.titles, lang), 'style="max-height:100%;max-width:140px;object-fit:contain;"')}
           </div>
           <h3 style="margin:0 0 8px;font-size:18px;">${L(b.titles, lang)}</h3>
           <p style="font-size:14px;line-height:1.6;color:var(--muted-2);margin:0;">${L(b.desc, lang)}</p>
@@ -77,7 +104,7 @@ function clinicVideoSection(lang) {
     .map((item) => {
       const embedAttr = item.embed ? ` data-ig-embed="${item.embed}"` : "";
       return `<a class="ig-card" href="${item.url}" target="_blank" rel="noopener"${embedAttr}>
-      <img src="${item.cover}" alt="${site.brand} Instagram" loading="lazy" width="320" height="400">
+      ${picture(item.cover, "", 'loading="lazy" width="320" height="400"')}
       <span class="ig-card-shade" aria-hidden="true"></span>
       <span class="ig-card-badge">${icons.instagram}<span>${L(uiBits.openInstagram, lang)}</span></span>
     </a>`;
@@ -93,12 +120,12 @@ function clinicVideoSection(lang) {
       </div>
       <div class="clinic-video-grid" data-reveal>
         <${tag} class="yt-facade" ${facadeAttrs} aria-label="${L(uiBits.watchVideo, lang)}">
-          <img src="${cover}" alt="${site.brand} — ${L(uiBits.clinicVideoEyebrow, lang)}" width="960" height="540" loading="lazy">
+          ${picture(cover, `${site.brand} — ${L(uiBits.clinicVideoEyebrow, lang)}`, 'width="960" height="540" loading="lazy"')}
           <span class="yt-facade-play" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
           <span class="yt-facade-label">${L(uiBits.watchVideo, lang)}</span>
         </${tag}>
         <div class="clinic-photo-strip">
-          ${(img.marquee || []).slice(0, 4).map((f) => `<img src="${src(f)}" alt="${site.brand}" loading="lazy" width="280" height="200">`).join("")}
+          ${(img.marquee || []).slice(0, 4).map((f) => picture(src(f), "", 'loading="lazy" width="280" height="200"')).join("")}
           <a class="btn btn-ghost" href="${watchHref}" target="_blank" rel="noopener">${L(uiBits.openYoutube, lang)} ${icons.arrowSm}</a>
         </div>
       </div>
@@ -208,7 +235,7 @@ function revealWaSection({ id, eyebrow, title, lead, toggle, image, steps, cta, 
             image
               ? `<div style="max-width:560px;margin:0 auto 32px;text-align:center;">
             <button data-lightbox-src="${image.src}" style="display:block;width:100%;border:none;background:none;padding:0;cursor:zoom-in;">
-              <img src="${image.src}" alt="${image.alt}" style="width:100%;border-radius:16px;box-shadow:var(--shadow-lg);display:block;">
+              ${picture(image.src, image.alt, 'style="width:100%;border-radius:16px;box-shadow:var(--shadow-lg);display:block;"')}
             </button>
             <p style="font-size:12.5px;color:var(--muted-2);margin:10px 0 0;">${image.caption}</p>
           </div>`
@@ -284,7 +311,7 @@ export function homePage(lang) {
     const svc = services.find((s) => s.slug === c.service);
     const photo = svc?.image;
     return `<a href="${href}" class="card service-card" data-reveal style="display:block;color:inherit;padding:0;overflow:hidden;">
-      ${photo ? `<div style="aspect-ratio:16/10;overflow:hidden;background:var(--sand);"><img src="${src(photo)}" alt="${title}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div>` : `<div class="icon-box" style="margin:22px 22px 0;">${icons[c.icon] || icons.smile}</div>`}
+      ${photo ? `<div style="aspect-ratio:16/10;overflow:hidden;background:var(--sand);">${picture(src(photo), title, 'loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"')}</div>` : `<div class="icon-box" style="margin:22px 22px 0;">${icons[c.icon] || icons.smile}</div>`}
       <div style="padding:18px 22px 22px;">
         <h3 style="margin:0 0 8px;">${title}</h3>
         <p style="font-size:14.5px;line-height:1.6;color:var(--muted-2);margin:0;">${L(c.short, lang)}</p>
@@ -350,14 +377,14 @@ export function homePage(lang) {
         </div>
         <div class="hero-media" data-reveal>
           <div class="hero-frame">
-            <img src="${src(img.hero)}" alt="${site.brand} — ${h.eyebrow}" width="640" height="800">
+            ${picture(src(img.hero), `${site.brand} — ${h.eyebrow}`, 'width="640" height="800"')}
           </div>
           <div class="float-card top-left">
             <div style="width:38px;height:38px;border-radius:10px;background:var(--cream-2);display:flex;align-items:center;justify-content:center;color:var(--gold);"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 6 20.4l1.4-6.8L2.3 9l6.9-.7z"></path></svg></div>
             <div style="line-height:1.15;"><div style="font-weight:800;font-size:15px;color:var(--ink);">4.9 / 5.0</div><div style="font-size:11.5px;color:var(--muted-2);">Google</div></div>
           </div>
           <button class="float-card bottom-right" data-lightbox-src="${src(img.heroBa)}" aria-label="${t.before} / ${t.after}">
-            <span style="border-radius:11px;overflow:hidden;aspect-ratio:3.6/1;background:var(--sand);display:block;"><img src="${src(img.heroBa)}" alt="${t.before} & ${t.after}" style="width:100%;height:100%;object-fit:cover;object-position:center top;"></span>
+            <span style="border-radius:11px;overflow:hidden;aspect-ratio:3.6/1;background:var(--sand);display:block;">${picture(src(img.heroBa), `${t.before} & ${t.after}`, 'style="width:100%;height:100%;object-fit:cover;object-position:center top;"')}</span>
             <span style="padding:9px 6px 4px;display:flex;align-items:center;gap:7px;"><span class="dot"></span><span style="font-size:12.5px;font-weight:700;color:var(--ink);">${L(uiBits.realSmile, lang)}</span></span>
           </button>
         </div>
@@ -395,8 +422,8 @@ export function homePage(lang) {
         </div>
         <div data-reveal>
           <div class="ba" data-ba>
-            <img src="${src(img.after)}" alt="${t.after}">
-            <img class="ba-before" src="${src(img.before)}" alt="${t.before}">
+            ${picture(src(img.after), t.after)}
+            ${picture(src(img.before), t.before, 'class="ba-before"')}
             <span class="ba-label before">${t.before}</span>
             <span class="ba-label after">${t.after}</span>
             <div class="ba-handle"><div class="ba-knob"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 8L6 12l3.5 4M14.5 8l3.5 4-3.5 4"></path></svg></div></div>
@@ -411,7 +438,7 @@ export function homePage(lang) {
             const label = c.label[lang] || c.label.tr;
             const href = src(c.file);
             return `<button data-reveal data-lightbox-src="${href}" class="case-card">
-          <img src="${href}" alt="${label} — ${site.brand}">
+          ${picture(href, `${label} — ${site.brand}`, 'loading="lazy"')}
           <div class="shade"></div>
           <span class="case-badge">${t.before} &amp; ${t.after}</span>
           <span class="case-title">${label}</span>
@@ -429,7 +456,7 @@ export function homePage(lang) {
     </div>
     <div class="marquee-wrap">
       <div class="marquee">
-        ${galleryImgs.concat(galleryImgs).map((href) => `<button data-lightbox-src="${href}"><img src="${href}" alt="${site.brand}" loading="lazy"></button>`).join("")}
+        ${galleryImgs.concat(galleryImgs).map((href) => `<button data-lightbox-src="${href}">${picture(href, "", 'loading="lazy"')}</button>`).join("")}
       </div>
     </div>
   </section>
@@ -438,7 +465,7 @@ export function homePage(lang) {
     <div class="container">
       <div class="grid-2" style="grid-template-columns:1fr 1.06fr;">
         <div data-reveal style="position:relative;">
-          <div style="border-radius:26px;overflow:hidden;aspect-ratio:5/6;box-shadow:var(--shadow-lg);background:var(--sand);"><img src="${src(img.why)}" alt="${site.brand}" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div style="border-radius:26px;overflow:hidden;aspect-ratio:5/6;box-shadow:var(--shadow-lg);background:var(--sand);">${picture(src(img.why), "", 'loading="lazy" style="width:100%;height:100%;object-fit:cover;"')}</div>
         </div>
         <div>
           <div class="eyebrow" data-reveal>${t.whyEyebrow}</div>
@@ -510,7 +537,7 @@ export function homePage(lang) {
           <a href="${url(lang, "hakkimizda/")}" class="btn btn-ghost" data-reveal>${t.nav.about} ${icons.arrowSm}</a>
         </div>
         <div data-reveal style="position:relative;">
-          <div style="border-radius:24px;overflow:hidden;aspect-ratio:4/5;box-shadow:var(--shadow-lg);background:var(--sand);"><img src="${src(img.about)}" alt="${site.brand}" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div style="border-radius:24px;overflow:hidden;aspect-ratio:4/5;box-shadow:var(--shadow-lg);background:var(--sand);">${picture(src(img.about), "", 'loading="lazy" style="width:100%;height:100%;object-fit:cover;"')}</div>
         </div>
       </div>
     </div>
