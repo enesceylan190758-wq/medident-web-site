@@ -341,6 +341,12 @@ Redirect 301 /fr/hizmetler/oral-implantoloji/ ${site.domain}/fr/hizmetler/implan
 Redirect 301 /ar/hizmetler/oral-implantoloji/ ${site.domain}/ar/hizmetler/implantoloji-implant-tedavisi/
 Redirect 301 /ru/hizmetler/oral-implantoloji/ ${site.domain}/ru/hizmetler/implantoloji-implant-tedavisi/
 
+# ---- Dead profile URLs from a since-removed roster entry (301 → doctors index) ----
+Redirect 301 /dr-faruk-ogutlu/ ${site.domain}/doktorlar/
+Redirect 301 /dr-alperen-demiral/ ${site.domain}/doktorlar/
+Redirect 301 /dt-levent-emir-guneysu/ ${site.domain}/doktorlar/
+Redirect 301 /dr-dt-nilufer-yilmaz-ogutlu/ ${site.domain}/doktorlar/
+
 # ---- Service-body mirror blogs → commercial service pages (301) ----
 ${mirrorRedirects}
 
