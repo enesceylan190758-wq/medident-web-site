@@ -13,6 +13,7 @@ import {
   orgSchema,
   faqSchema,
   asset,
+  pageTitle,
 } from "./layout.mjs";
 import { contactSection, priceCalcSection, brandsSection, xraySection } from "./home.mjs";
 
@@ -333,7 +334,7 @@ export function servicesIndexPage(lang) {
   ${contactSection(lang)}`;
   return {
     body,
-    title: `${t.nav.services} — ${site.brand}`,
+    title: pageTitle(`${t.nav.services}`),
     description: t.servicesLead,
     jsonld: [breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href })))],
   };
@@ -402,11 +403,8 @@ export function servicePage(lang, service, article = null) {
     breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
   ];
   if (faqs.length) jsonld.push(faqSchema(faqs));
-  const pageTitle =
-    lang === "en" || lang === "de" || lang === "fr"
-      ? `${title} in Istanbul — ${site.brand}`
-      : `${title} — ${site.brand}`;
-  return { body, title: pageTitle, description: L(service.meta, lang), image: ogImage, jsonld };
+  const titleBase = lang === "en" || lang === "de" || lang === "fr" ? `${title} in Istanbul` : title;
+  return { body, title: pageTitle(titleBase), description: L(service.meta, lang), image: ogImage, jsonld };
 }
 
 // Doctors index
@@ -440,8 +438,8 @@ export function doctorsIndexPage(lang) {
   ${contactSection(lang)}`;
   return {
     body,
-    title: `${t.doctorsTitle} — ${site.brand}`,
-    description: t.doctorsLead,
+    title: pageTitle(`${t.doctorsTitle}`),
+    description: `${t.doctorsLead} ${doctors.map((d) => d.name).join(", ")}`.slice(0, 155),
     jsonld: [breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href })))],
   };
 }
@@ -484,7 +482,8 @@ export function doctorPage(lang, doctor) {
     },
     breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
   ];
-  return { body, title: `${doctor.name} — ${site.brand}`, description: `${doctor.name}, ${L(doctor.titles, lang)} — ${site.brand}`, jsonld };
+  const doctorDescription = `${doctor.name} — ${L(doctor.titles, lang)}. ${L(doctor.bio, lang)}`.slice(0, 155);
+  return { body, title: pageTitle(`${doctor.name}`), description: doctorDescription, jsonld };
 }
 
 // Blog index
@@ -503,9 +502,13 @@ export function blogIndexPage(lang, articles) {
   ${contactSection(lang)}`;
   return {
     body,
-    title: `${t.blogTitle} — ${site.brand}`,
+    title: pageTitle(`${t.blogTitle}`),
     description: t.blogLead,
     jsonld: [breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href })))],
+    // No articles exist yet in this language: an index with zero listings is thin/duplicate
+    // content, not something to rank. Excluded from the sitemap too (see build.mjs).
+    noindex: articles.length === 0,
+    excludeFromSitemap: articles.length === 0,
   };
 }
 
@@ -557,7 +560,7 @@ export function articlePage(lang, article, relatedServiceSlug) {
   ];
   return {
     body,
-    title: `${article.title} — ${site.brand}`,
+    title: pageTitle(`${article.title}`),
     description: article.metaDescription || article.excerpt,
     image: ogImage,
     ogType: "article",
@@ -593,7 +596,7 @@ export function aboutPage(lang) {
   ${contactSection(lang)}`;
   return {
     body,
-    title: `${t.nav.about} — ${site.brand}`,
+    title: pageTitle(`${t.nav.about}`),
     description: t.aboutP1,
     jsonld: [orgSchema(lang), breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href })))],
   };
@@ -613,7 +616,7 @@ export function contactPage(lang) {
   </div></section>`;
   return {
     body,
-    title: `${t.nav.contact} — ${site.brand}`,
+    title: pageTitle(`${t.nav.contact}`),
     description: t.contactLead,
     jsonld: [orgSchema(lang), breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href })))],
   };
@@ -678,7 +681,7 @@ export function pricesPage(lang) {
 
   return {
     body,
-    title: `${p.h1} — ${site.brand}`,
+    title: pageTitle(`${p.h1}`),
     description: p.lead,
     jsonld: [
       orgSchema(lang),
@@ -740,7 +743,7 @@ export function bondingPage(lang) {
 
   return {
     body,
-    title: `${p.h1} — ${site.brand}`,
+    title: pageTitle(`${p.h1}`),
     description: p.lead,
     jsonld: [
       orgSchema(lang),
@@ -863,7 +866,7 @@ export function implantsCostPage(lang) {
 
   return {
     body,
-    title: `${p.h1} — ${site.brand}`,
+    title: pageTitle(`${p.h1}`),
     description: p.lead,
     publishedTime: publishedAt,
     modifiedTime: updatedAt,
@@ -958,7 +961,7 @@ export function veneersPage(lang) {
   ${contactSection(lang)}`;
   return {
     body,
-    title: `${p.h1} — ${site.brand}`,
+    title: pageTitle(`${p.h1}`),
     description: p.lead,
     publishedTime: publishedAt,
     modifiedTime: updatedAt,
@@ -1084,7 +1087,7 @@ export function hollywoodSmilePage(lang) {
 
   return {
     body,
-    title: `${p.h1} — ${site.brand}`,
+    title: pageTitle(`${p.h1}`),
     description: p.lead,
     publishedTime: publishedAt,
     modifiedTime: updatedAt,
@@ -1183,7 +1186,7 @@ export function allOn4Page(lang) {
 
   return {
     body,
-    title: `${p.h1} — ${site.brand}`,
+    title: pageTitle(`${p.h1}`),
     description: p.lead,
     publishedTime: publishedAt,
     modifiedTime: updatedAt,
@@ -1216,8 +1219,8 @@ export function reviewsPage(lang) {
   ${contactSection(lang)}`;
   return {
     body,
-    title: `${t.nav.reviews} — ${site.brand}`,
-    description: t.reviewsLead,
+    title: pageTitle(`${t.nav.reviews}`),
+    description: `${t.reviewsLead} “${t.reviews[0]?.text || ""}”`.slice(0, 155),
     jsonld: [orgSchema(lang), breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href })))],
   };
 }
@@ -1234,7 +1237,7 @@ export function galleryPage(lang) {
   ${contactSection(lang)}`;
   return {
     body,
-    title: `${t.galleryTitle} — ${site.brand}`,
+    title: pageTitle(`${t.galleryTitle}`),
     description: t.galleryLead,
     jsonld: [breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href })))],
   };
@@ -1252,8 +1255,8 @@ export function faqPage(lang) {
   ${contactSection(lang)}`;
   return {
     body,
-    title: `${t.nav.faq} — ${site.brand}`,
-    description: t.faqTitle,
+    title: pageTitle(`${t.nav.faq}`),
+    description: t.faqs.map((f) => f.q).join(" ").slice(0, 155),
     jsonld: [faqSchema(t.faqs), breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href })))],
   };
 }
@@ -1269,13 +1272,18 @@ export function legalPage(lang, kind) {
     en: `<p>At ${site.brand} we value the privacy of your personal data. The name, phone, email and message you share via the contact form or WhatsApp are used only to respond to you and to provide information about your treatment; they are not shared with third parties for marketing.</p><p>You may request deletion of your data. Contact us at <a href="mailto:${site.email}">${site.email}</a>.</p>`,
     de: `<p>Bei ${site.brand} legen wir Wert auf den Schutz Ihrer personenbezogenen Daten. Name, Telefon, E-Mail und Nachricht, die Sie über das Kontaktformular oder WhatsApp teilen, werden nur zur Beantwortung und zur Information über Ihre Behandlung verwendet und nicht zu Marketingzwecken an Dritte weitergegeben.</p><p>Sie können die Löschung Ihrer Daten verlangen. Kontakt: <a href="mailto:${site.email}">${site.email}</a>.</p>`,
   };
+  const bodyCopy = copy[lang] || copy.en;
+  const legalDescription = bodyCopy.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim().slice(0, 155);
   const body = `${pageHero(lang, "", title, "", crumbs)}
-  <section class="section" style="padding-top:clamp(30px,4vw,48px);"><div class="container"><article class="prose">${copy[lang] || copy.en}</article></div></section>`;
+  <section class="section" style="padding-top:clamp(30px,4vw,48px);"><div class="container"><article class="prose">${bodyCopy}</article></div></section>`;
   return {
     body,
-    title: `${title} — ${site.brand}`,
-    description: title + " — " + site.brand,
+    title: pageTitle(`${title}`),
+    description: legalDescription,
     jsonld: [breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href })))],
+    // Boilerplate legal text, near-identical across languages — not worth ranking for,
+    // but keep it in the sitemap (real page, just not a search target).
+    noindex: true,
   };
 }
 
@@ -1315,9 +1323,13 @@ export function geoIndexPage(lang, packs) {
   </div></section>`;
   return {
     body,
-    title: `${title} — ${site.brand}`,
+    title: pageTitle(`${title}`),
     description: lead,
     jsonld: [breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href })))],
+    // No packs exist yet in this language: an index with zero entries is thin/duplicate
+    // content, not something to rank. Excluded from the sitemap too (see build.mjs).
+    noindex: packs.length === 0,
+    excludeFromSitemap: packs.length === 0,
   };
 }
 
@@ -1391,7 +1403,7 @@ export function geoPackPage(lang, pack) {
   }
   return {
     body,
-    title: `${pack.question || pack.title} — ${site.brand}`,
+    title: pageTitle(`${pack.question || pack.title}`),
     description: metaDesc,
     image: ogImage,
     ogType: "article",
