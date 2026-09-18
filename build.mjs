@@ -35,6 +35,18 @@ import {
   implantsCostPage,
   hollywoodSmilePage,
   allOn4Page,
+  beforeYouBookHubPage,
+  beforeYouBookIsSafePage,
+  beforeYouBookCheckQuotePage,
+  beforeYouBookRedFlagsPage,
+  beforeYouBookVerifyClinicPage,
+  beforeYouBookSecondOpinionPage,
+  beforeYouBookAftercarePage,
+  beforeYouBookGoneWrongPage,
+  beforeYouBookCrownsVsVeneersPage,
+  beforeYouBookGuaranteePage,
+  beforeYouBookQuestionsPage,
+  beforeYouBookWhenNotToComePage,
 } from "./src/templates/pages.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -200,6 +212,22 @@ function build() {
     // All-on-4 landing — DE/EN only (price intentionally [DOLDUR], not the fullmouth priceCalc package)
     if (lang === "de") emit(lang, "all-on-4-zahnimplantate-tuerkei/", allOn4Page(lang));
     if (lang === "en") emit(lang, "all-on-4-turkey-package/", allOn4Page(lang));
+
+    // "Before You Book" trust cluster — EN only, publishing week 1: hub + S1.
+    if (lang === "en") {
+      emit(lang, "before-you-book/", beforeYouBookHubPage(lang));
+      emit(lang, "before-you-book/is-dental-treatment-in-turkey-safe/", beforeYouBookIsSafePage(lang));
+      emit(lang, "before-you-book/check-my-turkey-dental-quote/", beforeYouBookCheckQuotePage(lang));
+      emit(lang, "before-you-book/turkey-dentist-red-flags/", beforeYouBookRedFlagsPage(lang));
+      emit(lang, "before-you-book/how-to-verify-a-turkish-dental-clinic/", beforeYouBookVerifyClinicPage(lang));
+      emit(lang, "before-you-book/dental-treatment-abroad-second-opinion/", beforeYouBookSecondOpinionPage(lang));
+      emit(lang, "before-you-book/aftercare-after-turkey-teeth/", beforeYouBookAftercarePage(lang));
+      emit(lang, "before-you-book/turkey-teeth-gone-wrong/", beforeYouBookGoneWrongPage(lang));
+      emit(lang, "before-you-book/crowns-vs-veneers-what-you-actually-need/", beforeYouBookCrownsVsVeneersPage(lang));
+      emit(lang, "before-you-book/guarantee-and-what-happens-if-something-fails/", beforeYouBookGuaranteePage(lang));
+      emit(lang, "before-you-book/questions-to-ask-before-you-pay-a-deposit/", beforeYouBookQuestionsPage(lang));
+      emit(lang, "before-you-book/when-you-should-not-come-to-turkey/", beforeYouBookWhenNotToComePage(lang));
+    }
   }
 
   writeSitemap();
@@ -337,6 +365,11 @@ Redirect 301 /de/hizmetler/oral-implantoloji/ ${site.domain}/de/hizmetler/implan
 Redirect 301 /fr/hizmetler/oral-implantoloji/ ${site.domain}/fr/hizmetler/implantoloji-implant-tedavisi/
 Redirect 301 /ar/hizmetler/oral-implantoloji/ ${site.domain}/ar/hizmetler/implantoloji-implant-tedavisi/
 Redirect 301 /ru/hizmetler/oral-implantoloji/ ${site.domain}/ru/hizmetler/implantoloji-implant-tedavisi/
+
+# ---- Low-traffic EN GEO pages merged into /en/before-you-book/ trust cluster (301) ----
+Redirect 301 /en/geo/is-dental-treatment-in-turkey-safe/ ${site.domain}/en/before-you-book/is-dental-treatment-in-turkey-safe/
+Redirect 301 /en/geo/how-to-verify-dental-clinic-accreditation-turkey/ ${site.domain}/en/before-you-book/how-to-verify-a-turkish-dental-clinic/
+Redirect 301 /en/geo/dental-aftercare-when-you-return-home/ ${site.domain}/en/before-you-book/aftercare-after-turkey-teeth/
 
 # ---- Service-body mirror blogs → commercial service pages (301) ----
 ${mirrorRedirects}

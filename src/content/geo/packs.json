@@ -1088,7 +1088,7 @@
     "bucket": "karsilastirma",
     "question": "What is dental bonding and how does it compare to veneers?",
     "title": "What is dental bonding and how does it compare to veneers",
-    "direct_answer": "Dental bonding shapes tooth-coloured composite resin in one visit to fix chips, gaps and minor colour issues — usually with little or no enamel removal. Porcelain veneers are lab-made shells for more lasting, full smile makeovers. MediDent Istanbul helps you choose based on smile goals, budget and travel time.",
+    "direct_answer": "Dental bonding shapes tooth-coloured composite resin in one visit to fix chips, gaps and minor colour issues — usually with little or no enamel removal. Porcelain veneers are lab-made shells for more lasting, full smile makeovers. MediDent Istanbul helps you choose based on smile goals, budget and travel time. For the full ladder from bonding to veneers to crowns, and which one your case actually needs, see <a href=\"/en/before-you-book/crowns-vs-veneers-what-you-actually-need/\">crowns, veneers or neither</a>.",
     "coverImage": "blog/blog-02-bonding.jpg",
     "bullets": [
       "Same-day composite bonding for chips, gaps and edges.",
@@ -2307,7 +2307,7 @@
     "bucket": "karsilastirma",
     "question": "What are porcelain veneers?",
     "title": "What are porcelain veneers",
-    "direct_answer": "Porcelain veneers are thin ceramic shells bonded to the front of teeth to improve colour, shape and alignment with relatively conservative preparation.",
+    "direct_answer": "Porcelain veneers are thin ceramic shells bonded to the front of teeth to improve colour, shape and alignment with relatively conservative preparation. Not sure if you need veneers, crowns, or neither? See <a href=\"/en/before-you-book/crowns-vs-veneers-what-you-actually-need/\">crowns, veneers or neither</a>.",
     "coverImage": "blog/blog-01-zirkonyum.jpg",
     "bullets": [
       "Veneers = conservative prep",
@@ -2669,7 +2669,8 @@
           "This is the decision that decides whether Turkey teeth becomes your story. Bonding adds composite to the tooth surface. Little to no enamel is removed. Veneers are thin ceramic shells on the front; preparation is usually limited to a fraction of a millimetre when the case allows. Crowns cover the whole tooth; preparation removes more structure on every side and often needs more gum and bite management.",
           "Ask for numbers in the plan, not slogans. How many teeth stay untouched? How many get bonding only? How many veneers? How many crowns — and why each crown (fracture, root canal, large old filling, existing crown remake)? If the answer is “we crown everything for a uniform look,” that is a cosmetic preference dressed as clinical necessity.",
           "Material names matter too. Monolithic zirconia and lithium disilicate (for example IPS e.max-type ceramics) behave differently for strength and translucency. A clinic that will not write the brand on the plan is asking you to trust a price tag instead of a specification.",
-          "A useful rule of thumb in conversation: if a tooth has never had a large filling, crack, root canal or existing crown, ask why a new crown is on the list at all. Aesthetic wishes can often be met with less."
+          "A useful rule of thumb in conversation: if a tooth has never had a large filling, crack, root canal or existing crown, ask why a new crown is on the list at all. Aesthetic wishes can often be met with less.",
+          "For the full ladder from whitening to crowns, and the exact questions that settle which rung your case sits on, see our guide on <a href=\"/en/before-you-book/crowns-vs-veneers-what-you-actually-need/\">crowns, veneers or neither</a>."
         ]
       },
       {
@@ -2696,7 +2697,8 @@
           "Send these in writing and keep the replies. Who is the treating dentist — full name, not only the brand name of the clinic? Which teeth get crowns versus veneers versus bonding, and why? Which ceramic or implant brand will be used? Can you share the plan with your home dentist before paying a deposit? What is the temporary phase, and what happens if a unit fails in the first weeks after you return?",
           "Refuse pressure scripts: “seats are filling this week,” “the offer expires if you ask for brands,” “everyone gets the same Hollywood set.” Ethical cosmetic work starts from your photos and radiographs, not from a catalogue smile.",
           "If the clinic cannot send a tooth chart and a material line before travel, you do not have a plan yet. You have a sales funnel.",
-          "Record video calls if your local rules allow it. Vague answers that sound warm but never name a dentist or a brand are still vague answers."
+          "Record video calls if your local rules allow it. Vague answers that sound warm but never name a dentist or a brand are still vague answers.",
+          "We put the full list in writing: <a href=\"/en/before-you-book/questions-to-ask-before-you-pay-a-deposit/\">21 questions to ask before you pay a deposit</a> — printable, and worth sending exactly as it is."
         ]
       },
       {
@@ -2715,7 +2717,8 @@
           "Before you leave the clinic, know who answers evenings and weekends, what photos to send, and whether a temporary or final can be remade under the written terms. Sensitivity for a short period can be expected after preparation; sharp pain, a rocking unit, or a bite that hits one tooth hard should not wait for “your next holiday.”",
           "Ask whether the clinic coordinates with a dentist near you or only offers remote advice. Remote checks help for shade and obvious fit issues. They cannot replace hands-on care for infection or a failed temporary if you need same-day help.",
           "At MediDent Istanbul, international patients get a post-treatment WhatsApp channel and scheduled remote check-ins. Warranty wording should still be in writing before you pay — do not rely on chat promises alone. Ask the clinic to spell out duration and what counts as a covered failure before you pay.",
-          "Keep your temporary and final appointments documented. If you need a local emergency dentist, a clear written history shortens the visit and reduces guesswork about what was cemented when."
+          "Keep your temporary and final appointments documented. If you need a local emergency dentist, a clear written history shortens the visit and reduces guesswork about what was cemented when.",
+          "For the full protocol — what to leave with before you fly, and what to do if your dentist at home won't see you — see <a href=\"/en/before-you-book/aftercare-after-turkey-teeth/\">aftercare after Turkey teeth</a>."
         ]
       },
       {
@@ -2763,6 +2766,10 @@
     ],
     "internal_links": [
       {
+        "href": "/en/before-you-book/check-my-turkey-dental-quote/",
+        "label": "Get your quote reviewed free"
+      },
+      {
         "href": "/en/hizmetler/estetik-dis-hekimligi/",
         "label": "Cosmetic dentistry"
       },
@@ -2775,7 +2782,7 @@
         "label": "Dental bonding explained"
       },
       {
-        "href": "/en/geo/dental-aftercare-when-you-return-home/",
+        "href": "/en/before-you-book/aftercare-after-turkey-teeth/",
         "label": "Aftercare when you return home"
       },
       {
@@ -2845,64 +2852,6 @@
     "source": "seo-geo-plan-phase"
   },
   {
-    "lang": "en",
-    "slug": "is-dental-treatment-in-turkey-safe",
-    "bucket": "trust",
-    "question": "Is dental treatment in Turkey safe?",
-    "title": "Is dental treatment in Turkey safe",
-    "direct_answer": "Yes — at the right clinic. Dental treatment in Turkey is safe when you choose a Ministry of Health–registered facility with named dentists, transparent material brands and a written treatment plan. The risk is a high-volume clinic model, not the country itself.",
-    "coverImage": "blog/blog-10-klinik.jpg",
-    "author": "MediDent Istanbul Clinical Team",
-    "bullets": [
-      "Verify health-tourism authorisation and the treating dentist's name before booking.",
-      "Ask for digital imaging (3D/CBCT) and the exact ceramic or implant brand in writing.",
-      "Reject plans that crown healthy teeth when veneers or bonding would suffice.",
-      "Confirm aftercare: remote follow-up, warranty terms and home-country coordination."
-    ],
-    "faq": [
-      {
-        "q": "Are Turkey teeth the same as all dental work in Turkey?",
-        "a": "No. \"Turkey teeth\" usually means aggressive over-preparation for cheap full crowns — not ethical veneer or bonding work."
-      },
-      {
-        "q": "How do I vet a clinic?",
-        "a": "Five checks: dentist name, material brand, written plan, digital smile design, aftercare protocol."
-      },
-      {
-        "q": "Why is it cheaper?",
-        "a": "Lower rent and staff costs — reputable clinics use the same CAD/CAM and ceramic brands as Western Europe."
-      },
-      {
-        "q": "What about MediDent Istanbul?",
-        "a": "MediDent Istanbul in Üsküdar Acıbadem provides named clinical team, digital planning, EN/DE support and remote WhatsApp follow-up."
-      }
-    ],
-    "internal_links": [
-      {
-        "href": "/en/dental-implants-turkey-cost/",
-        "label": "Dental implants Turkey: real cost 2026"
-      },
-      {
-        "href": "/en/geo/turkey-teeth-what-they-are-and-how-to-avoid-problems/",
-        "label": "Turkey teeth guide"
-      },
-      {
-        "href": "/en/geo/dental-aftercare-when-you-return-home/",
-        "label": "Aftercare abroad"
-      },
-      {
-        "href": "/en/hizmetler/",
-        "label": "Services"
-      },
-      {
-        "href": "/en/iletisim/",
-        "label": "Contact"
-      }
-    ],
-    "publishedAt": "2026-07-29",
-    "source": "seo-geo-plan-phase"
-  },
-  {
     "lang": "de",
     "slug": "ist-zahnbehandlung-in-der-tuerkei-sicher",
     "bucket": "trust",
@@ -2955,60 +2904,6 @@
       {
         "href": "/en/geo/turkey-teeth-what-they-are-and-how-to-avoid-problems/",
         "label": "Turkey teeth (EN)"
-      }
-    ],
-    "publishedAt": "2026-07-29",
-    "source": "seo-geo-plan-phase"
-  },
-  {
-    "lang": "en",
-    "slug": "dental-aftercare-when-you-return-home",
-    "bucket": "trust",
-    "question": "What happens if I need dental aftercare after returning home?",
-    "title": "Dental aftercare when you return home from Turkey",
-    "direct_answer": "Before you fly for treatment, confirm a written aftercare protocol: remote check-ins, warranty terms, and how the Istanbul clinic coordinates with a dentist in your home country if something needs attention after you return.",
-    "coverImage": "blog/blog-10-klinik.jpg",
-    "author": "MediDent Istanbul Clinical Team",
-    "bullets": [
-      "UK and German patients' top worry is \"who fixes a problem once I'm home\" — address it before booking, not after.",
-      "A solid clinic shares a WhatsApp or email follow-up channel, photo/check-in schedule for the first weeks, and clear warranty exclusions.",
-      "Take your written plan to a home-country dentist for a second opinion before you travel.",
-      "At MediDent Istanbul, post-treatment patients receive scheduled remote follow-ups; emergency questions go through the same clinical coordination channel used during the trip."
-    ],
-    "faq": [
-      {
-        "q": "Does MediDent have a UK office?",
-        "a": "MediDent coordinates remotely from Üsküdar Acıbadem with English support. Local UK partners are arranged case by case when needed — ask during consultation."
-      },
-      {
-        "q": "What should be in writing?",
-        "a": "Material brands, treatment steps, temporary vs final timeline, warranty length, and what costs are covered if a remake is needed."
-      },
-      {
-        "q": "When should I see a dentist at home?",
-        "a": "Routine hygiene as advised; sooner if pain, swelling, bite change or crown mobility appears. Send photos to the clinic first for triage."
-      },
-      {
-        "q": "Is a warranty the same as a guarantee of result?",
-        "a": "No. A warranty covers defined technical failures under stated conditions. Aesthetic \"perfect forever\" promises are not ethical — ask what is and is not covered."
-      }
-    ],
-    "internal_links": [
-      {
-        "href": "/en/geo/is-dental-treatment-in-turkey-safe/",
-        "label": "Is Turkey dental treatment safe?"
-      },
-      {
-        "href": "/en/geo/turkey-teeth-what-they-are-and-how-to-avoid-problems/",
-        "label": "Turkey teeth guide"
-      },
-      {
-        "href": "/en/iletisim/",
-        "label": "Contact"
-      },
-      {
-        "href": "/en/hizmetler/",
-        "label": "Services"
       }
     ],
     "publishedAt": "2026-07-29",
@@ -3110,11 +3005,11 @@
         "label": "Services"
       },
       {
-        "href": "/en/geo/is-dental-treatment-in-turkey-safe/",
+        "href": "/en/before-you-book/is-dental-treatment-in-turkey-safe/",
         "label": "Is Turkey safe for dentistry?"
       },
       {
-        "href": "/en/geo/dental-aftercare-when-you-return-home/",
+        "href": "/en/before-you-book/aftercare-after-turkey-teeth/",
         "label": "Aftercare"
       }
     ],
@@ -3129,7 +3024,7 @@
     "question": "Which materials and brands should I ask for in Turkey?",
     "title": "Zirconia, E-max and implant brands — what to ask",
     "coverImage": "blog/blog-01-zirkonyum.jpg",
-    "direct_answer": "Before you book, ask the clinic to name the ceramic system (e.g. monolithic zirconia, layered zirconia, IPS e.max) and the implant brand in writing — transparent brand disclosure is one of the strongest trust signals for UK and German patients comparing Turkey packages.",
+    "direct_answer": "Before you book, ask the clinic to name the ceramic system (e.g. monolithic zirconia, layered zirconia, IPS e.max) and the implant brand in writing — transparent brand disclosure is one of the strongest trust signals for UK and German patients comparing Turkey packages. For the full list of what to ask before you commit, see <a href=\"/en/before-you-book/questions-to-ask-before-you-pay-a-deposit/\">21 questions to ask before you pay a deposit</a>.",
     "bullets": [
       "Zirconia crowns: high strength for posterior teeth and bridges; layered options for anterior aesthetics.",
       "E-max / lithium disilicate: high translucency for veneers and front teeth when indicated.",
@@ -3240,66 +3135,12 @@
   },
   {
     "lang": "en",
-    "slug": "how-to-verify-dental-clinic-accreditation-turkey",
-    "bucket": "trust",
-    "question": "How do I verify a dental clinic's accreditation in Turkey?",
-    "title": "How to verify dental clinic accreditation in Turkey",
-    "coverImage": "blog/blog-10-klinik.jpg",
-    "direct_answer": "Verify Ministry of Health registration and, for international patients, health-tourism authorisation; then confirm the treating dentist's name, sterilisation protocols and — where claimed — ISO or similar quality certificates with documents you can see, not just logos on a homepage.",
-    "bullets": [
-      "Ask for the clinic's official registration / health-tourism certificate number.",
-      "Confirm the named dentist who will treat you — not a rotating anonymous team.",
-      "Treat homepage badges sceptically until you see a document or verifiable listing.",
-      "Combine accreditation checks with clinical checks: DSD, written plan, brand transparency, aftercare."
-    ],
-    "faq": [
-      {
-        "q": "Is JCI required for every dental clinic?",
-        "a": "JCI often applies to hospitals. Many excellent dental clinics rely on Ministry of Health licensing plus ISO hygiene systems — ask what applies to that specific clinic."
-      },
-      {
-        "q": "What about GCR ratings?",
-        "a": "Third-party ratings can help, but they are not a substitute for dentist identity, materials and a written plan."
-      },
-      {
-        "q": "Red flags?",
-        "a": "No named dentist, pressure to pay deposits before a plan, crown-everything recommendations, and prices far below market without brand disclosure."
-      },
-      {
-        "q": "MediDent Istanbul?",
-        "a": "Ask the coordination team for current authorisation details during consultation; treatment is planned at the Üsküdar Acıbadem clinic with named clinical staff."
-      }
-    ],
-    "internal_links": [
-      {
-        "href": "/en/geo/is-dental-treatment-in-turkey-safe/",
-        "label": "Is Turkey safe?"
-      },
-      {
-        "href": "/en/geo/turkey-teeth-what-they-are-and-how-to-avoid-problems/",
-        "label": "Turkey teeth"
-      },
-      {
-        "href": "/en/geo/dental-aftercare-when-you-return-home/",
-        "label": "Aftercare"
-      },
-      {
-        "href": "/en/iletisim/",
-        "label": "Contact"
-      }
-    ],
-    "author": "MediDent Istanbul Clinical Team",
-    "publishedAt": "2026-07-29",
-    "source": "seo-geo-plan-gaps"
-  },
-  {
-    "lang": "en",
     "slug": "why-is-dental-treatment-cheaper-in-turkey",
     "bucket": "trust",
     "question": "Why is dental treatment cheaper in Turkey — is it a trap?",
     "title": "Why dental treatment is cheaper in Turkey (honest answer)",
     "coverImage": "blog/blog-01-zirkonyum.jpg",
-    "direct_answer": "Dental treatment is often 50–70% cheaper in Turkey mainly because clinic rent, staff wages and lab overheads cost less — not because every clinic secretly uses inferior materials. The trap is choosing the lowest quote without verifying dentist, brands and preparation level.",
+    "direct_answer": "Dental treatment is often 50–70% cheaper in Turkey mainly because clinic rent, staff wages and lab overheads cost less — not because every clinic secretly uses inferior materials. The trap is choosing the lowest quote without verifying dentist, brands and preparation level. If your quote already looks low and you are not sure it is a fair one, <a href=\"/en/before-you-book/check-my-turkey-dental-quote/\">get it checked free</a> before you pay a deposit.",
     "bullets": [
       "Same CAD/CAM machines and many of the same ceramic/implant brands are available in Istanbul as in London or Berlin.",
       "Packages that include hotel and transfers look cheaper than UK/DE private fees even after flights.",
@@ -3334,7 +3175,7 @@
         "label": "Materials & brands"
       },
       {
-        "href": "/en/geo/is-dental-treatment-in-turkey-safe/",
+        "href": "/en/before-you-book/is-dental-treatment-in-turkey-safe/",
         "label": "Safety guide"
       },
       {
