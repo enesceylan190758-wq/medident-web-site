@@ -1,6 +1,6 @@
 # MediDent İstanbul — SEO/GEO Gap Notes (canlı durum)
 
-*Son güncelleme: 2026-07-31 · Domain: https://medidentistanbul.com*  
+*Son güncelleme: 2026-09-18 · Domain: https://medidentistanbul.com*  
 *Plan: `docs/medident-seo-geo-ajan-plani.md` · Rakip: `docs/medident-rakip-anahtar-kelime-arastirmasi.md`*
 
 Bu dosya **canlı site envanteri + açık gap listesidir**. Cloud ajan her koşuda önce bunu ve `src/content/geo/packs.json` / `generated-blog.json` okur; tahminle gap uydurmaz. Smoke sonrası güncelle.
@@ -90,3 +90,16 @@ Her başarılı koşu sonunda bu dosyaya ekle:
 - Tarih, pazar, üretilen slug’lar, canlı smoke kodları
 - Kapanan / yeni açılan gap (1–3 satır)
 - GSC’ye manuel gönderilecek URL listesi
+
+---
+
+## Koşu 2026-09-18 (günlük blog otomasyonu)
+
+- Pazar: **DE** (EN 16 / DE 16 blog — eşitlikte rotasyon DE)
+- Üretilen: `/de/blog/sinuslift-kosten-tuerkei-istanbul/` (fiyat/paket niyeti; somut EUR yok)
+- Canlı smoke: yok (PR taslak, merge/deploy yok)
+- Kapanan gap: DE “Sinuslift / Knochenaufbau Kosten” blog yoktu
+- Açık kalan P0: DE Nachsorge çerçevesi; AR/RU native GEO
+- GSC (merge sonrası): `https://medidentistanbul.com/de/blog/sinuslift-kosten-tuerkei-istanbul/`
+- İnsan onayı: `reviewer` / `reviewedAt` boş — `npm run seo:approve -- --slugs sinuslift-kosten-tuerkei-istanbul --by "Dr. …"`
+
