@@ -39,7 +39,7 @@ export const uiBits = {
     en: "Real MediDent smile",
     de: "Echtes MediDent-Lächeln",
     fr: "Vrai sourire MediDent",
-    ar: "ابتسامة ميديدنتت حقيقية",
+    ar: "ابتسامة ميديدنت حقيقية",
     ru: "Настоящая улыбка MediDent",
   },
   homeTitle: {

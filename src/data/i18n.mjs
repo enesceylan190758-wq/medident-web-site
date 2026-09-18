@@ -95,6 +95,9 @@ export const i18n = {
     formName: "Ad Soyad",
     formPhone: "Telefon / WhatsApp",
     formEmail: "E-posta",
+    emailPlaceholder: "ornek@eposta.com",
+    toTopLabel: "Yukarı",
+    closeLabel: "Kapat",
     formTreatment: "İlgilendiğiniz tedavi",
     formSituations: {
       existingImplants: "Mevcut implantlarım var (üst yapı / kron)",
@@ -245,6 +248,9 @@ export const i18n = {
     formName: "Full name",
     formPhone: "Phone / WhatsApp",
     formEmail: "Email",
+    emailPlaceholder: "name@example.com",
+    toTopLabel: "Back to top",
+    closeLabel: "Close",
     formTreatment: "Treatment of interest",
     formSituations: {
       existingImplants: "I already have implants (need crowns / restoration)",
@@ -836,6 +842,9 @@ export const i18n = {
     formName: "Vor- und Nachname",
     formPhone: "Telefon / WhatsApp",
     formEmail: "E-Mail",
+    emailPlaceholder: "name@beispiel.de",
+    toTopLabel: "Nach oben",
+    closeLabel: "Schließen",
     formTreatment: "Interessierte Behandlung",
     formSituations: {
       existingImplants: "Ich habe bereits Implantate (Krone / Aufbau)",
@@ -1427,6 +1436,9 @@ export const i18n = {
     formName: "Nom complet",
     formPhone: "Téléphone / WhatsApp",
     formEmail: "E-mail",
+    emailPlaceholder: "prenom@exemple.fr",
+    toTopLabel: "Haut de page",
+    closeLabel: "Fermer",
     formTreatment: "Traitement qui vous intéresse",
     formSituations: {
       existingImplants: "J’ai déjà des implants (couronne / restauration)",
