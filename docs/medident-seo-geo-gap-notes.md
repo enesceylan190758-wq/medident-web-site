@@ -103,3 +103,52 @@ Her başarılı koşu sonunda bu dosyaya ekle:
 - GSC (merge sonrası): `https://medidentistanbul.com/de/blog/sinuslift-kosten-tuerkei-istanbul/`
 - İnsan onayı: `reviewer` / `reviewedAt` boş — `npm run seo:approve -- --slugs sinuslift-kosten-tuerkei-istanbul --by "Dr. …"`
 
+
+
+---
+
+## VERI-DESTEKLI KONU BACKLOG'U (2026-09-18, GSC + Keyword Planner)
+
+**Yeni calisma modeli:** Bundan sonra Cursor Automation konu SECMEZ. Asagidaki backlog tablosundan siradaki "bekliyor" satirini kullanir, durumu "uretildi" olarak isaretler, yeni satir eklemez. Backlog bittiginde otomasyon PR acmadan durur ve run-log'a "backlog bos, insan arastirmasi gerekiyor" yazar. Backlog'u sadece Enes + Claude gercek veriyle (GSC / Keyword Planner) gunceller.
+
+### GSC bulgulari (son 3 ay, dogrulanmis hesap /u/1/)
+
+Trafik agirlikli olarak yerli TR (yuzde 68 tiklama), 2. sira Almanya. UK "turkey teeth" varsayimi abartili: UK genelinde tum sorgular ortalama pozisyonu 32.4, tek bir sorguda iyi siralamak site-genel siralama degil.
+
+Acil teknik-SEO bulgusu (icerik degil, ayri is): dr-alperen-demiral, dr-faruk-ogutlu, dt-levent-emir-guneysu sayfalari canli sitede 404 ama Google'da hala indeksli, son 3 ayda toplam yaklasik 26 tiklama sizdiriyor. 301 yonlendirme (doktorlar sayfasina) gerekiyor, bu blog otomasyonunun isi degil, ayri ticket.
+
+En buyuk CTR firsati: turkey-teeth-what-they-are-and-how-to-avoid-problems (en/geo) tek basina toplam gosterimin yaklasik yuzde 41'ini aliyor (29.251 gosterim), ortalama pozisyon iyi (9.1) ama CTR sadece yuzde 0.12. Title/meta description yeniden yazilmali, ayri ticket.
+
+### TR pazar keyword planner verisi (Turkiye, TR dili, Eylul 2025 - Agustos 2026)
+
+zirkon kaplama fiyat: 10.000-100.000 aylik arama, en yuksek hacimli grup, oncelik bir numara.
+dis implant fiyat: 1.000-10.000 aylik arama, oncelik iki numara.
+hollywood smile fiyat: 100-1.000 aylik arama, orta hacim.
+veneer dis fiyat: 10-100 aylik arama, dusuk; TR pazarinda veneer yerine lamina veya kaplama kelimesi araniyor.
+all on 4 implant fiyat: olcumlenebilir veri yok; ingilizce odunc terim TR'de yerli aranmiyor, bu konu TR sayfasi yerine EN veya DE hedeflemeli.
+implant istanbul fiyat ve dis beyazlatma istanbul: Planner bunlari ana terimlerle ayni kumeye birlestirdi, ayri hacim olcumu yok.
+
+### DE pazar keyword planner verisi (Almanya, Almanca)
+
+zahnaufhellung türkei: 10-100 aylik arama.
+zahnimplantat kosten türkei, hollywood smile türkei preis, zirkonkronen kosten, veneers preise türkei, all on 4 türkei kosten: hepsi icin olcumlenebilir veri yok, Planner tarafindan kullanilamaz isaretlendi.
+
+Capraz dogrulama: hesapta 14 Eylul 2026 tarihli, ayni terimleri iceren eski bir kayitli plan da butun metriklerde veri yok gosteriyor. Yani bu bir olcum hatasi degil: DE pazarinda tedavi artı kosten veya preis artı türkei seklindeki kisa anahtar kelime hacmi Google Ads'in olcebildigi esigin altinda. Ama GSC'de Almanya'dan gercek tiklama ve gosterim var, demek ki gercek aramalar Planner'in yakalayamadigi daha uzun ve dogal sorgular seklinde geliyor. Bu da GEO stratejisini dogruluyor: kisa kuyruk PPC hacmiyle degil, gercek GSC sorgu metniyle ve dogal soru kaliplariyla icerik uretilmeli.
+
+### Oncelikli konu backlogu, otomasyon buradan sirayla secer
+
+Backlog 1, durum bekliyor, TR: Zirkon kaplama fiyatlari 2026 nelere baglidir. Fiyat araligi degil, fiyati etkileyen faktorler anlatilacak: malzeme, dis sayisi, klinik degerlendirmesi. Gercek TL veya USD rakam uydurma yok.
+
+Backlog 2, durum bekliyor, TR: Dis implant fiyati neden klinikten klinige degisir. Implant marka ve kemik grefti ihtiyaci gibi degiskenler anlatilacak, fiyat uydurma yok.
+
+Backlog 3, durum uretildi, DE: Sinuslift Kosten Türkei, slug de/blog/sinuslift-kosten-tuerkei-istanbul, 2026-09-18 tarihinde PR 52 ile canliya alindi.
+
+Backlog 4, durum bekliyor, DE: Zahnimplantat Türkei, surec, bakim ve fiyati gercekten ne etkiler. Fiyat rakami degil surec anlatilacak, DE Nachsorge P0 gap'ini de kapatir.
+
+Backlog 5, durum bekliyor, TR: Lamina dis kaplama nedir, kime uygundur. Ingilizce veneer yerine yerli terim lamina veya kaplama ile basliklandirilacak, arama davranisiyla uyumlu.
+
+Backlog 6, durum bekliyor, EN: All-on-4 in Turkey, the procedure explained. TR degil EN veya DE hedeflenecek, cunku TR'de olcumsuz.
+
+Backlog 7, durum bekliyor, GEO blok TR artı EN artı DE: Turkiye'de dis tedavisi fiyatlari neden daha ucuz, seffaflik ve guven cercevesi. Garanti veya kesin sonuc iddiasi yok.
+
+Yeni satir eklemeden once mutlaka kontrol edilecekler: GSC'de o ay gercek sorgu ve tiklama var mi, Keyword Planner'da TR icin hacim var mi, DE veya EN icin en azindan GSC sorgu kaniti var mi. Otomasyon bu listeyi degistiremez, sadece durum alanini gunceller.
