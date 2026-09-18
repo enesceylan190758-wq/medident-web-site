@@ -236,9 +236,12 @@ function footer(lang) {
 }
 
 function floating(lang) {
+  const t = i18n[lang] || i18n.tr;
+  const toTop = t.toTopLabel || "Top";
+  const closeLbl = t.closeLabel || "Close";
   return `<a href="${waHref()}" class="wa-float" aria-label="WhatsApp" target="_blank" rel="noopener">${icons.wa.replace('width="24" height="24"', 'width="30" height="30"')}</a>
-  <button class="to-top" aria-label="Yukarı">${icons.arrow({ w: 20 })}</button>
-  <div class="lightbox" data-lightbox><button class="lightbox-close" data-lightbox-close aria-label="Kapat"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button><img src="" alt=""></div>`;
+  <button class="to-top" aria-label="${toTop}">${icons.arrow({ w: 20 })}</button>
+  <div class="lightbox" data-lightbox><button class="lightbox-close" data-lightbox-close aria-label="${closeLbl}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button><img src="" alt=""></div>`;
 }
 
 // Full page wrapper.
