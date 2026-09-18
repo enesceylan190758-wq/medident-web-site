@@ -3,6 +3,7 @@ import { site, langPrefix, htmlLang, ogLocale } from "../data/site.mjs";
 import { i18n } from "../data/i18n.mjs";
 import { services } from "../data/content.mjs";
 import { resolveHreflangPaths, hoursLocalized } from "../data/seo.mjs";
+import { doctorsPath, servicePath, structPath } from "../data/paths.mjs";
 import { rtlLangs, L } from "../data/locale.mjs";
 import { icons } from "./icons.mjs";
 
@@ -138,14 +139,14 @@ function langSwitch(lang, path) {
 function navLinks(lang) {
   const n = i18n[lang].nav;
   const links = [
-    [n.services, url(lang, "hizmetler/")],
-    [n.doctors, url(lang, "doktorlar/")],
-    [n.about, url(lang, "hakkimizda/")],
+    [n.services, url(lang, structPath(lang, "services"))],
+    [n.doctors, url(lang, doctorsPath(lang))],
+    [n.about, url(lang, structPath(lang, "about"))],
   ];
   if (lang === "de") links.push([i18n.de.pricesPage.eyebrow, url(lang, "preise/")]);
   if (lang === "en") links.push([i18n.en.pricesPage.eyebrow, url(lang, "turkey-teeth-price/")]);
   if (lang === "fr") links.push([i18n.fr.pricesPage.eyebrow, url(lang, "prix-implants-dentaires-turquie/")]);
-  links.push([n.gallery, url(lang, "galeri/")], [n.blog, url(lang, "blog/")], [n.contact, url(lang, "iletisim/")]);
+  links.push([n.gallery, url(lang, structPath(lang, "gallery"))], [n.blog, url(lang, "blog/")], [n.contact, url(lang, structPath(lang, "contact"))]);
   return links;
 }
 
@@ -161,7 +162,7 @@ function header(lang, path) {
       </nav>
       <div style="display:flex;align-items:center;gap:12px;">
         ${langSwitch(lang, path)}
-        <a href="${url(lang, "iletisim/")}" class="btn btn-primary header-cta" style="padding:12px 20px;font-size:14px;">${n.cta}</a>
+        <a href="${url(lang, structPath(lang, "contact"))}" class="btn btn-primary header-cta" style="padding:12px 20px;font-size:14px;">${n.cta}</a>
         <button data-burger class="burger" aria-label="Menu">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2B2318" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"></path></svg>
         </button>
@@ -175,7 +176,7 @@ function header(lang, path) {
         <button data-close-nav aria-label="Close" style="width:40px;height:40px;border-radius:10px;border:1px solid rgba(43,35,24,.14);display:flex;align-items:center;justify-content:center;background:#fff;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2B2318" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
       </div>
       ${links.map(([label, href]) => `<a href="${href}">${label}</a>`).join("\n      ")}
-      <a href="${url(lang, "iletisim/")}" class="btn btn-primary" style="margin-top:20px;">${n.cta}</a>
+      <a href="${url(lang, structPath(lang, "contact"))}" class="btn btn-primary" style="margin-top:20px;">${n.cta}</a>
       <a href="${waHref()}" class="btn btn-ghost" style="margin-top:10px;" target="_blank" rel="noopener">WhatsApp</a>
       <div style="margin-top:18px;">${langSwitch(lang, path)}</div>
     </div>
@@ -200,19 +201,19 @@ function footer(lang) {
       <div>
         <div class="footer-col-title">${t.footerServices}</div>
         <div class="footer-links">
-          ${homeServices.map((s) => `<a href="${url(lang, "hizmetler/" + s.slug + "/")}">${L(s.titles, lang)}</a>`).join("\n          ")}
+          ${homeServices.map((s) => `<a href="${url(lang, servicePath(lang, s.slug))}">${L(s.titles, lang)}</a>`).join("\n          ")}
         </div>
       </div>
       <div>
         <div class="footer-col-title">${t.footerCorp}</div>
         <div class="footer-links">
-          <a href="${url(lang, "hakkimizda/")}">${t.nav.about}</a>
-          <a href="${url(lang, "doktorlar/")}">${t.nav.doctors}</a>
-          <a href="${url(lang, "yorumlar/")}">${t.nav.reviews}</a>
-          <a href="${url(lang, "galeri/")}">${t.nav.gallery}</a>
+          <a href="${url(lang, structPath(lang, "about"))}">${t.nav.about}</a>
+          <a href="${url(lang, doctorsPath(lang))}">${t.nav.doctors}</a>
+          <a href="${url(lang, structPath(lang, "reviews"))}">${t.nav.reviews}</a>
+          <a href="${url(lang, structPath(lang, "gallery"))}">${t.nav.gallery}</a>
           <a href="${url(lang, "blog/")}">${t.nav.blog}</a>
           <a href="${url(lang, "geo/")}">GEO</a>
-          <a href="${url(lang, "sss/")}">${t.nav.faq}</a>
+          <a href="${url(lang, structPath(lang, "faq"))}">${t.nav.faq}</a>
         </div>
       </div>
       <div>
@@ -228,7 +229,7 @@ function footer(lang) {
     <div class="footer-bottom">
       <span>© ${new Date().getFullYear()} ${site.brand}. ${t.rights}</span>
       <div style="display:flex;gap:22px;">
-        <a href="${url(lang, "gizlilik/")}">${t.privacy}</a>
+        <a href="${url(lang, structPath(lang, "privacy"))}">${t.privacy}</a>
         ${lang === "tr" ? `<a href="${url(lang, "kvkk/")}">${t.kvkk}</a>` : ""}
       </div>
     </div>

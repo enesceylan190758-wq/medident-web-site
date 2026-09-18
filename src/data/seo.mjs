@@ -1,5 +1,11 @@
 // Cross-language SEO helpers: hreflang maps, service FAQs, localized NAP strings.
 import { site, langPrefix, htmlLang } from "./site.mjs";
+import {
+  allStructSegs,
+  hreflangDoctor,
+  hreflangService,
+  hreflangStruct,
+} from "./paths.mjs";
 
 /** Localized clinic hours for contact UI + schema description. */
 export const hoursLocalized = {
@@ -58,19 +64,19 @@ export const blogTopicGroups = [
   },
   {
     id: "kids",
-    tr: null, // filled by expand pack if present
+    tr: "cocuk-dis-hekimligi-korkusuz-ilk-muayene",
     en: "pediatric-dentistry-istanbul-family-travel",
     de: "kinderzahnheilkunde-istanbul",
   },
   {
     id: "root-canal",
-    tr: "kanal-tedavisi-sonrasi-nelere-dikkat",
+    tr: "kanal-tedavisi-mikroskop-disi-kurtarmak",
     en: "microscopic-root-canal-istanbul",
     de: "wurzelbehandlung-mikroskop-istanbul",
   },
   {
     id: "perio",
-    tr: null,
+    tr: "periodontoloji-saglikli-dis-eti-temeli",
     en: "gum-health-periodontology-istanbul",
     de: "zahnfleischgesundheit-parodontologie-istanbul",
   },
@@ -106,7 +112,7 @@ export const blogTopicGroups = [
   },
   {
     id: "implant-explained",
-    tr: null,
+    tr: "tek-seansta-implant-mumkun-mu",
     en: "dental-implants-explained-istanbul",
     de: "zahnimplantat-erklaert-istanbul",
   },
@@ -158,13 +164,13 @@ export const geoTopicGroups = [
   },
   {
     id: "kids",
-    tr: null,
+    tr: "cocuk-dis-hekimligi-ilk-muayene",
     en: "pediatric-dentistry-istanbul",
     de: "kinderzahnheilkunde-istanbul",
   },
   {
     id: "root-canal",
-    tr: null,
+    tr: "kanal-tedavisi-mikroskop-ile",
     en: "root-canal-microscope-istanbul",
     de: "wurzelbehandlung-mikroskop-istanbul",
   },
@@ -256,34 +262,38 @@ export const geoTopicGroups = [
 
 /**
  * Resolve hreflang path map for a page.
- * Shared structural paths (services, doctors, static) → same path all langs.
- * Blog/GEO → topic group mapping when available; else only current lang.
+ * Structural + service paths may differ per language (DE localized); blog/GEO use topic groups.
  */
 export function resolveHreflangPaths(lang, pathNoLang) {
   const p = (pathNoLang || "").replace(/^\/+|\/+$/g, "");
   const withSlash = p ? `${p}/` : "";
 
-  // Structural pages shared across languages
-  const sharedPrefixes = [
-    "",
-    "hizmetler",
-    "doktorlar",
-    "hakkimizda",
-    "iletisim",
-    "yorumlar",
-    "galeri",
-    "sss",
-    "gizlilik",
-    "kvkk",
-    "blog",
-    "geo",
-  ];
-  const isExactShared = sharedPrefixes.includes(p);
-  const isServiceOrDoctor =
-    p.startsWith("hizmetler/") || p.startsWith("doktorlar/");
+  if (p === "") {
+    return Object.fromEntries(site.languages.map((l) => [l, ""]));
+  }
 
-  if (isExactShared || isServiceOrDoctor) {
-    return Object.fromEntries(site.languages.map((l) => [l, withSlash]));
+  // Structural indexes (localized folder names on DE)
+  const structKeys = ["services", "doctors", "about", "contact", "reviews", "gallery", "faq", "privacy", "kvkk", "blog", "geo"];
+  for (const key of structKeys) {
+    if (allStructSegs(key).includes(p)) {
+      return hreflangStruct(key);
+    }
+  }
+
+  // Service detail: /hizmetler/{slug}/ or /leistungen/{de-slug}/
+  for (const seg of allStructSegs("services")) {
+    if (p.startsWith(seg + "/")) {
+      const slug = p.slice(seg.length + 1);
+      return hreflangService(slug);
+    }
+  }
+
+  // Doctor detail: /doktorlar/{slug}/ or /aerzte/{slug}/
+  for (const seg of allStructSegs("doctors")) {
+    if (p.startsWith(seg + "/")) {
+      const slug = p.slice(seg.length + 1);
+      return hreflangDoctor(slug);
+    }
   }
 
   // Price/cost landing page — DE/EN/FR only, keyword-researched slugs differ per language
@@ -467,12 +477,17 @@ export const serviceFaqs = {
 export function sitemapPriority(lang, pathNoLang) {
   const p = (pathNoLang || "").replace(/^\/+|\/+$/g, "");
   if (p === "") return lang === "tr" ? "1.0" : "0.95";
-  if (p === "hizmetler" || p.startsWith("hizmetler/")) return "0.9";
-  if (p === "iletisim") return "0.85";
+  if (
+    allStructSegs("services").includes(p) ||
+    allStructSegs("services").some((seg) => p.startsWith(seg + "/"))
+  ) {
+    return "0.9";
+  }
+  if (allStructSegs("contact").includes(p)) return "0.85";
   if (p.startsWith("blog/") && p !== "blog") return "0.8";
   if (p.startsWith("geo/") && p !== "geo") return "0.75";
   if (p === "blog" || p === "geo") return "0.7";
-  if (p.startsWith("doktorlar")) return "0.7";
+  if (allStructSegs("doctors").some((seg) => p === seg || p.startsWith(seg + "/"))) return "0.7";
   return "0.6";
 }
 
@@ -480,7 +495,7 @@ export function sitemapChangefreq(pathNoLang) {
   const p = (pathNoLang || "").replace(/^\/+|\/+$/g, "");
   if (p === "" || p === "blog" || p === "geo") return "daily";
   if (p.startsWith("blog/") || p.startsWith("geo/")) return "weekly";
-  if (p.startsWith("hizmetler")) return "weekly";
+  if (allStructSegs("services").some((seg) => p === seg || p.startsWith(seg + "/"))) return "weekly";
   return "monthly";
 }
 

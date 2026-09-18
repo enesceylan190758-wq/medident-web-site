@@ -6,6 +6,7 @@ import { hoursLocalized } from "../data/seo.mjs";
 import { L, uiBits } from "../data/locale.mjs";
 import { icons } from "./icons.mjs";
 import { url, waHref, orgSchema, faqSchema, breadcrumbSchema, asset } from "./layout.mjs";
+import { servicePath, structPath } from "../data/paths.mjs";
 
 const src = (file) => asset(`/assets/img/${file}`);
 
@@ -160,7 +161,7 @@ export function priceCalcSection(lang) {
           <p style="font-size:12.5px;color:var(--muted-2);margin:0;">${c.disclaimer}</p>
           <p style="font-size:12.5px;color:var(--muted-2);margin:0;">${c.hotelPolicy}</p>
             <div style="display:grid;gap:10px;" data-calc-actions>
-            <a href="${url(lang, "iletisim/")}" class="btn btn-primary btn-block" data-calc-cta data-quote-url="${url(lang, "iletisim/")}" data-cta-priced="${c.cta}" data-cta-plan="${c.ctaPlan}">${c.cta} ${icons.arrow()}</a>
+            <a href="${url(lang, structPath(lang, "contact"))}" class="btn btn-primary btn-block" data-calc-cta data-quote-url="${url(lang, structPath(lang, "contact"))}" data-cta-priced="${c.cta}" data-cta-plan="${c.ctaPlan}">${c.cta} ${icons.arrow()}</a>
             <a href="${waPhotos}" target="_blank" rel="noopener" class="btn btn-block" style="background:#25D366;color:#fff;display:none;" data-calc-wa>${icons.wa} ${c.ctaPhotos}</a>
           </div>
           <p style="font-size:12.5px;color:var(--muted-2);margin:0;text-align:center;">${c.photosHint}</p>
@@ -268,7 +269,7 @@ export function smileDesignSection(lang) {
 export function homePage(lang) {
   const t = i18n[lang];
   const h = t.home;
-  const svcUrl = (slug) => url(lang, "hizmetler/" + slug + "/");
+  const svcUrl = (slug) => url(lang, servicePath(lang, slug));
 
   const statValue = (s) => {
     let str = s.dec ? s.to.toFixed(s.dec) : String(Math.round(s.to));
@@ -306,7 +307,7 @@ export function homePage(lang) {
       <div style="margin-top:auto;">
         <div style="font-size:12.5px;color:${featured ? "#C9BEAC" : "var(--muted-2)"};margin-bottom:4px;">${L(uiBits.allInclusive, lang)}</div>
         <div style="font-family:var(--font-serif);font-weight:700;font-size:26px;color:${featured ? "#fff" : "var(--ink)"};margin-bottom:18px;">${t.customPrice}</div>
-        <a href="${url(lang, "iletisim/")}" class="btn ${featured ? "btn-gold" : "btn-outline-red"} btn-block">${t.getQuote}</a>
+        <a href="${url(lang, structPath(lang, "contact"))}" class="btn ${featured ? "btn-gold" : "btn-outline-red"} btn-block">${t.getQuote}</a>
       </div>
     </div>`;
   };
@@ -339,9 +340,9 @@ export function homePage(lang) {
           <h1>${h.h1}</h1>
           <p class="lead">${h.lead}</p>
           <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:26px;">
-            <a href="${url(lang, "iletisim/")}" class="btn btn-primary">${h.ctaPrimary} ${icons.arrow()}</a>
+            <a href="${url(lang, structPath(lang, "contact"))}" class="btn btn-primary">${h.ctaPrimary} ${icons.arrow()}</a>
             ${CALC_LANGS.includes(lang) ? `<a href="#fiyat-hesapla" class="btn btn-outline-red">${t.calc.heroCta}</a>` : ""}
-            <a href="${url(lang, "galeri/")}" class="btn btn-ghost">${h.ctaSecondary}</a>
+            <a href="${url(lang, structPath(lang, "gallery"))}" class="btn btn-ghost">${h.ctaSecondary}</a>
           </div>
           <div class="rating-row">
             <span style="display:flex;align-items:center;gap:10px;"><span class="stars">★★★★★</span><span><strong style="color:var(--ink);">${site.rating.value}/5</strong> · ${h.rating.split("·")[1] || ""}</span></span>
@@ -380,7 +381,7 @@ export function homePage(lang) {
         <p style="font-size:16px;line-height:1.62;color:var(--muted);margin:0 0 6px;">${t.servicesLead}</p>
       </div>
       <div class="grid-auto">${homeCards.map(serviceCard).join("")}</div>
-      <div style="text-align:center;margin-top:36px;"><a href="${url(lang, "hizmetler/")}" class="btn btn-ghost">${t.allServices} ${icons.arrowSm}</a></div>
+      <div style="text-align:center;margin-top:36px;"><a href="${url(lang, structPath(lang, "services"))}" class="btn btn-ghost">${t.allServices} ${icons.arrowSm}</a></div>
     </div>
   </section>
 
@@ -391,7 +392,7 @@ export function homePage(lang) {
           <div class="eyebrow" data-reveal>${t.resultsEyebrow}</div>
           <h2 data-reveal>${t.resultsTitle}</h2>
           <p class="lead" data-reveal>${t.resultsLead}</p>
-          <a href="${url(lang, "iletisim/")}" class="btn btn-primary" data-reveal>${h.ctaPrimary} ${icons.arrow()}</a>
+          <a href="${url(lang, structPath(lang, "contact"))}" class="btn btn-primary" data-reveal>${h.ctaPrimary} ${icons.arrow()}</a>
         </div>
         <div data-reveal>
           <div class="ba" data-ba>
@@ -507,7 +508,7 @@ export function homePage(lang) {
           <h2 data-reveal>${t.aboutTitle}</h2>
           <p data-reveal style="font-size:16.5px;line-height:1.66;color:var(--muted);margin:0 0 16px;max-width:520px;">${t.aboutP1}</p>
           <p data-reveal style="font-size:16.5px;line-height:1.66;color:var(--muted);margin:0 0 28px;max-width:520px;">${t.aboutP2}</p>
-          <a href="${url(lang, "hakkimizda/")}" class="btn btn-ghost" data-reveal>${t.nav.about} ${icons.arrowSm}</a>
+          <a href="${url(lang, structPath(lang, "about"))}" class="btn btn-ghost" data-reveal>${t.nav.about} ${icons.arrowSm}</a>
         </div>
         <div data-reveal style="position:relative;">
           <div style="border-radius:24px;overflow:hidden;aspect-ratio:4/5;box-shadow:var(--shadow-lg);background:var(--sand);"><img src="${src(img.about)}" alt="${site.brand}" style="width:100%;height:100%;object-fit:cover;"></div>
