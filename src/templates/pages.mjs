@@ -923,20 +923,36 @@ export function implantPricePage(lang) {
 
   const heroSection = `<section class="page-hero"><div class="container">
     ${breadcrumb(lang, crumbs)}
-    <div class="eyebrow">${p.eyebrow}</div>
-    <h1 data-dtr-h1 style="font-size:clamp(34px,5vw,60px);margin:0 0 14px;max-width:820px;">${p.h1}</h1>
-    <p data-dtr-lead class="lead" style="max-width:680px;">${p.lead}</p>
-    <div style="display:flex;flex-wrap:wrap;gap:14px;margin:22px 0 28px;">
-      <a data-dtr-cta href="${wa}" target="_blank" rel="noopener" class="btn btn-primary" style="padding:15px 28px;font-size:15.5px;">${icons.wa} ${p.ctaPrimary}</a>
-      <a href="${url(lang, "iletisim/")}" class="btn btn-outline-red" style="padding:15px 28px;font-size:15.5px;">${p.ctaSecondary}</a>
+    <div class="grid-2" style="grid-template-columns:1.1fr .9fr;gap:clamp(28px,4vw,48px);align-items:center;">
+      <div>
+        <div class="eyebrow">${p.eyebrow}</div>
+        <h1 data-dtr-h1 style="font-size:clamp(34px,5vw,56px);margin:0 0 14px;">${p.h1}</h1>
+        <p data-dtr-lead class="lead" style="max-width:600px;">${p.lead}</p>
+        <div style="display:flex;flex-wrap:wrap;gap:14px;margin:22px 0 28px;">
+          <a data-dtr-cta href="${wa}" target="_blank" rel="noopener" class="btn btn-primary" style="padding:15px 28px;font-size:15.5px;">${icons.wa} ${p.ctaPrimary}</a>
+          <a href="${url(lang, "iletisim/")}" class="btn btn-outline-red" style="padding:15px 28px;font-size:15.5px;">${p.ctaSecondary}</a>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:24px;">${trustBadges}</div>
+      </div>
+      <div data-reveal>
+        <div style="border-radius:24px;overflow:hidden;aspect-ratio:4/5;box-shadow:var(--shadow-lg);background:var(--sand);">
+          <img src="${src(img.hero)}" alt="${site.brand} — gerçek hasta sonucu" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+      </div>
     </div>
-    <div style="display:flex;flex-wrap:wrap;gap:24px;">${trustBadges}</div>
   </div></section>`;
 
-  // 2) Fiyata neler dahil — gerçek paket içeriği (content.mjs packages.implant)
+  // 2) Fiyata neler dahil — gerçek paket içeriği (content.mjs packages.implant), yanında gerçek klinik fotoğrafı
   const implantPkg = packages.find((pk) => pk.key === "implant");
   const inclusionsBlock = implantPkg
-    ? `<section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">${landingInclusions(lang, implantPkg.items[lang] || implantPkg.items.tr)}</div></section>`
+    ? `<section class="section" style="padding-top:0;"><div class="container">
+        <div class="grid-2" style="grid-template-columns:1fr .85fr;gap:clamp(24px,4vw,40px);align-items:center;max-width:1020px;margin:0 auto;">
+          <div>${landingInclusions(lang, implantPkg.items[lang] || implantPkg.items.tr)}</div>
+          <div data-reveal style="border-radius:20px;overflow:hidden;aspect-ratio:4/3;box-shadow:var(--shadow-lg);background:var(--sand);">
+            <img src="${src(img.why)}" alt="${site.brand}" style="width:100%;height:100%;object-fit:cover;">
+          </div>
+        </div>
+      </div></section>`
     : "";
 
   // 3) Fiyat tablosu + marka karşılaştırması (Straumann/Osstem/Neodent)
