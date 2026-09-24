@@ -379,32 +379,62 @@
     syncHint();
   }
 
-  // Contact form → Estesof endpoint (if configured) else WhatsApp fallback
+  // Contact form: kayıt (Sheet + varsa Estesof) HER ZAMAN sessizce denenir,
+  // WhatsApp da HER ZAMAN ref kodlu mesajla açılır — biri diğerinin
+  // fallback'i değil, ikisi birlikte olur.
   const form = $("[data-lead-form]");
   if (form) {
     const card = form.closest(".form-card");
     const cfg = window.__MD_FORM__ || {};
-    form.addEventListener("submit", async (e) => {
+    const attrKeys = ["gclid", "gbraid", "wbraid", "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "kw", "h", "ref"];
+    form.addEventListener("submit", (e) => {
       e.preventDefault();
       const fd = new FormData(form);
       const data = Object.fromEntries(fd.entries());
-      let ok = false;
-      if (cfg.endpoint) {
-        try {
-          const res = await fetch(cfg.endpoint, {
-            method: cfg.method || "POST",
-            headers: { "Content-Type": "application/json", Accept: "application/json" },
-            body: JSON.stringify({ ...data, source: "medidentistanbul.com", page: location.href }),
-          });
-          ok = res.ok;
-        } catch (_) {
-          ok = false;
-        }
+      const mdt = window.MDTrack || {};
+      const stored = (mdt.getStore && mdt.getStore()) || {};
+      const attribution = {};
+      attrKeys.forEach((k) => {
+        if (data[k]) attribution[k] = data[k];
+        else if (stored[k]) attribution[k] = stored[k];
+      });
+      const refCode = mdt.resolveRefCode ? mdt.resolveRefCode(attribution) : null;
+
+      // 1) Kayıt — Sheet (leadRecord) her zaman, Estesof varsa ayrıca (best-effort, WA'yı beklemez)
+      if (mdt.recordLead) {
+        mdt.recordLead({
+          source_type: "form",
+          ref_code: refCode || "",
+          name: data.name || "",
+          phone: data.phone || "",
+          email: data.email || "",
+          treatment: data.treatment || "",
+          message: data.message || "",
+          attribution,
+          landing_page: stored.landing_page || location.href,
+          page_url: location.href,
+          lang: document.documentElement.lang || "tr",
+        });
       }
-      if (!ok && cfg.whatsapp) {
+      if (cfg.endpoint) {
+        fetch(cfg.endpoint, {
+          method: cfg.method || "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({
+            ...data,
+            client: "medident",
+            source: attribution.utm_source || "medidentistanbul.com",
+            page: location.href,
+            attribution,
+          }),
+        }).catch(() => {});
+      }
+
+      // 2) WhatsApp — her zaman açılır, ham kelime/gclid değil sadece ref kodu
+      if (cfg.whatsapp) {
         const treatSel = form.querySelector("[name=treatment]");
         const treatLabel = treatSel?.selectedOptions?.[0]?.text || data.treatment || "";
-        const msg = [
+        let msg = [
           "Merhaba MediDent İstanbul,",
           `Ad: ${data.name || ""}`,
           `Telefon: ${data.phone || ""}`,
@@ -414,10 +444,10 @@
         ]
           .filter(Boolean)
           .join("\n");
+        if (mdt.appendRef) msg = mdt.appendRef(msg, refCode);
         window.open(`https://wa.me/${cfg.whatsapp}?text=${encodeURIComponent(msg)}`, "_blank");
-        ok = true;
       }
-      if (ok && card) card.classList.add("is-sent");
+      if (card) card.classList.add("is-sent");
     });
   }
 })();
