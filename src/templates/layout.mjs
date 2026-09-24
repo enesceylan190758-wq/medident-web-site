@@ -248,6 +248,7 @@ export function layout(opts, bodyHtml) {
   const formCfg = {
     endpoint: site.estesof.endpoint,
     method: site.estesof.method,
+    recordEndpoint: site.leadRecord.endpoint,
     whatsapp: site.whatsappRaw,
     quoteSummaryLabel: calcT.summaryLabel,
     quoteSummaryNote: calcT.summaryNote,

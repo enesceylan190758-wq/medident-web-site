@@ -34,8 +34,9 @@ export const site = {
     gscVerify: "D1pF9pwynq5nBW7V0fFMFIvcgZuTc49glS3A18XsOvw",
     // Legacy WP GA4 measurement ID (active on medidentistanbul.com since ~2025)
     ga4: "G-WP6XMC87YB",
-    // Google Ads conversion tag (account 502-170-9821) — used by assets/js/tracking.js
-    googleAds: "AW-18418154075",
+    // İstanbul Dent conversion tracking ID = AW-346086325 (customer 5670078321).
+    // GTM Yeniden Pazarlama aynı ID; head yedek config.
+    googleAds: "AW-346086325",
   },
   // Estesof form integration point (plan faz 5).
   // endpoint doluysa site.js JSON POST atar; boşsa WhatsApp fallback.
@@ -43,6 +44,14 @@ export const site = {
   estesof: {
     endpoint: "", // ör. "https://panel.estesof.com/api/leads/xxxx"
     method: "POST",
+  },
+  // Form + WhatsApp tıklama kaydı (Google Apps Script Web App → Sheet).
+  // Kurulum: docs/google-ads/lead-record-apps-script.gs
+  // Doldurulunca form gönderiminde ve doğrudan WhatsApp tıklamalarında
+  // sessizce (sendBeacon/fetch keepalive) bu uca POST atılır — WhatsApp
+  // açılışını asla bekletmez/engellemez.
+  leadRecord: {
+    endpoint: "", // ör. "https://script.google.com/macros/s/XXXX/exec"
   },
   rating: { value: "4.9", count: "1200" },
   languages: ["tr", "en", "de", "fr", "ar", "ru"],
