@@ -35,6 +35,7 @@ import {
   implantsCostPage,
   hollywoodSmilePage,
   allOn4Page,
+  implantPricePage,
 } from "./src/templates/pages.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -200,6 +201,9 @@ function build() {
     // All-on-4 landing — DE/EN only (price intentionally [DOLDUR], not the fullmouth priceCalc package)
     if (lang === "de") emit(lang, "all-on-4-zahnimplantate-tuerkei/", allOn4Page(lang));
     if (lang === "en") emit(lang, "all-on-4-turkey-package/", allOn4Page(lang));
+
+    // Diş implant fiyat landing — TR only (SKAG 1 ads mesaj eşleşmesi)
+    if (lang === "tr") emit(lang, "dis-implant-fiyat/", implantPricePage(lang));
   }
 
   writeSitemap();
