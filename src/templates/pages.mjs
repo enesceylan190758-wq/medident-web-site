@@ -883,6 +883,65 @@ export function implantsCostPage(lang) {
   };
 }
 
+// Diş implant fiyat landing — TR only (`dis-implant-fiyat/`). Ads mesaj
+// eşleşmesi: SKAG "diş implant fiyat" (DE gurbetçi, TR dil) — bkz.
+// docs/google-ads/kampanya-kurulum-taslagi-2026-09-24.md
+export function implantPricePage(lang) {
+  const t = i18n[lang];
+  const p = t.implantPricePage;
+  const slug = "dis-implant-fiyat/";
+  const crumbs = [crumbHome(lang), { name: p.eyebrow, href: url(lang, slug) }];
+
+  const table = `<div style="overflow-x:auto;border-radius:16px;border:1px solid rgba(43,35,24,.1);">
+    <table style="width:100%;border-collapse:collapse;font-size:15px;">
+      <thead><tr style="background:var(--cream-2);">
+        <th style="text-align:left;padding:14px 18px;font-weight:700;color:var(--ink);">Tedavi</th>
+        <th style="text-align:right;padding:14px 18px;font-weight:700;color:var(--ink);">Fiyat</th>
+      </tr></thead>
+      <tbody>
+        ${p.priceTable
+          .map(
+            (row, i) => `<tr style="${i % 2 ? "background:var(--cream);" : ""}border-top:1px solid rgba(43,35,24,.08);">
+          <td style="padding:14px 18px;color:var(--ink-soft);">${row.label}</td>
+          <td style="padding:14px 18px;text-align:right;font-weight:700;color:var(--ink);">${row.price}</td>
+        </tr>`
+          )
+          .join("")}
+      </tbody>
+    </table>
+  </div>`;
+
+  const faqItem = (f) => `<div class="faq-item" data-faq-item><button class="faq-q" data-faq-toggle><span>${f.q}</span><span class="faq-icon"><span class="minus">${miniMinus}</span><span class="plus">${miniPlus}</span></span></button><div class="faq-a"><p style="margin:0;">${f.a}</p></div></div>`;
+
+  const body = `${pageHero(lang, p.eyebrow, p.h1, p.lead, crumbs)}
+  <section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:22px;margin:0 0 14px;">${p.introTitle}</h2>
+    <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0 0 36px;">${p.introText}</p>
+    <h2 style="font-size:24px;margin:0 0 20px;">${p.priceTitle}</h2>
+    ${table}
+    <p style="font-size:13px;color:var(--muted-2);margin:16px 0 0;">${p.priceNote}</p>
+  </div></section>
+  <section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;text-align:center;">
+    <a href="${waHref()}" class="btn btn-primary" target="_blank" rel="noopener" style="padding:16px 32px;font-size:16px;">${icons.wa} Fotoğrafımı WhatsApp'tan Gönder, Kesin Fiyatı Öğren</a>
+  </div></section>
+  <section class="section section-alt"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:24px;margin:0 0 20px;">${p.faqTitle}</h2>
+    <div class="faq" data-reveal>${p.faqs.map(faqItem).join("")}</div>
+  </div></section>
+  ${contactSection(lang)}`;
+
+  return {
+    body,
+    title: `${p.h1} — ${site.brand}`,
+    description: p.lead,
+    jsonld: [
+      orgSchema(lang),
+      faqSchema(p.faqs),
+      breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
+    ],
+  };
+}
+
 /** Veneers commercial landing — DE (`porzellan-veneers-istanbul/`) + EN (`veneers-turkey/`). */
 export function veneersPage(lang) {
   const t = i18n[lang];
