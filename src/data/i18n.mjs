@@ -155,8 +155,11 @@ export const i18n = {
       eyebrow: "Fiyat Bilgisi",
       h1: "Diş İmplant Fiyatı",
       lead: "Diş implant fiyatı, marka ve implant adedine göre değişir — MediDent İstanbul'da tek implant 400 €'dan başlar. Kesin fiyat için ücretsiz foto değerlendirme yeterli.",
+      ctaPrimary: "Ücretsiz Foto Değerlendirme Al",
+      ctaSecondary: "WhatsApp'tan Yaz",
       introTitle: "Diş implant fiyatını ne belirler?",
       introText: "Diş implant fiyatı üç şeye göre değişir: implant markası (Straumann, Osstem, Neodent), implant adedi ve kemik durumunuz (bazı vakalarda önce kemik greftine ihtiyaç olabilir). Aşağıdaki tabloda kendi durumunuza yakın fiyatı görebilir, kesinleşmiş rakam için fotoğraflarınızı WhatsApp'tan gönderebilirsiniz.",
+      inclusionsTitle: "Fiyata neler dahil?",
       priceTitle: "Güncel diş implant fiyat tablosu",
       priceTable: [
         { label: "1 diş implantı", price: "400 €" },
@@ -167,6 +170,16 @@ export const i18n = {
         { label: "Tam ağız implant paketi (12 implant, üst+alt)", price: "9.000 €" },
       ],
       priceNote: "Tam ağız implant paketlerinde 5 yıldızlı otel konaklaması ve VIP transfer dahildir. Tek/az sayıda implant tedavilerinde konaklama hastaya aittir.",
+      brandsTitle: "Hangi implant markasını kullanıyoruz?",
+      brandsLead: "Batı Avrupa'da kullanılan aynı uluslararası sertifikalı markalarla çalışıyoruz — malzemeden ödün yok.",
+      compareRows: [
+        { item: "1 diş implantı", home: "Özel klinikte belirgin biçimde daha yüksek", here: "400 €'dan" },
+        { item: "Konaklama & transfer", home: "Genelde dahil değil", here: "8+ diş/implantta dahil" },
+        { item: "İmplant markası", home: "Straumann / Osstem / Neodent", here: "Aynı markalar, aynı sertifikalar" },
+      ],
+      doctorsTitle: "Hekim kadromuz",
+      doctorsLead: "İmplant ve estetik diş hekimliğinde uzmanlaşmış ekip.",
+      processTitle: "Süreç nasıl işliyor?",
       faqTitle: "Diş implant fiyatı hakkında sık sorulanlar",
       faqs: [
         { q: "Diş implant fiyatı Almanya'ya göre neden farklı?", a: "Klinik işletme maliyeti, kira ve personel giderleri Türkiye'de daha düşük — kullanılan implant markaları (Straumann, Osstem) Batı Avrupa'dakiyle aynı, malzeme veya işçilikten ödün verilmiyor." },
@@ -174,6 +187,49 @@ export const i18n = {
         { q: "Fiyata konaklama ve transfer dahil mi?", a: "Tam ağız implant paketlerinde (8+ diş) evet — 5 yıldızlı otel ve VIP transfer dahildir. Daha az sayıda implant tedavilerinde konaklama hastaya aittir." },
         { q: "Kesin fiyatı nasıl öğrenirim?", a: "Diş röntgeninizi veya birkaç fotoğrafınızı WhatsApp'tan gönderin — hekimimiz vakanızı değerlendirip size özel yazılı bir fiyat teklifi hazırlar." },
       ],
+      // Dynamic Text Replacement whitelist — ?h= parametresi bu anahtarlardan
+      // biriyle eşleşmezse sayfa varsayılan (yukarıdaki) metni kullanır.
+      // Ham URL parametresi asla DOM'a basılmaz, sadece bu sabit tablodan
+      // seçim yapılır. bkz. docs/google-ads/kampanya-kurulum-taslagi-2026-09-24.md
+      variants: {
+        "implant-fiyat": {
+          h1: "Diş İmplant Fiyatı",
+          lead: "Diş implant fiyatı, marka ve implant adedine göre değişir — MediDent İstanbul'da tek implant 400 €'dan başlar. Kesin fiyat için ücretsiz foto değerlendirme yeterli.",
+          cta: "Ücretsiz Foto Değerlendirme Al",
+        },
+        "turkiye-implant": {
+          h1: "Türkiye'de Diş İmplantı",
+          lead: "Türkiye'de diş implantı, Avrupa'daki fiyatların çok altında ve aynı uluslararası markalarla (Straumann, Osstem) yapılır. Tek implant 400 €'dan başlar.",
+          cta: "Ücretsiz Foto Değerlendirme Al",
+        },
+        "rakip-karsilastir": {
+          h1: "Diş İmplant Fiyatlarını Karşılaştırın",
+          lead: "Karar vermeden önce fiyatları ve markaları karşılaştırın — MediDent İstanbul'da tek implant 400 €'dan başlar, yazılı fiyat teklifi ücretsizdir.",
+          cta: "Fiyat Teklifimi İste",
+        },
+        "medident-istanbul": {
+          h1: "MediDent İstanbul — Resmi Sayfa",
+          lead: "MediDent İstanbul'un resmi diş implant fiyat sayfasındasınız. Straumann ve Osstem implant markalarıyla, tek implant 400 €'dan başlayan şeffaf fiyatlar.",
+          cta: "WhatsApp'tan Yazın",
+        },
+      },
+    },
+    landingUi: {
+      resultsEyebrow: "Sonuçlar",
+      resultsTitle: "Gerçek hasta sonuçları",
+      resultsLead: "Öncesi/sonrasını görmek için sürükleyin, klinikten daha fazla vakaya göz atın.",
+      galleryTitle: "Daha fazla gerçek vaka",
+      compareTitle: "Fiyat karşılaştırması",
+      compareHome: "Almanya / Avrupa (özel)",
+      compareHere: "MediDent İstanbul",
+      tripTitle: "Yolculuğunuz özet",
+      inclusionsTitle: "Fiyata neler dahil",
+      doctorTitle: "Klinik inceleme",
+      ctaTitle: "Ücretsiz foto değerlendirme",
+      ctaLead: "WhatsApp'tan fotoğraf veya röntgen gönderin — uçak bileti almadan önce yazılı bir plan alın.",
+      ctaWa: "WhatsApp'tan değerlendirme",
+      ctaForm: "İletişim formu",
+      dragHint: "Karşılaştırmak için sürükleyin",
     },
   },
   en: {
