@@ -108,6 +108,7 @@ function emit(lang, pathNoLang, rendered) {
       jsonld: rendered.jsonld || [],
       ogType: rendered.ogType || "website",
       publishedTime: rendered.publishedTime,
+      bodyClass: rendered.bodyClass,
     },
     rendered.body
   );

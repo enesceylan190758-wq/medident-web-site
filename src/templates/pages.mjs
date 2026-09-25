@@ -69,13 +69,16 @@ function landingUi(lang) {
   );
 }
 
-function landingCtaBand(lang) {
+function landingCtaBand(lang, opts = {}) {
   const ui = landingUi(lang);
-  const wa = waHref(
+  const defaultMsg =
     lang === "de"
       ? "Hallo, ich möchte eine kostenlose Foto-/Röntgen-Einschätzung."
-      : "Hello, I’d like a free photo / X-ray assessment."
-  );
+      : lang === "tr"
+        ? "Merhaba, ücretsiz fotoğraf veya röntgen değerlendirmesi almak istiyorum."
+        : "Hello, I’d like a free photo / X-ray assessment.";
+  const wa = waHref(opts.waMessage || defaultMsg);
+  const formHref = opts.formHref || url(lang, "iletisim/");
   return `<section class="section" style="padding-top:8px;padding-bottom:8px;"><div class="container" style="max-width:960px;">
     <div data-reveal style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;padding:22px 24px;border-radius:20px;background:linear-gradient(135deg,var(--ink),#3a2f24);color:#fff;">
       <div style="flex:1;min-width:220px;">
@@ -84,7 +87,7 @@ function landingCtaBand(lang) {
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:10px;">
         <a href="${wa}" target="_blank" rel="noopener" class="btn" style="background:#25D366;color:#fff;">${icons.wa || ""} ${ui.ctaWa}</a>
-        <a href="${url(lang, "iletisim/")}" class="btn btn-ghost" style="border-color:rgba(255,255,255,.35);color:#fff;">${ui.ctaForm}</a>
+        <a href="${formHref}" class="btn btn-ghost" style="border-color:rgba(255,255,255,.35);color:#fff;">${ui.ctaForm}</a>
       </div>
     </div>
   </div></section>`;
@@ -888,11 +891,12 @@ export function implantsCostPage(lang) {
 // Dynamic Text Replacement (H1/lead/CTA) — bkz. i18n implantPricePage.variants
 // ve docs/google-ads/kampanya-kurulum-taslagi-2026-09-24.md
 export function implantPricePage(lang) {
-  const t = i18n[lang];
-  const p = t.implantPricePage;
+  const p = i18n[lang].implantPricePage;
   const slug = "dis-implant-fiyat/";
   const crumbs = [crumbHome(lang), { name: p.eyebrow, href: url(lang, slug) }];
-  const wa = waHref("Merhaba, diş implant fiyatı için ücretsiz foto değerlendirme almak istiyorum.");
+  const waMessage = "Merhaba, diş implant fiyatı için ücretsiz foto değerlendirme almak istiyorum.";
+  const wa = waHref(waMessage);
+  const ctaOpts = { waMessage, formHref: "#iletisim" };
 
   const table = `<div style="overflow-x:auto;border-radius:16px;border:1px solid rgba(43,35,24,.1);">
     <table style="width:100%;border-collapse:collapse;font-size:15px;">
@@ -913,33 +917,23 @@ export function implantPricePage(lang) {
     </table>
   </div>`;
 
-  // 1) Hero — H1/lead DTR ile değişebilir, 2 CTA + gerçek güven rozetleri (t.stats)
-  const trustBadges = (t.stats || [])
-    .map((s) => {
-      const val = s.dec ? s.to.toFixed(s.dec) : s.sep ? Math.round(s.to).toLocaleString("tr-TR") : Math.round(s.to);
-      return `<div style="display:flex;align-items:baseline;gap:6px;"><strong style="font-size:19px;color:var(--ink);">${val}${s.suffix || (s.dec ? "" : "+")}</strong><span style="font-size:13px;color:var(--muted-2);">${s.label}</span></div>`;
-    })
-    .join("");
-
+  // Hero: DTR + WA / form. TR reklam landing'inde hasta sayısı, puan,
+  // öncesi-sonrası ve yorum yok (yönetmelik + Ads politikası).
   const heroSection = `<section class="page-hero"><div class="container">
     ${breadcrumb(lang, crumbs)}
     <div class="eyebrow">${p.eyebrow}</div>
     <h1 data-dtr-h1 style="font-size:clamp(34px,5vw,60px);margin:0 0 14px;max-width:820px;">${p.h1}</h1>
     <p data-dtr-lead class="lead" style="max-width:680px;">${p.lead}</p>
-    <div style="display:flex;flex-wrap:wrap;gap:14px;margin:22px 0 28px;">
+    <div style="display:flex;flex-wrap:wrap;gap:14px;margin:22px 0 0;">
       <a data-dtr-cta href="${wa}" target="_blank" rel="noopener" class="btn btn-primary" style="padding:15px 28px;font-size:15.5px;">${icons.wa} ${p.ctaPrimary}</a>
-      <a href="${url(lang, "iletisim/")}" class="btn btn-outline-red" style="padding:15px 28px;font-size:15.5px;">${p.ctaSecondary}</a>
+      <a href="#iletisim" class="btn btn-outline-red" style="padding:15px 28px;font-size:15.5px;">${p.ctaSecondary}</a>
     </div>
-    <div style="display:flex;flex-wrap:wrap;gap:24px;">${trustBadges}</div>
   </div></section>`;
 
-  // 2) Fiyata neler dahil — gerçek paket içeriği (content.mjs packages.implant)
-  const implantPkg = packages.find((pk) => pk.key === "implant");
-  const inclusionsBlock = implantPkg
-    ? `<section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">${landingInclusions(lang, implantPkg.items[lang] || implantPkg.items.tr)}</div></section>`
+  const inclusionsBlock = (p.inclusions || []).length
+    ? `<section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">${landingInclusions(lang, p.inclusions)}</div></section>`
     : "";
 
-  // 3) Fiyat tablosu + marka karşılaştırması (Straumann/Osstem/Neodent)
   const coreBrands = implantBrands.filter((b) => ["straumann", "osstem", "neodent"].includes(b.key));
   const brandCards = coreBrands
     .map(
@@ -962,7 +956,6 @@ export function implantPricePage(lang) {
     ${brandCards ? `<h2 style="font-size:22px;margin:0 0 6px;">${p.brandsTitle}</h2><p style="font-size:15px;color:var(--muted);margin:0 0 20px;">${p.brandsLead}</p><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">${brandCards}</div>` : ""}
   </div></section>`;
 
-  // 6) Doktorlar — gerçek hekim kadrosu (content.mjs doctors)
   const initials = (name) => name.replace(/^(Dr\.|Dt\.)\s*/gi, "").split(/\s+/).map((w) => w[0]).join("").slice(0, 2).toUpperCase();
   const avatarOrImg = (d) =>
     d.image
@@ -983,26 +976,23 @@ export function implantPricePage(lang) {
   </div></section>`
     : "";
 
-  // 7) Hasta yorumları — gerçek yorumlar (i18n tr.reviews)
-  const reviewCard = (r) => `<div class="review" data-reveal>
-    <div class="stars">★★★★★</div>
-    <p style="font-size:14.5px;line-height:1.6;color:#F4EEE4;margin:12px 0 16px;">"${r.text}"</p>
-    <div style="display:flex;align-items:center;gap:10px;">
-      <div class="avatar">${r.initials}</div>
-      <div style="line-height:1.25;"><div style="font-weight:700;font-size:13.5px;color:#fff;">${r.name}</div><div style="font-size:12px;color:#A89D8B;">${r.place}</div></div>
-    </div>
-  </div>`;
-  const reviewsSection = (t.reviews || []).length
-    ? `<section class="section section-dark"><div class="container">
-    <div style="text-align:center;max-width:600px;margin:0 auto clamp(30px,4vw,44px);">
-      <h2 style="margin:0 0 10px;">${t.reviewsTitle}</h2>
-      <p style="font-size:15px;color:#C9BEAC;margin:0;">${t.reviewsLead}</p>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;">${t.reviews.map(reviewCard).join("")}</div>
-  </div></section>`
-    : "";
+  const relatedLinks = `<p style="margin:20px 0 0;display:flex;flex-wrap:wrap;gap:12px 18px;">
+    <a href="${url(lang, "hizmetler/implantoloji-implant-tedavisi/")}" class="link-more">${p.relatedService} ${icons.arrowSm}</a>
+    <a href="${url(lang, "geo/dis-implant-nedir/")}" class="link-more">${p.relatedGeoDef} ${icons.arrowSm}</a>
+    <a href="${url(lang, "geo/1-gunde-implant-nedir/")}" class="link-more">${p.relatedGeoSameDay} ${icons.arrowSm}</a>
+  </p>`;
 
-  const tripStages = (t.process || []).map((s) => ({ t: s.t, d: s.d }));
+  const aftercareSection = `<section class="section"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:22px;margin:0 0 14px;">${p.aftercareTitle}</h2>
+    <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0;">${p.aftercareText}</p>
+    <h3 style="font-size:16px;margin:22px 0 8px;">${p.relatedTitle}</h3>
+    ${relatedLinks}
+  </div></section>`;
+
+  const stickyCta = `<div class="lp-sticky-cta" role="navigation" aria-label="Hızlı iletişim">
+    <a href="${wa}" target="_blank" rel="noopener" class="lp-sticky-cta__wa">${icons.wa} ${p.stickyWa}</a>
+    <a href="#iletisim" class="lp-sticky-cta__form">${p.stickyForm}</a>
+  </div>`;
 
   const faqItem = (f) => `<div class="faq-item" data-faq-item><button class="faq-q" data-faq-toggle><span>${f.q}</span><span class="faq-icon"><span class="minus">${miniMinus}</span><span class="plus">${miniPlus}</span></span></button><div class="faq-a"><p style="margin:0;">${f.a}</p></div></div>`;
 
@@ -1022,27 +1012,27 @@ export function implantPricePage(lang) {
   const body = `${heroSection}
   ${inclusionsBlock}
   ${priceSection}
-  ${landingCtaBand(lang)}
+  ${landingCtaBand(lang, ctaOpts)}
   ${landingCompareTable(lang, p.compareRows || [])}
-  ${landingBaSection(lang)}
-  ${landingCasesStrip(lang, ["aug-17-2.jpg", "sep-27-3.jpg", "jun-8-3.jpg"])}
+  ${contactSection(lang)}
+  ${landingTripTimeline(lang, p.tripStages || [])}
+  ${aftercareSection}
   ${doctorsSection}
-  ${reviewsSection}
-  ${landingCtaBand(lang)}
-  ${landingTripTimeline(lang, tripStages)}
   <section class="section section-alt"><div class="container" style="max-width:820px;">
     <h2 style="font-size:24px;margin:0 0 20px;">${p.faqTitle}</h2>
     <div class="faq" data-reveal>${p.faqs.map(faqItem).join("")}</div>
   </div></section>
-  ${contactSection(lang)}
+  ${landingCtaBand(lang, ctaOpts)}
+  ${stickyCta}
   ${dtrScript}`;
 
   return {
     body,
     title: `${p.h1} — ${site.brand}`,
     description: p.lead,
+    bodyClass: "has-lp-sticky",
     jsonld: [
-      orgSchema(lang),
+      orgSchema(lang, { includeRating: false }),
       faqSchema(p.faqs),
       breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
     ],
