@@ -196,6 +196,10 @@ const CSS = `
 .ilp-price small{display:block;font:500 13px var(--font-sans);color:var(--muted-2);margin-top:4px}
 .ilp-opt.feat .ilp-price small{color:#b8ac95}
 /* steps */
+.ilp-fig{margin:0}.ilp-fig img{width:100%;height:auto;display:block;border-radius:var(--ilp-r)}.ilp-fig figcaption,.ilp-vid figcaption{font-size:13px;color:var(--muted);margin-top:8px}
+.ilp-xr{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:20px}
+.ilp-vids{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
+.ilp-vid{margin:0}.ilp-vid video{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--ilp-r);background:#f3ede0;display:block}
 .ilp-steps{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;position:relative}
 .ilp-step{border-radius:var(--ilp-r);background:#fff;border:1px solid rgba(43,35,24,.08);overflow:hidden;box-shadow:0 26px 50px -40px rgba(43,35,24,.5)}
 .ilp-step-vis{background:linear-gradient(180deg,#faf3e6,#f1e6d1);padding:14px 14px 0}
@@ -270,6 +274,7 @@ const CSS = `
   .ilp-chip.a{left:12px}.ilp-chip.b{right:12px}
   .ilp-cards3,.ilp-opts,.ilp-brands,.ilp-rev{grid-template-columns:1fr}
   .ilp-steps{grid-template-columns:1fr}
+  .ilp-xr,.ilp-vids{grid-template-columns:1fr}
   .ilp-gal{grid-template-columns:repeat(2,1fr)}
   .ilp-clinic{grid-template-columns:1fr}
   .ilp-docs{grid-template-columns:repeat(2,1fr)}
@@ -288,6 +293,11 @@ const JS = `<script>(function(){
   if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('is-in')});return;}
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('is-in');io.unobserve(e.target);}})},{threshold:.18,rootMargin:'0px 0px -6% 0px'});
   els.forEach(function(e){io.observe(e)});
+  var vs=document.querySelectorAll('.ilp-vid video');
+  if('IntersectionObserver' in window&&!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)){
+    var vo=new IntersectionObserver(function(es){es.forEach(function(e){var v=e.target;if(e.isIntersecting){var p=v.play();if(p&&p.catch)p.catch(function(){});}else{v.pause();}})},{threshold:.4});
+    vs.forEach(function(v){vo.observe(v)});
+  }else{vs.forEach(function(v){v.controls=true;});}
 })();</script>`;
 
 /* ------------------------------------------------------------------ sayfa */
@@ -367,6 +377,10 @@ export function implantLandingBody({ lang, t, p, crumbs, wa }) {
     <div class="ilp-steps">
       ${lp.s3.items.map((s, i) => `<article class="ilp-step" style="transition-delay:${(i % 2) * 0.1}s"><div class="ilp-step-vis">${sceneSvg(i + 1)}</div><div class="ilp-step-body"><span class="ilp-step-n">${i + 1}</span><h3>${s.t}</h3><p>${s.d}</p></div></article>`).join("")}
     </div>
+
+    <div class="ilp-vids" ${io()}>
+      ${[["implant-asamalar","İmplant aşamaları — animasyon"],["implant-tek","Tek diş implant — animasyon"],["implant-all-on-4","All-on-4 — animasyon"]].map(([n,c]) => `<figure class="ilp-vid"><video muted loop playsinline preload="none" poster="${src("video/"+n+"-poster.webp")}" aria-label="${c}"><source src="${src("video/"+n+".mp4")}" type="video/mp4"></video><figcaption>${c}</figcaption></figure>`).join("")}
+    </div>
   </div></section>`;
 
   const coreBrands = implantBrands.filter((b) => ["straumann", "osstem", "neodent"].includes(b.key));
@@ -401,9 +415,18 @@ export function implantLandingBody({ lang, t, p, crumbs, wa }) {
         <div class="ba-handle"><div class="ba-knob"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 8L6 12l3.5 4M14.5 8l3.5 4-3.5 4"></path></svg></div></div>
       </div></div>
       <div ${io()} style="display:grid;gap:14px;">
-        ${ph("İmplant öncesi / sonrası — gerçek hasta", "İzinli hasta arşivi, aynı açı, min. 1600×1200 px (çift)", "16/10")}
-        ${ph("İmplant röntgen — öncesi / sonrası (panoramik)", "Kimlik bilgisi silinmiş, min. 1600×800 px", "16/8")}
+        <figure class="ilp-fig">${pic("implant-agiz-oncesi-sonrasi.jpg", "Diş implantı öncesi ve sonrası — MediDent İstanbul hastası (ağız yakın çekim)", { sizes: "(max-width:900px) 100vw, 50vw" })}<figcaption>Tam çene implant — öncesi / sonrası</figcaption></figure>
+        <div class="ilp-ba-wrap"><div class="ba" data-ba style="aspect-ratio:1600/860;">
+          ${pic("xray-sonrasi.jpg", "Panoramik röntgen — implant sonrası")}
+          <img class="ba-before" src="${src("xray-oncesi.jpg")}" alt="Panoramik röntgen — implant öncesi" loading="lazy" decoding="async">
+          <span class="ba-label before">${t.before}</span><span class="ba-label after">${t.after}</span>
+          <div class="ba-handle"><div class="ba-knob"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 8L6 12l3.5 4M14.5 8l3.5 4-3.5 4"></path></svg></div></div>
+        </div></div>
       </div>
+    </div>
+    <div class="ilp-xr" ${io()}>
+      <figure class="ilp-fig">${pic("implant-xray-tam-ark.jpg", "Panoramik röntgen — implant üstü sabit protez", { sizes: "(max-width:900px) 100vw, 50vw" })}<figcaption>Röntgen — implant üstü sabit protez</figcaption></figure>
+      <figure class="ilp-fig">${pic("implant-xray-oncesi-sonrasi.jpg", "Panoramik röntgen — implant öncesi ve sonrası", { sizes: "(max-width:900px) 100vw, 50vw" })}<figcaption>Röntgen — öncesi / sonrası</figcaption></figure>
     </div>
     <div class="ilp-gal">${smileFiles.map(([f, a]) => `<div ${io()}>${pic(f, a, { sizes: "(max-width:900px) 50vw, 25vw" })}</div>`).join("")}</div>
     <p class="ilp-note">${lp.s5.note}</p>

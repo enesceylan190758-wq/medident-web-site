@@ -11,8 +11,8 @@ Yayına çıkmadan önce placeholder'ları gizlemek için: `LP_PLACEHOLDERS=0 np
 | 1 | 004 Markalar | Straumann implant modeli yakın çekim (vida + abutment + kron) | min 1600×1200, JPG/WebP | nötr / beyaz zemin |
 | 2 | 004 Markalar | Osstem implant modeli yakın çekim | min 1600×1200 | aynı çekim stili |
 | 3 | 004 Markalar | Neodent implant modeli yakın çekim | min 1600×1200 | aynı çekim stili |
-| 4 | 005 Sonuçlar | **İmplant** öncesi/sonrası — gerçek hasta (2–4 çift) | min 1600×1200 / çift, aynı açı | hasta yazılı izni şart |
-| 5 | 005 Sonuçlar | Implant röntgen (panoramik) öncesi/sonrası | min 1600×800 | kimlik bilgisi silinmiş |
+| 4 | 005 Sonuçlar | ~~İmplant öncesi/sonrası~~ — **KISMEN DOLDU** (2025-09-25: yüzsüz ağız yakın çekimi eklendi). Yüzlü çiftler onay bekliyor | | |
+| 5 | 005 Sonuçlar | ~~Implant röntgen~~ — **DOLDU** (slider + 2 röntgen) | | |
 | 6 | 006 Klinik | Karşılama / resepsiyon | min 1600×1067 | gerçek klinik |
 | 7 | 006 Klinik | Muayene / cerrahi odası | min 1600×1067 | gerçek klinik |
 | 8 | 006 Klinik | Dijital tarama / 3D planlama alanı | min 1600×1067 | gerçek klinik |
@@ -34,3 +34,9 @@ Yayına çıkmadan önce placeholder'ları gizlemek için: `LP_PLACEHOLDERS=0 np
 ## Çizimler (SVG, kodda)
 
 İmplant anatomisi (kron/abutment/vida), 4 aşamalı tedavi kesiti ve çene ikonları `implant-lp.mjs` içinde SVG/CSS olarak çizildi; ek dosya gerekmez.
+
+## 2025-09-25 — Drive arşivinden eklenenler
+
+- `implant-agiz-oncesi-sonrasi` (tam çene, yüzsüz), `implant-xray-tam-ark`, `implant-xray-oncesi-sonrasi`, `xray-oncesi`/`xray-sonrasi` (panoramik slider)
+- `video/implant-asamalar|implant-tek|implant-all-on-4.mp4` (720p, sessiz, MediDent logolu animasyonlar, poster'lı)
+- Hâlâ placeholder: #1–3 marka model yakın çekimleri, #6–8 klinik fotoğrafları (arşivde yok)
