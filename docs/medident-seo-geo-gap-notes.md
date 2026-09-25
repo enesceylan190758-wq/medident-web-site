@@ -1,6 +1,6 @@
 # MediDent İstanbul — SEO/GEO Gap Notes (canlı durum)
 
-*Son güncelleme: 2026-09-18 · Domain: https://medidentistanbul.com*  
+*Son güncelleme: 2026-09-25 · Domain: https://medidentistanbul.com*  
 *Plan: `docs/medident-seo-geo-ajan-plani.md` · Rakip: `docs/medident-rakip-anahtar-kelime-arastirmasi.md`*
 
 Bu dosya **canlı site envanteri + açık gap listesidir**. Cloud ajan her koşuda önce bunu ve `src/content/geo/packs.json` / `generated-blog.json` okur; tahminle gap uydurmaz. Smoke sonrası güncelle.
@@ -55,7 +55,7 @@ Kaynak sayıları (repo): GEO packs **64** (tr 22 / en 23 / de 19 / ar 0 / ru 0)
 
 ### P1 — yerel TR SEO
 4. İlçe + hizmet long-tail (`Üsküdar implant`, `Acıbadem zirkonyum`) — tek klinik rehberi var; hizmet×semt derinliği eksik.
-5. TR’de hasta yorumu / öncesi-sonrası / garanti reklamı **yok** (yönetmelik).
+5. TR’de hasta yorumu / öncesi-sonrası / garanti reklamı **yok** (yönetmelik). Canlı `/dis-implant-fiyat/` (Ads LP) bu kuralı ihlal ediyordu — düzeltme PR `cursor/ad-lp-conversion-ab45`.
 
 ### P2 — GEO/AI alıntı kalitesi
 6. Tedavi bazlı yorum paketleri (implant / veneer) — yasal gating: EN/DE/AR/RU’da onamlı; TR’de kullanma.
@@ -92,6 +92,14 @@ Her başarılı koşu sonunda bu dosyaya ekle:
 - GSC’ye manuel gönderilecek URL listesi
 
 ---
+
+## Koşu 2026-09-25 (Ads Phase A — TR implant LP)
+
+- Pazar: **TR reklam landing** (`/dis-implant-fiyat/`) — yeni URL yok
+- Kapanan: BA / yorum / Mutlu Hasta sayaç / paket “garanti” / otel-herkese-dahil çelişkisi; CTA `#iletisim` + TR WhatsApp; form fiyatın altında; sticky CTA; aftercare adresi uydurulmadı
+- İnsan: merge + Ads final URL aynı kalsın; DE ofis şehri/adresi yazılı planda (sayfada yok)
+- Çakışma: #65/#66 görsel redesign — bu PR yasal/dönüşüm; üçüncü görsel katmanı yok
+- GSC (merge sonrası): `https://medidentistanbul.com/dis-implant-fiyat/`
 
 ## Koşu 2026-09-18 (günlük blog otomasyonu)
 

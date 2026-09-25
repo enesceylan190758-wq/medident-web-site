@@ -170,7 +170,12 @@
       var hrefLower = href.toLowerCase();
 
       if (hrefLower.indexOf("wa.me") !== -1 || hrefLower.indexOf("whatsapp.com") !== -1 || hrefLower.indexOf("api.whatsapp.com") !== -1) {
-        var source = link.classList && link.classList.contains("wa-float") ? "wa_float" : "wa_link";
+        var source =
+          link.classList && link.classList.contains("wa-float")
+            ? "wa_float"
+            : link.classList && link.classList.contains("lp-sticky-cta__wa")
+              ? "wa_sticky"
+              : "wa_link";
         track("whatsapp_click", { source: source });
 
         var stored = getStore();

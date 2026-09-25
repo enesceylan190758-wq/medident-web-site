@@ -156,10 +156,49 @@ export const i18n = {
       h1: "Diş İmplant Fiyatı",
       lead: "Diş implant fiyatı, marka ve implant adedine göre değişir — MediDent İstanbul'da tek implant 400 €'dan başlar. Kesin fiyat için ücretsiz foto değerlendirme yeterli.",
       ctaPrimary: "Ücretsiz Foto Değerlendirme Al",
-      ctaSecondary: "WhatsApp'tan Yaz",
+      ctaSecondary: "Yazılı plan iste",
+      stickyWa: "WhatsApp",
+      stickyForm: "Yazılı plan",
       introTitle: "Diş implant fiyatını ne belirler?",
       introText: "Diş implant fiyatı üç şeye göre değişir: implant markası (Straumann, Osstem, Neodent), implant adedi ve kemik durumunuz (bazı vakalarda önce kemik greftine ihtiyaç olabilir). Aşağıdaki tabloda kendi durumunuza yakın fiyatı görebilir, kesinleşmiş rakam için fotoğraflarınızı WhatsApp'tan gönderebilirsiniz.",
       inclusionsTitle: "Fiyata neler dahil?",
+      inclusions: [
+        "Klinik muayene ve dijital planlama (gerekirse panoramik / 3D)",
+        "Seçilen markada implant ve cerrahi seans (Straumann, Osstem veya Neodent)",
+        "Plana göre geçici veya kalıcı üst yapı",
+        "Yazılı tedavi planı ve fiyat özeti (WhatsApp veya form)",
+        "Tam ağız pakette (8+ implant) otel ve VIP transfer; tek veya az sayıda implantta konaklama plana yazılır",
+        "Dönüş sonrası WhatsApp ile fotoğraf / röntgen kontrolü",
+      ],
+      tripStages: [
+        {
+          t: "Fotoğraf veya röntgen",
+          d: "WhatsApp’tan gönderin; hekim 24 saat içinde ön değerlendirme yazar.",
+          meta: "0–1 gün",
+        },
+        {
+          t: "Yazılı plan",
+          d: "Marka, implant adedi, seans sayısı ve fiyata nelerin dahil olduğu tek belgede netleşir.",
+          meta: "1–2 gün",
+        },
+        {
+          t: "İstanbul seansı",
+          d: "Lokal anestezi ile cerrahi. Tek implant genelde bir seans; tam ağız iki aşamalı planlanır. Otel yalnızca 8+ implant paketinde dahildir.",
+          meta: "1–7 gün",
+        },
+        {
+          t: "Eve dönüş takibi",
+          d: "Kontrol WhatsApp ile yürür. Almanya ofis şehri ve adresi, ofis hazır olunca yazılı planda yer alır — bu sayfada adres yoktur.",
+          meta: "Plan sonrası",
+        },
+      ],
+      aftercareTitle: "Eve döndükten sonra takip",
+      aftercareText:
+        "Kontrol WhatsApp üzerinden fotoğraf ve röntgenle yapılır. Almanya ofisi için şehir ve açık adres bu sayfada yayınlanmaz; ofis hazır olduğunda kişiye özel yazılı planda belirtilir. Acil şikayette önce WhatsApp hattına yazın, gerekirse bulunduğunuz yerdeki diş hekimine de görünün.",
+      relatedTitle: "İlgili sayfalar",
+      relatedService: "İmplant tedavisi",
+      relatedGeoDef: "Diş implant nedir",
+      relatedGeoSameDay: "1 günde implant",
       priceTitle: "Güncel diş implant fiyat tablosu",
       priceTable: [
         { label: "1 diş implantı", price: "400 €" },
@@ -186,6 +225,7 @@ export const i18n = {
         { q: "İmplant markası fiyatı etkiler mi?", a: "Evet. Straumann gibi premium markalar, Osstem/Neodent gibi orta segment markalara göre daha yüksek fiyatlanır. Hangi markanın sizin vakanıza uygun olduğunu ücretsiz değerlendirme sonrası netleştiriyoruz." },
         { q: "Fiyata konaklama ve transfer dahil mi?", a: "Tam ağız implant paketlerinde (8+ diş) evet — 5 yıldızlı otel ve VIP transfer dahildir. Daha az sayıda implant tedavilerinde konaklama hastaya aittir." },
         { q: "Kesin fiyatı nasıl öğrenirim?", a: "Diş röntgeninizi veya birkaç fotoğrafınızı WhatsApp'tan gönderin — hekimimiz vakanızı değerlendirip size özel yazılı bir fiyat teklifi hazırlar." },
+        { q: "Eve döndükten sonra kontrol nasıl yapılır?", a: "Kontrol WhatsApp üzerinden fotoğraf ve röntgenle yürür. Almanya ofisi için şehir ve açık adres, ofis hazır olduğunda kişiye özel yazılı planda yer alır." },
       ],
       // Dynamic Text Replacement whitelist — ?h= parametresi bu anahtarlardan
       // biriyle eşleşmezse sayfa varsayılan (yukarıdaki) metni kullanır.
@@ -213,6 +253,10 @@ export const i18n = {
           cta: "WhatsApp'tan Yazın",
         },
       },
+    },
+    calc: {
+      waPhotosMessage:
+        "Merhaba MediDent İstanbul — röntgen / fotoğraf gönderip ücretsiz plan ve fiyat özeti almak istiyorum.",
     },
     landingUi: {
       resultsEyebrow: "Sonuçlar",

@@ -1285,6 +1285,62 @@ textarea:focus {
   color: #fff;
 }
 
+/* Ad landing sticky bar — mobile only; lifts the floating WA above it. */
+.lp-sticky-cta {
+  display: none;
+}
+
+@media (max-width: 720px) {
+  .lp-sticky-cta {
+    display: flex;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 72;
+    gap: 8px;
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0px));
+    background: rgba(28, 21, 13, 0.94);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 -10px 28px -16px rgba(28, 21, 13, 0.7);
+  }
+  .lp-sticky-cta a {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 46px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 14.5px;
+    color: #fff;
+  }
+  .lp-sticky-cta__wa {
+    background: #25d366;
+  }
+  .lp-sticky-cta__wa:hover {
+    color: #fff;
+    filter: brightness(1.05);
+  }
+  .lp-sticky-cta__form {
+    background: var(--red);
+  }
+  .lp-sticky-cta__form:hover {
+    color: #fff;
+    background: var(--red-deep);
+  }
+  body.has-lp-sticky {
+    padding-bottom: 76px;
+  }
+  body.has-lp-sticky .wa-float {
+    bottom: 86px;
+  }
+  body.has-lp-sticky .to-top {
+    bottom: 156px;
+  }
+}
+
 .to-top {
   position: fixed;
   bottom: 96px;

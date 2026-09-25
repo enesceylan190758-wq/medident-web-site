@@ -258,8 +258,9 @@ export function layout(opts, bodyHtml) {
   const gtmNo = site.tracking.gtm
     ? `<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=${site.tracking.gtm}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>`
     : "";
+  const bodyClass = opts.bodyClass ? ` class="${String(opts.bodyClass).replace(/"/g, "")}"` : "";
   return `${head(opts)}
-<body>
+<body${bodyClass}>
   ${gtmNo}
   ${header(lang, path)}
   <main>
@@ -275,8 +276,8 @@ ${bodyHtml}
 }
 
 // Shared JSON-LD builders
-export function orgSchema(lang = "tr") {
-  return {
+export function orgSchema(lang = "tr", { includeRating = true } = {}) {
+  const schema = {
     "@context": "https://schema.org",
     "@type": "Dentist",
     "@id": site.domain + "/#organization",
@@ -312,12 +313,15 @@ export function orgSchema(lang = "tr") {
       { "@type": "City", name: "Istanbul" },
       { "@type": "Country", name: "Turkey" },
     ],
-    aggregateRating: {
+  };
+  if (includeRating) {
+    schema.aggregateRating = {
       "@type": "AggregateRating",
       ratingValue: site.rating.value,
       reviewCount: site.rating.count,
-    },
-  };
+    };
+  }
+  return schema;
 }
 
 export function breadcrumbSchema(items) {
