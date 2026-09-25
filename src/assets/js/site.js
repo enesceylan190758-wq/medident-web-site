@@ -48,40 +48,66 @@
     $$("[data-reveal]").forEach((el) => el.classList.add("is-in"));
   }
 
-  // Stats counter
+  // Stats counter — HTML already has final values; never leave a visible "0+" flash
   const statsRoot = $("[data-stats]");
+  const formatStat = (el, v) => {
+    const to = parseFloat(el.dataset.to);
+    const dec = parseInt(el.dataset.dec || "0", 10);
+    const sep = el.dataset.sep === "1";
+    const suffix = el.dataset.suffix || "";
+    const n = v == null ? to : v;
+    let s = dec > 0 ? Number(n).toFixed(dec) : String(Math.round(n));
+    if (sep) s = s.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return s + suffix;
+  };
+  const restoreStats = () => {
+    if (!statsRoot) return;
+    $$("[data-to]", statsRoot).forEach((el) => {
+      el.textContent = formatStat(el);
+    });
+  };
   const animateStats = () => {
-    $$("[data-to]", statsRoot || document).forEach((el) => {
+    if (!statsRoot) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      restoreStats();
+      return;
+    }
+    $$("[data-to]", statsRoot).forEach((el) => {
+      if (el.dataset.animated === "1") return;
+      el.dataset.animated = "1";
       const to = parseFloat(el.dataset.to);
-      const dec = parseInt(el.dataset.dec || "0", 10);
-      const sep = el.dataset.sep === "1";
-      const suffix = el.dataset.suffix || "";
-      const fmt = (v) => {
-        let s = dec > 0 ? v.toFixed(dec) : String(Math.round(v));
-        if (sep) s = s.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-        return s + suffix;
-      };
       const ease = (t) => 1 - Math.pow(1 - t, 3);
       const start = performance.now();
       const tick = (now) => {
         const p = Math.min(1, (now - start) / 1500);
-        el.textContent = fmt(to * ease(p));
+        // First paint must not be 0 next to a "+" suffix (reads as "0+")
+        const eased = ease(p);
+        const v = p === 0 ? to * 0.04 : to * eased;
+        el.textContent = formatStat(el, v);
         if (p < 1) requestAnimationFrame(tick);
-        else el.textContent = fmt(to);
+        else el.textContent = formatStat(el, to);
       };
       requestAnimationFrame(tick);
     });
   };
   if (statsRoot && "IntersectionObserver" in window) {
-    const sio = new IntersectionObserver((ents) => {
-      ents.forEach((e) => {
-        if (e.isIntersecting) {
-          sio.disconnect();
-          animateStats();
-        }
-      });
-    }, { threshold: 0.35 });
+    const sio = new IntersectionObserver(
+      (ents) => {
+        ents.forEach((e) => {
+          if (e.isIntersecting) {
+            sio.disconnect();
+            animateStats();
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
     sio.observe(statsRoot);
+    setTimeout(() => {
+      $$("[data-to]", statsRoot).forEach((el) => {
+        if (el.dataset.animated !== "1") el.textContent = formatStat(el);
+      });
+    }, 2500);
   } else if (statsRoot) animateStats();
 
   // YouTube facade — load iframe only on click (no autoplay)
