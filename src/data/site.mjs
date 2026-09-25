@@ -47,11 +47,11 @@ export const site = {
   },
   // Form kaydı → Nefalix CRM (public uç; anahtar yok, CORS sadece medidentistanbul.com).
   // SADECE form gönderiminde (telefon dolu) JSON POST edilir; doğrudan WhatsApp
-  // tıklamaları CRM'e gitmez. Kesin URL gelene kadar BOŞ (kayıt devre dışı).
+  // tıklamaları CRM'e gitmez. Kesin URL: Nefalix-CRM #26 (docs/site-lead-ucu.md). LEAD_ENDPOINT= (boş) ile kapatılır.
   // Ayarlamak: LEAD_ENDPOINT=<url> node build.mjs  (veya aşağıya yaz).
   // Tahmini: https://crm.nefalix.com/api/public/site-lead
   leadRecord: {
-    endpoint: process.env.LEAD_ENDPOINT || "",
+    endpoint: process.env.LEAD_ENDPOINT ?? "https://crm.nefalix.com/api/public/site-lead",
   },
   rating: { value: "4.9", count: "1200" },
   languages: ["tr", "en", "de", "fr", "ar", "ru"],

@@ -394,12 +394,20 @@
     if (phoneInput) {
       phoneInput.addEventListener("input", () => phoneInput.setCustomValidity(""));
     }
+    let lastSubmitAt = 0; // çift gönderim koruması: aynı form 10 sn içinde ikinci kez gitmez
     form.addEventListener("submit", (e) => {
       e.preventDefault();
+      if (Date.now() - lastSubmitAt < 10000) return;
       if (phoneInput && !phoneOk(phoneInput.value)) {
         phoneInput.setCustomValidity("Lütfen geçerli bir telefon numarası girin (örn. +90 5xx xxx xx xx).");
         phoneInput.reportValidity();
         return;
+      }
+      lastSubmitAt = Date.now();
+      const submitBtn = form.querySelector("[type=submit]");
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        setTimeout(() => { submitBtn.disabled = false; }, 10000);
       }
       const fd = new FormData(form);
       const data = Object.fromEntries(fd.entries());
