@@ -387,8 +387,20 @@
     const card = form.closest(".form-card");
     const cfg = window.__MD_FORM__ || {};
     const attrKeys = ["gclid", "gbraid", "wbraid", "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "kw", "h", "ref"];
+    // Telefon: zorunlu + format (10–15 hane, opsiyonel +, boşluk/-/()/. serbest)
+    const phoneInput = form.querySelector("[name=phone]");
+    const phoneDigits = (v) => String(v || "").replace(/[\s().-]/g, "");
+    const phoneOk = (v) => /^\+?\d{10,15}$/.test(phoneDigits(v));
+    if (phoneInput) {
+      phoneInput.addEventListener("input", () => phoneInput.setCustomValidity(""));
+    }
     form.addEventListener("submit", (e) => {
       e.preventDefault();
+      if (phoneInput && !phoneOk(phoneInput.value)) {
+        phoneInput.setCustomValidity("Lütfen geçerli bir telefon numarası girin (örn. +90 5xx xxx xx xx).");
+        phoneInput.reportValidity();
+        return;
+      }
       const fd = new FormData(form);
       const data = Object.fromEntries(fd.entries());
       const mdt = window.MDTrack || {};
@@ -399,21 +411,32 @@
         else if (stored[k]) attribution[k] = stored[k];
       });
       const refCode = mdt.resolveRefCode ? mdt.resolveRefCode(attribution) : null;
+      const isBot = !!data.website; // honeypot dolu → sessizce yut, CRM'e/WhatsApp'a gitme
+      if (isBot) {
+        if (card) card.classList.add("is-sent");
+        return;
+      }
 
-      // 1) Kayıt — Sheet (leadRecord) her zaman, Estesof varsa ayrıca (best-effort, WA'yı beklemez)
+      // 1) CRM kaydı — sadece form, telefon dolu; beklenmez (fetch keepalive)
       if (mdt.recordLead) {
+        const treatSel0 = form.querySelector("[name=treatment]");
         mdt.recordLead({
-          source_type: "form",
-          ref_code: refCode || "",
           name: data.name || "",
-          phone: data.phone || "",
+          phone: phoneDigits(data.phone),
           email: data.email || "",
-          treatment: data.treatment || "",
+          treatment: treatSel0?.selectedOptions?.[0]?.text || data.treatment || "",
           message: data.message || "",
-          attribution,
+          utm_source: attribution.utm_source || "",
+          utm_medium: attribution.utm_medium || "",
+          utm_campaign: attribution.utm_campaign || "",
+          utm_term: attribution.utm_term || "",
+          utm_content: attribution.utm_content || "",
+          gclid: attribution.gclid || "",
           landing_page: stored.landing_page || location.href,
-          page_url: location.href,
-          lang: document.documentElement.lang || "tr",
+          ref_code: refCode || "",
+          event_type: "form",
+          timestamp: new Date().toISOString(),
+          website: "",
         });
       }
       if (cfg.endpoint) {

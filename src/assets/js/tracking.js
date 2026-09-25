@@ -127,35 +127,24 @@
     return (text || "") + (text ? "\n\n" : "") + "Ref: " + refCode;
   }
 
-  /* --- Sessiz kayıt (form + doğrudan WhatsApp) — WhatsApp açılışını asla
-     bekletmez/engellemez. sendBeacon varsa onu, yoksa fetch keepalive
-     kullanır; yanıt hiç okunmaz (fire-and-forget). ---------------------- */
+  /* --- Lead kaydı (Nefalix CRM) — SADECE form gönderiminde (telefon dolu).
+     Doğrudan WhatsApp tıklamaları CRM'e gitmez (yalnızca GA4 whatsapp_click).
+     fetch keepalive: sayfa/sekme değişse de istek tamamlanır; yanıt beklenmez,
+     WhatsApp açılışını asla geciktirmez. Endpoint boşsa hiçbir şey yapmaz. --- */
 
   function recordLead(payload) {
     try {
-      var cfg = window.__MD_FORM__ || {};
-      var endpoint = cfg.recordEndpoint;
-      if (!endpoint) return;
-      var body = JSON.stringify(payload);
-      if (navigator.sendBeacon) {
-        var blob = new Blob([body], { type: "text/plain;charset=UTF-8" });
-        navigator.sendBeacon(endpoint, blob);
-      } else if (typeof fetch === "function") {
-        fetch(endpoint, { method: "POST", body: body, keepalive: true, mode: "no-cors" }).catch(function () {});
-      }
+      var endpoint = (window.__MD_FORM__ || {}).recordEndpoint;
+      if (!endpoint || typeof fetch !== "function") return;
+      fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+        keepalive: true,
+        mode: "cors",
+        credentials: "omit",
+      }).catch(function () {});
     } catch (e) {}
-  }
-
-  function basePayload(sourceType, attribution) {
-    var stored = getStore();
-    return {
-      source_type: sourceType,
-      ref_code: resolveRefCode(stored) || "",
-      attribution: attribution || stored,
-      landing_page: stored.landing_page || location.href,
-      page_url: location.href,
-      lang: document.documentElement.lang || "tr",
-    };
   }
 
   /* --- WhatsApp / Telefon ------------------------------------------------- */
@@ -186,15 +175,6 @@
           } catch (err) {}
         }
 
-        recordLead(
-          Object.assign(basePayload("whatsapp_direct"), {
-            treatment: "",
-            name: "",
-            phone: "",
-            email: "",
-            message: "",
-          })
-        );
         return;
       }
 
@@ -268,6 +248,5 @@
     resolveRefCode: resolveRefCode,
     appendRef: appendRef,
     recordLead: recordLead,
-    basePayload: basePayload,
   };
 })();
