@@ -214,7 +214,7 @@ export const geoTopicGroups = [
     id: "aftercare",
     tr: null,
     en: "dental-aftercare-when-you-return-home",
-    de: null,
+    de: "zahnbehandlung-tuerkei-nachsorge",
   },
   {
     id: "uskudar",
