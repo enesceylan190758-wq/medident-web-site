@@ -110,7 +110,7 @@ const jawIcon = (kind) => {
   const teeth = (xs, missing = []) =>
     xs.map((x, i) => (missing.includes(i) ? `<circle cx="${x + 12}" cy="34" r="4" fill="#C6A15B"/>` : `<rect x="${x}" y="18" width="24" height="34" rx="9" fill="#fff" stroke="#2B2318" stroke-width="2"/>`)).join("");
   const xs = [8, 36, 64, 92, 120, 148, 176];
-  const body = kind === "single" ? teeth(xs, [3]) : kind === "multi" ? teeth(xs, [1, 2, 5]) : teeth(xs, [0, 1, 2, 3, 4, 5, 6]);
+  const body = kind === "single" ? teeth(xs, [3]) : kind === "multi" ? teeth(xs, [2, 3, 4]) : teeth(xs, [0, 1, 2, 3, 4, 5, 6]);
   return `<svg viewBox="0 0 208 70" class="ilp-jaw" aria-hidden="true"><path d="M2 14c30-10 74-12 102-12s72 2 102 12v8c-30-8-74-8-102-8S32 14 2 22z" fill="#e8a5a0"/>${body}</svg>`;
 };
 
@@ -187,6 +187,7 @@ const CSS = `
 .ilp-opt{border-radius:var(--ilp-r);background:#fff;border:1px solid rgba(43,35,24,.08);padding:clamp(20px,2.4vw,30px);display:flex;flex-direction:column;box-shadow:0 26px 50px -40px rgba(43,35,24,.5)}
 .ilp-opt.feat{background:var(--ilp-dark);color:#f3e9d8}
 .ilp-jaw{width:100%;max-width:260px;height:auto;margin:0 0 20px}
+.ilp-q{display:inline-block;align-self:flex-start;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border-radius:99px;background:rgba(198,161,91,.18);color:#7a5c1e;margin-bottom:16px}.ilp-opt.feat .ilp-q{background:rgba(255,255,255,.14);color:#f3e9d8}
 .ilp-opt h3{font-size:26px;margin:0 0 6px}
 .ilp-opt p{margin:0 0 18px;font-size:14.5px;line-height:1.5;color:var(--muted)}
 .ilp-opt.feat p{color:#cbbfa9}
@@ -198,7 +199,7 @@ const CSS = `
 /* steps */
 .ilp-fig{margin:0}.ilp-fig img{width:100%;height:auto;display:block;border-radius:var(--ilp-r)}.ilp-fig figcaption,.ilp-vid figcaption{font-size:13px;color:var(--muted);margin-top:8px}
 .ilp-xr{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:20px}
-.ilp-vids{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
+.ilp-vids{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:16px}.ilp-vid-main .ilp-vid video{aspect-ratio:16/9;box-shadow:0 30px 60px -36px rgba(43,35,24,.55)}.ilp-vid-main figcaption{font-size:15px!important;font-weight:600;color:var(--ilp-dark)!important}
 .ilp-vid{margin:0}.ilp-vid video{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--ilp-r);background:#f3ede0;display:block}
 .ilp-steps{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;position:relative}
 .ilp-step{border-radius:var(--ilp-r);background:#fff;border:1px solid rgba(43,35,24,.08);overflow:hidden;box-shadow:0 26px 50px -40px rgba(43,35,24,.5)}
@@ -346,6 +347,12 @@ export function implantLandingBody({ lang, t, p, crumbs, wa }) {
     </div>
   </div></section>`;
 
+  const vidTag = (n, c) => `<figure class="ilp-vid"><video muted loop playsinline preload="none" poster="${src("video/"+n+"-poster.webp")}" aria-label="${c}"><source src="${src("video/"+n+".mp4")}" type="video/mp4"></video><figcaption>${c}</figcaption></figure>`;
+  const showcase = `<section class="ilp-sec" style="padding-top:clamp(28px,4vw,52px);padding-bottom:0;"><div class="ilp-wrap">
+    <div ${io()} class="ilp-vid-main">${vidTag("implant-asamalar","İmplant tedavisi nasıl yapılır? — 4 aşamalı animasyon")}</div>
+    <div class="ilp-vids" ${io()}>${vidTag("implant-tek","Tek diş implant")}${vidTag("implant-all-on-4","All-on-4")}</div>
+  </div></section>`;
+
   const anatomy = `<section class="ilp-sec" style="padding-top:clamp(40px,6vw,72px);"><div class="ilp-wrap ilp-two">
     <div class="ilp-anat-card" ${io()}>${anatomySvg()}</div>
     <div ${io()}>
@@ -362,6 +369,7 @@ export function implantLandingBody({ lang, t, p, crumbs, wa }) {
       ${lp.s2.items
         .map(
           (o, i) => `<div class="ilp-opt ${i === 1 ? "feat" : ""}" ${io(`style="transition-delay:${i * 0.08}s"`)}>
+        <span class="ilp-q">${o.q}</span>
         ${jawIcon(o.kind)}
         <h3>${o.t}</h3><p>${o.d}</p>
         <div class="ilp-price">${o.price}<small>${o.note}</small></div>
@@ -378,9 +386,6 @@ export function implantLandingBody({ lang, t, p, crumbs, wa }) {
       ${lp.s3.items.map((s, i) => `<article class="ilp-step" style="transition-delay:${(i % 2) * 0.1}s"><div class="ilp-step-vis">${sceneSvg(i + 1)}</div><div class="ilp-step-body"><span class="ilp-step-n">${i + 1}</span><h3>${s.t}</h3><p>${s.d}</p></div></article>`).join("")}
     </div>
 
-    <div class="ilp-vids" ${io()}>
-      ${[["implant-asamalar","İmplant aşamaları — animasyon"],["implant-tek","Tek diş implant — animasyon"],["implant-all-on-4","All-on-4 — animasyon"]].map(([n,c]) => `<figure class="ilp-vid"><video muted loop playsinline preload="none" poster="${src("video/"+n+"-poster.webp")}" aria-label="${c}"><source src="${src("video/"+n+".mp4")}" type="video/mp4"></video><figcaption>${c}</figcaption></figure>`).join("")}
-    </div>
   </div></section>`;
 
   const coreBrands = implantBrands.filter((b) => ["straumann", "osstem", "neodent"].includes(b.key));
@@ -470,5 +475,5 @@ export function implantLandingBody({ lang, t, p, crumbs, wa }) {
     <div class="ilp-cta-row"><a data-dtr-cta href="${wa}" target="_blank" rel="noopener" class="ilp-btn ilp-btn-wa">${icons.wa} ${p.ctaPrimary}</a><a href="${contact}" class="ilp-btn ilp-btn-light">${p.ctaSecondary}</a></div>
   </div></div></section>`;
 
-  return `<style>${CSS}</style><div class="ilp">${hero}${anatomy}${options}${steps}${brands}${results}${clinic}${docs}${revs}${price}${final}</div>${contactSection(lang)}${JS}`;
+  return `<style>${CSS}</style><div class="ilp">${hero}${showcase}${anatomy}${options}${steps}${brands}${results}${clinic}${docs}${revs}${price}${final}</div>${contactSection(lang)}${JS}`;
 }

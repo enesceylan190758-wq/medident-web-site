@@ -209,11 +209,11 @@ export const i18n = {
         },
         s2: {
           num: "002", tag: "Seçenekler",
-          h2: "Kaç dişiniz eksik? <em>Size uygun plan</em>",
+          h2: "Eksik diş durumunuz <em>hangisi?</em>",
           items: [
-            { kind: "single", t: "Tek implant", d: "Tek eksik diş için.", price: "400 €", note: "1 implant" },
-            { kind: "multi", t: "Çoklu implant", d: "Birden fazla eksik diş için.", price: "800 € – 2.400 €", note: "2 ile 6 implant arası" },
-            { kind: "full", t: "Tam ağız", d: "Üst ve alt çene için sabit çözüm.", price: "8.000 €'dan", note: "10 implant · otel ve VIP transfer dahil" },
+            { kind: "single", q: "Tek diş eksik", t: "Tek implant + kron", d: "Eksik dişin yerine tek bir titanyum implant ve üzerine porselen kron yapılır.", price: "400 €", note: "1 implant" },
+            { kind: "multi", q: "Birkaç diş eksik", t: "İmplant üstü köprü", d: "Yan yana eksik dişler için 2–3 implant, üzerine sabit köprü yerleştirilir.", price: "800 € – 2.400 €", note: "2 ile 6 implant arası" },
+            { kind: "full", q: "Tüm dişler eksik", t: "All-on-4 veya All-on-6", d: "Tüm çene 4 veya 6 implant üzerinde sabit dişlerle, aynı gün geçici dişle tamamlanır.", price: "8.000 €'dan", note: "otel ve VIP transfer dahil" },
           ],
         },
         s3: {
