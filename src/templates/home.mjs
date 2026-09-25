@@ -578,12 +578,13 @@ export function contactSection(lang, { heading = true } = {}) {
         <div data-reveal>
           <div class="form-card">
             <form class="form-main" data-lead-form>
+              <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">
               <h3>${t.formTitle}</h3>
               <p style="font-size:14px;color:var(--muted-2);margin:0 0 24px;">${t.formLead}</p>
               <div class="form-stack">
                 <div class="form-grid">
                   <label><span class="lbl">${t.formName}</span><input type="text" name="name" required placeholder="${t.formName}"></label>
-                  <label><span class="lbl">${t.formPhone}</span><input type="tel" name="phone" required placeholder="+90 ..."></label>
+                  <label><span class="lbl">${t.formPhone}</span><input type="tel" name="phone" required inputmode="tel" autocomplete="tel" minlength="10" placeholder="+90 ..."></label>
                 </div>
                 <label><span class="lbl">${t.formEmail}</span><input type="email" name="email" required placeholder="ornek@eposta.com"></label>
                 <label><span class="lbl">${t.formTreatment}</span><select name="treatment" data-treatment-select>${treatments

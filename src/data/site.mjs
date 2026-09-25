@@ -45,13 +45,13 @@ export const site = {
     endpoint: "", // ör. "https://panel.estesof.com/api/leads/xxxx"
     method: "POST",
   },
-  // Form + WhatsApp tıklama kaydı (Google Apps Script Web App → Sheet).
-  // Kurulum: docs/google-ads/lead-record-apps-script.gs
-  // Doldurulunca form gönderiminde ve doğrudan WhatsApp tıklamalarında
-  // sessizce (sendBeacon/fetch keepalive) bu uca POST atılır — WhatsApp
-  // açılışını asla bekletmez/engellemez.
+  // Form kaydı → Nefalix CRM (public uç; anahtar yok, CORS sadece medidentistanbul.com).
+  // SADECE form gönderiminde (telefon dolu) JSON POST edilir; doğrudan WhatsApp
+  // tıklamaları CRM'e gitmez. Kesin URL: Nefalix-CRM #26 (docs/site-lead-ucu.md). LEAD_ENDPOINT= (boş) ile kapatılır.
+  // Ayarlamak: LEAD_ENDPOINT=<url> node build.mjs  (veya aşağıya yaz).
+  // Tahmini: https://crm.nefalix.com/api/public/site-lead
   leadRecord: {
-    endpoint: "", // ör. "https://script.google.com/macros/s/XXXX/exec"
+    endpoint: process.env.LEAD_ENDPOINT ?? "https://crm.nefalix.com/api/public/site-lead",
   },
   rating: { value: "4.9", count: "1200" },
   languages: ["tr", "en", "de", "fr", "ar", "ru"],
