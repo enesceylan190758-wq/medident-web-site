@@ -108,11 +108,14 @@ function emit(lang, pathNoLang, rendered) {
       jsonld: rendered.jsonld || [],
       ogType: rendered.ogType || "website",
       publishedTime: rendered.publishedTime,
+      noindex: rendered.noindex || false,
     },
     rendered.body
   );
   fs.writeFileSync(path.join(outDir, "index.html"), html);
-  pages.push({ lang, path: pathNoLang, loc: site.domain + url(lang, pathNoLang) });
+  if (!rendered.excludeFromSitemap) {
+    pages.push({ lang, path: pathNoLang, loc: site.domain + url(lang, pathNoLang) });
+  }
 }
 
 function build() {
@@ -341,6 +344,12 @@ Redirect 301 /de/hizmetler/oral-implantoloji/ ${site.domain}/de/hizmetler/implan
 Redirect 301 /fr/hizmetler/oral-implantoloji/ ${site.domain}/fr/hizmetler/implantoloji-implant-tedavisi/
 Redirect 301 /ar/hizmetler/oral-implantoloji/ ${site.domain}/ar/hizmetler/implantoloji-implant-tedavisi/
 Redirect 301 /ru/hizmetler/oral-implantoloji/ ${site.domain}/ru/hizmetler/implantoloji-implant-tedavisi/
+
+# ---- Dead profile URLs from a since-removed roster entry (301 → doctors index) ----
+Redirect 301 /dr-faruk-ogutlu/ ${site.domain}/doktorlar/
+Redirect 301 /dr-alperen-demiral/ ${site.domain}/doktorlar/
+Redirect 301 /dt-levent-emir-guneysu/ ${site.domain}/doktorlar/
+Redirect 301 /dr-dt-nilufer-yilmaz-ogutlu/ ${site.domain}/doktorlar/
 
 # ---- Service-body mirror blogs → commercial service pages (301) ----
 ${mirrorRedirects}

@@ -6,6 +6,15 @@ import { resolveHreflangPaths, hoursLocalized } from "../data/seo.mjs";
 import { rtlLangs, L } from "../data/locale.mjs";
 import { icons } from "./icons.mjs";
 
+// <title> template: appending "— MediDent" pushes long bases past the ~60-char SERP
+// cutoff. Skip the suffix once the base itself already fills that budget.
+export const pageTitle = (base) => {
+  const b = (base || "").trim();
+  // Brand suffix (" — MediDent İstanbul") is 20 chars; base must leave room under the
+  // ~60-char SERP cutoff, so only append it below 40, not right up against 45.
+  return b.length > 40 ? b : `${b} — ${site.brand}`;
+};
+
 export const waHref = (text) =>
   `https://wa.me/${site.whatsappRaw}${text ? `?text=${encodeURIComponent(text)}` : ""}`;
 
@@ -26,7 +35,7 @@ export const url = (lang, path = "") => {
 export const absUrl = (lang, path = "") => site.domain + url(lang, path);
 
 // Head with per-page SEO + hreflang alternates + tracking.
-function head({ lang, title, description, path, image, jsonld = [], ogType = "website", publishedTime }) {
+function head({ lang, title, description, path, image, jsonld = [], ogType = "website", publishedTime, noindex = false }) {
   const t = i18n[lang];
   const canonical = absUrl(lang, path);
   const img = image || site.domain + asset("/assets/img/portrait-a.jpg");
@@ -71,7 +80,7 @@ function head({ lang, title, description, path, image, jsonld = [], ogType = "we
     <meta name="description" content="${escapeAttr(description)}">
     <link rel="canonical" href="${canonical}">
     ${site.tracking.gscVerify ? `<meta name="google-site-verification" content="${site.tracking.gscVerify}">` : ""}
-    <meta name="robots" content="index,follow,max-image-preview:large">
+    <meta name="robots" content="${noindex ? "noindex,follow" : "index,follow,max-image-preview:large"}">
     ${alts}
     <link rel="alternate" hreflang="x-default" href="${xDefaultHref}">
     <meta property="og:type" content="${ogType}">
@@ -171,7 +180,7 @@ function header(lang, path) {
   <div class="mobile-nav" data-mobile-nav>
     <div class="mobile-panel">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;">
-        <img src="${asset("/assets/img/logo.png")}" alt="${site.brand}" style="height:34px;width:auto;">
+        <img src="${asset("/assets/img/logo.png")}" alt="${site.brand}" width="107" height="34" style="height:34px;width:auto;">
         <button data-close-nav aria-label="Close" style="width:40px;height:40px;border-radius:10px;border:1px solid rgba(43,35,24,.14);display:flex;align-items:center;justify-content:center;background:#fff;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2B2318" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
       </div>
       ${links.map(([label, href]) => `<a href="${href}">${label}</a>`).join("\n      ")}
@@ -188,7 +197,7 @@ function footer(lang) {
   return `<footer class="site-footer">
     <div class="footer-grid">
       <div>
-        <span class="footer-logo"><img src="${asset("/assets/img/logo.png")}" alt="${site.brand}"></span>
+        <span class="footer-logo"><img src="${asset("/assets/img/logo.png")}" alt="${site.brand}" width="600" height="190"></span>
         <p style="font-size:14px;line-height:1.6;color:#8A7F6D;margin:0 0 18px;max-width:280px;">${t.footerTag}</p>
         <div class="socials">
           <a href="${waHref()}" aria-label="WhatsApp" target="_blank" rel="noopener">${icons.wa.replace('width="24" height="24"', 'width="19" height="19"')}</a>
