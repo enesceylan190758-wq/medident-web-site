@@ -197,10 +197,39 @@ const CSS = `
 .ilp-price small{display:block;font:500 13px var(--font-sans);color:var(--muted-2);margin-top:4px}
 .ilp-opt.feat .ilp-price small{color:#b8ac95}
 /* steps */
-.ilp-fig{margin:0}.ilp-fig img{width:100%;height:auto;display:block;border-radius:var(--ilp-r)}.ilp-fig figcaption,.ilp-vid figcaption{font-size:13px;color:var(--muted);margin-top:8px}
+.ilp-cap{font-size:13px;color:var(--muted);margin:8px 0 0}.ilp-fig{margin:0}.ilp-fig img{width:100%;height:auto;display:block;border-radius:var(--ilp-r)}.ilp-fig figcaption,.ilp-vid figcaption{font-size:13px;color:var(--muted);margin-top:8px}
 .ilp-xr{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:20px}
 .ilp-vids{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:16px}.ilp-vid-main .ilp-vid video{aspect-ratio:16/9;box-shadow:0 30px 60px -36px rgba(43,35,24,.55)}.ilp-vid-main figcaption{font-size:15px!important;font-weight:600;color:var(--ilp-dark)!important}
 .ilp-vid{margin:0}.ilp-vid video{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--ilp-r);background:#f3ede0;display:block}
+.ilp-hero-photo{aspect-ratio:4/5.5}
+.ilp-hero .ilp-hf{position:absolute;left:14px;right:14px;bottom:14px;z-index:3;display:block;padding:16px 16px 12px;border-radius:22px;background:rgba(255,255,255,.75);-webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);border:1px solid rgba(255,255,255,.65);box-shadow:0 24px 60px -18px rgba(43,35,24,.5)}
+.ilp-hf form{display:grid;gap:9px}.ilp-hf-t{font-family:var(--font-serif);font-size:22px;line-height:1.1;color:var(--ink)}
+.ilp-hf input,.ilp-hf select{width:100%;box-sizing:border-box;padding:12px 13px;border-radius:12px;border:1px solid rgba(43,35,24,.16);background:rgba(255,255,255,.92);font:inherit;font-size:15px;color:var(--ink)}
+.ilp-hf-ph{display:grid;grid-template-columns:104px 1fr;gap:8px}
+.ilp-hf .ilp-btn{width:100%;justify-content:center;border:0;cursor:pointer}.ilp-hf small{font-size:11px;line-height:1.4;color:var(--muted);text-align:center}
+.ilp-hf .form-success{padding:10px 4px}.ilp-hf .form-success h3{font-size:24px;margin:0 0 6px}.ilp-hf .form-success p{margin:0;font-size:14px}
+.ilp-hf.form-card.is-sent .form-main{display:none}
+.ilp-sticky{display:none;--ilp-dark:#231b12;--ilp-r:22px}
+.ilp-story h2{margin:0 0 26px}.ilp-story-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(20px,4vw,56px);align-items:start}
+.ilp-story-stick{position:sticky;top:92px}
+.ilp-story-meta{display:flex;align-items:center;gap:14px;margin-bottom:12px}.ilp-story-meta b{font-size:14px;letter-spacing:.06em;color:var(--ilp-dark);min-width:34px}
+.ilp-story-bar{flex:1;height:4px;border-radius:4px;background:rgba(43,35,24,.12);overflow:hidden}.ilp-story-bar i{display:block;height:100%;width:0;background:var(--gold,#b8935a);transform-origin:left}
+.ilp-story-frame{position:relative;aspect-ratio:2/1;border-radius:var(--ilp-r);overflow:hidden;background:#111;box-shadow:var(--shadow-lg)}
+.ilp-sc{position:absolute;inset:0;margin:0;opacity:0;transition:opacity .45s ease}.ilp-sc.on{opacity:1}
+.ilp-sc .sc-b,.ilp-sc .sc-a{position:absolute;inset:0}.ilp-sc picture,.ilp-sc img{width:100%;height:100%;object-fit:cover;display:block}
+.ilp-sc .sc-a{clip-path:inset(0 0 0 100%);will-change:clip-path}
+.ilp-sc .ba-label{position:absolute}
+.ilp-sst{min-height:105vh;display:flex;flex-direction:column;justify-content:center;padding:20px 0}
+.ilp-sst-n{font-size:13px;font-weight:700;letter-spacing:.08em;color:var(--gold,#b8935a);margin-bottom:8px}
+.ilp-sst h3{font-size:clamp(26px,3vw,36px);margin:0 0 12px}.ilp-sst ul{margin:0;padding:0;list-style:none;display:grid;gap:6px;font-size:16px;color:var(--muted)}.ilp-sst li b{color:var(--ink)}
+.ilp-sst-cta{min-height:70vh;align-items:flex-start}.ilp-sst-cta .ilp-btn{border:0;cursor:pointer}
+.ilp-steps.sm{grid-template-columns:repeat(4,1fr);gap:14px}.ilp-steps.sm .ilp-step h3{font-size:19px}.ilp-steps.sm .ilp-step-body{padding:14px 16px 18px}.ilp-steps.sm .ilp-step p{font-size:13.5px}.ilp-steps.sm .ilp-step-n{width:28px;height:28px;font-size:12px}
+@media (prefers-reduced-motion:reduce){
+  .ilp-story-stick{position:static}.ilp-story-grid{grid-template-columns:1fr}.ilp-story-meta{display:none}.ilp-story-frame{display:none}
+  .ilp-sst{min-height:auto;padding:24px 0}.ilp-sst .ilp-sc{position:static;opacity:1;display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+  .ilp-sst .ilp-sc>div{position:relative;aspect-ratio:2/1;border-radius:14px;overflow:hidden}.ilp-sst .ilp-sc .sc-a{clip-path:none}.ilp-sst .ilp-sc .ba-label{display:none}
+}
+
 .ilp-steps{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;position:relative}
 .ilp-step{border-radius:var(--ilp-r);background:#fff;border:1px solid rgba(43,35,24,.08);overflow:hidden;box-shadow:0 26px 50px -40px rgba(43,35,24,.5)}
 .ilp-step-vis{background:linear-gradient(180deg,#faf3e6,#f1e6d1);padding:14px 14px 0}
@@ -239,7 +268,7 @@ const CSS = `
 .ilp-gal img,.ilp-gal picture{width:100%;height:100%;object-fit:cover;display:block}
 .ilp-note{font-size:13px;color:var(--muted-2);margin:14px 0 0}
 /* clinic */
-.ilp-clinic{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.ilp-map{border-radius:var(--ilp-r);overflow:hidden;box-shadow:var(--shadow-lg);aspect-ratio:16/6;background:var(--sand)}.ilp-map iframe{width:100%;height:100%;border:0;display:block}
 .ilp-addr{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:22px;font-size:15px;color:var(--ink-soft)}
 /* doctors */
 .ilp-docs{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
@@ -271,13 +300,21 @@ const CSS = `
 .ilp [data-io].is-in{opacity:1;transform:none}
 @media (max-width:900px){
   .ilp-hero-grid,.ilp-two{grid-template-columns:1fr}
-  .ilp-hero-photo{aspect-ratio:4/4.2}
+
+  .ilp-hero-photo{aspect-ratio:16/11}
+  .ilp-hero .ilp-hf{position:relative;left:auto;right:auto;bottom:auto;margin:-40px 12px 0}
+  .ilp-story-grid{grid-template-columns:1fr}.ilp-story-stick{top:64px;z-index:5;background:var(--cream);padding:8px 0 6px}
+  .ilp-story-frame{aspect-ratio:16/9}.ilp-sst{min-height:75vh}.ilp-sst-cta{min-height:55vh}
+  .ilp-steps.sm{grid-template-columns:repeat(2,1fr)}
+  .ilp-sticky{display:block;position:fixed;left:0;right:0;bottom:0;z-index:80;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:rgba(250,246,239,.94);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 -10px 30px -18px rgba(43,35,24,.5);transform:translateY(115%);transition:transform .25s ease}
+  .ilp-sticky.on{transform:none}.ilp-sticky .ilp-btn{width:100%;justify-content:center;border:0;cursor:pointer}
+  body.ilp-has-sticky .wa-float{bottom:86px}
   .ilp-chip.a{left:12px}.ilp-chip.b{right:12px}
   .ilp-cards3,.ilp-opts,.ilp-brands,.ilp-rev{grid-template-columns:1fr}
   .ilp-steps{grid-template-columns:1fr}
   .ilp-xr,.ilp-vids{grid-template-columns:1fr}
   .ilp-gal{grid-template-columns:repeat(2,1fr)}
-  .ilp-clinic{grid-template-columns:1fr}
+  .ilp-map{aspect-ratio:4/3}
   .ilp-docs{grid-template-columns:repeat(2,1fr)}
   .ilp-btn{width:100%;justify-content:center}
   .ilp-cta-row{flex-direction:column}
@@ -299,6 +336,41 @@ const JS = `<script>(function(){
     var vo=new IntersectionObserver(function(es){es.forEach(function(e){var v=e.target;if(e.isIntersecting){var p=v.play();if(p&&p.catch)p.catch(function(){});}else{v.pause();}})},{threshold:.4});
     vs.forEach(function(v){vo.observe(v)});
   }else{vs.forEach(function(v){v.controls=true;});}
+  /* --- Gerçek sonuçlar: scroll-driven (rAF + passive scroll) --- */
+  var story=document.querySelector('[data-story]');
+  if(story){
+    var sc=[].slice.call(story.querySelectorAll('.ilp-sc')), ss=[].slice.call(story.querySelectorAll('.ilp-sst')), N=sc.length;
+    var cnt=story.querySelector('[data-story-count]'), bar=story.querySelector('[data-story-bar]');
+    var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(rm){ sc.forEach(function(f,i){ if(ss[i]) ss[i].insertBefore(f,ss[i].firstChild); f.classList.add('on'); }); }
+    else{
+      var ticking=false, cur=-1;
+      var clamp=function(x){return x<0?0:x>1?1:x};
+      var upd=function(){
+        ticking=false;
+        var mid=window.innerHeight*(window.innerWidth<=900?.62:.5), idx=0, lp=0;
+        for(var i=0;i<ss.length;i++){var r=ss[i].getBoundingClientRect(); if(r.top<=mid){idx=i; lp=clamp((mid-r.top)/r.height);}}
+        var ci=Math.min(idx,N-1), rev=idx>=N?1:clamp((lp-.2)/.5);
+        if(ci!==cur){ sc.forEach(function(f,i){f.classList.toggle('on',i===ci)}); cur=ci; if(cnt) cnt.textContent=(ci+1)+'/'+N; }
+        sc[ci].querySelector('.sc-a').style.clipPath='inset(0 0 0 '+((1-rev)*100).toFixed(1)+'%)';
+        if(bar) bar.style.width=(clamp((Math.min(idx,N-1)+(idx>=N?1:lp))/N)*100).toFixed(1)+'%';
+      };
+      var onS=function(){ if(!ticking){ticking=true; requestAnimationFrame(upd);} };
+      window.addEventListener('scroll',onS,{passive:true}); window.addEventListener('resize',onS); upd();
+    }
+    var sb=story.querySelector('[data-story-cta]'); if(sb) sb.addEventListener('click',function(){ var h=document.getElementById('hero-form'); if(h) h.scrollIntoView({behavior:rm?'auto':'smooth',block:'center'}); });
+  }
+  /* --- Mobil sabit "Ücretsiz Plan Al" butonu --- */
+  var stk=document.querySelector('[data-ilp-sticky]'), hfEl=document.getElementById('hero-form'), ctEl=document.getElementById('iletisim');
+  if(stk&&hfEl){
+    var vis={h:false,c:false}, rm2=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var set=function(){var on=!(vis.h||vis.c); stk.classList.toggle('on',on); document.body.classList.toggle('ilp-has-sticky',on);};
+    if('IntersectionObserver' in window){
+      var so=new IntersectionObserver(function(es){es.forEach(function(e){if(e.target===hfEl)vis.h=e.isIntersecting; else vis.c=e.isIntersecting;}); set();},{threshold:.15});
+      so.observe(hfEl); if(ctEl) so.observe(ctEl);
+    } else { stk.classList.add('on'); }
+    stk.querySelector('button').addEventListener('click',function(){ hfEl.scrollIntoView({behavior:rm2?'auto':'smooth',block:'center'}); setTimeout(function(){var n=hfEl.querySelector('input[name=name]'); if(n&&n.focus) n.focus({preventScroll:true});},500); });
+  }
 })();</script>`;
 
 /* ------------------------------------------------------------------ sayfa */
@@ -316,6 +388,23 @@ export function implantLandingBody({ lang, t, p, crumbs, wa }) {
     return s.dec ? s.to.toFixed(s.dec) + (s.suffix || "") : (s.sep ? Math.round(s.to).toLocaleString("tr-TR") : Math.round(s.to)) + "+";
   };
 
+  const hf = lp.hf;
+  const ccs = [["+90","TR"],["+49","DE"],["+43","AT"],["+41","CH"],["+33","FR"],["+31","NL"],["+32","BE"],["+44","UK"],["+7","RU"]];
+  const heroForm = `<div class="ilp-hf form-card" id="hero-form">
+        <form class="form-main" data-lead-form data-hero-form novalidate>
+          <b class="ilp-hf-t">${hf.title}</b>
+          <input type="text" name="name" required autocomplete="name" placeholder="${hf.name}" aria-label="${hf.name}">
+          <div class="ilp-hf-ph">
+            <select name="cc" aria-label="Ülke kodu">${ccs.map(([c, n], i) => `<option value="${c}"${i === 0 ? " selected" : ""}>${c} ${n}</option>`).join("")}</select>
+            <input type="tel" name="phone" required inputmode="tel" autocomplete="tel-national" placeholder="${hf.phone}" aria-label="${hf.phone}">
+          </div>
+          <select name="treatment" aria-label="${hf.treat}"><option value="">${hf.treat}</option>${hf.treats.map((x, i) => `<option value="tedavi-${i + 1}">${x}</option>`).join("")}</select>
+          <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+          <button type="submit" class="ilp-btn ilp-btn-dark">${hf.submit}</button>
+          <small>${hf.note}</small>
+        </form>
+        <div class="form-success"><h3>${hf.thanks}</h3><p>${hf.thanksLead}</p></div>
+      </div>`;
   const hero = `<section class="ilp-hero"><div class="ilp-wrap">
     ${breadcrumb(lang, crumbs)}
     <div class="ilp-hero-grid" style="margin-top:14px;">
@@ -335,6 +424,7 @@ export function implantLandingBody({ lang, t, p, crumbs, wa }) {
       </div>
       <div class="ilp-hero-media">
         <div class="ilp-hero-photo">${pic("portrait-a.jpg", "MediDent İstanbul hastası — gülüş", { eager: true, sizes: "(max-width:900px) 100vw, 46vw" })}</div>
+        ${heroForm}
         <div class="ilp-chip a"><strong>${lp.fromPrice}</strong><span>${lp.fromPriceLabel}</span></div>
         <div class="ilp-chip b"><strong>4.9</strong><span>Google<br>puanı</span></div>
         ${sparkle("").replace("<svg", '<svg style="top:-10px;left:18%"')}
@@ -353,6 +443,24 @@ export function implantLandingBody({ lang, t, p, crumbs, wa }) {
     <div class="ilp-vids" ${io()}>${vidTag("implant-tek","Tek diş implant")}${vidTag("implant-all-on-4","All-on-4")}</div>
   </div></section>`;
 
+  const st = lp.story;
+  const storyCases = st.cases.filter((c) => c.files.every((fl) => fs.existsSync(path.join(IMG_DIR, fl))));
+  const story = `<section class="ilp-sec ilp-story" id="gercek-sonuclar" data-story style="padding-top:clamp(28px,4vw,56px);"><div class="ilp-wrap">
+    <div class="ilp-num">${st.tag}</div><h2>${st.h2}</h2>
+    <div class="ilp-story-grid">
+      <div class="ilp-story-stick">
+        <div class="ilp-story-meta"><b data-story-count>1/${storyCases.length}</b><div class="ilp-story-bar"><i data-story-bar></i></div></div>
+        <div class="ilp-story-frame">
+          ${storyCases.map((c, i) => `<figure class="ilp-sc${i === 0 ? " on" : ""}" data-sc="${i}"><div class="sc-b">${pic(c.files[0], c.alt + " — " + st.before, { sizes: "(max-width:900px) 100vw, 60vw" })}</div><div class="sc-a">${pic(c.files[1], c.alt + " — " + st.after, { sizes: "(max-width:900px) 100vw, 60vw" })}</div><span class="ba-label before">${st.before}</span><span class="ba-label after">${st.after}</span></figure>`).join("")}
+        </div>
+      </div>
+      <div class="ilp-story-steps">
+        ${storyCases.map((c, i) => `<article class="ilp-sst" data-ss="${i}"><span class="ilp-sst-n">${i + 1}/${storyCases.length}</span><h3>${c.t}</h3><ul><li><b>Tedavi:</b> ${c.treatment}</li>${c.duration ? `<li><b>Süre:</b> ${c.duration}</li>` : ""}${c.country ? `<li><b>Hasta ülkesi:</b> ${c.country}</li>` : ""}</ul></article>`).join("")}
+        <article class="ilp-sst ilp-sst-cta" data-ss="${storyCases.length}"><h3>${st.ctaTitle}</h3><button type="button" class="ilp-btn ilp-btn-dark" data-story-cta>${st.ctaBtn}</button></article>
+      </div>
+    </div>
+  </div></section>`;
+  const sticky = `<div class="ilp-sticky" data-ilp-sticky><button type="button" class="ilp-btn ilp-btn-dark">${hf.sticky}</button></div>`;
   const anatomy = `<section class="ilp-sec" style="padding-top:clamp(40px,6vw,72px);"><div class="ilp-wrap ilp-two">
     <div class="ilp-anat-card" ${io()}>${anatomySvg()}</div>
     <div ${io()}>
@@ -382,7 +490,7 @@ export function implantLandingBody({ lang, t, p, crumbs, wa }) {
 
   const steps = `<section class="ilp-sec"><div class="ilp-wrap">
     <div ${io()} style="max-width:680px;margin-bottom:34px;"><div class="ilp-num">${lp.s3.num} — ${lp.s3.tag}</div><h2>${lp.s3.h2}</h2><p class="ilp-lead">${lp.s3.lead}</p></div>
-    <div class="ilp-steps">
+    <div class="ilp-steps sm">
       ${lp.s3.items.map((s, i) => `<article class="ilp-step" style="transition-delay:${(i % 2) * 0.1}s"><div class="ilp-step-vis">${sceneSvg(i + 1)}</div><div class="ilp-step-body"><span class="ilp-step-n">${i + 1}</span><h3>${s.t}</h3><p>${s.d}</p></div></article>`).join("")}
     </div>
 
@@ -396,7 +504,6 @@ export function implantLandingBody({ lang, t, p, crumbs, wa }) {
         .map(
           (b, i) => `<div class="ilp-brand" ${io(`style="transition-delay:${i * 0.08}s"`)}>
         <div class="ilp-logo ${b.logoDark ? "dark" : ""}"><img src="${src("brands/" + b.logo)}" alt="${L(b.titles, lang)}" loading="lazy" decoding="async"></div>
-        ${ph(`${L(b.titles, lang)} implant modeli — yakın çekim`, "Vida + abutment + kron, nötr zemin, min. 1600×1200 px", "4/3")}
         <p>${L(b.desc, lang)}</p>
       </div>`
         )
@@ -420,7 +527,12 @@ export function implantLandingBody({ lang, t, p, crumbs, wa }) {
         <div class="ba-handle"><div class="ba-knob"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 8L6 12l3.5 4M14.5 8l3.5 4-3.5 4"></path></svg></div></div>
       </div></div>
       <div ${io()} style="display:grid;gap:14px;">
-        <figure class="ilp-fig">${pic("implant-agiz-oncesi-sonrasi.jpg", "Diş implantı öncesi ve sonrası — MediDent İstanbul hastası (ağız yakın çekim)", { sizes: "(max-width:900px) 100vw, 50vw" })}<figcaption>Tam çene implant — öncesi / sonrası</figcaption></figure>
+        <div class="ilp-ba-wrap"><div class="ba" data-ba style="aspect-ratio:2/1;">
+          ${pic("vaka-tam-agiz-sonrasi.jpg", "Tam çene implant — sonrası")}
+          <img class="ba-before" src="${src("vaka-tam-agiz-oncesi.jpg")}" alt="Tam çene implant — öncesi" loading="lazy" decoding="async">
+          <span class="ba-label before">${t.before}</span><span class="ba-label after">${t.after}</span>
+          <div class="ba-handle"><div class="ba-knob"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 8L6 12l3.5 4M14.5 8l3.5 4-3.5 4"></path></svg></div></div>
+        </div><p class="ilp-cap">Tam çene implant — öncesi / sonrası</p></div>
         <div class="ilp-ba-wrap"><div class="ba" data-ba style="aspect-ratio:1600/860;">
           ${pic("xray-sonrasi.jpg", "Panoramik röntgen — implant sonrası")}
           <img class="ba-before" src="${src("xray-oncesi.jpg")}" alt="Panoramik röntgen — implant öncesi" loading="lazy" decoding="async">
@@ -434,17 +546,12 @@ export function implantLandingBody({ lang, t, p, crumbs, wa }) {
       <figure class="ilp-fig">${pic("implant-xray-oncesi-sonrasi.jpg", "Panoramik röntgen — implant öncesi ve sonrası", { sizes: "(max-width:900px) 100vw, 50vw" })}<figcaption>Röntgen — öncesi / sonrası</figcaption></figure>
     </div>
     <div class="ilp-gal">${smileFiles.map(([f, a]) => `<div ${io()}>${pic(f, a, { sizes: "(max-width:900px) 50vw, 25vw" })}</div>`).join("")}</div>
-    <p class="ilp-note">${lp.s5.note}</p>
     <div class="ilp-band" ${io()}><b>${lp.bandTitle2}</b><a href="${wa}" target="_blank" rel="noopener" class="ilp-btn ilp-btn-dark">${icons.wa} ${p.ctaPrimary}</a></div>
   </div></section>`;
 
   const clinic = `<section class="ilp-sec" style="background:#fff;"><div class="ilp-wrap">
     <div ${io()} style="max-width:680px;margin-bottom:30px;"><div class="ilp-num">${lp.s6.num} — ${lp.s6.tag}</div><h2>${lp.s6.h2}</h2></div>
-    <div class="ilp-clinic">
-      ${ph("Klinik — karşılama alanı", "Gerçek klinik fotoğrafı, min. 1600×1067 px", "4/3")}
-      ${ph("Klinik — muayene / cerrahi odası", "Gerçek klinik fotoğrafı, min. 1600×1067 px", "4/3")}
-      ${ph("Klinik — dijital tarama / 3D planlama", "Gerçek klinik fotoğrafı, min. 1600×1067 px", "4/3")}
-    </div>
+    <div class="ilp-map" ${io()}><iframe title="MediDent İstanbul — harita" src="${site.mapsEmbed}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div>
     <div class="ilp-addr" ${io()}><span>📍 ${site.address}</span><a class="ilp-btn ilp-btn-light" style="padding:12px 20px;" href="${site.mapsUrl}" target="_blank" rel="noopener">${lp.s6.map}</a></div>
   </div></section>`;
 
@@ -454,13 +561,11 @@ export function implantLandingBody({ lang, t, p, crumbs, wa }) {
     <div class="ilp-docs">${doctors.map(docCard).join("")}</div>
   </div></section>`;
 
-  const reviews = (t.reviews || []).slice(0, 3);
-  const revs = reviews.length
-    ? `<section class="ilp-sec" style="background:#fff;"><div class="ilp-wrap">
-    <div ${io()} style="max-width:680px;margin-bottom:30px;"><div class="ilp-num">${lp.s8.num} — ${lp.s8.tag}</div><h2>${lp.s8.h2}</h2></div>
-    <div class="ilp-rev">${reviews.map((r) => `<div class="ilp-rv" ${io()}><div class="st">★★★★★</div><p>“${r.text}”</p><small><b>${r.name}</b> · ${r.place}</small></div>`).join("")}</div>
-  </div></section>`
-    : "";
+  // Doğrulanmış Google yorumu verisi yok: yorum/puan uydurulmaz, yalnızca Google sayfasına link.
+  const revs = `<section class="ilp-sec" style="background:#fff;"><div class="ilp-wrap">
+    <div ${io()} style="max-width:680px;margin-bottom:22px;"><div class="ilp-num">${lp.s8.num} — ${lp.s8.tag}</div><h2>${lp.s8.h2}</h2></div>
+    <div class="ilp-band" ${io()}><b>${lp.s8.linkText}</b><a href="${site.mapsUrl}" target="_blank" rel="noopener" class="ilp-btn ilp-btn-dark">${lp.s8.linkBtn}</a></div>
+  </div></section>`;
 
   const price = `<section class="ilp-sec"><div class="ilp-wrap" style="max-width:860px;">
     <div ${io()}><div class="ilp-num">${lp.s9.num} — ${lp.s9.tag}</div><h2>${lp.s9.h2}</h2></div>
@@ -475,5 +580,5 @@ export function implantLandingBody({ lang, t, p, crumbs, wa }) {
     <div class="ilp-cta-row"><a data-dtr-cta href="${wa}" target="_blank" rel="noopener" class="ilp-btn ilp-btn-wa">${icons.wa} ${p.ctaPrimary}</a><a href="${contact}" class="ilp-btn ilp-btn-light">${p.ctaSecondary}</a></div>
   </div></div></section>`;
 
-  return `<style>${CSS}</style><div class="ilp">${hero}${showcase}${anatomy}${options}${steps}${brands}${results}${clinic}${docs}${revs}${price}${final}</div>${contactSection(lang)}${JS}`;
+  return `<style>${CSS}</style><div class="ilp">${hero}${story}${showcase}${anatomy}${options}${brands}${results}${clinic}${docs}${revs}${steps}${price}${final}</div>${contactSection(lang)}${sticky}${JS}`;
 }
