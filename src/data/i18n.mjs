@@ -191,6 +191,58 @@ export const i18n = {
       // biriyle eşleşmezse sayfa varsayılan (yukarıdaki) metni kullanır.
       // Ham URL parametresi asla DOM'a basılmaz, sadece bu sabit tablodan
       // seçim yapılır. bkz. docs/google-ads/kampanya-kurulum-taslagi-2026-09-24.md
+      // Görsel ağırlıklı landing (implant-lp.mjs) — kısa metinler
+      lp: {
+        fromPrice: "400 €",
+        fromPriceLabel: "tek implant, başlangıç fiyatı",
+        bandTitle: "Kaç dişiniz eksik? Fotoğrafınızı gönderin, yazılı fiyatı öğrenin.",
+        bandTitle2: "Kendi gülüşünüzü de görmek ister misiniz?",
+        s1: {
+          num: "001", tag: "İmplant nedir?",
+          h2: "Kayıp dişin yerine <em>sağlam bir kök</em>",
+          lead: "Titanyum vida çene kemiğine yerleşir, üzerine kron takılır. Sonuç: doğal dişe benzeyen sabit bir çözüm.",
+          parts: [
+            { t: "Titanyum vida", d: "Kemiğe yerleşen yapay diş kökü." },
+            { t: "Abutment", d: "Vida ile kronu birleştiren bağlantı parçası." },
+            { t: "Kron", d: "Doğal dişe benzeyen porselen veya zirkonyum üst yapı." },
+          ],
+        },
+        s2: {
+          num: "002", tag: "Seçenekler",
+          h2: "Kaç dişiniz eksik? <em>Size uygun plan</em>",
+          items: [
+            { kind: "single", t: "Tek implant", d: "Tek eksik diş için.", price: "400 €", note: "1 implant" },
+            { kind: "multi", t: "Çoklu implant", d: "Birden fazla eksik diş için.", price: "800 € – 2.400 €", note: "2 ile 6 implant arası" },
+            { kind: "full", t: "Tam ağız", d: "Üst ve alt çene için sabit çözüm.", price: "8.000 €'dan", note: "10 implant · otel ve VIP transfer dahil" },
+          ],
+        },
+        s3: {
+          num: "003", tag: "Adım adım",
+          h2: "Dört adımda <em>yeni diş</em>",
+          lead: "Süreç sırayla ilerler; her aşamada ne yapıldığını görün.",
+          items: [
+            { t: "Diş çekimi", d: "Kurtarılamayan diş nazikçe çıkarılır; gerekirse kemik hazırlanır." },
+            { t: "İmplant yerleştirme", d: "Titanyum vida, 3D planlamayla belirlenen noktaya yerleştirilir." },
+            { t: "İyileşme", d: "İmplant kemikle kaynaşır. Bu süreç için çoğunlukla iki ayrı ziyaret planlanır." },
+            { t: "Kron takılması", d: "Abutment ve kron takılır; doğal görünümlü gülüşünüz tamamlanır." },
+          ],
+        },
+        s4: {
+          num: "004", tag: "Markalar",
+          h2: "Güvendiğimiz <em>implant markaları</em>",
+          lead: "Batı Avrupa'da kullanılan aynı uluslararası sertifikalı markalarla çalışıyoruz.",
+        },
+        s5: {
+          num: "005", tag: "Sonuçlar",
+          h2: "Gerçek <em>hasta gülüşleri</em>",
+          note: "MediDent hasta arşivinden gülüş dönüşümü örnekleri; implant vakalarına özel görseller eklenecektir.",
+        },
+        s6: { num: "006", tag: "Klinik", h2: "Acıbadem'de, <em>Üsküdar</em>", map: "Haritada aç" },
+        s7: { num: "007", tag: "Hekimler", h2: "Sizinle ilgilenecek <em>ekip</em>" },
+        s8: { num: "008", tag: "Yorumlar", h2: "Hastalarımız <em>ne diyor?</em>" },
+        s9: { num: "009", tag: "Fiyat", h2: "Diş implant <em>fiyat tablosu</em>" },
+        final: { h2: "Fotoğrafınızı gönderin, <em>yazılı fiyatınızı</em> alın", lead: "Ücretsiz ön değerlendirme. Uçak bileti almadan önce planınızı görün." },
+      },
       variants: {
         "implant-fiyat": {
           h1: "Diş İmplant Fiyatı",

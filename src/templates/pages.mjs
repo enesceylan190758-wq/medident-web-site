@@ -15,6 +15,7 @@ import {
   asset,
 } from "./layout.mjs";
 import { contactSection, priceCalcSection, brandsSection, xraySection } from "./home.mjs";
+import { implantLandingBody } from "./implant-lp.mjs";
 
 const src = (file) => asset(`/assets/img/${file}`);
 const crumbHome = (lang) => ({ name: i18n[lang].breadcrumbHome, href: url(lang, ""), url: site.domain + url(lang, "") });
@@ -894,118 +895,6 @@ export function implantPricePage(lang) {
   const crumbs = [crumbHome(lang), { name: p.eyebrow, href: url(lang, slug) }];
   const wa = waHref("Merhaba, diş implant fiyatı için ücretsiz foto değerlendirme almak istiyorum.");
 
-  const table = `<div style="overflow-x:auto;border-radius:16px;border:1px solid rgba(43,35,24,.1);">
-    <table style="width:100%;border-collapse:collapse;font-size:15px;">
-      <thead><tr style="background:var(--cream-2);">
-        <th style="text-align:left;padding:14px 18px;font-weight:700;color:var(--ink);">Tedavi</th>
-        <th style="text-align:right;padding:14px 18px;font-weight:700;color:var(--ink);">Fiyat</th>
-      </tr></thead>
-      <tbody>
-        ${p.priceTable
-          .map(
-            (row, i) => `<tr style="${i % 2 ? "background:var(--cream);" : ""}border-top:1px solid rgba(43,35,24,.08);">
-          <td style="padding:14px 18px;color:var(--ink-soft);">${row.label}</td>
-          <td style="padding:14px 18px;text-align:right;font-weight:700;color:var(--ink);">${row.price}</td>
-        </tr>`
-          )
-          .join("")}
-      </tbody>
-    </table>
-  </div>`;
-
-  // 1) Hero — H1/lead DTR ile değişebilir, 2 CTA + gerçek güven rozetleri (t.stats)
-  const trustBadges = (t.stats || [])
-    .map((s) => {
-      const val = s.dec ? s.to.toFixed(s.dec) : s.sep ? Math.round(s.to).toLocaleString("tr-TR") : Math.round(s.to);
-      return `<div style="display:flex;align-items:baseline;gap:6px;"><strong style="font-size:19px;color:var(--ink);">${val}${s.suffix || (s.dec ? "" : "+")}</strong><span style="font-size:13px;color:var(--muted-2);">${s.label}</span></div>`;
-    })
-    .join("");
-
-  const heroSection = `<section class="page-hero"><div class="container">
-    ${breadcrumb(lang, crumbs)}
-    <div class="eyebrow">${p.eyebrow}</div>
-    <h1 data-dtr-h1 style="font-size:clamp(34px,5vw,60px);margin:0 0 14px;max-width:820px;">${p.h1}</h1>
-    <p data-dtr-lead class="lead" style="max-width:680px;">${p.lead}</p>
-    <div style="display:flex;flex-wrap:wrap;gap:14px;margin:22px 0 28px;">
-      <a data-dtr-cta href="${wa}" target="_blank" rel="noopener" class="btn btn-primary" style="padding:15px 28px;font-size:15.5px;">${icons.wa} ${p.ctaPrimary}</a>
-      <a href="${url(lang, "iletisim/")}" class="btn btn-outline-red" style="padding:15px 28px;font-size:15.5px;">${p.ctaSecondary}</a>
-    </div>
-    <div style="display:flex;flex-wrap:wrap;gap:24px;">${trustBadges}</div>
-  </div></section>`;
-
-  // 2) Fiyata neler dahil — gerçek paket içeriği (content.mjs packages.implant)
-  const implantPkg = packages.find((pk) => pk.key === "implant");
-  const inclusionsBlock = implantPkg
-    ? `<section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">${landingInclusions(lang, implantPkg.items[lang] || implantPkg.items.tr)}</div></section>`
-    : "";
-
-  // 3) Fiyat tablosu + marka karşılaştırması (Straumann/Osstem/Neodent)
-  const coreBrands = implantBrands.filter((b) => ["straumann", "osstem", "neodent"].includes(b.key));
-  const brandCards = coreBrands
-    .map(
-      (b) => `<div class="card" data-reveal style="padding:20px;">
-      <div style="height:34px;display:flex;align-items:center;margin-bottom:12px;${b.logoDark ? "background:var(--ink);border-radius:8px;padding:6px 12px;width:fit-content;" : ""}">
-        <img src="${src("brands/" + b.logo)}" alt="${L(b.titles, lang)}" style="max-height:100%;max-width:120px;object-fit:contain;">
-      </div>
-      <h4 style="margin:0 0 6px;font-size:16px;">${L(b.titles, lang)}</h4>
-      <p style="font-size:13.5px;line-height:1.55;color:var(--muted-2);margin:0;">${L(b.desc, lang)}</p>
-    </div>`
-    )
-    .join("");
-
-  const priceSection = `<section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">
-    <h2 style="font-size:22px;margin:0 0 14px;">${p.introTitle}</h2>
-    <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0 0 28px;">${p.introText}</p>
-    <h2 style="font-size:24px;margin:0 0 20px;">${p.priceTitle}</h2>
-    ${table}
-    <p style="font-size:13px;color:var(--muted-2);margin:16px 0 32px;">${p.priceNote}</p>
-    ${brandCards ? `<h2 style="font-size:22px;margin:0 0 6px;">${p.brandsTitle}</h2><p style="font-size:15px;color:var(--muted);margin:0 0 20px;">${p.brandsLead}</p><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">${brandCards}</div>` : ""}
-  </div></section>`;
-
-  // 6) Doktorlar — gerçek hekim kadrosu (content.mjs doctors)
-  const initials = (name) => name.replace(/^(Dr\.|Dt\.)\s*/gi, "").split(/\s+/).map((w) => w[0]).join("").slice(0, 2).toUpperCase();
-  const avatarOrImg = (d) =>
-    d.image
-      ? `<img src="${asset(`/assets/img/${d.image}`)}" alt="${d.name}" style="width:100%;height:100%;object-fit:cover;">`
-      : `<div style="width:100%;height:100%;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--burgundy));display:flex;align-items:center;justify-content:center;font-family:var(--font-serif);font-size:24px;font-weight:700;color:#fff;">${initials(d.name)}</div>`;
-  const doctorCard = (d) => `<a href="${url(lang, "doktorlar/" + d.slug + "/")}" data-reveal style="display:block;color:inherit;text-decoration:none;border-radius:16px;border:1px solid rgba(43,35,24,.1);padding:18px;text-align:center;background:var(--cream);">
-    <div style="width:72px;height:72px;border-radius:50%;overflow:hidden;margin:0 auto 12px;">${avatarOrImg(d)}</div>
-    <div style="font-weight:800;font-size:15px;color:var(--ink);">${d.name}</div>
-    <div style="font-size:12.5px;color:var(--gold);font-weight:700;margin-top:2px;">${L(d.titles, lang)}</div>
-  </a>`;
-  const doctorsSection = doctors.length
-    ? `<section class="section section-alt"><div class="container">
-    <div style="text-align:center;max-width:620px;margin:0 auto clamp(30px,4vw,44px);">
-      <h2 style="margin:0 0 10px;">${p.doctorsTitle}</h2>
-      <p style="font-size:15.5px;color:var(--muted);margin:0;">${p.doctorsLead}</p>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;">${doctors.map(doctorCard).join("")}</div>
-  </div></section>`
-    : "";
-
-  // 7) Hasta yorumları — gerçek yorumlar (i18n tr.reviews)
-  const reviewCard = (r) => `<div class="review" data-reveal>
-    <div class="stars">★★★★★</div>
-    <p style="font-size:14.5px;line-height:1.6;color:#F4EEE4;margin:12px 0 16px;">"${r.text}"</p>
-    <div style="display:flex;align-items:center;gap:10px;">
-      <div class="avatar">${r.initials}</div>
-      <div style="line-height:1.25;"><div style="font-weight:700;font-size:13.5px;color:#fff;">${r.name}</div><div style="font-size:12px;color:#A89D8B;">${r.place}</div></div>
-    </div>
-  </div>`;
-  const reviewsSection = (t.reviews || []).length
-    ? `<section class="section section-dark"><div class="container">
-    <div style="text-align:center;max-width:600px;margin:0 auto clamp(30px,4vw,44px);">
-      <h2 style="margin:0 0 10px;">${t.reviewsTitle}</h2>
-      <p style="font-size:15px;color:#C9BEAC;margin:0;">${t.reviewsLead}</p>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;">${t.reviews.map(reviewCard).join("")}</div>
-  </div></section>`
-    : "";
-
-  const tripStages = (t.process || []).map((s) => ({ t: s.t, d: s.d }));
-
-  const faqItem = (f) => `<div class="faq-item" data-faq-item><button class="faq-q" data-faq-toggle><span>${f.q}</span><span class="faq-icon"><span class="minus">${miniMinus}</span><span class="plus">${miniPlus}</span></span></button><div class="faq-a"><p style="margin:0;">${f.a}</p></div></div>`;
-
   // Dynamic Text Replacement — ?h= parametresi SADECE bu sabit whitelist'ten
   // (p.variants) seçim yapar; ham parametre hiçbir zaman DOM'a yazılmaz.
   const dtrScript = `<script>(function(){
@@ -1019,23 +908,8 @@ export function implantPricePage(lang) {
     if(v.h1)document.title=v.h1+' — ${site.brand}';
   })();</script>`;
 
-  const body = `${heroSection}
-  ${inclusionsBlock}
-  ${priceSection}
-  ${landingCtaBand(lang)}
-  ${landingCompareTable(lang, p.compareRows || [])}
-  ${landingBaSection(lang)}
-  ${landingCasesStrip(lang, ["aug-17-2.jpg", "sep-27-3.jpg", "jun-8-3.jpg"])}
-  ${doctorsSection}
-  ${reviewsSection}
-  ${landingCtaBand(lang)}
-  ${landingTripTimeline(lang, tripStages)}
-  <section class="section section-alt"><div class="container" style="max-width:820px;">
-    <h2 style="font-size:24px;margin:0 0 20px;">${p.faqTitle}</h2>
-    <div class="faq" data-reveal>${p.faqs.map(faqItem).join("")}</div>
-  </div></section>
-  ${contactSection(lang)}
-  ${dtrScript}`;
+  // Görsel ağırlıklı tek konulu (implant) landing — bkz. implant-lp.mjs
+  const body = implantLandingBody({ lang, t, p, crumbs, wa }) + dtrScript;
 
   return {
     body,
