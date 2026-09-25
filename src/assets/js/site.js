@@ -386,7 +386,7 @@
   if (form) {
     const card = form.closest(".form-card");
     const cfg = window.__MD_FORM__ || {};
-    const attrKeys = ["gclid", "gbraid", "wbraid", "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "kw", "h", "ref"];
+    const attrKeys = ["gclid", "gbraid", "wbraid", "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "kw", "h", "l", "ref"];
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       const fd = new FormData(form);
