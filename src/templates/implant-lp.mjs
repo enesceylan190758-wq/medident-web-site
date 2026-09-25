@@ -39,6 +39,9 @@ const sparkle = (cls = "") =>
 
 const toothIcon = `<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M7 3c-2.5 0-4 2-4 4.5 0 2 .8 3.6 1.4 5.2.6 1.7.6 3.6 1.1 5.2.4 1.3 1.1 2.6 2.3 2.6 1.6 0 1.6-4.2 3.2-4.2s1.6 4.2 3.2 4.2c1.2 0 1.9-1.3 2.3-2.6.5-1.6.5-3.5 1.1-5.2.6-1.6 1.4-3.2 1.4-5.2C21 5 19.5 3 17 3c-1.7 0-2.3.9-5 .9S8.7 3 7 3z"/></svg>`;
 
+const sealSvg = `<svg class="ilp-seal" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" fill="#c9a227"/><circle cx="60" cy="60" r="48" fill="#16352c"/><path d="M60 28c-8 10-16 14-28 16 4 22 12 34 28 48 16-14 24-26 28-48-12-2-20-6-28-16z" fill="#c9a227"/><text x="60" y="92" text-anchor="middle" fill="#e8f0ea" font-size="8" font-weight="700">YETKİ BELGESİ</text></svg>`;
+
+
 /** Eksik görsel placeholder'ı — gerçek fotoğraf gelince `ph()` çağrısı `pic()` ile değişir. */
 function ph(title, spec, aspect = "4/3") {
   if (!SHOW_PH) return "";
@@ -202,7 +205,7 @@ const CSS = `
 .ilp-vids{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:16px}.ilp-vid-main .ilp-vid video{aspect-ratio:16/9;box-shadow:0 30px 60px -36px rgba(43,35,24,.55)}.ilp-vid-main figcaption{font-size:15px!important;font-weight:600;color:var(--ilp-dark)!important}
 .ilp-vid{margin:0}.ilp-vid video{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--ilp-r);background:#f3ede0;display:block}
 .ilp-hero-photo{aspect-ratio:4/5.5}
-.ilp-hero .ilp-hf{position:absolute;left:14px;right:14px;bottom:14px;z-index:3;display:block;padding:16px 16px 12px;border-radius:22px;background:rgba(255,255,255,.75);-webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);border:1px solid rgba(255,255,255,.65);box-shadow:0 24px 60px -18px rgba(43,35,24,.5)}
+.ilp-hero .ilp-hf{position:absolute;left:14px;right:14px;bottom:14px;z-index:3;display:block;padding:16px 16px 12px;border-radius:22px;background:rgba(255,255,255,.75);-webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);border:1px solid rgba(255,255,255,.65);box-shadow:0 24px 60px -18px rgba(43,35,24,.5);scroll-margin-top:96px}
 .ilp-hf form{display:grid;gap:9px}.ilp-hf-t{font-family:var(--font-serif);font-size:22px;line-height:1.1;color:var(--ink)}
 .ilp-hf input,.ilp-hf select{width:100%;box-sizing:border-box;padding:12px 13px;border-radius:12px;border:1px solid rgba(43,35,24,.16);background:rgba(255,255,255,.92);font:inherit;font-size:15px;color:var(--ink)}
 .ilp-hf-ph{display:grid;grid-template-columns:104px 1fr;gap:8px}
@@ -223,13 +226,84 @@ const CSS = `
 .ilp-sst-n{font-size:13px;font-weight:700;letter-spacing:.08em;color:var(--gold,#b8935a);margin-bottom:8px}
 .ilp-sst h3{font-size:clamp(26px,3vw,36px);margin:0 0 12px}.ilp-sst ul{margin:0;padding:0;list-style:none;display:grid;gap:6px;font-size:16px;color:var(--muted)}.ilp-sst li b{color:var(--ink)}
 .ilp-sst-cta{min-height:70vh;align-items:flex-start}.ilp-sst-cta .ilp-btn{border:0;cursor:pointer}
+.ilp-dk{background:#eef1f4}
+.ilp-dk .ilp-lead{max-width:640px;margin:0 auto 28px;text-align:center}
+.ilp-dk h2{text-align:center}
+.ilp-trust-card{display:grid;grid-template-columns:280px 1fr;gap:0;background:#fff;border-radius:32px;overflow:hidden;box-shadow:0 30px 60px -40px rgba(20,24,32,.35)}
+.ilp-trust-rail{background:linear-gradient(180deg,#16352c,#0e241e);color:#e8f0ea;padding:36px 28px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px}
+.ilp-seal{width:132px;height:132px}
+.ilp-trust-rail .ok{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;background:rgba(255,255,255,.12);border-radius:99px;padding:6px 12px}
+.ilp-trust-rail p{margin:0;font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.8}
+.ilp-trust-why{display:inline-flex;align-items:center;gap:6px;margin-top:auto;background:#c9a227;color:#1a1408;font-weight:800;font-size:12px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border-radius:99px;padding:10px 16px}
+.ilp-trust-body{padding:clamp(28px,4vw,48px)}
+.ilp-trust-body h3{font-size:clamp(22px,2.4vw,28px);margin:0 0 12px}
+.ilp-trust-body .ilp-lead{text-align:left;margin:0 0 18px;max-width:none}
+.ilp-trust-q{font-family:var(--font-serif);font-style:italic;font-size:clamp(18px,2vw,22px);line-height:1.35;margin:0 0 20px;color:var(--ink)}
+.ilp-trust-loc{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.ilp-loc{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:16/11;background:#d9ddd8}
+.ilp-loc img,.ilp-loc picture,.ilp-loc picture img{width:100%;height:100%;object-fit:cover;display:block}
+.ilp-loc span{position:absolute;left:10px;bottom:10px;background:rgba(20,24,32,.78);color:#fff;font-size:12px;font-weight:700;border-radius:99px;padding:6px 10px}
+.ilp-badges{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:18px;background:#fff;border-radius:22px;padding:16px 18px}
+.ilp-badge{font-size:12.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#3a4654;background:#f3f5f7;border-radius:12px;padding:10px 14px}
+.ilp-dk-foot{text-align:center;font-size:13.5px;line-height:1.55;color:var(--muted);max-width:720px;margin:18px auto 0}
+.ilp-pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:0 0 28px}
+.ilp-pills a,.ilp-pills button,.ilp-pills span{border:1px solid rgba(43,35,24,.14);background:#fff;color:var(--ink);border-radius:99px;padding:8px 16px;font:700 13px var(--font-sans);text-decoration:none;cursor:pointer}
+.ilp-pills a.on,.ilp-pills button.on,.ilp-pills span.on{background:var(--ilp-dark);color:#fff;border-color:transparent}
+.ilp-bento{display:grid;grid-template-columns:1.15fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:14px;min-height:520px}
+.ilp-bento-g{grid-row:1/3;position:relative;border-radius:28px;overflow:hidden;min-height:420px;color:#fff;text-decoration:none;display:flex;flex-direction:column;justify-content:flex-end;padding:28px}
+.ilp-bento-g img,.ilp-bento-g picture,.ilp-bento-g picture img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ilp-bento-g::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,14,18,.15) 20%,rgba(12,14,18,.88))}
+.ilp-bento-g>*{position:relative;z-index:1}
+.ilp-bento-g h3{font-size:40px;margin:0 0 8px}
+.ilp-bento-g p{margin:0 0 16px;color:#ddd;font-size:15px;max-width:280px}
+.ilp-bento-g .ilp-btn{width:auto;align-self:flex-start;background:#fff;color:var(--ink)}
+.ilp-bento-c{position:relative;border-radius:24px;overflow:hidden;min-height:250px;color:#fff;text-decoration:none;display:flex;flex-direction:column;justify-content:flex-end;padding:18px}
+.ilp-bento-c img,.ilp-bento-c picture,.ilp-bento-c picture img,.ilp-bento-c video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ilp-bento-c::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(12,14,18,.78))}
+.ilp-bento-c h3,.ilp-bento-c .row{position:relative;z-index:1}
+.ilp-bento-c h3{margin:0 0 10px;font-size:22px}
+.ilp-bento-c .row{display:flex;gap:8px}
+.ilp-chip2{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);border-radius:99px;padding:6px 10px;font-size:12px;font-weight:700;color:#fff}
+.ilp-xf-stage{position:relative}
+.ilp-xf-track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:8px 4px 18px}
+.ilp-xf-track::-webkit-scrollbar{display:none}
+.ilp-xf-card{flex:0 0 min(280px,78vw);scroll-snap-align:start;position:relative;aspect-ratio:3/4;border-radius:24px;overflow:hidden;background:#111;cursor:pointer;border:0;padding:0}
+.ilp-xf-card img,.ilp-xf-card video{width:100%;height:100%;object-fit:cover;display:block}
+.ilp-xf-card b,.ilp-xf-card small{position:absolute;left:14px;z-index:2;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.ilp-xf-card b{top:14px;font-size:13px;letter-spacing:.04em}
+.ilp-xf-card small{bottom:14px;font-size:12px;opacity:.9}
+.ilp-xf-nav{position:absolute;top:50%;z-index:3;width:44px;height:44px;border-radius:50%;border:0;background:#fff;box-shadow:0 8px 20px -10px #000;cursor:pointer;transform:translateY(-50%);font-size:20px}
+.ilp-xf-nav.prev{left:-8px}.ilp-xf-nav.next{right:-8px}
+.ilp-xf-cta{display:flex;justify-content:center;margin-top:8px}
+.ilp-labs{display:grid;grid-template-columns:1.15fr repeat(3,1fr);border-radius:28px;overflow:hidden;min-height:420px}
+.ilp-lab{padding:28px 22px;color:#fff;display:flex;flex-direction:column;gap:12px;position:relative}
+.ilp-lab.intro{background:#12151c}
+.ilp-lab.c0{background:#2c4a8c}
+.ilp-lab.c1{background:#3b6ad4}
+.ilp-lab.c2{background:#4a7ae0}
+.ilp-lab.c3{background:#5b8ef0;color:#0d1b33}
+.ilp-lab h3{margin:0;font-size:22px;line-height:1.2}
+.ilp-lab p{margin:0;font-size:13.5px;line-height:1.5;opacity:.92}
+.ilp-lab .ilp-logo{height:48px;padding:0}
+.ilp-lab .ilp-logo img{max-height:36px;filter:brightness(0) invert(1)}
+.ilp-lab.c3 .ilp-logo img{filter:none}
+.ilp-lab .ilp-btn{margin-top:auto;align-self:flex-start;width:auto}
+.ilp-lab-vis{margin-top:auto;min-height:110px;display:flex;align-items:flex-end;justify-content:center}
+.ilp-voices .ilp-vplay{display:none;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;width:56px;height:56px;border-radius:50%;border:0;background:rgba(35,27,18,.78);color:#fff;font:700 12px var(--font-sans);cursor:pointer}
 .ilp-steps.sm{grid-template-columns:repeat(4,1fr);gap:14px}.ilp-steps.sm .ilp-step h3{font-size:19px}.ilp-steps.sm .ilp-step-body{padding:14px 16px 18px}.ilp-steps.sm .ilp-step p{font-size:13.5px}.ilp-steps.sm .ilp-step-n{width:28px;height:28px;font-size:12px}
 @media (prefers-reduced-motion:reduce){
   .ilp-story-stick{position:static}.ilp-story-grid{grid-template-columns:1fr}.ilp-story-meta{display:none}.ilp-story-frame{display:none}
   .ilp-sst{min-height:auto;padding:24px 0}.ilp-sst .ilp-sc{position:static;opacity:1;display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
   .ilp-sst .ilp-sc>div{position:relative;aspect-ratio:2/1;border-radius:14px;overflow:hidden}.ilp-sst .ilp-sc .sc-a{clip-path:none}.ilp-sst .ilp-sc .ba-label{display:none}
+  .ilp-xf-card video{display:none}
+  .ilp-voices .ilp-vplay{display:block}
 }
 
+.ilp-pt{margin-top:clamp(20px,4vw,48px);text-align:center}.ilp-pt h3{font-size:clamp(26px,3vw,36px);margin:0 0 18px}
+.ilp-pt-row{display:flex;gap:16px;justify-content:center;margin-bottom:24px}
+.ilp-pv{padding:0;border:0;background:#111;border-radius:var(--ilp-r);overflow:hidden;cursor:pointer;width:min(260px,44vw);aspect-ratio:9/16;box-shadow:var(--shadow-lg);flex:none}
+.ilp-pv video{width:100%;height:100%;object-fit:cover;display:block}
+.ilp-pt .ilp-btn{border:0;cursor:pointer}
 .ilp-steps{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;position:relative}
 .ilp-step{border-radius:var(--ilp-r);background:#fff;border:1px solid rgba(43,35,24,.08);overflow:hidden;box-shadow:0 26px 50px -40px rgba(43,35,24,.5)}
 .ilp-step-vis{background:linear-gradient(180deg,#faf3e6,#f1e6d1);padding:14px 14px 0}
@@ -305,12 +379,16 @@ const CSS = `
   .ilp-hero .ilp-hf{position:relative;left:auto;right:auto;bottom:auto;margin:-40px 12px 0}
   .ilp-story-grid{grid-template-columns:1fr}.ilp-story-stick{top:64px;z-index:5;background:var(--cream);padding:8px 0 6px}
   .ilp-story-frame{aspect-ratio:16/9}.ilp-sst{min-height:75vh}.ilp-sst-cta{min-height:55vh}
+  .ilp-trust-card,.ilp-bento,.ilp-labs{grid-template-columns:1fr}
+  .ilp-trust-loc{grid-template-columns:1fr}
+  .ilp-bento-g{grid-row:auto;min-height:360px}
+  .ilp-xf-nav{display:none}
   .ilp-steps.sm{grid-template-columns:repeat(2,1fr)}
   .ilp-sticky{display:block;position:fixed;left:0;right:0;bottom:0;z-index:80;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:rgba(250,246,239,.94);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 -10px 30px -18px rgba(43,35,24,.5);transform:translateY(115%);transition:transform .25s ease}
   .ilp-sticky.on{transform:none}.ilp-sticky .ilp-btn{width:100%;justify-content:center;border:0;cursor:pointer}
   body.ilp-has-sticky .wa-float{bottom:86px}
   .ilp-chip.a{left:12px}.ilp-chip.b{right:12px}
-  .ilp-cards3,.ilp-opts,.ilp-brands,.ilp-rev{grid-template-columns:1fr}
+  .ilp-cards3,.ilp-opts,.ilp-brands,.ilp-rev,.ilp-labs{grid-template-columns:1fr}
   .ilp-steps{grid-template-columns:1fr}
   .ilp-xr,.ilp-vids{grid-template-columns:1fr}
   .ilp-gal{grid-template-columns:repeat(2,1fr)}
@@ -331,7 +409,7 @@ const JS = `<script>(function(){
   if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('is-in')});return;}
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('is-in');io.unobserve(e.target);}})},{threshold:.18,rootMargin:'0px 0px -6% 0px'});
   els.forEach(function(e){io.observe(e)});
-  var vs=document.querySelectorAll('.ilp-vid video');
+  var vs=document.querySelectorAll('.ilp-vid:not(.ilp-vsc) video');
   if('IntersectionObserver' in window&&!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)){
     var vo=new IntersectionObserver(function(es){es.forEach(function(e){var v=e.target;if(e.isIntersecting){var p=v.play();if(p&&p.catch)p.catch(function(){});}else{v.pause();}})},{threshold:.4});
     vs.forEach(function(v){vo.observe(v)});
@@ -360,6 +438,48 @@ const JS = `<script>(function(){
     }
     var sb=story.querySelector('[data-story-cta]'); if(sb) sb.addEventListener('click',function(){ var h=document.getElementById('hero-form'); if(h) h.scrollIntoView({behavior:rm?'auto':'smooth',block:'center'}); });
   }
+  var toHero=function(){ var h=document.getElementById('hero-form'); var rmH=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches; if(h) h.scrollIntoView({behavior:rmH?'auto':'smooth',block:'center'}); };
+  var voices=document.querySelector('[data-voices]');
+  if(voices){
+    var track=voices.querySelector('[data-xf-track]');
+    var vrm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var vids=[].slice.call(voices.querySelectorAll('video'));
+    var vin=false;
+    var playVis=function(){
+      if(vrm||!track){ vids.forEach(function(v){v.pause();}); return; }
+      var tr=track.getBoundingClientRect();
+      vids.forEach(function(v){
+        var r=v.getBoundingClientRect();
+        var vis=vin && r.left< tr.right-40 && r.right> tr.left+40;
+        if(vis){ var p=v.play(); if(p&&p.catch)p.catch(function(){}); } else v.pause();
+      });
+    };
+    if(track){
+      voices.querySelectorAll('[data-xf-prev]').forEach(function(b){ b.addEventListener('click',function(){ track.scrollBy({left:-300,behavior:vrm?'auto':'smooth'}); }); });
+      voices.querySelectorAll('[data-xf-next]').forEach(function(b){ b.addEventListener('click',function(){ track.scrollBy({left:300,behavior:vrm?'auto':'smooth'}); }); });
+      track.addEventListener('scroll',playVis,{passive:true});
+    }
+    if('IntersectionObserver' in window){
+      var vio=new IntersectionObserver(function(es){es.forEach(function(e){vin=e.isIntersecting; playVis();});},{threshold:.25});
+      vio.observe(voices);
+    }
+    voices.querySelectorAll('[data-voices-cta], .ilp-xf-card').forEach(function(el){ el.addEventListener('click',function(ev){ if(ev.target.closest('.ilp-vplay')) return; toHero(); }); });
+    voices.querySelectorAll('.ilp-vplay').forEach(function(btn){
+      btn.addEventListener('click',function(ev){
+        ev.stopPropagation();
+        var v=btn.parentElement&&btn.parentElement.querySelector('video');
+        if(!v) return;
+        if(v.paused){ var p=v.play(); if(p&&p.catch)p.catch(function(){}); } else v.pause();
+      });
+    });
+  }
+  document.querySelectorAll('[data-lab-cta]').forEach(function(b){ b.addEventListener('click',toHero); });
+  var pvs=[].slice.call(document.querySelectorAll('.ilp-pv video'));
+  if(pvs.length&&'IntersectionObserver' in window&&!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)){
+    var po=new IntersectionObserver(function(es){es.forEach(function(e){var v=e.target;if(e.isIntersecting){var p=v.play();if(p&&p.catch)p.catch(function(){});}else{v.pause();}})},{threshold:.5});
+    pvs.forEach(function(v){po.observe(v)});
+  }
+  document.querySelectorAll('.ilp-pt [data-story-cta]').forEach(function(b){b.addEventListener('click',function(){var h=document.getElementById('hero-form'); if(h) h.scrollIntoView({behavior:'smooth',block:'center'});});});
   /* --- Mobil sabit "Ücretsiz Plan Al" butonu --- */
   var stk=document.querySelector('[data-ilp-sticky]'), hfEl=document.getElementById('hero-form'), ctEl=document.getElementById('iletisim');
   if(stk&&hfEl){
@@ -438,6 +558,51 @@ export function implantLandingBody({ lang, t, p, crumbs, wa }) {
   </div></section>`;
 
   const vidTag = (n, c) => `<figure class="ilp-vid"><video muted loop playsinline preload="none" poster="${src("video/"+n+"-poster.webp")}" aria-label="${c}"><source src="${src("video/"+n+".mp4")}" type="video/mp4"></video><figcaption>${c}</figcaption></figure>`;
+  const rf = lp.ref || {};
+  const locPhotos = [
+    ["about-portrait.jpg", rf.trust?.clinic || "Acıbadem"],
+    ["portrait-a.jpg", rf.trust?.clinic || "Acıbadem"],
+    ["nov-8-4.jpg", rf.trust?.clinic || "Acıbadem"],
+  ];
+  const trust = rf.trust
+    ? `<section class="ilp-sec ilp-dk" id="belgeler"><div class="ilp-wrap">
+    <h2 ${io()}>${rf.trust.h2}</h2>
+    <div class="ilp-trust-card" ${io()}>
+      <aside class="ilp-trust-rail">${sealSvg}<span class="ok">✓ ${rf.trust.verified}</span><p>Sağlık Bakanlığı</p><a class="ilp-trust-why" href="${rf.trust.whyHref}">${rf.trust.why} →</a></aside>
+      <div class="ilp-trust-body">
+        <h3>${rf.trust.h3}</h3>
+        <p class="ilp-lead">${rf.trust.lead}</p>
+        <p class="ilp-trust-q">“${rf.trust.quote}”</p>
+        <div class="ilp-trust-loc">${locPhotos.map(([f, cap]) => `<figure class="ilp-loc">${pic(f, cap, { sizes: "(max-width:900px) 100vw, 22vw" })}<span>${cap}</span></figure>`).join("")}</div>
+      </div>
+    </div>
+    <div class="ilp-badges">${(rf.trust.badges || []).map((b) => `<span class="ilp-badge">${b}</span>`).join("")}</div>
+    <p class="ilp-dk-foot">${rf.trust.foot}</p>
+  </div></section>`
+    : "";
+
+  const bentoMedia = (c) => {
+    if (c.kind === "video") {
+      const poster = src(`video/${c.ph}-poster.webp`);
+      const mp4 = path.join(IMG_DIR, "video", `${c.ph}.mp4`);
+      return fs.existsSync(mp4)
+        ? `<video class="ilp-vid" muted loop playsinline preload="none" poster="${poster}" aria-hidden="true"><source src="${src("video/" + c.ph + ".mp4")}" type="video/mp4"></video>`
+        : `<img src="${poster}" alt="">`;
+    }
+    return pic(c.ph, c.t, { sizes: "(max-width:900px) 100vw, 28vw" });
+  };
+  const know = rf.know
+    ? `<section class="ilp-sec ilp-dk" id="rehber" style="padding-top:0;"><div class="ilp-wrap">
+    <h2 ${io()}>${rf.know.h2}</h2>
+    <p class="ilp-lead">${rf.know.lead}</p>
+    <div class="ilp-pills">${rf.know.pills.map((x, i) => `<a class="${i === 0 ? "on" : ""}" href="${x.href}">${x.t}</a>`).join("")}</div>
+    <div class="ilp-bento" ${io()}>
+      <a class="ilp-bento-g" href="#adim-adim">${pic("about-portrait.jpg", rf.know.guideTitle, { sizes: "(max-width:900px) 100vw, 40vw" })}<h3>${rf.know.guideTitle}</h3><p>${rf.know.guideLead}</p><span class="ilp-btn">${rf.know.browse} →</span></a>
+      ${rf.know.cards.map((c) => `<a class="ilp-bento-c" href="${c.href}">${bentoMedia(c)}<h3>${c.t}</h3><div class="row"><span class="ilp-chip2">${rf.know.g}</span><span class="ilp-chip2">${rf.know.p}</span></div></a>`).join("")}
+    </div>
+  </div></section>`
+    : "";
+
   const showcase = `<section class="ilp-sec" style="padding-top:clamp(28px,4vw,52px);padding-bottom:0;"><div class="ilp-wrap">
     <div ${io()} class="ilp-vid-main">${vidTag("implant-asamalar","İmplant tedavisi nasıl yapılır? — 4 aşamalı animasyon")}</div>
     <div class="ilp-vids" ${io()}>${vidTag("implant-tek","Tek diş implant")}${vidTag("implant-all-on-4","All-on-4")}</div>
@@ -445,7 +610,36 @@ export function implantLandingBody({ lang, t, p, crumbs, wa }) {
 
   const st = lp.story;
   const storyCases = st.cases.filter((c) => c.files.every((fl) => fs.existsSync(path.join(IMG_DIR, fl))));
-  const story = `<section class="ilp-sec ilp-story" id="gercek-sonuclar" data-story style="padding-top:clamp(28px,4vw,56px);"><div class="ilp-wrap">
+  const voiceItems = (st.voices?.items || []).filter((v) => fs.existsSync(path.join(IMG_DIR, "video", `${v.file}.mp4`)));
+  const xfStills = [
+    ["oct-1-3.jpg", rf.xf?.label || "İmplant"],
+    ["may-4-2.jpg", rf.xf?.label || "İmplant"],
+  ];
+  const xf = rf.xf
+    ? `<section class="ilp-sec ilp-dk ilp-voices" data-voices>
+      <div class="ilp-wrap">
+      <h2 ${io()}>${rf.xf.h2}</h2>
+      <p class="ilp-lead">${rf.xf.lead}</p>
+      <div class="ilp-pills"><span class="on">${rf.xf.all}</span><span>${rf.xf.implant}</span></div>
+      <div class="ilp-xf-stage">
+        <button type="button" class="ilp-xf-nav prev" data-xf-prev aria-label="Önceki">‹</button>
+        <div class="ilp-xf-track" data-xf-track>
+          ${voiceItems.map((v) => `<article class="ilp-xf-card" role="button" tabindex="0" aria-label="${v.alt}">
+              <video class="ilp-vsc" muted loop playsinline preload="none" poster="${src("video/" + v.file + "-poster.webp")}"><source src="${src("video/" + v.file + ".mp4")}" type="video/mp4"></video>
+              <b>${rf.xf.label}</b>
+              <button type="button" class="ilp-vplay" aria-label="${st.voices.play}">▶</button>
+            </article>`).join("")}
+          ${xfStills.map(([f, cap]) => `<article class="ilp-xf-card" role="button" tabindex="0">${pic(f, cap, { sizes: "280px" })}<b>${cap}</b></article>`).join("")}
+        </div>
+        <button type="button" class="ilp-xf-nav next" data-xf-next aria-label="Sonraki">›</button>
+      </div>
+      <div class="ilp-xf-cta"><button type="button" class="ilp-btn ilp-btn-dark" data-voices-cta>${rf.xf.cta}</button></div>
+      </div>
+    </section>`
+    : "";
+  const pv = (st.patientClips || []).filter((n) => fs.existsSync(path.join(IMG_DIR, "video", n + ".mp4")));
+  const patients = pv.length ? `<div class="ilp-pt" ${io()}><h3>${st.patientsTitle}</h3><div class="ilp-pt-row">${pv.map((n) => `<button type="button" class="ilp-pv" data-story-cta aria-label="${st.patientsCta}"><video muted loop playsinline preload="none" poster="${src("video/" + n + "-poster.webp")}"><source src="${src("video/" + n + ".mp4")}" type="video/mp4"></video></button>`).join("")}</div><button type="button" class="ilp-btn ilp-btn-dark" data-story-cta>${st.patientsCta}</button></div>` : "";
+  const story = `<section class="ilp-sec ilp-story" id="gercek-sonuclar" data-story style="padding-top:clamp(12px,2vw,28px);"><div class="ilp-wrap">
     <div class="ilp-num">${st.tag}</div><h2>${st.h2}</h2>
     <div class="ilp-story-grid">
       <div class="ilp-story-stick">
@@ -459,9 +653,10 @@ export function implantLandingBody({ lang, t, p, crumbs, wa }) {
         <article class="ilp-sst ilp-sst-cta" data-ss="${storyCases.length}"><h3>${st.ctaTitle}</h3><button type="button" class="ilp-btn ilp-btn-dark" data-story-cta>${st.ctaBtn}</button></article>
       </div>
     </div>
+    ${patients}
   </div></section>`;
   const sticky = `<div class="ilp-sticky" data-ilp-sticky><button type="button" class="ilp-btn ilp-btn-dark">${hf.sticky}</button></div>`;
-  const anatomy = `<section class="ilp-sec" style="padding-top:clamp(40px,6vw,72px);"><div class="ilp-wrap ilp-two">
+  const anatomy = `<section class="ilp-sec" id="implant-nedir" style="padding-top:clamp(40px,6vw,72px);"><div class="ilp-wrap ilp-two">
     <div class="ilp-anat-card" ${io()}>${anatomySvg()}</div>
     <div ${io()}>
       <div class="ilp-num">${lp.s1.num} — ${lp.s1.tag}</div>
@@ -471,7 +666,7 @@ export function implantLandingBody({ lang, t, p, crumbs, wa }) {
     </div>
   </div></section>`;
 
-  const options = `<section class="ilp-sec" style="background:#fff;"><div class="ilp-wrap">
+  const options = `<section class="ilp-sec" id="secenekler" style="background:#fff;"><div class="ilp-wrap">
     <div ${io()} style="max-width:640px;margin-bottom:34px;"><div class="ilp-num">${lp.s2.num} — ${lp.s2.tag}</div><h2>${lp.s2.h2}</h2></div>
     <div class="ilp-opts">
       ${lp.s2.items
@@ -488,7 +683,7 @@ export function implantLandingBody({ lang, t, p, crumbs, wa }) {
     <div class="ilp-band" ${io()}><b>${lp.bandTitle}</b><a data-dtr-cta href="${wa}" target="_blank" rel="noopener" class="ilp-btn ilp-btn-dark">${icons.wa} ${p.ctaPrimary}</a></div>
   </div></section>`;
 
-  const steps = `<section class="ilp-sec"><div class="ilp-wrap">
+  const steps = `<section class="ilp-sec" id="adim-adim"><div class="ilp-wrap">
     <div ${io()} style="max-width:680px;margin-bottom:34px;"><div class="ilp-num">${lp.s3.num} — ${lp.s3.tag}</div><h2>${lp.s3.h2}</h2><p class="ilp-lead">${lp.s3.lead}</p></div>
     <div class="ilp-steps sm">
       ${lp.s3.items.map((s, i) => `<article class="ilp-step" style="transition-delay:${(i % 2) * 0.1}s"><div class="ilp-step-vis">${sceneSvg(i + 1)}</div><div class="ilp-step-body"><span class="ilp-step-n">${i + 1}</span><h3>${s.t}</h3><p>${s.d}</p></div></article>`).join("")}
@@ -497,19 +692,25 @@ export function implantLandingBody({ lang, t, p, crumbs, wa }) {
   </div></section>`;
 
   const coreBrands = implantBrands.filter((b) => ["straumann", "osstem", "neodent"].includes(b.key));
-  const brands = `<section class="ilp-sec" style="background:#fff;"><div class="ilp-wrap">
-    <div ${io()} style="max-width:680px;margin-bottom:34px;"><div class="ilp-num">${lp.s4.num} — ${lp.s4.tag}</div><h2>${lp.s4.h2}</h2><p class="ilp-lead">${lp.s4.lead}</p></div>
-    <div class="ilp-brands">
-      ${coreBrands
-        .map(
-          (b, i) => `<div class="ilp-brand" ${io(`style="transition-delay:${i * 0.08}s"`)}>
-        <div class="ilp-logo ${b.logoDark ? "dark" : ""}"><img src="${src("brands/" + b.logo)}" alt="${L(b.titles, lang)}" loading="lazy" decoding="async"></div>
-        <p>${L(b.desc, lang)}</p>
-      </div>`
-        )
-        .join("")}
+  const brandMark = (b) => {
+    const logoPath = path.join(IMG_DIR, "brands", b.logo);
+    if (fs.existsSync(logoPath)) return `<div class="ilp-logo"><img src="${src("brands/" + b.logo)}" alt="${L(b.titles, lang)}" loading="lazy" decoding="async"></div>`;
+    return `<div class="ilp-logo"><b>${L(b.titles, lang)}</b></div>`;
+  };
+  const brands = rf.lab
+    ? `<section class="ilp-sec ilp-dk" id="laboratuvar"><div class="ilp-wrap">
+    <div class="ilp-labs" ${io()}>
+      <div class="ilp-lab intro">
+        <span class="ilp-num" style="color:#c9a227">${rf.lab.kicker}</span>
+        <h3>${rf.lab.title}</h3>
+        <p>${rf.lab.lead}</p>
+        <p>${rf.lab.inhouse}: ${rf.lab.inhouseD}</p>
+        <button type="button" class="ilp-btn ilp-btn-light" data-lab-cta>${rf.lab.cta}</button>
+      </div>
+      ${coreBrands.map((b, i) => `<div class="ilp-lab c${i}">${brandMark(b)}<h3>${L(b.titles, lang)}</h3><p>${L(b.desc, lang)}</p></div>`).join("")}
     </div>
-  </div></section>`;
+  </div></section>`
+    : "";
 
   const smileFiles = [
     ["about-portrait.jpg", "MediDent İstanbul hastası — gülüş"],
@@ -580,5 +781,5 @@ export function implantLandingBody({ lang, t, p, crumbs, wa }) {
     <div class="ilp-cta-row"><a data-dtr-cta href="${wa}" target="_blank" rel="noopener" class="ilp-btn ilp-btn-wa">${icons.wa} ${p.ctaPrimary}</a><a href="${contact}" class="ilp-btn ilp-btn-light">${p.ctaSecondary}</a></div>
   </div></div></section>`;
 
-  return `<style>${CSS}</style><div class="ilp">${hero}${story}${showcase}${anatomy}${options}${brands}${results}${clinic}${docs}${revs}${steps}${price}${final}</div>${contactSection(lang)}${sticky}${JS}`;
+  return `<style>${CSS}</style><div class="ilp">${hero}${story}${trust}${know}${xf}${showcase}${anatomy}${options}${brands}${results}${clinic}${docs}${revs}${steps}${price}${final}</div>${contactSection(lang)}${sticky}${JS}`;
 }
