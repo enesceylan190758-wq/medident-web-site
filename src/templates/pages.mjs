@@ -945,14 +945,13 @@ export function implantPricePage(lang) {
     ? `<section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">${landingInclusions(lang, implantPkg.items[lang] || implantPkg.items.tr)}</div></section>`
     : "";
 
-  // 3) Fiyat tablosu + marka karşılaştırması (Straumann/Osstem/Neodent)
-  const coreBrands = implantBrands.filter((b) => ["straumann", "osstem", "neodent"].includes(b.key));
+  // 3) Fiyat tablosu + marka karşılaştırması (Straumann/Osstem/Neodent/ImplantSwiss)
+  // Metin kartı — marka logosu YOK (telif riski); menşe ülke + kısa açıklama.
+  const coreBrands = implantBrands.filter((b) => ["straumann", "osstem", "neodent", "implantswiss"].includes(b.key));
   const brandCards = coreBrands
     .map(
       (b) => `<div class="card" data-reveal style="padding:20px;">
-      <div style="height:34px;display:flex;align-items:center;margin-bottom:12px;${b.logoDark ? "background:var(--ink);border-radius:8px;padding:6px 12px;width:fit-content;" : ""}">
-        <img src="${src("brands/" + b.logo)}" alt="${L(b.titles, lang)}" style="max-height:100%;max-width:120px;object-fit:contain;">
-      </div>
+      ${b.origin ? `<div style="font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;">${L(b.origin, lang)}</div>` : ""}
       <h4 style="margin:0 0 6px;font-size:16px;">${L(b.titles, lang)}</h4>
       <p style="font-size:13.5px;line-height:1.55;color:var(--muted-2);margin:0;">${L(b.desc, lang)}</p>
     </div>`
