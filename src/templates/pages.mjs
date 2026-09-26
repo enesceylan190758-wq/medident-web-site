@@ -85,7 +85,7 @@ function landingCtaBand(lang) {
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:10px;">
         <a href="${wa}" target="_blank" rel="noopener" class="btn" style="background:#25D366;color:#fff;">${icons.wa || ""} ${ui.ctaWa}</a>
-        <a href="${url(lang, "iletisim/")}" class="btn btn-ghost" style="border-color:rgba(255,255,255,.35);color:#fff;">${ui.ctaForm}</a>
+        <a href="#iletisim" data-scroll-form class="btn btn-ghost" style="border-color:rgba(255,255,255,.35);color:#fff;">${ui.ctaForm}</a>
       </div>
     </div>
   </div></section>`;
