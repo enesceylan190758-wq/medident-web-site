@@ -121,21 +121,27 @@
     });
   });
 
-  // Before/after slider
-  const ba = $("[data-ba]");
-  if (ba) {
+  // Before/after slider — sayfadaki TÜM [data-ba] kaydırıcıları (fare/dokunmatik/klavye)
+  $$("[data-ba]").forEach((ba) => {
     const before = $(".ba-before", ba);
     const handle = $(".ba-handle", ba);
     let drag = false;
+    let cur = 50;
+    ba.setAttribute("role", "slider");
+    ba.setAttribute("tabindex", "0");
+    ba.setAttribute("aria-label", "Öncesi / sonrası karşılaştırma");
+    ba.setAttribute("aria-valuemin", "0");
+    ba.setAttribute("aria-valuemax", "100");
     const set = (pct) => {
-      pct = Math.max(2, Math.min(98, pct));
-      if (before) before.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
-      if (handle) handle.style.left = pct + "%";
+      cur = Math.max(2, Math.min(98, pct));
+      if (before) before.style.clipPath = `inset(0 ${100 - cur}% 0 0)`;
+      if (handle) handle.style.left = cur + "%";
+      ba.setAttribute("aria-valuenow", String(Math.round(cur)));
     };
     const fromEv = (e) => {
       const r = ba.getBoundingClientRect();
-      const cx = e.clientX != null ? e.clientX : e.touches?.[0]?.clientX || 0;
-      set(((cx - r.left) / r.width) * 100);
+      if (!r.width) return;
+      set(((e.clientX - r.left) / r.width) * 100);
     };
     ba.addEventListener("pointerdown", (e) => {
       drag = true;
@@ -145,10 +151,18 @@
       } catch (_) {}
     });
     ba.addEventListener("pointermove", (e) => drag && fromEv(e));
-    ba.addEventListener("pointerup", () => (drag = false));
-    ba.addEventListener("pointerleave", () => (drag = false));
+    const end = () => (drag = false);
+    ba.addEventListener("pointerup", end);
+    ba.addEventListener("pointercancel", end);
+    ba.addEventListener("keydown", (e) => {
+      const step = e.shiftKey ? 10 : 4;
+      if (e.key === "ArrowLeft" || e.key === "ArrowDown") { set(cur - step); e.preventDefault(); }
+      else if (e.key === "ArrowRight" || e.key === "ArrowUp") { set(cur + step); e.preventDefault(); }
+      else if (e.key === "Home") { set(2); e.preventDefault(); }
+      else if (e.key === "End") { set(98); e.preventDefault(); }
+    });
     set(50);
-  }
+  });
 
   // FAQ accordion
   $$("[data-faq-item]").forEach((item) => {
@@ -344,7 +358,7 @@
       </div>
       ${cfg.quoteFormPrompt ? `<div style="margin-top:18px;padding:16px 20px;background:var(--gold,#b8935a);color:#fff;border-radius:12px;font-size:19px;font-weight:700;text-align:center;line-height:1.4;">↓ ${cfg.quoteFormPrompt}</div>` : ""}`;
 
-      const leadForm = $("[data-lead-form]");
+      const leadForm = $("[data-lead-form]:not([data-hero-form])");
       if (leadForm) {
         const msg = $("textarea[name=message]", leadForm);
         if (msg && !msg.value) msg.value = `${tx}${qty ? ` (${qty})` : ""} — ${priceText}`;
@@ -382,8 +396,7 @@
   // Contact form: kayıt (Sheet + varsa Estesof) HER ZAMAN sessizce denenir,
   // WhatsApp da HER ZAMAN ref kodlu mesajla açılır — biri diğerinin
   // fallback'i değil, ikisi birlikte olur.
-  const form = $("[data-lead-form]");
-  if (form) {
+  document.querySelectorAll("[data-lead-form]").forEach((form) => {
     const card = form.closest(".form-card");
     const cfg = window.__MD_FORM__ || {};
     const attrKeys = ["gclid", "gbraid", "wbraid", "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "kw", "h", "ref"];
@@ -391,6 +404,11 @@
       e.preventDefault();
       const fd = new FormData(form);
       const data = Object.fromEntries(fd.entries());
+      // Ülke kodu seçicili form (hero): +kod + yerel numara; kullanıcı zaten + ile yazdıysa olduğu gibi
+      if (data.cc) {
+        const raw = String(data.phone || "").trim();
+        data.phone = raw.startsWith("+") ? raw : data.cc + " " + raw.replace(/^0+/, "");
+      }
       const mdt = window.MDTrack || {};
       const stored = (mdt.getStore && mdt.getStore()) || {};
       const attribution = {};
@@ -433,12 +451,12 @@
       // 2) WhatsApp — her zaman açılır, ham kelime/gclid değil sadece ref kodu
       if (cfg.whatsapp) {
         const treatSel = form.querySelector("[name=treatment]");
-        const treatLabel = treatSel?.selectedOptions?.[0]?.text || data.treatment || "";
+        const treatLabel = treatSel && treatSel.value ? treatSel.selectedOptions[0].text : data.treatment || "";
         let msg = [
           "Merhaba MediDent İstanbul,",
           `Ad: ${data.name || ""}`,
           `Telefon: ${data.phone || ""}`,
-          `E-posta: ${data.email || ""}`,
+          data.email ? `E-posta: ${data.email}` : "",
           `Tedavi: ${treatLabel}`,
           data.message ? `Mesaj: ${data.message}` : "",
         ]
@@ -449,5 +467,18 @@
       }
       if (card) card.classList.add("is-sent");
     });
-  }
+  });
+
+  // Sayfa içi forma kaydır (CTA "Form Bırak" / "İletişim formu"): sayfadan çıkarmaz, ilk alana odaklanır
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest && e.target.closest("[data-scroll-form]");
+    if (!a) return;
+    const target = document.getElementById(a.dataset.target || "iletisim") || document.querySelector("[data-lead-form]");
+    if (!target) return;
+    e.preventDefault();
+    const reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    target.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    const first = target.querySelector("input[name=name]");
+    setTimeout(() => first && first.focus({ preventScroll: true }), reduce ? 0 : 600);
+  });
 })();
