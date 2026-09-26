@@ -946,8 +946,8 @@ export function implantPricePage(lang) {
     ? `<section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">${landingInclusions(lang, implantPkg.items[lang] || implantPkg.items.tr)}</div></section>`
     : "";
 
-  // 3) Fiyat tablosu + marka karşılaştırması (Straumann/Osstem/Neodent)
-  const coreBrands = implantBrands.filter((b) => ["straumann", "osstem", "neodent"].includes(b.key));
+  // 3) Fiyat tablosu + marka karşılaştırması (Straumann/Osstem/Neodent/ImplantSwiss)
+  const coreBrands = implantBrands.filter((b) => ["straumann", "osstem", "neodent", "implantswiss"].includes(b.key));
   const brandCards = coreBrands
     .map(
       (b) => `<div class="card" data-reveal style="padding:20px;">
