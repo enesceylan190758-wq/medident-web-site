@@ -1,3 +1,4 @@
+import { doctorsPath, servicePath, structPath } from "../data/paths.mjs";
 import { site } from "../data/site.mjs";
 import { i18n } from "../data/i18n.mjs";
 import { services, doctors, serviceFallback, priceCalc, packages, implantBrands } from "../data/content.mjs";
@@ -37,7 +38,7 @@ const reviewingDoctor = doctors.find((d) => d.slug === "dr-ahmet-celik");
 function reviewedByBlock(lang) {
   if (!reviewingDoctor) return "";
   const title = (reviewingDoctor.titles && (reviewingDoctor.titles[lang] || reviewingDoctor.titles.en)) || "";
-  const href = url(lang, "doktorlar/" + reviewingDoctor.slug + "/");
+  const href = url(lang, doctorsPath(lang, reviewingDoctor.slug));
   const label = reviewedByLabel[lang] || reviewedByLabel.en;
   return `<p style="font-size:13.5px;color:var(--muted-2);margin:0 0 24px;">
     ${label}: <a href="${href}" style="color:var(--ink-soft);font-weight:700;text-decoration:underline;">${reviewingDoctor.name}</a>${title ? ` <span style="font-weight:500;">· ${title}</span>` : ""}
@@ -84,7 +85,7 @@ function landingCtaBand(lang) {
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:10px;">
         <a href="${wa}" target="_blank" rel="noopener" class="btn" style="background:#25D366;color:#fff;">${icons.wa || ""} ${ui.ctaWa}</a>
-        <a href="${url(lang, "iletisim/")}" class="btn btn-ghost" style="border-color:rgba(255,255,255,.35);color:#fff;">${ui.ctaForm}</a>
+        <a href="${url(lang, structPath(lang, "contact"))}" class="btn btn-ghost" style="border-color:rgba(255,255,255,.35);color:#fff;">${ui.ctaForm}</a>
       </div>
     </div>
   </div></section>`;
@@ -211,7 +212,7 @@ function landingDoctorCard(lang) {
   if (!reviewingDoctor) return "";
   const ui = landingUi(lang);
   const title = (reviewingDoctor.titles && (reviewingDoctor.titles[lang] || reviewingDoctor.titles.en)) || "";
-  const href = url(lang, "doktorlar/" + reviewingDoctor.slug + "/");
+  const href = url(lang, doctorsPath(lang, reviewingDoctor.slug));
   const bio = (reviewingDoctor.bio && (reviewingDoctor.bio[lang] || reviewingDoctor.bio.en)) || "";
   return `<div data-reveal class="doctor-card" style="display:flex;gap:16px;align-items:flex-start;padding:18px 20px;margin:0 0 28px;border-radius:18px;border:1px solid rgba(43,35,24,.1);background:var(--cream);">
     <div style="flex:0 0 56px;height:56px;border-radius:50%;background:var(--burgundy);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;">AC</div>
@@ -247,7 +248,7 @@ function landingArticleSchema({ lang, pageUrl, headline, description, image, pub
       "@type": "Person",
       name: reviewingDoctor.name,
       ...(title ? { jobTitle: title } : {}),
-      url: site.domain + url(lang, "doktorlar/" + reviewingDoctor.slug + "/"),
+      url: site.domain + url(lang, doctorsPath(lang, reviewingDoctor.slug)),
     };
   }
   return schema;
@@ -317,8 +318,8 @@ function pageHero(lang, eyebrow, title, lead, crumbs) {
 // Services index
 export function servicesIndexPage(lang) {
   const t = i18n[lang];
-  const crumbs = [crumbHome(lang), { name: t.nav.services, href: url(lang, "hizmetler/") }];
-  const card = (s) => `<a href="${url(lang, "hizmetler/" + s.slug + "/")}" class="card service-card" style="display:block;color:inherit;padding:0;overflow:hidden;">
+  const crumbs = [crumbHome(lang), { name: t.nav.services, href: url(lang, structPath(lang, "services")) }];
+  const card = (s) => `<a href="${url(lang, servicePath(lang, s.slug))}" class="card service-card" style="display:block;color:inherit;padding:0;overflow:hidden;">
     ${s.image ? `<div class="service-card-media" style="aspect-ratio:16/10;overflow:hidden;background:var(--sand);"><img src="${asset(`/assets/img/${s.image}`)}" alt="${L(s.titles, lang)}" width="640" height="400" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div>` : `<div class="icon-box" style="margin:22px 22px 0;">${icons[s.icon] || icons.smile}</div>`}
     <div style="padding:18px 22px 22px;">
       <h3 style="margin:0 0 8px;">${L(s.titles, lang)}</h3>
@@ -345,8 +346,8 @@ export function servicePage(lang, service, article = null) {
   const title = L(service.titles, lang);
   const crumbs = [
     crumbHome(lang),
-    { name: t.nav.services, href: url(lang, "hizmetler/") },
-    { name: title, href: url(lang, "hizmetler/" + service.slug + "/") },
+    { name: t.nav.services, href: url(lang, structPath(lang, "services")) },
+    { name: title, href: url(lang, servicePath(lang, service.slug)) },
   ];
   const bodyHtml = article ? article.html : (serviceFallback[lang] || serviceFallback.en)(title);
   const faqs =
@@ -368,7 +369,7 @@ export function servicePage(lang, service, article = null) {
       <article class="prose">${bodyHtml}
         ${faqBlock}
         <div style="margin-top:32px;display:flex;flex-wrap:wrap;gap:12px;">
-          <a href="${url(lang, "iletisim/")}" class="btn btn-primary">${t.bookNow} ${icons.arrow()}</a>
+          <a href="${url(lang, structPath(lang, "contact"))}" class="btn btn-primary">${t.bookNow} ${icons.arrow()}</a>
           <a href="${waHref()}" class="btn btn-ghost" target="_blank" rel="noopener">${icons.wa} WhatsApp</a>
         </div>
       </article>
@@ -377,7 +378,7 @@ export function servicePage(lang, service, article = null) {
       <h2 style="font-size:26px;margin-bottom:22px;">${t.relatedServices}</h2>
       <div class="grid-auto">${related
         .map(
-          (s) => `<a href="${url(lang, "hizmetler/" + s.slug + "/")}" class="card service-card" style="display:block;color:inherit;padding:0;overflow:hidden;">${
+          (s) => `<a href="${url(lang, servicePath(lang, s.slug))}" class="card service-card" style="display:block;color:inherit;padding:0;overflow:hidden;">${
             s.image
               ? `<div style="aspect-ratio:16/10;overflow:hidden;background:var(--sand);"><img src="${asset(`/assets/img/${s.image}`)}" alt="${L(s.titles, lang)}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div>`
               : `<div class="icon-box" style="margin:18px 18px 0;">${icons[s.icon] || icons.smile}</div>`
@@ -396,7 +397,7 @@ export function servicePage(lang, service, article = null) {
       description: L(service.meta, lang),
       image: ogImage,
       provider: { "@id": site.domain + "/#organization" },
-      url: site.domain + url(lang, "hizmetler/" + service.slug + "/"),
+      url: site.domain + url(lang, servicePath(lang, service.slug)),
       inLanguage: langBCP47[lang] || "en-US",
     },
     breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
@@ -412,12 +413,12 @@ export function servicePage(lang, service, article = null) {
 // Doctors index
 export function doctorsIndexPage(lang) {
   const t = i18n[lang];
-  const crumbs = [crumbHome(lang), { name: t.nav.doctors, href: url(lang, "doktorlar/") }];
+  const crumbs = [crumbHome(lang), { name: t.nav.doctors, href: url(lang, doctorsPath(lang)) }];
   const initials = (name) => name.replace(/^(Dr\.|Dt\.)\s*/gi, "").split(/\s+/).map(w => w[0]).join("").slice(0, 2).toUpperCase();
   const avatarOrImg = (d) => d.image
     ? `<img src="${asset(`/assets/img/${d.image}`)}" alt="${d.name}">`
     : `<div style="width:100%;aspect-ratio:1;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--burgundy));display:flex;align-items:center;justify-content:center;font-family:var(--font-serif);font-size:36px;font-weight:700;color:#fff;">${initials(d.name)}</div>`;
-  const card = (d) => `<a href="${url(lang, "doktorlar/" + d.slug + "/")}" class="doctor-card" style="display:block;color:inherit;">
+  const card = (d) => `<a href="${url(lang, doctorsPath(lang, d.slug))}" class="doctor-card" style="display:block;color:inherit;">
     <div class="photo">${avatarOrImg(d)}</div>
     <div class="body"><h3 style="font-size:21px;margin-bottom:4px;">${d.name}</h3><p style="font-size:13.5px;color:var(--gold);font-weight:700;margin:0 0 10px;">${L(d.titles, lang)}</p><p style="font-size:14px;color:var(--muted-2);margin:0;">${L(d.bio, lang)}</p></div>
   </a>`;
@@ -432,7 +433,7 @@ export function doctorsIndexPage(lang) {
           : lang === "ar" ? "يتم تحديث فريق الأطباء لدينا. يرجى التواصل معنا لمزيد من المعلومات."
           : lang === "ru" ? "Состав врачей обновляется. Свяжитесь с нами для подробностей."
           : "Our medical team is being updated. Please contact us for details."
-        }</p><a href="${url(lang, "iletisim/")}" class="btn btn-primary" style="margin-top:16px;">${
+        }</p><a href="${url(lang, structPath(lang, "contact"))}" class="btn btn-primary" style="margin-top:16px;">${
           lang === "tr" ? "İletişim" : lang === "de" ? "Kontakt" : lang === "fr" ? "Contact" : lang === "ar" ? "تواصل" : lang === "ru" ? "Связаться" : "Contact us"
         }</a></div>`
     }
@@ -450,8 +451,8 @@ export function doctorPage(lang, doctor) {
   const t = i18n[lang];
   const crumbs = [
     crumbHome(lang),
-    { name: t.nav.doctors, href: url(lang, "doktorlar/") },
-    { name: doctor.name, href: url(lang, "doktorlar/" + doctor.slug + "/") },
+    { name: t.nav.doctors, href: url(lang, doctorsPath(lang)) },
+    { name: doctor.name, href: url(lang, doctorsPath(lang, doctor.slug)) },
   ];
   const body = `${pageHero(lang, "", doctor.name, L(doctor.titles, lang), crumbs)}
   <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container">
@@ -465,7 +466,7 @@ export function doctorPage(lang, doctor) {
         <p style="font-size:13.5px;color:var(--gold);font-weight:700;text-transform:uppercase;letter-spacing:.1em;">${L(doctor.titles, lang)}</p>
         <p>${L(doctor.bio, lang)}</p>
         <div style="margin-top:24px;display:flex;flex-wrap:wrap;gap:12px;">
-          <a href="${url(lang, "iletisim/")}" class="btn btn-primary">${t.bookNow} ${icons.arrow()}</a>
+          <a href="${url(lang, structPath(lang, "contact"))}" class="btn btn-primary">${t.bookNow} ${icons.arrow()}</a>
           <a href="${waHref()}" class="btn btn-ghost" target="_blank" rel="noopener">${icons.wa} WhatsApp</a>
         </div>
       </div>
@@ -480,7 +481,7 @@ export function doctorPage(lang, doctor) {
       jobTitle: L(doctor.titles, lang),
       image: site.domain + asset("/assets/img/") + doctor.image,
       worksFor: { "@id": site.domain + "/#organization" },
-      url: site.domain + url(lang, "doktorlar/" + doctor.slug + "/"),
+      url: site.domain + url(lang, doctorsPath(lang, doctor.slug)),
     },
     breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
   ];
@@ -530,9 +531,9 @@ export function articlePage(lang, article, relatedServiceSlug) {
   const body = `${pageHero(lang, t.nav.blog, article.title, "", crumbs)}
   <section class="section" style="padding-top:clamp(30px,4vw,48px);"><div class="container" style="max-width:820px;">
     <article class="prose">${html}
-      ${svc ? `<p style="margin-top:28px;"><a class="btn btn-ghost" href="${url(lang, "hizmetler/" + svc.slug + "/")}">${L(svc.titles, lang)} ${icons.arrowSm}</a></p>` : ""}
+      ${svc ? `<p style="margin-top:28px;"><a class="btn btn-ghost" href="${url(lang, servicePath(lang, svc.slug))}">${L(svc.titles, lang)} ${icons.arrowSm}</a></p>` : ""}
       <div style="margin-top:24px;display:flex;flex-wrap:wrap;gap:12px;">
-        <a href="${url(lang, "iletisim/")}" class="btn btn-primary">${t.bookNow} ${icons.arrow()}</a>
+        <a href="${url(lang, structPath(lang, "contact"))}" class="btn btn-primary">${t.bookNow} ${icons.arrow()}</a>
         <a href="${waHref()}" class="btn btn-ghost" target="_blank" rel="noopener">${icons.wa} WhatsApp</a>
       </div>
     </article>
@@ -569,7 +570,7 @@ export function articlePage(lang, article, relatedServiceSlug) {
 // About
 export function aboutPage(lang) {
   const t = i18n[lang];
-  const crumbs = [crumbHome(lang), { name: t.nav.about, href: url(lang, "hakkimizda/") }];
+  const crumbs = [crumbHome(lang), { name: t.nav.about, href: url(lang, structPath(lang, "about")) }];
   const badges = {
     tr: ["Sağlık turizmi koordinasyonu", "Steril & modern klinik", "CAD/CAM laboratuvar", "Uluslararası hasta deneyimi"],
     en: ["Health tourism coordination", "Sterile modern clinic", "CAD/CAM laboratory", "International patient experience"],
@@ -602,7 +603,7 @@ export function aboutPage(lang) {
 // Contact page (form + map)
 export function contactPage(lang) {
   const t = i18n[lang];
-  const crumbs = [crumbHome(lang), { name: t.nav.contact, href: url(lang, "iletisim/") }];
+  const crumbs = [crumbHome(lang), { name: t.nav.contact, href: url(lang, structPath(lang, "contact")) }];
   const body = `${pageHero(lang, t.contactEyebrow, t.contactTitle, t.contactLead, crumbs)}
   <section class="section" style="padding-top:0;padding-bottom:0;"><div class="container" data-quote-summary style="display:none;"></div></section>
   ${contactSection(lang, { heading: false })}
@@ -1372,7 +1373,7 @@ export function allOn4Page(lang) {
 // Reviews
 export function reviewsPage(lang) {
   const t = i18n[lang];
-  const crumbs = [crumbHome(lang), { name: t.nav.reviews, href: url(lang, "yorumlar/") }];
+  const crumbs = [crumbHome(lang), { name: t.nav.reviews, href: url(lang, structPath(lang, "reviews")) }];
   const review = (r) => `<div class="card"><div class="stars" style="color:var(--gold);">★★★★★</div><p style="font-size:15.5px;line-height:1.62;color:var(--ink-soft);margin:14px 0 18px;">“${r.text}”</p><div style="display:flex;align-items:center;gap:12px;"><div class="avatar">${r.initials}</div><div><div style="font-weight:700;font-size:14.5px;">${r.name}</div><div style="font-size:12.5px;color:var(--muted-2);">${r.place}</div></div></div></div>`;
   const body = `${pageHero(lang, t.reviewsEyebrow, t.reviewsTitle, t.reviewsLead, crumbs)}
   <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container">
@@ -1391,7 +1392,7 @@ export function reviewsPage(lang) {
 // Gallery
 export function galleryPage(lang) {
   const t = i18n[lang];
-  const crumbs = [crumbHome(lang), { name: t.nav.gallery, href: url(lang, "galeri/") }];
+  const crumbs = [crumbHome(lang), { name: t.nav.gallery, href: url(lang, structPath(lang, "gallery")) }];
   const imgs = img.gallery.map((f) => src(f));
   const body = `${pageHero(lang, "", t.galleryTitle, t.galleryLead, crumbs)}
   <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container">
@@ -1409,7 +1410,7 @@ export function galleryPage(lang) {
 // FAQ page
 export function faqPage(lang) {
   const t = i18n[lang];
-  const crumbs = [crumbHome(lang), { name: t.nav.faq, href: url(lang, "sss/") }];
+  const crumbs = [crumbHome(lang), { name: t.nav.faq, href: url(lang, structPath(lang, "faq")) }];
   const item = (f) => `<div class="faq-item" data-faq-item><button class="faq-q" data-faq-toggle><span>${f.q}</span><span class="faq-icon"><span class="minus">${miniMinus}</span><span class="plus">${miniPlus}</span></span></button><div class="faq-a"><p style="margin:0;">${f.a}</p></div></div>`;
   const body = `${pageHero(lang, t.faqEyebrow, t.faqTitle, "", crumbs)}
   <section class="section" style="padding-top:clamp(30px,4vw,48px);"><div class="container" style="max-width:900px;">
@@ -1428,7 +1429,7 @@ export function faqPage(lang) {
 export function legalPage(lang, kind) {
   const t = i18n[lang];
   const title = kind === "kvkk" ? t.kvkk : t.privacy;
-  const slug = kind === "kvkk" ? "kvkk/" : "gizlilik/";
+  const slug = kind === "kvkk" ? structPath(lang, "kvkk") : structPath(lang, "privacy");
   const crumbs = [crumbHome(lang), { name: title, href: url(lang, slug) }];
   const copy = {
     tr: `<p>${site.brand} olarak kişisel verilerinizin gizliliğine önem veriyoruz. İletişim formu veya WhatsApp üzerinden paylaştığınız ad, telefon, e-posta ve mesaj bilgileri yalnızca size dönüş yapmak ve tedavi süreciyle ilgili bilgilendirme amacıyla kullanılır; üçüncü taraflarla pazarlama amacıyla paylaşılmaz.</p><p>6698 sayılı KVKK kapsamındaki haklarınız çerçevesinde verilerinizin silinmesini talep edebilirsiniz. Talepleriniz için <a href="mailto:${site.email}">${site.email}</a> adresinden bize ulaşabilirsiniz.</p>`,

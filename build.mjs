@@ -12,6 +12,13 @@ import {
   sitemapChangefreq,
   htmlLang,
 } from "./src/data/seo.mjs";
+import {
+  deServiceRedirects,
+  deStructuralRedirects,
+  doctorsPath,
+  servicePath,
+  structPath,
+} from "./src/data/paths.mjs";
 import { layout, url, absUrl } from "./src/templates/layout.mjs";
 import { homePage } from "./src/templates/home.mjs";
 import {
@@ -132,7 +139,7 @@ function build() {
 
     // Services — keep primary article.html on the commercial URL (high internal links).
     // Mirror blog URLs for SERVICE_BODY_MIRROR_SERVICES are not emitted (301 → service).
-    emit(lang, "hizmetler/", servicesIndexPage(lang));
+    emit(lang, structPath(lang, "services"), servicesIndexPage(lang));
     const mirrorBlogSlugs = new Set();
     for (const s of services) {
       const article = primaryArticleForService(byLang, s.slug);
@@ -141,17 +148,17 @@ function build() {
         serviceMirrorRedirects.push({
           lang,
           from: `blog/${article.slug}/`,
-          to: `hizmetler/${s.slug}/`,
+          to: servicePath(lang, s.slug),
         });
       }
-      emit(lang, "hizmetler/" + s.slug + "/", servicePage(lang, s, article));
+      emit(lang, servicePath(lang, s.slug), servicePage(lang, s, article));
     }
 
     // Doctors
-    emit(lang, "doktorlar/", doctorsIndexPage(lang));
-    for (const d of doctors) emit(lang, "doktorlar/" + d.slug + "/", doctorPage(lang, d));
+    emit(lang, doctorsPath(lang), doctorsIndexPage(lang));
+    for (const d of doctors) emit(lang, doctorsPath(lang, d.slug), doctorPage(lang, d));
 
-    // Blog — skip service-body mirrors (content lives on /hizmetler/)
+    // Blog — skip service-body mirrors (content lives on service URL)
     const blogArticles = byLang.filter((a) => !mirrorBlogSlugs.has(a.slug));
     const blogList = blogArticles.map((a) => ({
       slug: a.slug,
@@ -167,14 +174,14 @@ function build() {
     emit(lang, "geo/", geoIndexPage(lang, geoForLang));
     for (const g of geoForLang) emit(lang, "geo/" + g.slug + "/", geoPackPage(lang, g));
 
-    // Static pages
-    emit(lang, "hakkimizda/", aboutPage(lang));
-    emit(lang, "iletisim/", contactPage(lang));
-    emit(lang, "yorumlar/", reviewsPage(lang));
-    emit(lang, "galeri/", galleryPage(lang));
-    emit(lang, "sss/", faqPage(lang));
-    emit(lang, "gizlilik/", legalPage(lang, "privacy"));
-    emit(lang, "kvkk/", legalPage(lang, "kvkk"));
+    // Static pages (DE uses localized structural segments)
+    emit(lang, structPath(lang, "about"), aboutPage(lang));
+    emit(lang, structPath(lang, "contact"), contactPage(lang));
+    emit(lang, structPath(lang, "reviews"), reviewsPage(lang));
+    emit(lang, structPath(lang, "gallery"), galleryPage(lang));
+    emit(lang, structPath(lang, "faq"), faqPage(lang));
+    emit(lang, structPath(lang, "privacy"), legalPage(lang, "privacy"));
+    emit(lang, structPath(lang, "kvkk"), legalPage(lang, "kvkk"));
 
     // Prices landing page — DE/EN/FR only (keyword-researched slugs)
     if (lang === "de") emit(lang, "preise/", pricesPage(lang));
@@ -284,6 +291,23 @@ function writeHtaccess() {
       return `Redirect 301 ${from} ${to}`;
     })
     .join("\n");
+
+  // DE Turkish-slug → German-slug migrations (structural + services). Keep chain short (1 hop).
+  // IMPORTANT: service-detail redirects MUST come before the bare /de/hizmetler/ index rule,
+  // and the index rule must be exact-match (RedirectMatch) so it does not swallow child paths.
+  const deServiceLines = [
+    ...deServiceRedirects(),
+    { from: "hizmetler/oral-implantoloji/", to: "leistungen/implantologie-zahnimplantate/" },
+  ]
+    .map((r) => `Redirect 301 /de/${r.from} ${site.domain}/de/${r.to}`)
+    .join("\n");
+  const deStructLines = deStructuralRedirects()
+    .map((r) => {
+      const fromBare = r.from.replace(/\/$/, "");
+      return `RedirectMatch 301 ^/de/${fromBare}/?$ ${site.domain}/de/${r.to}`;
+    })
+    .join("\n");
+
   const htaccess = `# MediDent İstanbul — Apache config (Turhost/cPanel)
 Options -Indexes
 DirectoryIndex index.html
@@ -337,10 +361,13 @@ Redirect 301 /blog/hollywoodlywood-smile-nedir-kimlere-uygun/ ${site.domain}/blo
 Redirect 301 /oral-implantoloji/ ${site.domain}/hizmetler/implantoloji-implant-tedavisi/
 Redirect 301 /hizmetler/oral-implantoloji/ ${site.domain}/hizmetler/implantoloji-implant-tedavisi/
 Redirect 301 /en/hizmetler/oral-implantoloji/ ${site.domain}/en/hizmetler/implantoloji-implant-tedavisi/
-Redirect 301 /de/hizmetler/oral-implantoloji/ ${site.domain}/de/hizmetler/implantoloji-implant-tedavisi/
 Redirect 301 /fr/hizmetler/oral-implantoloji/ ${site.domain}/fr/hizmetler/implantoloji-implant-tedavisi/
 Redirect 301 /ar/hizmetler/oral-implantoloji/ ${site.domain}/ar/hizmetler/implantoloji-implant-tedavisi/
 Redirect 301 /ru/hizmetler/oral-implantoloji/ ${site.domain}/ru/hizmetler/implantoloji-implant-tedavisi/
+
+# ---- DE Turkish structural/service slugs → German paths (301) ----
+${deServiceLines}
+${deStructLines}
 
 # ---- Service-body mirror blogs → commercial service pages (301) ----
 ${mirrorRedirects}
@@ -400,12 +427,12 @@ function writeLlmsTxt() {
 
 ## Primary (TR / EN / DE)
 - Home: ${site.domain}/ · ${site.domain}/en/ · ${site.domain}/de/
-- Services: ${site.domain}/hizmetler/ · ${site.domain}/en/hizmetler/ · ${site.domain}/de/hizmetler/
-- Implants: ${site.domain}/hizmetler/implantoloji-implant-tedavisi/ · ${site.domain}/en/hizmetler/implantoloji-implant-tedavisi/ · ${site.domain}/de/hizmetler/implantoloji-implant-tedavisi/
-- Cosmetic: ${site.domain}/hizmetler/estetik-dis-hekimligi/ · ${site.domain}/en/hizmetler/estetik-dis-hekimligi/ · ${site.domain}/de/hizmetler/estetik-dis-hekimligi/
+- Services: ${site.domain}/hizmetler/ · ${site.domain}/en/hizmetler/ · ${site.domain}/de/leistungen/
+- Implants: ${site.domain}/hizmetler/implantoloji-implant-tedavisi/ · ${site.domain}/en/hizmetler/implantoloji-implant-tedavisi/ · ${site.domain}/de/leistungen/implantologie-zahnimplantate/
+- Cosmetic: ${site.domain}/hizmetler/estetik-dis-hekimligi/ · ${site.domain}/en/hizmetler/estetik-dis-hekimligi/ · ${site.domain}/de/leistungen/aesthetische-zahnmedizin/
 - Blog: ${site.domain}/blog/ · ${site.domain}/en/blog/ · ${site.domain}/de/blog/
 - GEO Q&A: ${site.domain}/geo/ · ${site.domain}/en/geo/ · ${site.domain}/de/geo/
-- Contact: ${site.domain}/iletisim/ · ${site.domain}/en/iletisim/ · ${site.domain}/de/iletisim/
+- Contact: ${site.domain}/iletisim/ · ${site.domain}/en/iletisim/ · ${site.domain}/de/kontakt/
 - WhatsApp: https://wa.me/${site.whatsappRaw}
 
 ## Contact
