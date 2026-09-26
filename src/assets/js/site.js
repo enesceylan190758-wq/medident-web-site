@@ -297,8 +297,32 @@
 
     if (ctaBtn) {
       ctaBtn.addEventListener("click", (e) => {
-        e.preventDefault();
         const { item, opt, sit } = updateResult();
+        const stayOnPage = calcCard.hasAttribute("data-calc-stay");
+
+        if (stayOnPage) {
+          // Ads landing sayfası: sayfadan çıkmaz, sayfa içi forma kaydırır
+          // (data-scroll-form document-level handler'ı bu tıklamayı da yakalar).
+          // Mümkünse iletişim formundaki tedavi alanını seçilenle eşleştirir.
+          e.preventDefault();
+          const treatSel = document.querySelector("[data-treatment-select]");
+          if (treatSel) {
+            let value = null;
+            if (sit === "existing-implants") value = "existing-implants";
+            else if (sit === "not-sure") value = "not-sure-plan";
+            else if (item && item.matchTitle) {
+              const opt2 = Array.from(treatSel.options).find((o) => o.textContent.trim() === item.matchTitle);
+              if (opt2) value = opt2.value;
+            }
+            if (value) {
+              treatSel.value = value;
+              treatSel.dispatchEvent(new Event("change", { bubbles: true }));
+            }
+          }
+          return;
+        }
+
+        e.preventDefault();
         const base = ctaBtn.getAttribute("data-quote-url") || ctaBtn.getAttribute("href");
         const params = new URLSearchParams();
         if (sit && sit !== "priced") {

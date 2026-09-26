@@ -1063,7 +1063,7 @@ export function implantPricePage(lang) {
   const body = `${heroSection}
   ${inclusionsBlock}
   ${priceSection}
-  ${priceCalcSection(lang)}
+  ${priceCalcSection(lang, { stayOnPage: true })}
   ${landingCtaBand(lang)}
   ${landingCompareTable(lang, p.compareRows || [])}
   ${landingBaSection(lang)}
