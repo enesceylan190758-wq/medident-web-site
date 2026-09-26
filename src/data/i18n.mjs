@@ -155,8 +155,10 @@ export const i18n = {
       eyebrow: "Fiyat Bilgisi",
       h1: "Diş İmplant Fiyatı",
       lead: "Diş implant fiyatı, marka ve implant adedine göre değişir — MediDent İstanbul'da tek implant 400 €'dan başlar. Kesin fiyat için ücretsiz foto değerlendirme yeterli.",
-      ctaPrimary: "Ücretsiz Foto Değerlendirme Al",
-      ctaSecondary: "WhatsApp'tan Yaz",
+      ctaPrimary: "Ücretsiz Değerlendirme İste",
+      ctaPrimaryNote: "Fotoğrafını veya röntgenini WhatsApp'tan gönder, 24 saat içinde ücretsiz ön değerlendirme ve yazılı tedavi planı al.",
+      ctaSecondary: "Form Bırak, Biz Arayalım",
+      ctaSecondaryNote: "Numaranı bırak, uygun olduğun saatte biz seni arayalım.",
       introTitle: "Diş implant fiyatını ne belirler?",
       introText: "Diş implant fiyatı üç şeye göre değişir: implant markası (Straumann, Osstem, Neodent), implant adedi ve kemik durumunuz (bazı vakalarda önce kemik greftine ihtiyaç olabilir). Aşağıdaki tabloda kendi durumunuza yakın fiyatı görebilir, kesinleşmiş rakam için fotoğraflarınızı WhatsApp'tan gönderebilirsiniz.",
       inclusionsTitle: "Fiyata neler dahil?",
@@ -1012,6 +1014,10 @@ export const i18n = {
       eyebrow: "Preise 2026",
       h1: "Zahnbehandlung Istanbul: Implantate, Zirkonkronen & Zahnersatz Preise",
       lead: "Transparente MediDent Istanbul Preise für Patienten aus DE/AT/CH — ohne versteckte Kosten. Unten die Zahlen oder Rechner für ein persönliches Angebot.",
+      ctaPrimary: "Kostenlose Einschätzung anfordern",
+      ctaPrimaryNote: "Senden Sie Ihr Foto oder Röntgenbild per WhatsApp — innerhalb von 24 Stunden erhalten Sie eine kostenlose Ersteinschätzung und einen schriftlichen Behandlungsplan.",
+      ctaSecondary: "Formular hinterlassen, wir rufen an",
+      ctaSecondaryNote: "Hinterlassen Sie Ihre Nummer — wir rufen Sie zu einer passenden Uhrzeit zurück.",
       tableTitle: "Vollständige Preisliste",
       tableTreatment: "Behandlung",
       tablePrice: "Preis",
@@ -1034,6 +1040,83 @@ export const i18n = {
           a: "Es ist ein echter Startpreis aus unserer tatsächlichen Preisliste. Ihr genaues Angebot wird nach einer kostenlosen Foto-Einschätzung bestätigt, da es von Ihrem individuellen Fall abhängt.",
         },
       ],
+    },
+    // Nur-Ads-Landingpage (noindex, nicht in der Sitemap) — deutsche Entsprechung
+    // von /dis-implant-fiyat/, ausschließlich für Hat-B-Kampagne (Zahnimplantate/
+    // All-on-4). Bewusst OHNE Vorher-/Nachher-Patientenfotos und ohne
+    // Garantie-Aussagen (Heilmittelwerbegesetz) — stattdessen Ablauf- und
+    // Klinik-Inhalte. /de/preise/ bleibt die indexierte SEO-Seite.
+    implantAdPage: {
+      eyebrow: "Preisinformation",
+      h1: "Zahnimplantate Türkei: Kosten",
+      lead: "Die Kosten für Zahnimplantate in der Türkei hängen von Marke und Anzahl der Implantate ab — bei MediDent Istanbul ab 400 € pro Implantat. Für den genauen Preis reicht eine kostenlose Foto-Einschätzung.",
+      ctaPrimary: "Kostenlose Einschätzung anfordern",
+      ctaPrimaryNote: "Senden Sie Ihr Foto oder Röntgenbild per WhatsApp — innerhalb von 24 Stunden erhalten Sie eine kostenlose Ersteinschätzung und einen schriftlichen Behandlungsplan.",
+      ctaSecondary: "Formular hinterlassen, wir rufen an",
+      ctaSecondaryNote: "Hinterlassen Sie Ihre Nummer — wir rufen Sie zu einer passenden Uhrzeit zurück.",
+      introTitle: "Wovon hängen die Implantatkosten ab?",
+      introText: "Die Implantatkosten hängen von drei Faktoren ab: der Implantatmarke (Straumann, Osstem, Neodent), der Anzahl der Implantate und Ihrem Kieferknochen (in manchen Fällen ist vorab ein Knochenaufbau nötig). Die Tabelle unten zeigt Richtpreise; den genauen Betrag erhalten Sie nach einer kostenlosen Foto-Einschätzung per WhatsApp.",
+      inclusionsTitle: "Was ist im Preis enthalten?",
+      inclusions: [
+        "Premium-Implantat (Straumann, Osstem oder Neodent)",
+        "3D-Planung & Chirurgie",
+        "Hotel & VIP-Transfer (bei größeren Behandlungen)",
+        "Schriftlicher Behandlungsplan nach kostenloser Fotobewertung",
+      ],
+      priceTitle: "Aktuelle Preistabelle Zahnimplantate",
+      priceTable: [
+        { label: "1 Zahnimplantat", price: "400 €" },
+        { label: "2 Zahnimplantate", price: "800 €" },
+        { label: "4 Zahnimplantate", price: "1.600 €" },
+        { label: "6 Zahnimplantate", price: "2.400 €" },
+        { label: "All-on-4-Paket (10 Implantate, Ober+Unterkiefer)", price: "8.000 €" },
+        { label: "All-on-4-Paket (12 Implantate, Ober+Unterkiefer)", price: "9.000 €" },
+      ],
+      priceNote: "Bei All-on-4-/Vollversorgungspaketen sind Hotelunterkunft (5 Sterne) und VIP-Transfer enthalten. Bei einzelnen oder wenigen Implantaten organisiert der Patient die Unterkunft selbst.",
+      brandsTitle: "Welche Implantatmarken verwenden wir?",
+      brandsLead: "Wir arbeiten mit denselben international zertifizierten Marken, die auch in Westeuropa verwendet werden.",
+      doctorsTitle: "Unser Ärzteteam",
+      doctorsLead: "Ein auf Implantologie und ästhetische Zahnheilkunde spezialisiertes Team.",
+      tripStages: [
+        { t: "1. Kostenlose Foto-Einschätzung", d: "Sie senden Fotos oder ein Röntgenbild per WhatsApp und erhalten eine erste Einschätzung." },
+        { t: "2. Schriftlicher Behandlungsplan", d: "Nach der klinischen Prüfung erhalten Sie einen individuellen Plan mit Festpreis." },
+        { t: "3. Behandlungstermin in Istanbul", d: "3D-Planung, Implantation und Kontrolle — Hotel & VIP-Transfer bei größeren Behandlungen inklusive." },
+        { t: "4. Nachsorge", d: "Kontrolltermine und Ansprechpartner auch nach der Rückreise." },
+      ],
+      faqTitle: "Häufige Fragen zu Zahnimplantat-Kosten in der Türkei",
+      faqs: [
+        {
+          q: "Warum sind Zahnimplantate in der Türkei günstiger?",
+          a: "Niedrigere Betriebskosten, Gehälter und Mieten — nicht niedrigere Qualität. Wir verwenden dieselben zertifizierten Implantatmarken (Straumann, Osstem, Neodent), die auch in Westeuropa eingesetzt werden.",
+        },
+        {
+          q: "Was kostet ein Zahnimplantat in der Türkei genau?",
+          a: "Ab 400 € pro Implantat, abhängig von Marke und Anzahl. Den genauen Preis für Ihren Fall erhalten Sie nach einer kostenlosen Foto-Einschätzung per WhatsApp.",
+        },
+        {
+          q: "Was ist der Unterschied zwischen einem Einzelimplantat und All-on-4?",
+          a: "Ein Einzelimplantat ersetzt einen fehlenden Zahn. All-on-4 versorgt einen ganzen Kiefer mit nur 4 Implantaten und einer festsitzenden Brücke — geeignet bei vielen fehlenden oder stark geschädigten Zähnen.",
+        },
+        {
+          q: "Wie erhalte ich einen verbindlichen Behandlungsplan?",
+          a: "Senden Sie Ihr Röntgenbild oder ein paar Fotos per WhatsApp — unser Arzt prüft Ihren Fall und erstellt einen individuellen, schriftlichen Behandlungsplan mit Festpreis.",
+        },
+      ],
+      // Dynamic Text Replacement — nur diese zwei Schlüssel (Hat-B-Kampagne:
+      // Zahnimplantate Türkei / All-on-4 Türkei). ?h= wird nie ungeprüft
+      // ins DOM geschrieben, nur aus dieser festen Tabelle ausgewählt.
+      variants: {
+        zahnimplantate: {
+          h1: "Zahnimplantate Türkei: Kosten",
+          lead: "Die Kosten für Zahnimplantate in der Türkei hängen von Marke und Anzahl der Implantate ab — bei MediDent Istanbul ab 400 € pro Implantat.",
+          cta: "Kostenlose Einschätzung anfordern",
+        },
+        "all-on-4": {
+          h1: "All-on-4 Türkei: Kosten",
+          lead: "All-on-4 in der Türkei versorgt einen ganzen Kiefer mit nur 4 Implantaten und fester Brücke — bei MediDent Istanbul ab 8.000 € pro Kiefer, inkl. Hotel & VIP-Transfer.",
+          cta: "Kostenlose Einschätzung anfordern",
+        },
+      },
     },
     bondingPage: {
       eyebrow: "Composite Bonding",
@@ -1557,6 +1640,23 @@ export const i18n = {
       { q: "Comment démarrer le processus à distance ?", a: "Quelques photos de vos dents suffisent. Nos dentistes préparent une pré-évaluation gratuite, un plan de traitement et un devis transparent." },
       { q: "Comment puis-je payer ?", a: "Nous proposons un prix transparent tout inclus, sans frais cachés. Votre coordinateur discutera des options de paiement." },
     ],
+    landingUi: {
+      resultsEyebrow: "Résultats",
+      resultsTitle: "Résultats réels de nos patients",
+      resultsLead: "Glissez pour comparer avant/après, puis découvrez d'autres cas de la clinique.",
+      galleryTitle: "Plus de cas réels",
+      compareTitle: "Comparaison des coûts",
+      compareHome: "Chez vous (privé)",
+      compareHere: "MediDent Istanbul",
+      tripTitle: "Votre séjour en un coup d'œil",
+      inclusionsTitle: "Ce qui est inclus",
+      doctorTitle: "Validation clinique",
+      ctaTitle: "Évaluation photo gratuite",
+      ctaLead: "Envoyez des photos ou une radio sur WhatsApp — recevez un plan écrit avant de réserver vos billets.",
+      ctaWa: "Évaluation WhatsApp",
+      ctaForm: "Formulaire de contact",
+      dragHint: "Glisser pour comparer",
+    },
     reviews: [
       { initials: "JM", name: "James M.", place: "Royaume-Uni · Hollywood Smile", text: "Tout était pensé dans les moindres détails. J'ai été accueilli à l'aéroport et accompagné tout au long du processus. J'adore mon nouveau sourire." },
       { initials: "PK", name: "Petra K.", place: "Allemagne · Facettes", text: "Je n'avais pas souri depuis des années. Maintenant je suis la première à sourire sur les photos. Le résultat semble incroyablement naturel." },
@@ -1603,6 +1703,10 @@ export const i18n = {
       eyebrow: "Prix 2026",
       h1: "Implants dentaires, couronnes en zircone & prothèses en Turquie : prix",
       lead: "Prix réels MediDent Istanbul — sans coûts cachés. Consultez les chiffres exacts ci-dessous ou utilisez le calculateur pour un devis personnalisé.",
+      ctaPrimary: "Demander une évaluation gratuite",
+      ctaPrimaryNote: "Envoyez votre photo ou radio sur WhatsApp — recevez une évaluation gratuite et un plan de traitement écrit sous 24 heures.",
+      ctaSecondary: "Laisser mes coordonnées, on vous rappelle",
+      ctaSecondaryNote: "Laissez votre numéro — nous vous rappelons au moment qui vous convient.",
       tableTitle: "Liste de prix complète",
       tableTreatment: "Traitement",
       tablePrice: "Prix",

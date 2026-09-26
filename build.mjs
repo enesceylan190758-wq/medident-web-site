@@ -36,6 +36,7 @@ import {
   hollywoodSmilePage,
   allOn4Page,
   implantPricePage,
+  implantAdPageDe,
 } from "./src/templates/pages.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -108,11 +109,13 @@ function emit(lang, pathNoLang, rendered) {
       jsonld: rendered.jsonld || [],
       ogType: rendered.ogType || "website",
       publishedTime: rendered.publishedTime,
+      adLanding: rendered.adLanding,
+      noindex: rendered.noindex,
     },
     rendered.body
   );
   fs.writeFileSync(path.join(outDir, "index.html"), html);
-  pages.push({ lang, path: pathNoLang, loc: site.domain + url(lang, pathNoLang) });
+  if (!rendered.noindex) pages.push({ lang, path: pathNoLang, loc: site.domain + url(lang, pathNoLang) });
 }
 
 function build() {
@@ -204,6 +207,11 @@ function build() {
 
     // Diş implant fiyat landing — TR only (SKAG 1 ads mesaj eşleşmesi)
     if (lang === "tr") emit(lang, "dis-implant-fiyat/", implantPricePage(lang));
+
+    // Nur-Ads-Landingpage DE (Hat B: Zahnimplantate/All-on-4) — noindex, nicht in Sitemap.
+    // Achtung: NICHT "zahnimplantate-tuerkei-kosten/" — das ist bereits die indexierte
+    // implantsCostPage (siehe oben, seit c138a5f); eigene URL um Kollision zu vermeiden.
+    if (lang === "de") emit(lang, "zahnimplantate-tuerkei-angebot/", implantAdPageDe(lang));
   }
 
   writeSitemap();
