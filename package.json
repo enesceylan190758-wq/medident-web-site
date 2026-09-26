@@ -19,6 +19,13 @@
     "deploy:domain": "echo \"BLOKLANDI: deploy tek yerden yapilir -> .github/workflows/deploy.yml (main merge). Acil durum: workflow_dispatch.\" && exit 1",
     "serve": "node scripts/serve.mjs",
     "dev": "node build.mjs && node scripts/serve.mjs",
+    "google:auth": "node scripts/google/auth.mjs",
+    "google:status": "node scripts/google/status.mjs",
+    "google:ads:hat-bc": "node scripts/google/create-hat-bc.mjs",
+    "google:ads:skag-de-implant": "node scripts/google/create-skag-de-implant.mjs",
+    "google:ads:keywords": "node scripts/google/keyword-volumes.mjs",
+    "google:ads:keyword-ideas": "node scripts/google/keyword-volumes.mjs --ideas",
+    "google:gtm:fix-conversions": "node scripts/google/fix-gtm-conversions.mjs",
     "seo:lint": "node scripts/seo/lint-content.mjs",
     "seo:lint:new": "node scripts/seo/lint-content.mjs --new-only",
     "seo:report": "node scripts/seo/lint-content.mjs --report-only --json lint-all.json",
@@ -30,6 +37,7 @@
   },
   "devDependencies": {
     "basic-ftp": "^6.0.1",
+    "google-auth-library": "^11.1.0",
     "mammoth": "^1.8.0"
   }
 }

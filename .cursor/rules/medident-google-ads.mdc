@@ -1,0 +1,43 @@
+---
+description: MediDent Google Ads — playbook, SKAG/STAG, yasak iddialar, Hat A/B/C
+globs:
+  - docs/google-ads/**
+  - scripts/google/**
+alwaysApply: false
+---
+
+# MediDent Google Ads
+
+Ads veya SKAG / kampanya / RSA / negatif / Ads LP işi gelince **önce** `docs/google-ads/prompts.md` ve ilgili playbook dosyasını oku.
+
+## Kaynak dosyalar
+
+| Dosya | Ne zaman |
+|-------|----------|
+| `docs/google-ads/SETUP.md` | Auth / hesap |
+| `docs/google-ads/build-your-first-skag.md` | Kampanya yapısı |
+| `docs/google-ads/anatomy-of-a-good-ad.md` | RSA kopya |
+| `docs/google-ads/ad-assets-best-practices.md` | Sitelink / callout |
+| `docs/google-ads/universal-negative-keywords.json` | Negatif listesi (kaynak) |
+| `docs/google-ads/universal-negative-keywords.md` | Negatif özet |
+| `docs/google-ads/landing-page-checklist.md` | Final URL / dolu LP |
+| `docs/google-ads/lp-design-reference.md` | Dribbble LP görsel referans |
+| `docs/google-ads/skag-matrix.md` | Tedavi × pazar önceliği (markdown) |
+| `docs/google-ads/MediDent-SKAG-Matrisi.pdf` | SKAG öncelik + Planner PDF |
+| `docs/google-ads/MediDent-AI-SEO-Google-Ads-System-Brief.pdf` | AI + SEO + Ads system brief |
+| `docs/google-ads/system-brief-revision.md` | Brief × matris → Ads revizyon |
+| `docs/google-ads/campaigns.md` | Canlı envanter |
+| `docs/medident-ads-abc-plan.md` | Strateji kanıtı |
+
+## Sert kurallar
+
+- Yeni varlıklar **PAUSED**; kullanıcı demeden ENABLE yok.
+- Arama = reklam H1 = LP H1; bonding → bonding LP, hepsi `/de/preise/` değil.
+- `DE_DE` (native Almanca) ile `DE_TR` (Almanya geo + Türkçe) **aynı kampanyada karışmaz**.
+- Keyword tier E (bilgi / recovery) Ads’e değil SEO’ya.
+- 110 AI prompt = intent cluster, 110 URL / 110 Ads grubu değil.
+- `scripts/seo/lib/banned-terms.json` reklam + LP’de geçerli.
+- Hat A (TR gurbetçi Meta) ≠ Hat B/C (DE/FR native Search) ≠ DE_TR Search.
+- Deploy etme; `main`’e yazma.
+- OAuth ikinci stack kurma — `scripts/google/*` + `.env`.
+- 19 SKAG birden kurma; smoke = az grup + dolu LP.

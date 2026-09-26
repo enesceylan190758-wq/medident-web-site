@@ -1,0 +1,697 @@
+{
+  "$schema_note": "MediDent rakip değer envanteri. Güncelleme: docs/competitors/README.md. Trafik/Ads rakamı yok; site + public kaynak.",
+  "meta": {
+    "version": 1,
+    "createdAt": "2026-09-23",
+    "lastReviewedAt": "2026-09-23",
+    "reviewedBy": "cursor-agent",
+    "purpose": "Dentakay / DentSPA / Ömer Istanbul / MediDent değer karşılaştırması — tekrar araştırmamak için tek kaynak",
+    "scoreScale": "1-5 niteliksel (eşit ağırlık, toplam max 35)",
+    "scoreDimensions": [
+      "scale",
+      "trust",
+      "priceTransparency",
+      "conversionUx",
+      "dach",
+      "contentDepth",
+      "tourismPackage"
+    ],
+    "caveats": [
+      "Ömer Istanbul sitesi Cloudflare challenge nedeniyle doğrudan tam tarama yapılamadı; AACD, HealRoad, LinkedIn, public about özetleri kullanıldı.",
+      "Puanlar trafik değil; site konumlanması ve dönüşüm yüzeyine göre.",
+      "Site iddiaları (hasta sayısı, ödül, 60+ hekim) doğrulanmış klinik audit değil — kaynak URL ile kayıtlı.",
+      "MediDent SEO kapısı (banned-terms) rakip sitelerde geçerli değil; rakipler öncesi-sonrası / garanti dili kullanabilir."
+    ]
+  },
+  "clinics": {
+    "medident": {
+      "id": "medident",
+      "name": "MediDent İstanbul",
+      "domain": "https://medidentistanbul.com",
+      "primaryUrl": "https://medidentistanbul.com/",
+      "locations": [
+        {
+          "label": "Acıbadem / Üsküdar",
+          "address": "Acıbadem, Acıbadem Cd. 195F, 34718 Üsküdar/İstanbul",
+          "role": "primary"
+        }
+      ],
+      "contact": {
+        "phone": "+90 549 119 08 19",
+        "whatsapp": "+90 549 119 08 19",
+        "email": "info@medidentistanbul.com",
+        "hours": "Mo–Sa 09:00–18:00"
+      },
+      "languagesSite": ["tr", "en", "de", "fr", "ar", "ru"],
+      "languagesClaimedSupport": ["tr", "en", "de", "fr", "ar", "ru"],
+      "positioning": "Şeffaf EUR fiyat + durumlu hesaplayıcı + röntgen/foto WA + turkey-teeth dürüst içerik; tek klinik ölçeği",
+      "scaleClaims": {
+        "clinicsCount": 1,
+        "doctorsOnSite": 4,
+        "approxPagesSitemap": 300,
+        "notes": "Statik generator; GEO + blog + hizmet; DACH fiyat landing'leri var"
+      },
+      "trustSignals": {
+        "accreditationsClaimed": [
+          "Sağlık Turizmi Yetki Belgesi (içerikte referans; ana sayfa vitrini zayıf olabilir)"
+        ],
+        "awardsClaimed": [],
+        "reviewClaimsOnSite": {
+          "rating": 4.9,
+          "count": 1200,
+          "sourceNote": "site.mjs rating; marketing claim — Google'dan bağımsız doğrulanmalı"
+        },
+        "brandFace": "hekim sayfaları var; kurucu-yüz ağırlıklı marka değil",
+        "guaranteeLanguage": "yazılı garanti / online takip iddiası (site FAQ); sonuç garantisi SEO kapısında yasak"
+      },
+      "priceTransparency": {
+        "scoreDriver": "en güçlü alan",
+        "publicPriceList": true,
+        "currencyShown": "EUR",
+        "samplePublicPrices": [
+          { "item": "Zirconia crowns", "from": "€1600", "note": "from" },
+          { "item": "Dental implant", "from": "€400", "note": "from" },
+          { "item": "Full mouth implant package upper+lower", "from": "€8000", "note": "from" },
+          { "item": "Hollywood smile", "from": "€3200", "note": "from" },
+          { "item": "Composite bonding", "from": "€880", "note": "from" },
+          { "item": "Sedation", "from": "€450", "note": "fixed listed" }
+        ],
+        "priceLandings": [
+          "/en/turkey-teeth-price/",
+          "/de/preise/",
+          "/fr/ (prix landing — repo/docs ile teyit)"
+        ],
+        "calculator": {
+          "present": true,
+          "situations": [
+            "priced",
+            "existing-implants",
+            "not-sure",
+            "photos"
+          ],
+          "notes": "PR #37 sonrası durum seçenekleri; foto → WhatsApp"
+        },
+        "hotelTransferRule": "8+ diş / implant / full-mouth paketlerde otel+transfer dahil (site metni)"
+      },
+      "conversionUx": {
+        "onlineForm": true,
+        "whatsappPrimary": true,
+        "xrayPhotoPath": true,
+        "priceCalculator": true,
+        "complexCaseFormOptions": true,
+        "responseSlaClaimed": "24 saat teklif / foto ile saatler içinde netleşme iddiası"
+      },
+      "dach": {
+        "deSiteDepth": "strong",
+        "deTitleZahnarztIstanbul": true,
+        "impressumHonest": "partial — dürüst Impressum güçlendirme planlı",
+        "nachsorgeContent": "GEO aftercare EN var; DE derinleştirme planlı",
+        "notes": "DACH fiyat + turkey-teeth güven niyeti için hazır meta/içerik"
+      },
+      "tourismPackage": {
+        "vipTransfer": true,
+        "hotel": true,
+        "interpreter": true,
+        "packagingStyle": "şeffaf paket + hesaplayıcı; spa/ödül hikâyesi zayıf"
+      },
+      "content": {
+        "geoHubs": ["turkey-teeth", "aftercare", "accreditation how-to", "uskudar-acibadem"],
+        "strength": "answer-first GEO + fiyat niyeti",
+        "weakness": "ölçek/ödül vitrini; ince URL çoğaltmadan derinleşme"
+      },
+      "implantBrandsNamed": ["Straumann", "Osstem", "Neodent", "ImplantSwiss", "Zirkonzahn"],
+      "scores": {
+        "scale": 2,
+        "trust": 3,
+        "priceTransparency": 5,
+        "conversionUx": 5,
+        "dach": 4,
+        "contentDepth": 3,
+        "tourismPackage": 3,
+        "total": 25
+      },
+      "strengthsVsPeers": [
+        "EUR tablo + durumlu calc",
+        "karmaşık vaka form seçenekleri",
+        "turkey teeth dürüst risk anlatımı",
+        "DACH dil / Zahnarzt Istanbul hazırlığı"
+      ],
+      "weaknessesVsPeers": [
+        "tek klinik / düşük ölçek algısı",
+        "JCI/GHA/European Award vitrini yok",
+        "kurucu marka yüzü zayıf",
+        "operasyonel 1 saat WA hızı site kadar iddialı değil"
+      ],
+      "sources": [
+        {
+          "url": "https://medidentistanbul.com/",
+          "fetchedAt": "2026-09-23",
+          "type": "live-site"
+        },
+        {
+          "url": "https://www.medidentistanbul.com/en/turkey-teeth-price/",
+          "fetchedAt": "2026-09-23",
+          "type": "live-site"
+        },
+        {
+          "url": "src/data/site.mjs",
+          "fetchedAt": "2026-09-23",
+          "type": "repo"
+        },
+        {
+          "url": "docs/medident-site-yapisi-inceleme.md",
+          "fetchedAt": "2026-09-23",
+          "type": "repo"
+        }
+      ],
+      "confidence": "high"
+    },
+    "dentakay": {
+      "id": "dentakay",
+      "name": "Dentakay",
+      "domain": "https://dentakay.com",
+      "primaryUrl": "https://dentakay.com/",
+      "locations": [
+        {
+          "label": "Nish Clinic (Bahçelievler)",
+          "address": "Çobançeşme, Sanayi Cd. 44A No:16, 34196 Bahçelievler/İstanbul",
+          "role": "flagship"
+        },
+        { "label": "Şişli Clinic", "address": "Esentepe, 23 Temmuz Sk. No:9, 34394 Şişli/İstanbul", "role": "istanbul" },
+        { "label": "Bağcılar Clinic", "address": "Kemalpaşa, 1926. Sk No:2/A, 34204 Bağcılar/İstanbul", "role": "istanbul" },
+        { "label": "Antalya Clinic", "role": "turkey" },
+        { "label": "Ankara Çayyolu", "role": "turkey" },
+        { "label": "London Office", "role": "consult-office" },
+        { "label": "Riyadh Clinic", "role": "intl" }
+      ],
+      "contact": {
+        "phonePrimary": "+90 541 500 80 08",
+        "phoneAlt": "+90 546 559 41 48",
+        "hoursTypical": "Mo–Sa 09:00–21:00 (location pages)"
+      },
+      "languagesSite": ["en", "tr", "de", "es", "ar", "fr"],
+      "languagesClaimedSupport": ["English", "German", "Spanish", "French", "Turkish"],
+      "positioning": "Çok lokasyonlu uluslararası hasta makinesi; JCI + Smile Guarantee + online fiyat aracı",
+      "scaleClaims": {
+        "locationsClaimed": "8+ (TR + UK ofis + Riyadh)",
+        "doctorsClaimed": "60+",
+        "yearsClaimed": "16+",
+        "notes": "Ana sayfa: 60+ expert dentists; 3 lokasyon eşzamanlı JCI iddiası (Nish, Antalya, Şişli)"
+      },
+      "trustSignals": {
+        "accreditationsClaimed": ["JCI (3 klinik eşzamanlı iddia)"],
+        "awardsClaimed": [],
+        "guaranteeLanguage": "Smile Guarantee (site)",
+        "labsBrandsNamed": ["Nobel Biocare", "Straumann", "AmannGirrbach / Zahn materials in calc"]
+      },
+      "priceTransparency": {
+        "scoreDriver": "güçlü ama USD ağırlıklı + tasarruf % karşılaştırması",
+        "publicPriceList": true,
+        "currencyShown": "USD (sayfalarda $; calc EUR gösterimi de var)",
+        "samplePublicPrices": [
+          { "item": "Implant per unit", "from": "$429", "to": "$1009", "note": "range on implant prices page" },
+          { "item": "Laminate veneer per unit", "from": "$369", "note": "six-veneer example $2169" },
+          { "item": "Full-arch per jaw", "from": "$4049", "to": "$9879", "note": "range" }
+        ],
+        "priceLandings": [
+          "https://dentakay.com/prices/dental-implants-costs-and-packages-in-turkey",
+          "https://dentakay.com/prices/veneers-costs-and-packages-in-turkey",
+          "https://dentakay.com/prices/full-arch-implants-costs-and-packages-in-turkey"
+        ],
+        "calculator": {
+          "present": true,
+          "notes": "Ana sayfa + fiyat sayfalarında tedavi/çene/adet/malzeme seçimli tahmin; yerel klinikle % tasarruf tablosu"
+        }
+      },
+      "conversionUx": {
+        "onlineForm": true,
+        "freeVideoConsult30min": true,
+        "whatsapp": true,
+        "priceCalculator": true,
+        "xrayPhotoPath": "consultation flow (photos/X-ray personalized estimate FAQ)"
+      },
+      "dach": {
+        "deSiteDepth": "present (DE locale in nav)",
+        "notes": "DE dil var; MediDent kadar turkey-teeth korku/dürüstlük odaklı hub bilinmiyor — tekrar tarama ile güncelle"
+      },
+      "tourismPackage": {
+        "vipTransfer": true,
+        "hotel": true,
+        "interpreter": true,
+        "packagingStyle": "çok klinik + VIP; Londra ofis ile güven köprüsü"
+      },
+      "content": {
+        "strength": "tedavi katalogu, fiyat landing'leri, case studies, blog, patient guides",
+        "weakness": "kitle klinik algısı; 'guarantee' dili yasal/etik baskı altında"
+      },
+      "scores": {
+        "scale": 5,
+        "trust": 4,
+        "priceTransparency": 4,
+        "conversionUx": 4,
+        "dach": 4,
+        "contentDepth": 4,
+        "tourismPackage": 5,
+        "total": 30
+      },
+      "strengthsVsPeers": [
+        "ölçek + çok lokasyon",
+        "JCI iddiası",
+        "fiyat sayfaları + calc",
+        "Londra ofis"
+      ],
+      "weaknessesVsPeers": [
+        "fabrika klinik algısı",
+        "dürüst risk anlatımı zayıf olabilir",
+        "USD/% tasarruf pazarlama dili"
+      ],
+      "medidentOpportunity": "turkey-teeth korkusuna karşı dürüst plan + EUR şeffaflık + karmaşık vaka formu",
+      "sources": [
+        {
+          "url": "https://dentakay.com/",
+          "fetchedAt": "2026-09-23",
+          "type": "live-site"
+        },
+        {
+          "url": "https://dentakay.com/locations",
+          "fetchedAt": "2026-09-23",
+          "type": "live-site"
+        },
+        {
+          "url": "https://dentakay.com/prices/dental-implants-costs-and-packages-in-turkey",
+          "fetchedAt": "2026-09-23",
+          "type": "search-snippet+url"
+        },
+        {
+          "url": "https://dentakay.com/prices/veneers-costs-and-packages-in-turkey",
+          "fetchedAt": "2026-09-23",
+          "type": "search-snippet+url"
+        }
+      ],
+      "confidence": "high"
+    },
+    "dentspa": {
+      "id": "dentspa",
+      "name": "DentSPA",
+      "domain": "https://dentspa.com",
+      "primaryUrl": "https://dentspa.com/",
+      "locations": [
+        {
+          "label": "Şişli / Teşvikiye",
+          "address": "Teşvikiye, Hakkı Yeten Cd. No:11, 34365 Şişli/İstanbul",
+          "role": "primary"
+        }
+      ],
+      "contact": {
+        "phone": "+90 850 255 88 88",
+        "email": "info@dentspa.com.tr"
+      },
+      "languagesSite": ["en"],
+      "languagesClaimedSupport": {
+        "core": ["English", "Turkish", "French", "Arabic"],
+        "limited": ["Spanish", "Russian", "Italian", "German"],
+        "source": "FAQ international-guests — German limited"
+      },
+      "positioning": "Premium spa-klinik + ödül/GHA; fiyat ana sayfada az, güven ve travel coordinator ağır",
+      "scaleClaims": {
+        "internationalGuestsClaimed": "50000+",
+        "reviewsClaimed": "2500+",
+        "googleTrustpilot": "4.6/5",
+        "medicalProfessionalsClaimed": 250,
+        "supportStaffClaimed": 25,
+        "yearsClaimed": 96,
+        "chairsPlanned": "20 treatment chairs (expansion news)",
+        "notes": "Ana sayfa '96 years of experience' iddiası — klinik yaşı mı zincir mi net değil; iddia olarak kaydet"
+      },
+      "trustSignals": {
+        "accreditationsClaimed": [
+          "GHA Certification for Excellence in Medical Travel Patient Experience (GHA news Jul 2026 — Türkiye first dental claim on site)",
+          "Ministry of Health – Türkiye",
+          "Turkish Dental Association",
+          "USHAŞ",
+          "ISO",
+          "TÜRSAB"
+        ],
+        "awardsClaimed": [
+          "European Clinic of the Year / Best Clinic in Dentistry in Europe — European Awards in Medicine 2024 (Budapest, 28 Nov 2024)",
+          "Straumann Award 2025 for Implant Excellence"
+        ],
+        "brandFace": "spa ambiyans + advisor (Assya vb. yorumlarda); kurucu Dr Ahnaf Aljajah (GHA press)"
+      },
+      "priceTransparency": {
+        "scoreDriver": "zayıf — fiyat advisor üzerinden",
+        "publicPriceList": false,
+        "currencyShown": null,
+        "samplePublicPrices": [],
+        "calculator": { "present": false },
+        "notes": "FAQ: approximate prices when contacting medical advisors"
+      },
+      "conversionUx": {
+        "onlineForm": true,
+        "whatsapp": true,
+        "priceCalculator": false,
+        "travelCoordinator": true,
+        "aftercareWhatsapp": true
+      },
+      "dach": {
+        "deSiteDepth": "weak",
+        "germanSupport": "limited (own FAQ)",
+        "notes": "DE native site derinliği düşük; GHA diller listesinde German var ama klinik FAQ sınırlı diyor"
+      },
+      "tourismPackage": {
+        "vipTransfer": true,
+        "hotel": true,
+        "interpreter": true,
+        "packagingStyle": "international guest services + spa atmosphere + 360 tour"
+      },
+      "content": {
+        "strength": "ödül/GHA içerik, blog (UK cost guides), before-after",
+        "weakness": "şeffaf EUR liste yok; fiyat niyeti SEO'da MediDent fırsatı"
+      },
+      "scores": {
+        "scale": 4,
+        "trust": 5,
+        "priceTransparency": 2,
+        "conversionUx": 3,
+        "dach": 3,
+        "contentDepth": 3,
+        "tourismPackage": 5,
+        "total": 25
+      },
+      "strengthsVsPeers": [
+        "GHA + European Award vitrini",
+        "premium spa konumlanma",
+        "travel coordination hikâyesi"
+      ],
+      "weaknessesVsPeers": [
+        "public fiyat listesi yok",
+        "DE limited",
+        "hesaplayıcı yok"
+      ],
+      "medidentOpportunity": "fiyat niyetli aramada EUR tablo + calc; DACH native içerik",
+      "sources": [
+        {
+          "url": "https://dentspa.com/",
+          "fetchedAt": "2026-09-23",
+          "type": "live-site"
+        },
+        {
+          "url": "https://dentspa.com/international-guests/",
+          "fetchedAt": "2026-09-23",
+          "type": "live-site"
+        },
+        {
+          "url": "https://dentspa.com/blog/european-award-in-medicine-2024/",
+          "fetchedAt": "2026-09-23",
+          "type": "live-site"
+        },
+        {
+          "url": "https://globalhealthcareaccreditation.com/news/dentspa-strengthens-global-trust-in-turkeys-dental-services-with-gha-certification",
+          "fetchedAt": "2026-09-23",
+          "type": "third-party"
+        }
+      ],
+      "confidence": "high"
+    },
+    "omeristanbul": {
+      "id": "omeristanbul",
+      "name": "Ömer Istanbul (Omer Istanbul Dental Clinic)",
+      "domain": "https://omeristanbul.com",
+      "primaryUrl": "https://www.omeristanbul.com/",
+      "locations": [
+        {
+          "label": "Fatih",
+          "address": "Akşemsettin Mah., Adnan Menderes Blv. D:No 6-8, Kat:1-2-3, 34093 Fatih/İstanbul",
+          "role": "primary",
+          "notes": "AACD profilinde Molla Gürani Mah. aynı No 6-8"
+        }
+      ],
+      "contact": {
+        "phoneAacd": "+90 552 840 34 34"
+      },
+      "languagesSite": ["en"],
+      "languagesClaimedSupport": ["many languages — patient representatives (about page claim)"],
+      "positioning": "Kurucu Dr. Ömer Karaaslan / kozmetik diş; AACD üyelik + IHTAC + büyük fiziksel tesis iddiası",
+      "scaleClaims": {
+        "founded": 2013,
+        "facilityClaimLinkedIn": "7 kat, 6000 m²",
+        "employeesLinkedIn": "51-200 (≈115)",
+        "countriesClaimed": "80+",
+        "digitalDentistry": "100% digital dentistry claim (LinkedIn)"
+      },
+      "trustSignals": {
+        "accreditationsClaimed": [
+          "International Health Tourism Authorization Certificate (Ministry of Health)",
+          "ISO 9001"
+        ],
+        "memberships": ["AACD (Dr Omer Karaaslan, member since 2022)", "TDB", "ADA membership claim (LinkedIn team)"],
+        "brandFace": "güçlü — kurucu hekim merkezli",
+        "reviewsThirdParty": {
+          "healroadPublished": 28,
+          "platforms": ["Google", "Trustpilot", "Yandex"]
+        }
+      },
+      "priceTransparency": {
+        "scoreDriver": "zayıf — public fiyat yok / HealRoad 'Ask clinic'",
+        "publicPriceList": false,
+        "currencyShown": null,
+        "samplePublicPrices": [],
+        "calculator": { "present": false },
+        "notes": "Cloudflare nedeniyle kendi fiyat sayfası doğrulanamadı; HealRoad 21 treatment hepsi Ask clinic"
+      },
+      "conversionUx": {
+        "onlineForm": "unknown-cf-blocked",
+        "whatsapp": "likely (industry norm; not fully verified on own domain)",
+        "priceCalculator": false,
+        "cloudflareProtection": true
+      },
+      "dach": {
+        "deSiteDepth": "weak-or-unknown",
+        "notes": "DE native derinlik zayıf görünüyor; CF bot koruması SEO taramayı da zorlaştırır"
+      },
+      "tourismPackage": {
+        "vipTransfer": "claimed-typical",
+        "hotel": "claimed-typical",
+        "interpreter": true,
+        "packagingStyle": "kurucu marka + historical peninsula konum"
+      },
+      "content": {
+        "treatmentsListedHealroad": [
+          "Makeover Smile",
+          "Single Implant",
+          "All-on-4",
+          "All-on-6",
+          "Porcelain Laminate",
+          "E-Max Veneer",
+          "Zirconium Crown",
+          "Hollywood Smile",
+          "Whitening",
+          "Bonding"
+        ],
+        "strength": "kurucu otorite + AACD + tesis ölçeği",
+        "weakness": "fiyat şeffaflığı; DACH; CF = ajan/SEO bot erişimi zor"
+      },
+      "founder": {
+        "name": "Dr. Ömer Karaaslan",
+        "education": "Marmara University Faculty of Dentistry",
+        "cosmeticFocusSince": 2013
+      },
+      "scores": {
+        "scale": 4,
+        "trust": 4,
+        "priceTransparency": 2,
+        "conversionUx": 3,
+        "dach": 2,
+        "contentDepth": 3,
+        "tourismPackage": 4,
+        "total": 22
+      },
+      "strengthsVsPeers": [
+        "kurucu yüz",
+        "AACD",
+        "büyük tesis iddiası",
+        "IHTAC + ISO"
+      ],
+      "weaknessesVsPeers": [
+        "public fiyat/calc yok",
+        "DACH zayıf",
+        "site tarama/CF"
+      ],
+      "medidentOpportunity": "EUR fiyat + calc + Zahnarzt Istanbul / DACH; karmaşık vaka formu",
+      "sources": [
+        {
+          "url": "https://www.omeristanbul.com/",
+          "fetchedAt": "2026-09-23",
+          "type": "blocked-cloudflare",
+          "note": "security verification page only"
+        },
+        {
+          "url": "https://www.omeristanbul.com/about-us/",
+          "fetchedAt": "2026-09-23",
+          "type": "search-snippet"
+        },
+        {
+          "url": "https://aacd.com/profiles/DDDBDDBC-8AAB-4E1C-8DCD-B664B02B0FAD",
+          "fetchedAt": "2026-09-23",
+          "type": "third-party"
+        },
+        {
+          "url": "https://healroad.com/clinics/omer-istanbul/",
+          "fetchedAt": "2026-09-23",
+          "type": "third-party"
+        },
+        {
+          "url": "https://linkedin.com/company/omeristanbultr",
+          "fetchedAt": "2026-09-23",
+          "type": "third-party"
+        }
+      ],
+      "confidence": "medium",
+      "followUpToRaiseConfidence": [
+        "Manuel tarayıcı ile omeristanbul.com fiyat / dil / DE sayfalarını kaydet",
+        "Kendi Google rating count ekle"
+      ]
+    }
+  },
+  "matrix": {
+    "featureComparison": [
+      {
+        "feature": "Public price list (numbers on page)",
+        "medident": true,
+        "dentakay": true,
+        "dentspa": false,
+        "omeristanbul": false
+      },
+      {
+        "feature": "Interactive price calculator",
+        "medident": true,
+        "dentakay": true,
+        "dentspa": false,
+        "omeristanbul": false
+      },
+      {
+        "feature": "Complex-case form situations (existing implants / not sure / photos)",
+        "medident": true,
+        "dentakay": false,
+        "dentspa": false,
+        "omeristanbul": false
+      },
+      {
+        "feature": "WhatsApp X-ray / photo path highlighted",
+        "medident": true,
+        "dentakay": "partial",
+        "dentspa": "partial",
+        "omeristanbul": "unknown"
+      },
+      {
+        "feature": "Multi-location scale",
+        "medident": false,
+        "dentakay": true,
+        "dentspa": false,
+        "omeristanbul": false
+      },
+      {
+        "feature": "JCI claim",
+        "medident": false,
+        "dentakay": true,
+        "dentspa": false,
+        "omeristanbul": false
+      },
+      {
+        "feature": "GHA / European award claim",
+        "medident": false,
+        "dentakay": false,
+        "dentspa": true,
+        "omeristanbul": false
+      },
+      {
+        "feature": "Founder-led brand face",
+        "medident": false,
+        "dentakay": false,
+        "dentspa": "partial",
+        "omeristanbul": true
+      },
+      {
+        "feature": "DE site locale",
+        "medident": true,
+        "dentakay": true,
+        "dentspa": false,
+        "omeristanbul": "unknown-weak"
+      },
+      {
+        "feature": "VIP hotel + transfer packaging",
+        "medident": true,
+        "dentakay": true,
+        "dentspa": true,
+        "omeristanbul": true
+      },
+      {
+        "feature": "Named implant brands on price/trust pages",
+        "medident": true,
+        "dentakay": true,
+        "dentspa": "partial",
+        "omeristanbul": "unknown"
+      }
+    ],
+    "scoresSummary": [
+      { "id": "dentakay", "total": 30, "rank": 1 },
+      { "id": "medident", "total": 25, "rank": 2 },
+      { "id": "dentspa", "total": 25, "rank": 2 },
+      { "id": "omeristanbul", "total": 22, "rank": 4 }
+    ]
+  },
+  "actionPlan": {
+    "asOf": "2026-09-23",
+    "doNow_1to2Weeks": [
+      {
+        "id": "merge-39",
+        "title": "PR #39 mobil formu merge",
+        "why": "Lead kaçırmamak; dönüşüm UX üstünlüğünü canlıya taşı"
+      },
+      {
+        "id": "crm-warm-dead",
+        "title": "CRM sıcak ölü data pilotu (teklif+gelmemiş, ≤12 ay, 40–50/gün, ayrı numara)",
+        "why": "Site değerini operasyonla çevir"
+      },
+      {
+        "id": "night-first-reply",
+        "title": "Gece/hafta sonu ilk cevap kuralı (insan veya inbound AI)",
+        "why": "Dentakay/DentSPA koordinatör hızına yaklaş"
+      }
+    ],
+    "doNext_2to6Weeks": [
+      {
+        "id": "complex-geo-en",
+        "title": "Karmaşık vaka EN GEO (existing implants, failed veneers, bridge vs implant)",
+        "why": "Form seçeneklerini içerikle destekle; #11 turkey-teeth türev yok"
+      },
+      {
+        "id": "de-impressum-nachsorge",
+        "title": "DE dürüst Impressum + Nachsorge derinliği",
+        "why": "DACH güven; sahte DE ofis yok"
+      },
+      {
+        "id": "homepage-trust-badges",
+        "title": "Ana sayfa: gerçek yetki/dernek rozetleri + hekim yüzü",
+        "why": "DentSPA/Ömer güven vitrinine cevap — uydurma ödül yok"
+      }
+    ],
+    "doNot": [
+      "Arkadaş firması Impressum kılıfı / sahte DE ofis algısı",
+      "7500’ün tamamına AI outbound; ana WhatsApp’tan kampanya",
+      "Dentakay tarzı ince fiyat URL ormanı / içerik spam",
+      "Sonuç garantisi / öncesi-sonrası SEO (TR kapısı)"
+    ],
+    "strategicThesis": "Ölçek ve ödül savaşını kopyalama. Kazan: dürüst EUR fiyat + hızlı cevap + DACH. Koru: calc + turkey-teeth dürüstlük."
+  },
+  "reviewCadence": {
+    "fullRescanMonths": 3,
+    "quickCheckMonths": 1,
+    "triggers": [
+      "Rakip ana sayfa / fiyat redesign",
+      "Yeni ödül veya akreditasyon haberleri",
+      "MediDent fiyat tablosu değişimi",
+      "Ömer CF kalkarsa tam site taraması"
+    ]
+  }
+}

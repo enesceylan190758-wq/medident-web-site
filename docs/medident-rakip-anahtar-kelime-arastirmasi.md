@@ -1,6 +1,9 @@
 # MediDent İstanbul — Rakip & Anahtar Kelime Araştırması
 *Gerçek web arama sonuçlarına dayanır. Tarih: 29 Temmuz 2026*
 
+> **Site değer karşılaştırması (Dentakay · DentSPA · Ömer · MediDent):**  
+> [`docs/competitors/README.md`](./competitors/README.md) · veri: [`docs/competitors/inventory.json`](./competitors/inventory.json)
+
 ---
 
 ## 1) ALMANYA PAZARI
