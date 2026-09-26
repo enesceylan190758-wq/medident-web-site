@@ -670,7 +670,7 @@ export function pricesPage(lang) {
               ? `<a href="${url(lang, lang === "de" ? "composite-bonding-tuerkei/" : lang === "fr" ? "composite-bonding-turquie/" : "composite-bonding-turkey/")}" style="color:var(--ink-soft);text-decoration:underline;">${L(item.titles, lang)}</a>`
               : L(item.titles, lang)
           }</td>
-          <td style="padding:14px 18px;text-align:right;font-weight:700;color:var(--ink);">${priceCell(item)}</td>
+          <td style="padding:14px 18px;text-align:right;font-weight:700;color:var(--ink);white-space:nowrap;">${priceCell(item)}</td>
         </tr>`
           )
           .join("")}
@@ -941,7 +941,7 @@ export function implantPricePage(lang) {
           .map(
             (row, i) => `<tr style="${i % 2 ? "background:var(--cream);" : ""}border-top:1px solid rgba(43,35,24,.08);">
           <td style="padding:14px 18px;color:var(--ink-soft);">${row.label}</td>
-          <td style="padding:14px 18px;text-align:right;font-weight:700;color:var(--ink);">${row.price}</td>
+          <td style="padding:14px 18px;text-align:right;font-weight:700;color:var(--ink);white-space:nowrap;">${row.price}</td>
         </tr>`
           )
           .join("")}
@@ -1121,7 +1121,7 @@ export function implantAdPageDe(lang) {
           .map(
             (row, i) => `<tr style="${i % 2 ? "background:var(--cream);" : ""}border-top:1px solid rgba(43,35,24,.08);">
           <td style="padding:14px 18px;color:var(--ink-soft);">${row.label}</td>
-          <td style="padding:14px 18px;text-align:right;font-weight:700;color:var(--ink);">${row.price}</td>
+          <td style="padding:14px 18px;text-align:right;font-weight:700;color:var(--ink);white-space:nowrap;">${row.price}</td>
         </tr>`
           )
           .join("")}
