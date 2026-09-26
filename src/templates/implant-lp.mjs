@@ -304,6 +304,7 @@ const CSS = `
 .ilp-pv{padding:0;border:0;background:#111;border-radius:var(--ilp-r);overflow:hidden;cursor:pointer;width:min(260px,44vw);aspect-ratio:9/16;box-shadow:var(--shadow-lg);flex:none}
 .ilp-pv video{width:100%;height:100%;object-fit:cover;display:block}
 .ilp-pt .ilp-btn{border:0;cursor:pointer}
+.ilp-duo{display:flex;flex-wrap:wrap;gap:16px 24px;align-items:flex-start}.ilp-duo>div{max-width:290px}.ilp-duo small{display:block;font-size:12.5px;line-height:1.45;color:var(--muted);margin-top:8px}.ilp-duo.dark small{color:#cbbfa9}.ilp-duo .ilp-btn-wa{box-shadow:0 18px 30px -18px rgba(37,211,102,.8)}.ilp-band .ilp-duo{justify-content:flex-end}
 .ilp-steps{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;position:relative}
 .ilp-step{border-radius:var(--ilp-r);background:#fff;border:1px solid rgba(43,35,24,.08);overflow:hidden;box-shadow:0 26px 50px -40px rgba(43,35,24,.5)}
 .ilp-step-vis{background:linear-gradient(180deg,#faf3e6,#f1e6d1);padding:14px 14px 0}
@@ -498,7 +499,6 @@ const JS = `<script>(function(){
 export function implantLandingBody({ lang, t, p, crumbs, wa }) {
   const lp = p.lp;
   const io = (extra = "") => `data-io ${extra}`;
-  const contact = url(lang, "iletisim/");
   const initials = (n) => n.replace(/^(Dr\.|Dt\.)\s*/gi, "").split(/\s+/).map((w) => w[0]).join("").slice(0, 2).toUpperCase();
 
   const stats = t.stats || [];
@@ -508,6 +508,7 @@ export function implantLandingBody({ lang, t, p, crumbs, wa }) {
     return s.dec ? s.to.toFixed(s.dec) + (s.suffix || "") : (s.sep ? Math.round(s.to).toLocaleString("tr-TR") : Math.round(s.to)) + "+";
   };
 
+  const ctaDuo = (cls = "") => `<div class="ilp-duo ${cls}"><div><a data-dtr-cta href="${wa}" target="_blank" rel="noopener" class="ilp-btn ilp-btn-wa">${icons.wa} ${p.ctaPrimary}</a><small>${p.ctaPrimaryNote}</small></div><div><a href="#hero-form" data-scroll-form data-target="hero-form" class="ilp-btn ilp-btn-light">${p.ctaSecondary}</a><small>${p.ctaSecondaryNote}</small></div></div>`;
   const hf = lp.hf;
   const ccs = [["+90","TR"],["+49","DE"],["+43","AT"],["+41","CH"],["+33","FR"],["+31","NL"],["+32","BE"],["+44","UK"],["+7","RU"]];
   const heroForm = `<div class="ilp-hf form-card" id="hero-form">
@@ -532,10 +533,7 @@ export function implantLandingBody({ lang, t, p, crumbs, wa }) {
         <div class="ilp-pill"><i></i>${p.eyebrow}</div>
         <h1 data-dtr-h1>${p.h1}</h1>
         <p class="ilp-lead" data-dtr-lead>${p.lead}</p>
-        <div class="ilp-cta-row">
-          <a data-dtr-cta href="${wa}" target="_blank" rel="noopener" class="ilp-btn ilp-btn-dark">${icons.wa} ${p.ctaPrimary}</a>
-          <a href="${contact}" class="ilp-btn ilp-btn-light">${p.ctaSecondary}</a>
-        </div>
+        ${ctaDuo()}
         <div class="ilp-mini">
           <div><strong>${statVal(0)}</strong><span>${stats[0]?.label || ""}</span></div>
           <div><strong>${statVal(1)}</strong><span>${stats[1]?.label || ""}</span></div>
@@ -680,7 +678,7 @@ export function implantLandingBody({ lang, t, p, crumbs, wa }) {
         )
         .join("")}
     </div>
-    <div class="ilp-band" ${io()}><b>${lp.bandTitle}</b><a data-dtr-cta href="${wa}" target="_blank" rel="noopener" class="ilp-btn ilp-btn-dark">${icons.wa} ${p.ctaPrimary}</a></div>
+    <div class="ilp-band" ${io()}><b>${lp.bandTitle}</b>${ctaDuo()}</div>
   </div></section>`;
 
   const steps = `<section class="ilp-sec" id="adim-adim"><div class="ilp-wrap">
@@ -747,7 +745,7 @@ export function implantLandingBody({ lang, t, p, crumbs, wa }) {
       <figure class="ilp-fig">${pic("implant-xray-oncesi-sonrasi.jpg", "Panoramik röntgen — implant öncesi ve sonrası", { sizes: "(max-width:900px) 100vw, 50vw" })}<figcaption>Röntgen — öncesi / sonrası</figcaption></figure>
     </div>
     <div class="ilp-gal">${smileFiles.map(([f, a]) => `<div ${io()}>${pic(f, a, { sizes: "(max-width:900px) 50vw, 25vw" })}</div>`).join("")}</div>
-    <div class="ilp-band" ${io()}><b>${lp.bandTitle2}</b><a href="${wa}" target="_blank" rel="noopener" class="ilp-btn ilp-btn-dark">${icons.wa} ${p.ctaPrimary}</a></div>
+    <div class="ilp-band" ${io()}><b>${lp.bandTitle2}</b>${ctaDuo()}</div>
   </div></section>`;
 
   const clinic = `<section class="ilp-sec" style="background:#fff;"><div class="ilp-wrap">
@@ -778,7 +776,7 @@ export function implantLandingBody({ lang, t, p, crumbs, wa }) {
   const final = `<section class="ilp-sec" style="padding-top:0;"><div class="ilp-wrap"><div class="ilp-final" ${io()}>
     ${sparkle("").replace("<svg", '<svg style="top:26px;left:8%"')}${sparkle("").replace("<svg", '<svg style="bottom:30px;right:10%"')}
     <h2>${lp.final.h2}</h2><p>${lp.final.lead}</p>
-    <div class="ilp-cta-row"><a data-dtr-cta href="${wa}" target="_blank" rel="noopener" class="ilp-btn ilp-btn-wa">${icons.wa} ${p.ctaPrimary}</a><a href="${contact}" class="ilp-btn ilp-btn-light">${p.ctaSecondary}</a></div>
+    ${ctaDuo("dark")}
   </div></div></section>`;
 
   return `<style>${CSS}</style><div class="ilp">${hero}${story}${trust}${know}${xf}${showcase}${anatomy}${options}${brands}${results}${clinic}${docs}${revs}${steps}${price}${final}</div>${contactSection(lang)}${sticky}${JS}`;

@@ -473,7 +473,7 @@
   document.addEventListener("click", (e) => {
     const a = e.target.closest && e.target.closest("[data-scroll-form]");
     if (!a) return;
-    const target = document.getElementById("iletisim") || document.querySelector("[data-lead-form]");
+    const target = document.getElementById(a.dataset.target || "iletisim") || document.querySelector("[data-lead-form]");
     if (!target) return;
     e.preventDefault();
     const reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
