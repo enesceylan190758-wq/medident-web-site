@@ -1091,6 +1091,154 @@ export function implantPricePage(lang) {
   };
 }
 
+/**
+ * Almanca implant Ads landing sayfası — `/de/zahnimplantate-tuerkei-angebot/`.
+ * TR `/dis-implant-fiyat/` sayfasının Almanca karşılığı, sadece Hat B (Zahnimplantate/
+ * All-on-4) kampanyası için. noindex + sitemap dışı (emit() rendered.noindex ile
+ * halleder) — /de/preise/ ile çakışmasın. NOT: Enes'in istediği
+ * "/de/zahnimplantate-tuerkei-kosten/" slug'ı zaten mevcut, indexlenen implantsCostPage
+ * tarafından kullanılıyor (bkz. commit c138a5f) — çakışmayı önlemek için farklı slug
+ * seçildi. Heilmittelwerbegesetz nedeniyle önce/sonra hasta fotoğrafı ve garanti iddiası
+ * YOK; bunun yerine süreç adımları (landingTripTimeline) ve klinik/hekim içeriği var.
+ * DTR sadece ?h=zahnimplantate ve ?h=all-on-4.
+ */
+export function implantAdPageDe(lang) {
+  const t = i18n[lang];
+  const p = t.implantAdPage;
+  const slug = "zahnimplantate-tuerkei-angebot/";
+  const crumbs = [crumbHome(lang), { name: p.eyebrow, href: url(lang, slug) }];
+  const wa = waHref("Hallo, ich möchte eine kostenlose Foto-/Röntgen-Einschätzung für Zahnimplantate.");
+
+  const table = `<div style="overflow-x:auto;border-radius:16px;border:1px solid rgba(43,35,24,.1);">
+    <table style="width:100%;border-collapse:collapse;font-size:15px;">
+      <thead><tr style="background:var(--cream-2);">
+        <th style="text-align:left;padding:14px 18px;font-weight:700;color:var(--ink);">Behandlung</th>
+        <th style="text-align:right;padding:14px 18px;font-weight:700;color:var(--ink);">Preis</th>
+      </tr></thead>
+      <tbody>
+        ${p.priceTable
+          .map(
+            (row, i) => `<tr style="${i % 2 ? "background:var(--cream);" : ""}border-top:1px solid rgba(43,35,24,.08);">
+          <td style="padding:14px 18px;color:var(--ink-soft);">${row.label}</td>
+          <td style="padding:14px 18px;text-align:right;font-weight:700;color:var(--ink);">${row.price}</td>
+        </tr>`
+          )
+          .join("")}
+      </tbody>
+    </table>
+  </div>`;
+
+  const trustBadges = (t.stats || [])
+    .map((s) => {
+      const val = s.dec ? s.to.toFixed(s.dec) : s.sep ? Math.round(s.to).toLocaleString("de-DE") : Math.round(s.to);
+      return `<div style="display:flex;align-items:baseline;gap:6px;"><strong style="font-size:19px;color:var(--ink);">${val}${s.suffix || (s.dec ? "" : "+")}</strong><span style="font-size:13px;color:var(--muted-2);">${s.label}</span></div>`;
+    })
+    .join("");
+
+  const heroSection = `<section class="page-hero"><div class="container">
+    ${breadcrumb(lang, crumbs)}
+    <div class="eyebrow">${p.eyebrow}</div>
+    <h1 data-dtr-h1 style="font-size:clamp(34px,5vw,60px);margin:0 0 14px;max-width:820px;">${p.h1}</h1>
+    <p data-dtr-lead class="lead" style="max-width:680px;">${p.lead}</p>
+    <div style="display:flex;flex-wrap:wrap;gap:20px 28px;margin:22px 0 28px;align-items:flex-start;">
+      <div style="max-width:300px;">
+        <a data-dtr-cta href="${wa}" target="_blank" rel="noopener" class="btn" style="background:#25D366;color:#fff;padding:15px 28px;font-size:15.5px;">${icons.wa} ${p.ctaPrimary}</a>
+        <p style="font-size:13px;line-height:1.45;color:var(--muted-2);margin:8px 0 0;">${p.ctaPrimaryNote}</p>
+      </div>
+      <div style="max-width:300px;">
+        <a href="#iletisim" data-scroll-form class="btn btn-outline-red" style="padding:15px 28px;font-size:15.5px;">${p.ctaSecondary}</a>
+        <p style="font-size:13px;line-height:1.45;color:var(--muted-2);margin:8px 0 0;">${p.ctaSecondaryNote}</p>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:24px;">${trustBadges}</div>
+  </div></section>`;
+
+  const inclusionsBlock = p.inclusions?.length
+    ? `<section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">${landingInclusions(lang, p.inclusions)}</div></section>`
+    : "";
+
+  const coreBrands = implantBrands.filter((b) => ["straumann", "osstem", "neodent", "implantswiss"].includes(b.key));
+  const brandCards = coreBrands
+    .map(
+      (b) => `<div class="card" data-reveal style="padding:20px;">
+      ${b.origin ? `<div style="font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;">${L(b.origin, lang)}</div>` : ""}
+      <h4 style="margin:0 0 6px;font-size:16px;">${L(b.titles, lang)}</h4>
+      <p style="font-size:13.5px;line-height:1.55;color:var(--muted-2);margin:0;">${L(b.desc, lang)}</p>
+    </div>`
+    )
+    .join("");
+
+  const priceSection = `<section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:22px;margin:0 0 14px;">${p.introTitle}</h2>
+    <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0 0 28px;">${p.introText}</p>
+    <h2 style="font-size:24px;margin:0 0 20px;">${p.priceTitle}</h2>
+    ${table}
+    <p style="font-size:13px;color:var(--muted-2);margin:16px 0 32px;">${p.priceNote}</p>
+    ${brandCards ? `<h2 style="font-size:22px;margin:0 0 6px;">${p.brandsTitle}</h2><p style="font-size:15px;color:var(--muted);margin:0 0 20px;">${p.brandsLead}</p><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">${brandCards}</div>` : ""}
+  </div></section>`;
+
+  const initials = (name) => name.replace(/^(Dr\.|Dt\.)\s*/gi, "").split(/\s+/).map((w) => w[0]).join("").slice(0, 2).toUpperCase();
+  const avatarOrImg = (d) =>
+    d.image
+      ? `<img src="${asset(`/assets/img/${d.image}`)}" alt="${d.name}" style="width:100%;height:100%;object-fit:cover;">`
+      : `<div style="width:100%;height:100%;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--burgundy));display:flex;align-items:center;justify-content:center;font-family:var(--font-serif);font-size:24px;font-weight:700;color:#fff;">${initials(d.name)}</div>`;
+  const doctorCard = (d) => `<a href="${url(lang, "doktorlar/" + d.slug + "/")}" data-reveal style="display:block;color:inherit;text-decoration:none;border-radius:16px;border:1px solid rgba(43,35,24,.1);padding:18px;text-align:center;background:var(--cream);">
+    <div style="width:72px;height:72px;border-radius:50%;overflow:hidden;margin:0 auto 12px;">${avatarOrImg(d)}</div>
+    <div style="font-weight:800;font-size:15px;color:var(--ink);">${d.name}</div>
+    <div style="font-size:12.5px;color:var(--gold);font-weight:700;margin-top:2px;">${L(d.titles, lang)}</div>
+  </a>`;
+  const doctorsSection = doctors.length
+    ? `<section class="section section-alt"><div class="container">
+    <div style="text-align:center;max-width:620px;margin:0 auto clamp(30px,4vw,44px);">
+      <h2 style="margin:0 0 10px;">${p.doctorsTitle}</h2>
+      <p style="font-size:15.5px;color:var(--muted);margin:0;">${p.doctorsLead}</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;">${doctors.map(doctorCard).join("")}</div>
+  </div></section>`
+    : "";
+
+  const faqItem = (f) => `<div class="faq-item" data-faq-item><button class="faq-q" data-faq-toggle><span>${f.q}</span><span class="faq-icon"><span class="minus">${miniMinus}</span><span class="plus">${miniPlus}</span></span></button><div class="faq-a"><p style="margin:0;">${f.a}</p></div></div>`;
+
+  // Dynamic Text Replacement — ?h= parametresi SADECE p.variants whitelist'inden seçim yapar.
+  const dtrScript = `<script>(function(){
+    var V=${JSON.stringify(p.variants)};
+    var k=new URLSearchParams(location.search).get('h');
+    var v=k&&Object.prototype.hasOwnProperty.call(V,k)?V[k]:null;
+    if(!v)return;
+    var h1=document.querySelector('[data-dtr-h1]'); if(h1&&v.h1)h1.textContent=v.h1;
+    var lead=document.querySelector('[data-dtr-lead]'); if(lead&&v.lead)lead.textContent=v.lead;
+    var ctas=document.querySelectorAll('[data-dtr-cta]'); if(v.cta)ctas.forEach(function(el){var wa=el.querySelector('svg');el.textContent='';if(wa)el.appendChild(wa);el.appendChild(document.createTextNode(' '+v.cta));});
+    if(v.h1)document.title=v.h1+' — ${site.brand}';
+  })();</script>`;
+
+  const body = `${heroSection}
+  ${inclusionsBlock}
+  ${priceSection}
+  ${landingCtaBand(lang)}
+  ${landingTripTimeline(lang, p.tripStages || [])}
+  ${doctorsSection}
+  ${landingCtaBand(lang)}
+  <section class="section section-alt"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:24px;margin:0 0 20px;">${p.faqTitle}</h2>
+    <div class="faq" data-reveal>${p.faqs.map(faqItem).join("")}</div>
+  </div></section>
+  ${contactSection(lang)}
+  ${dtrScript}`;
+
+  return {
+    body,
+    title: `${p.h1} — ${site.brand}`,
+    description: p.lead,
+    adLanding: true,
+    noindex: true,
+    jsonld: [
+      orgSchema(lang),
+      faqSchema(p.faqs),
+      breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
+    ],
+  };
+}
+
 /** Veneers commercial landing — DE (`porzellan-veneers-istanbul/`) + EN (`veneers-turkey/`). */
 export function veneersPage(lang) {
   const t = i18n[lang];

@@ -30,7 +30,9 @@ function head({ lang, title, description, path, image, jsonld = [], ogType = "we
   const t = i18n[lang];
   const canonical = absUrl(lang, path);
   const img = image || site.domain + asset("/assets/img/portrait-a.jpg");
-  const hreflangMap = resolveHreflangPaths(lang, path);
+  // noindex sayfalar (ör. sadece-reklam landing) hreflang kümesine girmez —
+  // indexlenen bir dile "alternate" olarak bağlanıp Search Console'da karışıklık yaratmasın.
+  const hreflangMap = noindex ? {} : resolveHreflangPaths(lang, path);
   const alts = Object.entries(hreflangMap)
     .map(([l, p]) => `<link rel="alternate" hreflang="${htmlLang[l]}" href="${absUrl(l, p)}">`)
     .join("\n    ");

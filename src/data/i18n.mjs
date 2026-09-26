@@ -1041,6 +1041,83 @@ export const i18n = {
         },
       ],
     },
+    // Nur-Ads-Landingpage (noindex, nicht in der Sitemap) — deutsche Entsprechung
+    // von /dis-implant-fiyat/, ausschließlich für Hat-B-Kampagne (Zahnimplantate/
+    // All-on-4). Bewusst OHNE Vorher-/Nachher-Patientenfotos und ohne
+    // Garantie-Aussagen (Heilmittelwerbegesetz) — stattdessen Ablauf- und
+    // Klinik-Inhalte. /de/preise/ bleibt die indexierte SEO-Seite.
+    implantAdPage: {
+      eyebrow: "Preisinformation",
+      h1: "Zahnimplantate Türkei: Kosten",
+      lead: "Die Kosten für Zahnimplantate in der Türkei hängen von Marke und Anzahl der Implantate ab — bei MediDent Istanbul ab 400 € pro Implantat. Für den genauen Preis reicht eine kostenlose Foto-Einschätzung.",
+      ctaPrimary: "Kostenlose Einschätzung anfordern",
+      ctaPrimaryNote: "Senden Sie Ihr Foto oder Röntgenbild per WhatsApp — innerhalb von 24 Stunden erhalten Sie eine kostenlose Ersteinschätzung und einen schriftlichen Behandlungsplan.",
+      ctaSecondary: "Formular hinterlassen, wir rufen an",
+      ctaSecondaryNote: "Hinterlassen Sie Ihre Nummer — wir rufen Sie zu einer passenden Uhrzeit zurück.",
+      introTitle: "Wovon hängen die Implantatkosten ab?",
+      introText: "Die Implantatkosten hängen von drei Faktoren ab: der Implantatmarke (Straumann, Osstem, Neodent), der Anzahl der Implantate und Ihrem Kieferknochen (in manchen Fällen ist vorab ein Knochenaufbau nötig). Die Tabelle unten zeigt Richtpreise; den genauen Betrag erhalten Sie nach einer kostenlosen Foto-Einschätzung per WhatsApp.",
+      inclusionsTitle: "Was ist im Preis enthalten?",
+      inclusions: [
+        "Premium-Implantat (Straumann, Osstem oder Neodent)",
+        "3D-Planung & Chirurgie",
+        "Hotel & VIP-Transfer (bei größeren Behandlungen)",
+        "Schriftlicher Behandlungsplan nach kostenloser Fotobewertung",
+      ],
+      priceTitle: "Aktuelle Preistabelle Zahnimplantate",
+      priceTable: [
+        { label: "1 Zahnimplantat", price: "400 €" },
+        { label: "2 Zahnimplantate", price: "800 €" },
+        { label: "4 Zahnimplantate", price: "1.600 €" },
+        { label: "6 Zahnimplantate", price: "2.400 €" },
+        { label: "All-on-4-Paket (10 Implantate, Ober+Unterkiefer)", price: "8.000 €" },
+        { label: "All-on-4-Paket (12 Implantate, Ober+Unterkiefer)", price: "9.000 €" },
+      ],
+      priceNote: "Bei All-on-4-/Vollversorgungspaketen sind Hotelunterkunft (5 Sterne) und VIP-Transfer enthalten. Bei einzelnen oder wenigen Implantaten organisiert der Patient die Unterkunft selbst.",
+      brandsTitle: "Welche Implantatmarken verwenden wir?",
+      brandsLead: "Wir arbeiten mit denselben international zertifizierten Marken, die auch in Westeuropa verwendet werden.",
+      doctorsTitle: "Unser Ärzteteam",
+      doctorsLead: "Ein auf Implantologie und ästhetische Zahnheilkunde spezialisiertes Team.",
+      tripStages: [
+        { t: "1. Kostenlose Foto-Einschätzung", d: "Sie senden Fotos oder ein Röntgenbild per WhatsApp und erhalten eine erste Einschätzung." },
+        { t: "2. Schriftlicher Behandlungsplan", d: "Nach der klinischen Prüfung erhalten Sie einen individuellen Plan mit Festpreis." },
+        { t: "3. Behandlungstermin in Istanbul", d: "3D-Planung, Implantation und Kontrolle — Hotel & VIP-Transfer bei größeren Behandlungen inklusive." },
+        { t: "4. Nachsorge", d: "Kontrolltermine und Ansprechpartner auch nach der Rückreise." },
+      ],
+      faqTitle: "Häufige Fragen zu Zahnimplantat-Kosten in der Türkei",
+      faqs: [
+        {
+          q: "Warum sind Zahnimplantate in der Türkei günstiger?",
+          a: "Niedrigere Betriebskosten, Gehälter und Mieten — nicht niedrigere Qualität. Wir verwenden dieselben zertifizierten Implantatmarken (Straumann, Osstem, Neodent), die auch in Westeuropa eingesetzt werden.",
+        },
+        {
+          q: "Was kostet ein Zahnimplantat in der Türkei genau?",
+          a: "Ab 400 € pro Implantat, abhängig von Marke und Anzahl. Den genauen Preis für Ihren Fall erhalten Sie nach einer kostenlosen Foto-Einschätzung per WhatsApp.",
+        },
+        {
+          q: "Was ist der Unterschied zwischen einem Einzelimplantat und All-on-4?",
+          a: "Ein Einzelimplantat ersetzt einen fehlenden Zahn. All-on-4 versorgt einen ganzen Kiefer mit nur 4 Implantaten und einer festsitzenden Brücke — geeignet bei vielen fehlenden oder stark geschädigten Zähnen.",
+        },
+        {
+          q: "Wie erhalte ich einen verbindlichen Behandlungsplan?",
+          a: "Senden Sie Ihr Röntgenbild oder ein paar Fotos per WhatsApp — unser Arzt prüft Ihren Fall und erstellt einen individuellen, schriftlichen Behandlungsplan mit Festpreis.",
+        },
+      ],
+      // Dynamic Text Replacement — nur diese zwei Schlüssel (Hat-B-Kampagne:
+      // Zahnimplantate Türkei / All-on-4 Türkei). ?h= wird nie ungeprüft
+      // ins DOM geschrieben, nur aus dieser festen Tabelle ausgewählt.
+      variants: {
+        zahnimplantate: {
+          h1: "Zahnimplantate Türkei: Kosten",
+          lead: "Die Kosten für Zahnimplantate in der Türkei hängen von Marke und Anzahl der Implantate ab — bei MediDent Istanbul ab 400 € pro Implantat.",
+          cta: "Kostenlose Einschätzung anfordern",
+        },
+        "all-on-4": {
+          h1: "All-on-4 Türkei: Kosten",
+          lead: "All-on-4 in der Türkei versorgt einen ganzen Kiefer mit nur 4 Implantaten und fester Brücke — bei MediDent Istanbul ab 8.000 € pro Kiefer, inkl. Hotel & VIP-Transfer.",
+          cta: "Kostenlose Einschätzung anfordern",
+        },
+      },
+    },
     bondingPage: {
       eyebrow: "Composite Bonding",
       h1: "Composite Bonding Istanbul: Preis, Ablauf & Veneers-Vergleich",
