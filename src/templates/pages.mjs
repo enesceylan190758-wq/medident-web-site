@@ -74,7 +74,9 @@ function landingCtaBand(lang) {
   const wa = waHref(
     lang === "de"
       ? "Hallo, ich möchte eine kostenlose Foto-/Röntgen-Einschätzung."
-      : "Hello, I’d like a free photo / X-ray assessment."
+      : lang === "fr"
+        ? "Bonjour, je voudrais une évaluation gratuite par photo / radio."
+        : "Hello, I’d like a free photo / X-ray assessment."
   );
   return `<section class="section" style="padding-top:8px;padding-bottom:8px;"><div class="container" style="max-width:960px;">
     <div data-reveal style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;padding:22px 24px;border-radius:20px;background:linear-gradient(135deg,var(--ink),#3a2f24);color:#fff;">
@@ -662,7 +664,12 @@ export function pricesPage(lang) {
 
   const faqItem = (f) => `<div class="faq-item" data-faq-item><button class="faq-q" data-faq-toggle><span>${f.q}</span><span class="faq-icon"><span class="minus">${miniMinus}</span><span class="plus">${miniPlus}</span></span></button><div class="faq-a"><p style="margin:0;">${f.a}</p></div></div>`;
 
+  // DE/FR: WhatsApp / sayfa-içi-form iki seçenekli CTA (aynı yapı /dis-implant-fiyat/'ta) —
+  // EN ("turkey-teeth-price/") şimdilik kapsam dışı, talep sadece DE/FR için geldi.
+  const ctaBand = lang === "de" || lang === "fr" ? landingCtaBand(lang) : "";
+
   const body = `${pageHero(lang, p.eyebrow, p.h1, p.lead, crumbs)}
+  ${ctaBand}
   <section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">
     <h2 style="font-size:24px;margin:0 0 20px;">${p.tableTitle}</h2>
     ${table}
