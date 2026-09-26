@@ -450,4 +450,17 @@
       if (card) card.classList.add("is-sent");
     });
   }
+
+  // Sayfa içi forma kaydır (CTA "Form Bırak" / "İletişim formu"): sayfadan çıkarmaz, ilk alana odaklanır
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest && e.target.closest("[data-scroll-form]");
+    if (!a) return;
+    const target = document.getElementById("iletisim") || document.querySelector("[data-lead-form]");
+    if (!target) return;
+    e.preventDefault();
+    const reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    target.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    const first = target.querySelector("input[name=name]");
+    setTimeout(() => first && first.focus({ preventScroll: true }), reduce ? 0 : 600);
+  });
 })();
