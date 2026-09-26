@@ -117,7 +117,7 @@ function clinicVideoSection(lang) {
   </section>`;
 }
 
-export function priceCalcSection(lang) {
+export function priceCalcSection(lang, { stayOnPage = false } = {}) {
   const c = i18n[lang].calc || i18n.en.calc;
   const treatmentOpts = priceCalc.map((p) => `<option value="${p.key}">${L(p.titles, lang)}</option>`).join("");
   const situationOpts = [
@@ -145,7 +145,7 @@ export function priceCalcSection(lang) {
         <h2 data-reveal style="margin:0 0 14px;">${c.title}</h2>
         <p data-reveal style="font-size:16px;line-height:1.62;color:var(--muted);margin:0;">${c.lead}</p>
       </div>
-      <div class="form-card" data-reveal data-calc>
+      <div class="form-card" data-reveal data-calc${stayOnPage ? ' data-calc-stay="1"' : ""}>
         <div class="form-stack">
           <label><span class="lbl">${c.situationLabel}</span><select data-calc-situation>${situationOpts}</select></label>
           <div class="form-grid" data-calc-priced-fields>
@@ -160,7 +160,7 @@ export function priceCalcSection(lang) {
           <p style="font-size:12.5px;color:var(--muted-2);margin:0;">${c.disclaimer}</p>
           <p style="font-size:12.5px;color:var(--muted-2);margin:0;">${c.hotelPolicy}</p>
             <div style="display:grid;gap:10px;" data-calc-actions>
-            <a href="${url(lang, "iletisim/")}" class="btn btn-primary btn-block" data-calc-cta data-quote-url="${url(lang, "iletisim/")}" data-cta-priced="${c.cta}" data-cta-plan="${c.ctaPlan}">${c.cta} ${icons.arrow()}</a>
+            <a href="${stayOnPage ? "#iletisim" : url(lang, "iletisim/")}"${stayOnPage ? " data-scroll-form" : ""} class="btn btn-primary btn-block" data-calc-cta data-quote-url="${url(lang, "iletisim/")}" data-cta-priced="${c.cta}" data-cta-plan="${c.ctaPlan}">${c.cta} ${icons.arrow()}</a>
             <a href="${waPhotos}" target="_blank" rel="noopener" class="btn btn-block" style="background:#25D366;color:#fff;display:none;" data-calc-wa>${icons.wa} ${c.ctaPhotos}</a>
           </div>
           <p style="font-size:12.5px;color:var(--muted-2);margin:0;text-align:center;">${c.photosHint}</p>
