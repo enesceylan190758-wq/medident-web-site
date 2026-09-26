@@ -898,9 +898,15 @@ export function implantPricePage(lang) {
   // Dynamic Text Replacement — ?h= parametresi SADECE bu sabit whitelist'ten
   // (p.variants) seçim yapar; ham parametre hiçbir zaman DOM'a yazılmaz.
   const dtrScript = `<script>(function(){
-    var V=${JSON.stringify(p.variants)};
-    var k=new URLSearchParams(location.search).get('h');
-    var v=k&&Object.prototype.hasOwnProperty.call(V,k)?V[k]:null;
+    var V=${JSON.stringify(p.variants)}, T=${JSON.stringify(p.treatments)}, LOC=${JSON.stringify(p.locations)};
+    var LEG={"implant-fiyat":"implant","turkiye-implant":"implant"};
+    var q=new URLSearchParams(location.search), k=q.get('h'), l=q.get('l');
+    var has=function(o,x){return !!x&&Object.prototype.hasOwnProperty.call(o,x)};
+    var loc=has(LOC,l)?LOC[l]:null;
+    var tk=has(T,k)?k:(has(LEG,k)?LEG[k]:(loc?"implant":null));
+    var v=null;
+    if(loc&&tk){v={h1:T[tk].h1.replace('{loc}',loc.loc),lead:loc.lead,cta:T[tk].cta};}
+    else if(has(V,k)){v=V[k];}
     if(!v)return;
     var h1=document.querySelector('[data-dtr-h1]'); if(h1&&v.h1)h1.textContent=v.h1;
     var lead=document.querySelector('[data-dtr-lead]'); if(lead&&v.lead)lead.textContent=v.lead;

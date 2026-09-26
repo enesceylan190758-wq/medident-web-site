@@ -331,6 +331,37 @@ export const i18n = {
         s9: { num: "009", tag: "Fiyat", h2: "Diş implant <em>fiyat tablosu</em>" },
         final: { h2: "Fotoğrafınızı gönderin, <em>yazılı fiyatınızı</em> alın", lead: "Ücretsiz ön değerlendirme. Uçak bileti almadan önce planınızı görün." },
       },
+      // Tedavi × konum kombinasyonları: ?h=implant&l=kartal
+      // Ek uyumu ELLE yazıldı (-de/-da/-te/-ta; ünlü uyumu + sert ünsüz).
+      // "loc" alanı zaten ekli haldir; H1 şablonundaki {loc} yerine konur.
+      // Ham parametre asla DOM'a yazılmaz — sadece bu tablolardan seçilir.
+      // Legacy h anahtarları (implant-fiyat, turkiye-implant…) `variants`'ta
+      // aynen çalışır; l ile birlikte gelirlerse tedavi = "implant" sayılır.
+      treatments: {
+        "implant": { h1: "{loc} Diş İmplantı", cta: "Ücretsiz Foto Değerlendirme Al" },
+        "all-on-4": { h1: "{loc} All-on-4 İmplant", cta: "Ücretsiz Foto Değerlendirme Al" },
+      },
+      locations: {
+        // Gerçek arama verisi olanlar (Ads search term, 2022–2026): istanbul, turkiye
+        "istanbul": { loc: "İstanbul'da", lead: "İstanbul'da diş implantı için kliniğimiz Anadolu Yakası'nda, Üsküdar/Acıbadem'de. Tek implant 400 €'dan başlar; kesin fiyat için ücretsiz foto değerlendirme yeterli." },
+        "turkiye": { loc: "Türkiye'de", lead: "Türkiye'de diş implantı, Avrupa'daki fiyatların çok altında ve aynı uluslararası markalarla (Straumann, Osstem) yapılır. Tek implant 400 €'dan başlar." },
+        // Gurbetçi / tatil kalıpları (Enes kararı; geçmiş veri yok — test)
+        "memleket": { loc: "Memlekette", lead: "Memlekete geldiğinizde İstanbul'da, Üsküdar/Acıbadem'deki kliniğimizde diş implantı. Önce fotoğrafınızı gönderin, yazılı fiyatınızı alın; tek implant 400 €'dan başlar." },
+        "tatil": { loc: "Tatilde", lead: "Tatilinizi İstanbul'da planlıyorsanız diş implantı için önce fotoğrafınızı gönderin; yazılı planınızı ve fiyatınızı uçak bileti almadan görün. Tek implant 400 €'dan başlar." },
+        // Anadolu Yakası ve ilçeleri — klinik Üsküdar/Acıbadem'de (site.address)
+        "anadolu-yakasi": { loc: "Anadolu Yakası'nda", lead: "Kliniğimiz Anadolu Yakası'nda, Üsküdar/Acıbadem'de. Tek implant 400 €'dan başlar; kesin fiyat için ücretsiz foto değerlendirme yeterli." },
+        "uskudar": { loc: "Üsküdar'da", lead: "Kliniğimiz Üsküdar/Acıbadem'de. Tek implant 400 €'dan başlar; kesin fiyat için ücretsiz foto değerlendirme yeterli." },
+        "acibadem": { loc: "Acıbadem'de", lead: "Kliniğimiz Acıbadem Caddesi, Üsküdar'da. Tek implant 400 €'dan başlar; kesin fiyat için ücretsiz foto değerlendirme yeterli." },
+        "kadikoy": { loc: "Kadıköy'de", lead: "Kadıköy'de diş implantı için kliniğimiz komşu Üsküdar/Acıbadem'de, Anadolu Yakası'nda. Tek implant 400 €'dan başlar." },
+        "atasehir": { loc: "Ataşehir'de", lead: "Ataşehir'de diş implantı için kliniğimiz Anadolu Yakası'nda, Üsküdar/Acıbadem'de. Tek implant 400 €'dan başlar." },
+        "umraniye": { loc: "Ümraniye'de", lead: "Ümraniye'de diş implantı için kliniğimiz Anadolu Yakası'nda, Üsküdar/Acıbadem'de. Tek implant 400 €'dan başlar." },
+        "maltepe": { loc: "Maltepe'de", lead: "Maltepe'de diş implantı için kliniğimiz Anadolu Yakası'nda, Üsküdar/Acıbadem'de. Tek implant 400 €'dan başlar." },
+        "kartal": { loc: "Kartal'da", lead: "Kartal'da diş implantı için kliniğimiz Anadolu Yakası'nda, Üsküdar/Acıbadem'de. Tek implant 400 €'dan başlar." },
+        "pendik": { loc: "Pendik'te", lead: "Pendik'te diş implantı için kliniğimiz Anadolu Yakası'nda, Üsküdar/Acıbadem'de. Tek implant 400 €'dan başlar." },
+        "tuzla": { loc: "Tuzla'da", lead: "Tuzla'da diş implantı için kliniğimiz Anadolu Yakası'nda, Üsküdar/Acıbadem'de. Tek implant 400 €'dan başlar." },
+        "sancaktepe": { loc: "Sancaktepe'de", lead: "Sancaktepe'de diş implantı için kliniğimiz Anadolu Yakası'nda, Üsküdar/Acıbadem'de. Tek implant 400 €'dan başlar." },
+        "sultanbeyli": { loc: "Sultanbeyli'de", lead: "Sultanbeyli'de diş implantı için kliniğimiz Anadolu Yakası'nda, Üsküdar/Acıbadem'de. Tek implant 400 €'dan başlar." },
+      },
       variants: {
         "implant-fiyat": {
           h1: "Diş İmplant Fiyatı",

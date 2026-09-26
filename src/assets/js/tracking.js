@@ -111,15 +111,28 @@
     "rakip-karsilastir": "TR-CMP",
     "medident-istanbul": "TR-BRAND",
     // utm_campaign / gelecekteki ?ref= değerleri için aynı whitelist
+    "implant": "TR-IMP",
+    "all-on-4": "TR-AO4",
     "hat-b-de": "DE-DENT",
     "hat-c-fr": "FR-DENT",
+  };
+
+  // Konum kodu (?l=) ref'in sonuna eklenir: TR-IMP-KRT. Sabit whitelist.
+  var REF_LOC = {
+    "istanbul": "IST", "turkiye": "TR", "memleket": "MEM", "tatil": "TAT",
+    "anadolu-yakasi": "ANA", "uskudar": "USK", "acibadem": "ACI", "kadikoy": "KDK",
+    "atasehir": "ATS", "umraniye": "UMR", "maltepe": "MLT", "kartal": "KRT",
+    "pendik": "PND", "tuzla": "TZL", "sancaktepe": "SNC", "sultanbeyli": "SLT",
   };
 
   function resolveRefCode(store) {
     if (!store) return null;
     var token = store.ref || store.h || store.utm_campaign;
-    if (!token) return null;
-    return REF_MAP[token] || null;
+    var base = token ? REF_MAP[token] : null;
+    if (!base && store.l && REF_LOC[store.l]) base = REF_MAP["implant"];
+    if (!base) return null;
+    if (store.l && REF_LOC[store.l]) base += "-" + REF_LOC[store.l];
+    return base;
   }
 
   function appendRef(text, refCode) {
@@ -218,7 +231,7 @@
   function captureAttribution() {
     try {
       var params = new URLSearchParams(window.location.search);
-      var keys = ["ref", "h", "gclid", "gbraid", "wbraid", "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "kw"];
+      var keys = ["ref", "h", "l", "gclid", "gbraid", "wbraid", "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "kw"];
       var store = getStore();
       keys.forEach(function (k) {
         var v = params.get(k);
