@@ -74,7 +74,9 @@ function landingCtaBand(lang) {
   const wa = waHref(
     lang === "de"
       ? "Hallo, ich möchte eine kostenlose Foto-/Röntgen-Einschätzung."
-      : "Hello, I’d like a free photo / X-ray assessment."
+      : lang === "fr"
+        ? "Bonjour, je souhaite une évaluation gratuite par photo/radio."
+        : "Hello, I’d like a free photo / X-ray assessment."
   );
   return `<section class="section" style="padding-top:8px;padding-bottom:8px;"><div class="container" style="max-width:960px;">
     <div data-reveal style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;padding:22px 24px;border-radius:20px;background:linear-gradient(135deg,var(--ink),#3a2f24);color:#fff;">
@@ -305,13 +307,29 @@ function geoConversionBand(lang) {
   </div>`;
 }
 
-function pageHero(lang, eyebrow, title, lead, crumbs) {
+function pageHero(lang, eyebrow, title, lead, crumbs, extraHtml = "") {
   return `<section class="page-hero"><div class="container">
     ${breadcrumb(lang, crumbs)}
     ${eyebrow ? `<div class="eyebrow">${eyebrow}</div>` : ""}
     <h1 style="font-size:clamp(34px,5vw,60px);margin:0 0 14px;">${title}</h1>
     ${lead ? `<p class="lead" style="max-width:680px;">${lead}</p>` : ""}
+    ${extraHtml}
   </div></section>`;
+}
+
+// İki seçenekli hero CTA: birincil WhatsApp (yeşil), ikincil sayfa içi forma kaydırma.
+// Ads/landing sayfalarında ziyaretçiyi sayfadan çıkarmamak için kullanılır.
+function heroTwoOptionCta(wa, primary, primaryNote, secondary, secondaryNote) {
+  return `<div style="display:flex;flex-wrap:wrap;gap:20px 28px;margin:22px 0 28px;align-items:flex-start;">
+      <div style="max-width:300px;">
+        <a href="${wa}" target="_blank" rel="noopener" class="btn" style="background:#25D366;color:#fff;padding:15px 28px;font-size:15.5px;">${icons.wa} ${primary}</a>
+        <p style="font-size:13px;line-height:1.45;color:var(--muted-2);margin:8px 0 0;">${primaryNote}</p>
+      </div>
+      <div style="max-width:300px;">
+        <a href="#iletisim" data-scroll-form class="btn btn-outline-red" style="padding:15px 28px;font-size:15.5px;">${secondary}</a>
+        <p style="font-size:13px;line-height:1.45;color:var(--muted-2);margin:8px 0 0;">${secondaryNote}</p>
+      </div>
+    </div>`;
 }
 
 // Services index
@@ -662,14 +680,32 @@ export function pricesPage(lang) {
 
   const faqItem = (f) => `<div class="faq-item" data-faq-item><button class="faq-q" data-faq-toggle><span>${f.q}</span><span class="faq-icon"><span class="minus">${miniMinus}</span><span class="plus">${miniPlus}</span></span></button><div class="faq-a"><p style="margin:0;">${f.a}</p></div></div>`;
 
-  const body = `${pageHero(lang, p.eyebrow, p.h1, p.lead, crumbs)}
+  // İki seçenekli CTA (WA birincil + sayfa içi form ikincil) — şimdilik DE/FR (Enes talebi).
+  const hasTwoOptionCta = (lang === "de" || lang === "fr") && p.ctaPrimary;
+  const heroCta = hasTwoOptionCta
+    ? heroTwoOptionCta(
+        waHref(
+          lang === "de"
+            ? "Hallo, ich möchte eine kostenlose Foto-/Röntgen-Einschätzung."
+            : "Bonjour, je souhaite une évaluation gratuite par photo/radio."
+        ),
+        p.ctaPrimary,
+        p.ctaPrimaryNote,
+        p.ctaSecondary,
+        p.ctaSecondaryNote
+      )
+    : "";
+
+  const body = `${pageHero(lang, p.eyebrow, p.h1, p.lead, crumbs, heroCta)}
   <section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">
     <h2 style="font-size:24px;margin:0 0 20px;">${p.tableTitle}</h2>
     ${table}
   </div></section>
+  ${hasTwoOptionCta ? landingCtaBand(lang) : ""}
   ${priceCalcSection(lang)}
   ${xraySection(lang)}
   ${brandsSection(lang)}
+  ${hasTwoOptionCta ? landingCtaBand(lang) : ""}
   <section class="section section-alt"><div class="container" style="max-width:820px;">
     <h2 style="font-size:24px;margin:0 0 20px;">${p.faqTitle}</h2>
     <div class="faq" data-reveal>${p.faqs.map(faqItem).join("")}</div>
