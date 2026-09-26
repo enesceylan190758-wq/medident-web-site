@@ -84,7 +84,7 @@ function landingCtaBand(lang) {
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:10px;">
         <a href="${wa}" target="_blank" rel="noopener" class="btn" style="background:#25D366;color:#fff;">${icons.wa || ""} ${ui.ctaWa}</a>
-        <a href="${url(lang, "iletisim/")}" class="btn btn-ghost" style="border-color:rgba(255,255,255,.35);color:#fff;">${ui.ctaForm}</a>
+        <a href="#iletisim" data-scroll-form class="btn btn-ghost" style="border-color:rgba(255,255,255,.35);color:#fff;">${ui.ctaForm}</a>
       </div>
     </div>
   </div></section>`;
@@ -926,9 +926,15 @@ export function implantPricePage(lang) {
     <div class="eyebrow">${p.eyebrow}</div>
     <h1 data-dtr-h1 style="font-size:clamp(34px,5vw,60px);margin:0 0 14px;max-width:820px;">${p.h1}</h1>
     <p data-dtr-lead class="lead" style="max-width:680px;">${p.lead}</p>
-    <div style="display:flex;flex-wrap:wrap;gap:14px;margin:22px 0 28px;">
-      <a data-dtr-cta href="${wa}" target="_blank" rel="noopener" class="btn btn-primary" style="padding:15px 28px;font-size:15.5px;">${icons.wa} ${p.ctaPrimary}</a>
-      <a href="${url(lang, "iletisim/")}" class="btn btn-outline-red" style="padding:15px 28px;font-size:15.5px;">${p.ctaSecondary}</a>
+    <div style="display:flex;flex-wrap:wrap;gap:20px 28px;margin:22px 0 28px;align-items:flex-start;">
+      <div style="max-width:300px;">
+        <a data-dtr-cta href="${wa}" target="_blank" rel="noopener" class="btn" style="background:#25D366;color:#fff;padding:15px 28px;font-size:15.5px;">${icons.wa} ${p.ctaPrimary}</a>
+        <p style="font-size:13px;line-height:1.45;color:var(--muted-2);margin:8px 0 0;">${p.ctaPrimaryNote}</p>
+      </div>
+      <div style="max-width:300px;">
+        <a href="#iletisim" data-scroll-form class="btn btn-outline-red" style="padding:15px 28px;font-size:15.5px;">${p.ctaSecondary}</a>
+        <p style="font-size:13px;line-height:1.45;color:var(--muted-2);margin:8px 0 0;">${p.ctaSecondaryNote}</p>
+      </div>
     </div>
     <div style="display:flex;flex-wrap:wrap;gap:24px;">${trustBadges}</div>
   </div></section>`;
@@ -1041,6 +1047,7 @@ export function implantPricePage(lang) {
     body,
     title: `${p.h1} — ${site.brand}`,
     description: p.lead,
+    adLanding: true,
     jsonld: [
       orgSchema(lang),
       faqSchema(p.faqs),

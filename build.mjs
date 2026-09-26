@@ -108,11 +108,13 @@ function emit(lang, pathNoLang, rendered) {
       jsonld: rendered.jsonld || [],
       ogType: rendered.ogType || "website",
       publishedTime: rendered.publishedTime,
+      adLanding: rendered.adLanding,
+      noindex: rendered.noindex,
     },
     rendered.body
   );
   fs.writeFileSync(path.join(outDir, "index.html"), html);
-  pages.push({ lang, path: pathNoLang, loc: site.domain + url(lang, pathNoLang) });
+  if (!rendered.noindex) pages.push({ lang, path: pathNoLang, loc: site.domain + url(lang, pathNoLang) });
 }
 
 function build() {

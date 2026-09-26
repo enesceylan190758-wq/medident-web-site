@@ -26,7 +26,7 @@ export const url = (lang, path = "") => {
 export const absUrl = (lang, path = "") => site.domain + url(lang, path);
 
 // Head with per-page SEO + hreflang alternates + tracking.
-function head({ lang, title, description, path, image, jsonld = [], ogType = "website", publishedTime }) {
+function head({ lang, title, description, path, image, jsonld = [], ogType = "website", publishedTime, noindex }) {
   const t = i18n[lang];
   const canonical = absUrl(lang, path);
   const img = image || site.domain + asset("/assets/img/portrait-a.jpg");
@@ -71,7 +71,7 @@ function head({ lang, title, description, path, image, jsonld = [], ogType = "we
     <meta name="description" content="${escapeAttr(description)}">
     <link rel="canonical" href="${canonical}">
     ${site.tracking.gscVerify ? `<meta name="google-site-verification" content="${site.tracking.gscVerify}">` : ""}
-    <meta name="robots" content="index,follow,max-image-preview:large">
+    <meta name="robots" content="${noindex ? "noindex,nofollow" : "index,follow,max-image-preview:large"}">
     ${alts}
     <link rel="alternate" hreflang="x-default" href="${xDefaultHref}">
     <meta property="og:type" content="${ogType}">
@@ -149,9 +149,13 @@ function navLinks(lang) {
   return links;
 }
 
-function header(lang, path) {
+function header(lang, path, adLanding) {
   const n = i18n[lang].nav;
   const links = navLinks(lang);
+  // Ads SKAG landing sayfalarında (adLanding) header CTA'sı da ziyaretçiyi sayfadan çıkarmaz,
+  // sayfa içi lead formuna kaydırır (Google Ads: whatsapp_click var, form dönüşümü kayboluyordu).
+  const ctaHref = adLanding ? "#iletisim" : url(lang, "iletisim/");
+  const ctaAttr = adLanding ? ` data-scroll-form` : "";
   return `${topbar(lang)}
   <header class="site-header">
     <div class="header-inner">
@@ -161,7 +165,7 @@ function header(lang, path) {
       </nav>
       <div style="display:flex;align-items:center;gap:12px;">
         ${langSwitch(lang, path)}
-        <a href="${url(lang, "iletisim/")}" class="btn btn-primary header-cta" style="padding:12px 20px;font-size:14px;">${n.cta}</a>
+        <a href="${ctaHref}"${ctaAttr} class="btn btn-primary header-cta" style="padding:12px 20px;font-size:14px;">${n.cta}</a>
         <button data-burger class="burger" aria-label="Menu">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2B2318" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"></path></svg>
         </button>
@@ -175,7 +179,7 @@ function header(lang, path) {
         <button data-close-nav aria-label="Close" style="width:40px;height:40px;border-radius:10px;border:1px solid rgba(43,35,24,.14);display:flex;align-items:center;justify-content:center;background:#fff;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2B2318" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
       </div>
       ${links.map(([label, href]) => `<a href="${href}">${label}</a>`).join("\n      ")}
-      <a href="${url(lang, "iletisim/")}" class="btn btn-primary" style="margin-top:20px;">${n.cta}</a>
+      <a href="${ctaHref}"${ctaAttr} class="btn btn-primary" style="margin-top:20px;">${n.cta}</a>
       <a href="${waHref()}" class="btn btn-ghost" style="margin-top:10px;" target="_blank" rel="noopener">WhatsApp</a>
       <div style="margin-top:18px;">${langSwitch(lang, path)}</div>
     </div>
@@ -243,7 +247,7 @@ function floating(lang) {
 
 // Full page wrapper.
 export function layout(opts, bodyHtml) {
-  const { lang, path } = opts;
+  const { lang, path, adLanding } = opts;
   const calcT = i18n[lang].calc || i18n.en.calc;
   const formCfg = {
     endpoint: site.estesof.endpoint,
@@ -261,7 +265,7 @@ export function layout(opts, bodyHtml) {
   return `${head(opts)}
 <body>
   ${gtmNo}
-  ${header(lang, path)}
+  ${header(lang, path, adLanding)}
   <main>
 ${bodyHtml}
   </main>
