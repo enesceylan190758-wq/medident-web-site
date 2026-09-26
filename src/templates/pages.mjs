@@ -74,7 +74,9 @@ function landingCtaBand(lang) {
   const wa = waHref(
     lang === "de"
       ? "Hallo, ich möchte eine kostenlose Foto-/Röntgen-Einschätzung."
-      : "Hello, I’d like a free photo / X-ray assessment."
+      : lang === "fr"
+        ? "Bonjour, je voudrais une évaluation gratuite par photo / radio."
+        : "Hello, I’d like a free photo / X-ray assessment."
   );
   return `<section class="section" style="padding-top:8px;padding-bottom:8px;"><div class="container" style="max-width:960px;">
     <div data-reveal style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;padding:22px 24px;border-radius:20px;background:linear-gradient(135deg,var(--ink),#3a2f24);color:#fff;">
@@ -84,7 +86,7 @@ function landingCtaBand(lang) {
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:10px;">
         <a href="${wa}" target="_blank" rel="noopener" class="btn" style="background:#25D366;color:#fff;">${icons.wa || ""} ${ui.ctaWa}</a>
-        <a href="${url(lang, "iletisim/")}" class="btn btn-ghost" style="border-color:rgba(255,255,255,.35);color:#fff;">${ui.ctaForm}</a>
+        <a href="#iletisim" data-scroll-form class="btn btn-ghost" style="border-color:rgba(255,255,255,.35);color:#fff;">${ui.ctaForm}</a>
       </div>
     </div>
   </div></section>`;
@@ -662,7 +664,12 @@ export function pricesPage(lang) {
 
   const faqItem = (f) => `<div class="faq-item" data-faq-item><button class="faq-q" data-faq-toggle><span>${f.q}</span><span class="faq-icon"><span class="minus">${miniMinus}</span><span class="plus">${miniPlus}</span></span></button><div class="faq-a"><p style="margin:0;">${f.a}</p></div></div>`;
 
+  // DE/FR: WhatsApp / sayfa-içi-form iki seçenekli CTA (aynı yapı /dis-implant-fiyat/'ta) —
+  // EN ("turkey-teeth-price/") şimdilik kapsam dışı, talep sadece DE/FR için geldi.
+  const ctaBand = lang === "de" || lang === "fr" ? landingCtaBand(lang) : "";
+
   const body = `${pageHero(lang, p.eyebrow, p.h1, p.lead, crumbs)}
+  ${ctaBand}
   <section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">
     <h2 style="font-size:24px;margin:0 0 20px;">${p.tableTitle}</h2>
     ${table}
@@ -926,9 +933,9 @@ export function implantPricePage(lang) {
     <div class="eyebrow">${p.eyebrow}</div>
     <h1 data-dtr-h1 style="font-size:clamp(34px,5vw,60px);margin:0 0 14px;max-width:820px;">${p.h1}</h1>
     <p data-dtr-lead class="lead" style="max-width:680px;">${p.lead}</p>
-    <div style="display:flex;flex-wrap:wrap;gap:14px;margin:22px 0 28px;">
-      <a data-dtr-cta href="${wa}" target="_blank" rel="noopener" class="btn btn-primary" style="padding:15px 28px;font-size:15.5px;">${icons.wa} ${p.ctaPrimary}</a>
-      <a href="${url(lang, "iletisim/")}" class="btn btn-outline-red" style="padding:15px 28px;font-size:15.5px;">${p.ctaSecondary}</a>
+    <div style="display:flex;flex-wrap:wrap;gap:20px 28px;margin:22px 0 28px;align-items:flex-start;">
+      <div style="max-width:300px;"><a data-dtr-cta href="${wa}" target="_blank" rel="noopener" class="btn" style="background:#25D366;color:#fff;padding:15px 28px;font-size:15.5px;">${icons.wa} ${p.ctaPrimary}</a><p style="font-size:13px;line-height:1.45;color:var(--muted-2);margin:8px 0 0;">${p.ctaPrimaryNote}</p></div>
+      <div style="max-width:300px;"><a href="#iletisim" data-scroll-form class="btn btn-outline-red" style="padding:15px 28px;font-size:15.5px;">${p.ctaSecondary}</a><p style="font-size:13px;line-height:1.45;color:var(--muted-2);margin:8px 0 0;">${p.ctaSecondaryNote}</p></div>
     </div>
     <div style="display:flex;flex-wrap:wrap;gap:24px;">${trustBadges}</div>
   </div></section>`;
@@ -939,8 +946,8 @@ export function implantPricePage(lang) {
     ? `<section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">${landingInclusions(lang, implantPkg.items[lang] || implantPkg.items.tr)}</div></section>`
     : "";
 
-  // 3) Fiyat tablosu + marka karşılaştırması (Straumann/Osstem/Neodent)
-  const coreBrands = implantBrands.filter((b) => ["straumann", "osstem", "neodent"].includes(b.key));
+  // 3) Fiyat tablosu + marka karşılaştırması (Straumann/Osstem/Neodent/ImplantSwiss)
+  const coreBrands = implantBrands.filter((b) => ["straumann", "osstem", "neodent", "implantswiss"].includes(b.key));
   const brandCards = coreBrands
     .map(
       (b) => `<div class="card" data-reveal style="padding:20px;">
