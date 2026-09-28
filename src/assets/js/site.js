@@ -449,7 +449,7 @@
         return;
       }
 
-      // 1) CRM kaydı — sadece form, telefon dolu; beklenmez (fetch keepalive)
+      // 1) CRM kaydı — sadece form, telefon dolu; yanıt beklenmez (WA yeni sekme)
       if (mdt.recordLead) {
         const treatSel0 = form.querySelector("[name=treatment]");
         mdt.recordLead({

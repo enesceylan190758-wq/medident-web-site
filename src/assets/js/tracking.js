@@ -129,8 +129,10 @@
 
   /* --- Lead kaydı (Nefalix CRM) — SADECE form gönderiminde (telefon dolu).
      Doğrudan WhatsApp tıklamaları CRM'e gitmez (yalnızca GA4 whatsapp_click).
-     fetch keepalive: sayfa/sekme değişse de istek tamamlanır; yanıt beklenmez,
-     WhatsApp açılışını asla geciktirmez. Endpoint boşsa hiçbir şey yapmaz. --- */
+     application/json CORS preflight ister. Chrome/Safari, keepalive:true +
+     preflight isteğini ağa çıkmadan TypeError ile keser (Network boş, catch
+     yutar). WA yeni sekmede açıldığı için sayfa unload olmaz; keepalive yok.
+     Endpoint boşsa hiçbir şey yapmaz. --- */
 
   function recordLead(payload) {
     try {
@@ -138,13 +140,20 @@
       if (!endpoint || typeof fetch !== "function") return;
       fetch(endpoint, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify(payload),
-        keepalive: true,
         mode: "cors",
         credentials: "omit",
-      }).catch(function () {});
-    } catch (e) {}
+      }).catch(function (err) {
+        try {
+          console.warn("MediDent CRM lead POST failed", err);
+        } catch (e) {}
+      });
+    } catch (e) {
+      try {
+        console.warn("MediDent CRM lead POST failed", e);
+      } catch (e2) {}
+    }
   }
 
   /* --- WhatsApp / Telefon ------------------------------------------------- */
