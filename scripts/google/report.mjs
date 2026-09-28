@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /**
- * Kampanya bazında performans raporu (son 7 ve son 30 gün) — salt okunur.
+ * Kampanya + reklam bazında performans raporu (son 7 ve son 30 gün, BUGÜN dahil)
+ * — salt okunur.
  *
  * İki kimlik doğrulama yolu desteklenir:
  *   1. Proxy-enjekte edilen kimlik bilgisi (Project settings → API credentials,
@@ -10,7 +11,11 @@
  *   2. Klasik OAuth (npm run google:auth ile üretilen GOOGLE_REFRESH_TOKEN):
  *      .env'de varsa bu öncelikli kullanılır.
  *
- * Çıktı: konsola tablo + docs/google-ads/reports/son-7-gun.csv, son-30-gun.csv
+ * LAST_7_DAYS / LAST_30_DAYS GAQL sabitleri bugünü hariç tutar (dün + önceki
+ * N-1 gün) — bu yüzden bugünü dahil etmek için segments.date BETWEEN ile
+ * açık tarih aralığı kullanılır.
+ *
+ * Çıktı: konsola tablo + en başarılı reklam + docs/google-ads/reports/*.csv
  *
  *   node scripts/google/report.mjs
  */
@@ -23,9 +28,20 @@ import { KNOWN } from "./config.mjs";
 
 loadEnv();
 
+function isoDate(d) {
+  return d.toISOString().slice(0, 10);
+}
+
+function daysAgo(n) {
+  const d = new Date();
+  d.setUTCDate(d.getUTCDate() - n);
+  return isoDate(d);
+}
+
+const TODAY = isoDate(new Date());
 const RANGES = [
-  { key: "son-7-gun", label: "Son 7 gün", gaql: "LAST_7_DAYS" },
-  { key: "son-30-gun", label: "Son 30 gün", gaql: "LAST_30_DAYS" },
+  { key: "son-7-gun", label: "Son 7 gün (bugün dahil)", start: daysAgo(6), end: TODAY },
+  { key: "son-30-gun", label: "Son 30 gün (bugün dahil)", start: daysAgo(29), end: TODAY },
 ];
 
 const QUERY = (range) => `
@@ -38,8 +54,27 @@ const QUERY = (range) => `
     metrics.conversions,
     metrics.cost_per_conversion
   FROM campaign
-  WHERE segments.date DURING ${range}
+  WHERE segments.date BETWEEN "${range.start}" AND "${range.end}"
   ORDER BY metrics.cost_micros DESC
+`;
+
+const BEST_AD_QUERY = (range) => `
+  SELECT
+    campaign.name,
+    ad_group.name,
+    ad_group_ad.ad.id,
+    ad_group_ad.status,
+    ad_group_ad.ad.type,
+    metrics.clicks,
+    metrics.impressions,
+    metrics.conversions,
+    metrics.cost_micros,
+    metrics.ctr
+  FROM ad_group_ad
+  WHERE segments.date BETWEEN "${range.start}" AND "${range.end}"
+    AND metrics.impressions > 0
+  ORDER BY metrics.conversions DESC, metrics.clicks DESC
+  LIMIT 5
 `;
 
 function tl(micros) {
@@ -54,17 +89,25 @@ function headers() {
   return h;
 }
 
-async function fetchRange(token, customerId, range) {
+async function searchAds(token, customerId, query) {
   const version = KNOWN.adsApiVersion;
   const res = await googleFetch(
     token,
     `https://googleads.googleapis.com/${version}/customers/${customerId}/googleAds:search`,
-    { method: "POST", headers: headers(), body: { query: QUERY(range.gaql) } },
+    { method: "POST", headers: headers(), body: { query } },
   );
-  if (!res.ok) {
-    throw new Error(`${range.label}: ${errorText(res.json) || `HTTP ${res.status}`}`);
+  if (!res.ok) throw new Error(errorText(res.json) || `HTTP ${res.status}`);
+  return res.json?.results || [];
+}
+
+async function fetchRange(token, customerId, range) {
+  let results;
+  try {
+    results = await searchAds(token, customerId, QUERY(range));
+  } catch (e) {
+    throw new Error(`${range.label}: ${e.message}`);
   }
-  return (res.json?.results || []).map((r) => {
+  return results.map((r) => {
     const m = r.metrics || {};
     const clicks = Number(m.clicks || 0);
     const costMicros = Number(m.costMicros || 0);
@@ -77,6 +120,29 @@ async function fetchRange(token, customerId, range) {
       tiklama: clicks,
       donusum: conversions,
       leadBasiMaliyet: conversions > 0 ? tl(m.costPerConversion) : "-",
+    };
+  });
+}
+
+async function fetchBestAds(token, customerId, range) {
+  let results;
+  try {
+    results = await searchAds(token, customerId, BEST_AD_QUERY(range));
+  } catch (e) {
+    throw new Error(`${range.label} (reklam): ${e.message}`);
+  }
+  return results.map((r) => {
+    const m = r.metrics || {};
+    return {
+      kampanya: r.campaign?.name || "?",
+      reklamGrubu: r.adGroup?.name || "?",
+      adId: r.adGroupAd?.ad?.id || "?",
+      tur: r.adGroupAd?.ad?.type || "?",
+      harcama: tl(m.costMicros),
+      gosterim: Number(m.impressions || 0),
+      tiklama: Number(m.clicks || 0),
+      ctr: m.ctr ? `%${(Number(m.ctr) * 100).toFixed(1)}` : "-",
+      donusum: Number(m.conversions || 0),
     };
   });
 }
@@ -95,6 +161,27 @@ function printTable(label, rows) {
     ["tiklama", "Tıklama", 9],
     ["donusum", "Dönüşüm", 9],
     ["leadBasiMaliyet", "Lead/Maliyet", 12],
+  ];
+  console.log(cols.map(([, h, w]) => h.padEnd(w)).join(" "));
+  for (const row of rows) {
+    console.log(cols.map(([k, , w]) => String(row[k]).slice(0, w).padEnd(w)).join(" "));
+  }
+}
+
+function printBestAds(label, rows) {
+  console.log(`\nEn başarılı reklamlar — ${label}\n${"-".repeat(20 + label.length)}`);
+  if (!rows.length) {
+    console.log("(bu aralıkta gösterim alan reklam yok)");
+    return;
+  }
+  const cols = [
+    ["kampanya", "Kampanya", 30],
+    ["reklamGrubu", "Reklam Grubu", 26],
+    ["harcama", "Harcama (TL)", 12],
+    ["gosterim", "Gösterim", 9],
+    ["tiklama", "Tıklama", 8],
+    ["ctr", "CTR", 7],
+    ["donusum", "Dönüşüm", 8],
   ];
   console.log(cols.map(([, h, w]) => h.padEnd(w)).join(" "));
   for (const row of rows) {
@@ -143,6 +230,16 @@ export async function runReport() {
       process.exitCode = 1;
     }
   }
+
+  const adRange = RANGES[RANGES.length - 1]; // en geniş pencere (son 30 gün, bugün dahil)
+  try {
+    const bestAds = await fetchBestAds(token, customerId, adRange);
+    printBestAds(adRange.label, bestAds);
+  } catch (e) {
+    console.error(e.message || e);
+    process.exitCode = 1;
+  }
+
   console.log(`\nCSV dosyaları: docs/google-ads/reports/`);
 }
 
