@@ -1,9 +1,48 @@
-# Hızlı başlangıç — refresh token + Project settings
+# Hızlı başlangıç — erişim kurulumu + Project settings
 
-Ayrıntılı arka plan için `SETUP.md` ve `mcc-setup.md`. Bu dosya sadece iki şeye
-odaklanır: token'ı üretmek ve nereye gireceğini bulmak.
+Ayrıntılı arka plan için `SETUP.md` ve `mcc-setup.md`. İki yol var — **yalnızca
+birini** kur:
 
-## 1) Refresh token'ı üret (kendi bilgisayarında, 5 adım)
+- **A) Proxy-enjekte kimlik bilgisi (Project settings → API credentials)** —
+  bulut oturumları için önerilen, aktif olarak kullanılan yol. Token hiç
+  görünmez/saklanmaz; ortamın egress proxy'si Authorization başlığını
+  `googleads.googleapis.com` isteklerine kendisi ekler. Aşağıda **0. bölüm**.
+- **B) Klasik OAuth (refresh token, `.env`)** — kendi bilgisayarında çalıştırmak
+  istediğinde. Aşağıda **1-2. bölüm**.
+
+## 0) Yol A — proxy-enjekte kimlik bilgisi (kurulu, çalışıyor)
+
+Project settings → API credentials'a şu şekilde eklendi:
+
+| Alan | Değer |
+|---|---|
+| Ad | Google Ads API (MediDent) |
+| Tip | GCP access token (Service Account Key) |
+| Allowed website | `googleads.googleapis.com` |
+| Scope | `https://www.googleapis.com/auth/adwords` |
+| Servis hesabı | `medident-ads-reader@earnest-vent-484108-f5.iam.gserviceaccount.com` (MCC 444-863-7998'e salt okunur eklendi) |
+
+Bu yolda `scripts/google/report.mjs`, `.env`'de `GOOGLE_REFRESH_TOKEN` yoksa
+Authorization başlığı **hiç eklemez** — proxy ekler. Tek gereken:
+`login-customer-id: 4448637998` başlığı (kod içinde `scripts/google/config.mjs`
+→ `KNOWN.adsMccId` olarak sabit, ayrıca env değişkeni de girilebilir).
+Developer token gerekmiyor (Eylül 2026 sonrası Ads API için şart değil, test
+edildi — hata vermedi).
+
+Çalıştırma (bu yolda `.env`/OAuth gerekmez, sadece bağımlılıklar kurulu olmalı):
+
+```bash
+npm install   # ilk seferde
+npm run google:ads:report
+```
+
+`google:ads:report` script'i `NODE_USE_ENV_PROXY=1` ile çalışır — Node'un
+yerleşik `fetch`'i bu bayrak olmadan `HTTPS_PROXY`'yi okumuyor (Node ≥ 22.21).
+Başka bir `google:*` scripti (`google:auth`, `google:status`,
+`google:ads:keywords` vb.) bu proxy yolunu **kullanmaz** — onlar hâlâ klasik
+OAuth/`GOOGLE_REFRESH_TOKEN` bekler (aşağıdaki 1-2. bölüm).
+
+## 1) Yol B — Refresh token'ı üret (kendi bilgisayarında, 5 adım)
 
 Bu adım bir tarayıcı açar ve senin onayını ister — bu yüzden bulutta değil,
 kendi bilgisayarında (veya Remote Control ile "kendi bilgisayarımda çalıştır"

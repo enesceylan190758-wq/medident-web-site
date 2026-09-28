@@ -2,6 +2,14 @@
 /**
  * Kampanya bazında performans raporu (son 7 ve son 30 gün) — salt okunur.
  *
+ * İki kimlik doğrulama yolu desteklenir:
+ *   1. Proxy-enjekte edilen kimlik bilgisi (Project settings → API credentials,
+ *      "GCP access token" tipi, allowed website googleads.googleapis.com):
+ *      Authorization başlığını ortamın egress proxy'si kendisi ekler, bu script
+ *      hiç token görmez/istemez. GOOGLE_REFRESH_TOKEN .env'de yoksa bu yol denenir.
+ *   2. Klasik OAuth (npm run google:auth ile üretilen GOOGLE_REFRESH_TOKEN):
+ *      .env'de varsa bu öncelikli kullanılır.
+ *
  * Çıktı: konsola tablo + docs/google-ads/reports/son-7-gun.csv, son-30-gun.csv
  *
  *   node scripts/google/report.mjs
@@ -39,7 +47,7 @@ function tl(micros) {
 }
 
 function headers() {
-  const login = (process.env.GOOGLE_ADS_LOGIN_CUSTOMER_ID || "").replace(/-/g, "");
+  const login = (process.env.GOOGLE_ADS_LOGIN_CUSTOMER_ID || KNOWN.adsMccId || "").replace(/-/g, "");
   const h = {};
   if (process.env.GOOGLE_ADS_DEVELOPER_TOKEN) h["developer-token"] = process.env.GOOGLE_ADS_DEVELOPER_TOKEN;
   if (login) h["login-customer-id"] = login;
@@ -107,18 +115,28 @@ function writeCsv(key, rows) {
 }
 
 export async function runReport() {
-  const token = await accessToken();
-  if (!process.env.GOOGLE_REFRESH_TOKEN || !token) {
-    console.error("Erişim yok — önce: npm run google:auth");
-    process.exitCode = 1;
-    return;
+  const usingOAuth = Boolean(process.env.GOOGLE_REFRESH_TOKEN);
+  let token = null;
+  if (usingOAuth) {
+    token = await accessToken();
+    if (!token) {
+      console.error("GOOGLE_REFRESH_TOKEN geçersiz — npm run google:auth ile yeniden üret.");
+      process.exitCode = 1;
+      return;
+    }
   }
+  // usingOAuth=false: token=null → googleFetch Authorization başlığı eklemez,
+  // ortamın egress proxy'si (varsa) kendi ekler.
   const customerId = adsCustomerId();
   console.log(`Google Ads kampanya raporu — müşteri ${customerId}\n`);
   for (const range of RANGES) {
     try {
       const rows = await fetchRange(token, customerId, range);
-      printTable(range.label, rows);
+      const active = rows.filter((r) => r.durum === "ENABLED" || Number(r.gosterim) > 0);
+      printTable(range.label, active);
+      if (rows.length > active.length) {
+        console.log(`(+ ${rows.length - active.length} pasif/harcamasız kampanya — CSV'de tam liste)`);
+      }
       writeCsv(range.key, rows);
     } catch (e) {
       console.error(`${range.label}: ${e.message || e}`);

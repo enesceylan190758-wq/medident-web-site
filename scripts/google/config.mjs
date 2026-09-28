@@ -1,6 +1,7 @@
 // Sitede zaten kullanılan Google kimlikleri (src/data/site.mjs). Gizli değil.
 export const KNOWN = {
   adsCustomerId: "5670078321", // İstanbul Dent. Conversion tracking ID = AW-346086325.
+  adsMccId: "4448637998", // Enes'in MCC'si ("Enes Ceylan ads") — login-customer-id.
   ga4MeasurementId: "G-WP6XMC87YB",
   gtmPublicId: "GTM-NTDLLHF",
   siteHost: "medidentistanbul.com",

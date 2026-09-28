@@ -21,7 +21,7 @@
     "dev": "node build.mjs && node scripts/serve.mjs",
     "google:auth": "node scripts/google/auth.mjs",
     "google:status": "node scripts/google/status.mjs",
-    "google:ads:report": "node scripts/google/report.mjs",
+    "google:ads:report": "NODE_USE_ENV_PROXY=1 node scripts/google/report.mjs",
     "google:ads:hat-bc": "node scripts/google/create-hat-bc.mjs",
     "google:ads:skag-de-implant": "node scripts/google/create-skag-de-implant.mjs",
     "google:ads:keywords": "node scripts/google/keyword-volumes.mjs",

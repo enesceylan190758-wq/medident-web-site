@@ -18,10 +18,12 @@ export async function accessToken() {
 }
 
 export async function googleFetch(token, url, { method = "GET", body, headers = {} } = {}) {
+  // token null/undefined: ortamın egress proxy'si (Project settings → API
+  // credentials) Authorization başlığını kendisi ekliyorsa OAuth atlanabilir.
   const res = await fetch(url, {
     method,
     headers: {
-      Authorization: `Bearer ${token}`,
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...(body ? { "Content-Type": "application/json" } : {}),
       ...headers,
     },
