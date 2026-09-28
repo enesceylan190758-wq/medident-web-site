@@ -46,6 +46,7 @@ export const site = {
     method: "POST",
   },
   // Form kaydı → Nefalix CRM (public uç; anahtar yok, CORS sadece medidentistanbul.com).
+  // JSON POST CORS preflight ister — tracking.js keepalive kullanmaz (Chrome keser).
   // SADECE form gönderiminde (telefon dolu) JSON POST edilir; doğrudan WhatsApp
   // tıklamaları CRM'e gitmez. Kesin URL: Nefalix-CRM #26 (docs/site-lead-ucu.md). LEAD_ENDPOINT= (boş) ile kapatılır.
   // Ayarlamak: LEAD_ENDPOINT=<url> node build.mjs  (veya aşağıya yaz).

@@ -8,6 +8,7 @@ on:
     paths:
       - "src/content/**"
       - "src/data/**"
+      - "src/assets/js/**"
       - "scripts/seo/**"
   workflow_dispatch:
     inputs:
