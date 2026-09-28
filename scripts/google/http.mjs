@@ -116,9 +116,10 @@ export function errorText(json) {
 /** Full Ads error body for operators — never includes the service-account key. */
 export function adsErrorExact(res) {
   const json = res?.json;
-  if (json?.error) {
+  const errObj = json?.error || (Array.isArray(json) ? json.find((x) => x?.error)?.error : null);
+  if (errObj) {
     try {
-      return JSON.stringify(json.error);
+      return JSON.stringify(errObj);
     } catch {
       /* fall through */
     }
