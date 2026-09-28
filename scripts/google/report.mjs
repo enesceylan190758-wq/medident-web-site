@@ -3,13 +3,13 @@
  * Kampanya + reklam bazında performans raporu (son 7 ve son 30 gün, BUGÜN dahil)
  * — salt okunur.
  *
- * İki kimlik doğrulama yolu desteklenir:
- *   1. Proxy-enjekte edilen kimlik bilgisi (Project settings → API credentials,
- *      "GCP access token" tipi, allowed website googleads.googleapis.com):
- *      Authorization başlığını ortamın egress proxy'si kendisi ekler, bu script
- *      hiç token görmez/istemez. GOOGLE_REFRESH_TOKEN .env'de yoksa bu yol denenir.
- *   2. Klasik OAuth (npm run google:auth ile üretilen GOOGLE_REFRESH_TOKEN):
- *      .env'de varsa bu öncelikli kullanılır.
+ * Kimlik doğrulama (öncelik sırası):
+ *   1. GOOGLE_ADS_SA_JSON — Cursor environment secret, servis hesabı JSON.
+ *      google-auth-library JWT, scope https://www.googleapis.com/auth/adwords.
+ *      Anahtar dosyaya/loga yazılmaz. login-customer-id = MCC 4448637998.
+ *   2. GOOGLE_REFRESH_TOKEN — npm run google:auth (OAuth masaüstü).
+ *   3. Proxy-enjekte token (Project settings → GCP access token). Authorization
+ *      başlığını egress proxy ekler; script token görmez.
  *
  * LAST_7_DAYS / LAST_30_DAYS GAQL sabitleri bugünü hariç tutar (dün + önceki
  * N-1 gün) — bu yüzden bugünü dahil etmek için segments.date BETWEEN ile
@@ -23,7 +23,14 @@ import fs from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { loadEnv, ROOT } from "./env.mjs";
-import { accessToken, adsCustomerId, googleFetch, errorText } from "./http.mjs";
+import {
+  adsAccessToken,
+  adsCustomerId,
+  adsErrorExact,
+  adsLoginCustomerId,
+  flattenSearchStream,
+  googleFetch,
+} from "./http.mjs";
 import { KNOWN } from "./config.mjs";
 
 loadEnv();
@@ -82,7 +89,7 @@ function tl(micros) {
 }
 
 function headers() {
-  const login = (process.env.GOOGLE_ADS_LOGIN_CUSTOMER_ID || KNOWN.adsMccId || "").replace(/-/g, "");
+  const login = adsLoginCustomerId();
   const h = {};
   if (process.env.GOOGLE_ADS_DEVELOPER_TOKEN) h["developer-token"] = process.env.GOOGLE_ADS_DEVELOPER_TOKEN;
   if (login) h["login-customer-id"] = login;
@@ -93,11 +100,11 @@ async function searchAds(token, customerId, query) {
   const version = KNOWN.adsApiVersion;
   const res = await googleFetch(
     token,
-    `https://googleads.googleapis.com/${version}/customers/${customerId}/googleAds:search`,
+    `https://googleads.googleapis.com/${version}/customers/${customerId}/googleAds:searchStream`,
     { method: "POST", headers: headers(), body: { query } },
   );
-  if (!res.ok) throw new Error(errorText(res.json) || `HTTP ${res.status}`);
-  return res.json?.results || [];
+  if (!res.ok) throw new Error(adsErrorExact(res));
+  return flattenSearchStream(res.json);
 }
 
 async function fetchRange(token, customerId, range) {
@@ -202,20 +209,27 @@ function writeCsv(key, rows) {
 }
 
 export async function runReport() {
-  const usingOAuth = Boolean(process.env.GOOGLE_REFRESH_TOKEN);
-  let token = null;
-  if (usingOAuth) {
-    token = await accessToken();
-    if (!token) {
-      console.error("GOOGLE_REFRESH_TOKEN geçersiz — npm run google:auth ile yeniden üret.");
-      process.exitCode = 1;
-      return;
-    }
-  }
-  // usingOAuth=false: token=null → googleFetch Authorization başlığı eklemez,
-  // ortamın egress proxy'si (varsa) kendi ekler.
   const customerId = adsCustomerId();
-  console.log(`Google Ads kampanya raporu — müşteri ${customerId}\n`);
+  const login = adsLoginCustomerId();
+  const authMode = process.env.GOOGLE_ADS_SA_JSON
+    ? "GOOGLE_ADS_SA_JSON"
+    : process.env.GOOGLE_REFRESH_TOKEN
+      ? "GOOGLE_REFRESH_TOKEN"
+      : "proxy";
+  if (!process.env.GOOGLE_ADS_SA_JSON && !process.env.GOOGLE_REFRESH_TOKEN) {
+    console.error(
+      "GOOGLE_ADS_SA_JSON ortamda yok. Cursor environment secret bu agent'a enjekte edilmemiş olabilir — yeni bir agent başlatman gerekebilir.",
+    );
+  }
+  let token;
+  try {
+    token = await adsAccessToken();
+  } catch (e) {
+    console.error(e.message || e);
+    process.exitCode = 1;
+    return;
+  }
+  console.log(`Google Ads kampanya raporu — müşteri ${customerId} · login ${login} · auth ${authMode}\n`);
   for (const range of RANGES) {
     try {
       const rows = await fetchRange(token, customerId, range);
