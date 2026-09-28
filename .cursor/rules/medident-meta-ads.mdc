@@ -1,0 +1,18 @@
+---
+description: MediDent Meta (Facebook) Ads — Hat A salt okuma
+globs:
+  - docs/meta-ads/**
+  - scripts/meta/**
+alwaysApply: false
+---
+
+# MediDent Meta Ads
+
+Hat A = gurbetçi TR Meta. Google Hat B/C ile karıştırma.
+
+- Rapor: `npm run meta:ads:report` (`scripts/meta/report.mjs`)
+- Auth: `META_ACCESS_TOKEN` (+ gerekirse `META_AD_ACCOUNT_ID`). Pixel ID token değildir.
+- Token’ı dosyaya, loga, commit’e yazma.
+- Yeni reklam / ENABLE yok; kullanıcı demeden kampanya değiştirme.
+- `main`’e yazma; deploy etme.
+- Yasak iddialar: `scripts/seo/lib/banned-terms.json`
