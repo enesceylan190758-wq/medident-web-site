@@ -273,10 +273,12 @@ export function homePage(lang) {
   const statValue = (s) => {
     let str = s.dec ? s.to.toFixed(s.dec) : String(Math.round(s.to));
     if (s.sep) str = str.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    return str + (s.suffix || "");
+    return str + (s.suffix || (s.dec ? "" : "+"));
   };
-  const stat = (s) =>
-    `<div><div class="stat-num"><span data-to="${s.to}" ${s.dec ? `data-dec="${s.dec}"` : ""} ${s.sep ? 'data-sep="1"' : ""} ${s.suffix ? `data-suffix="${s.suffix}"` : ""}>${statValue(s)}</span>${s.suffix ? "" : '<span>+</span>'}</div><div class="stat-label">${s.label}</div></div>`;
+  const stat = (s) => {
+    const suffix = s.suffix || (s.dec ? "" : "+");
+    return `<div><div class="stat-num"><span data-to="${s.to}" ${s.dec ? `data-dec="${s.dec}"` : ""} ${s.sep ? 'data-sep="1"' : ""} ${suffix ? `data-suffix="${suffix}"` : ""}>${statValue(s)}</span></div><div class="stat-label">${s.label}</div></div>`;
+  };
 
   const serviceCard = (c) => {
     const title = L(c.titles, lang);
@@ -585,7 +587,7 @@ export function contactSection(lang, { heading = true } = {}) {
                   <label><span class="lbl">${t.formName}</span><input type="text" name="name" required placeholder="${t.formName}"></label>
                   <label><span class="lbl">${t.formPhone}</span><input type="tel" name="phone" required placeholder="+90 ..."></label>
                 </div>
-                <label><span class="lbl">${t.formEmail}</span><input type="email" name="email" required placeholder="ornek@eposta.com"></label>
+                <label><span class="lbl">${t.formEmail}</span><input type="email" name="email" required placeholder="${t.emailPlaceholder || "name@example.com"}"></label>
                 <label><span class="lbl">${t.formTreatment}</span><select name="treatment" data-treatment-select>${treatments
                   .map((x) => `<option value="${x.value}">${x.label}</option>`)
                   .join("")}</select></label>
