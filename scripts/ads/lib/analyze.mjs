@@ -132,7 +132,7 @@ export function analyze(rows, opts = {}) {
       const r = metrics(ad.recent);
       const p = metrics(ad.prior);
       if (!r.spend) continue;
-      const ctx = { account_id, account_name: A.name, level: "ad", id: ad.id, name: ad.name, campaign: ad.campaign, metrics: r };
+      const ctx = { account_id, account_name: A.name, currency: cur, level: "ad", id: ad.id, name: ad.name, campaign: ad.campaign, objective: ad.objective, target, metrics: r, prior: p, window: o.recentDays };
 
       // 1) Sonucsuz harcama (yalnizca sonuc amacli kampanyalar)
       if (ad.measured && r.results === 0 && target && r.spend >= target * o.minSpendFactor) {
@@ -159,8 +159,8 @@ export function analyze(rows, opts = {}) {
       if (r.frequency >= o.fatigueFrequency && p.ctr && r.ctr != null && r.ctr < p.ctr * (1 - o.fatigueCtrDrop)) {
         push({ ...ctx, rule: "creative_fatigue", severity: "medium",
           message: `Aynı kişi reklamı ortalama ${r.frequency} kez görmüş, link tıklama oranı %${pct(p.ctr, 2)} → %${pct(r.ctr, 2)} düştü. Görseli/videoyu yenile.` });
-      } else if (r.impressions >= o.lowCtrMinImpressions && r.ctr != null && r.ctr < o.lowCtr) {
-        // 5) Dusuk CTR
+      } else if (ad.measured && r.impressions >= o.lowCtrMinImpressions && r.ctr != null && r.ctr < o.lowCtr) {
+        // 5) Dusuk CTR (bilinirlik/erisim kampanyalarinda dusuk CTR beklenir, atla)
         push({ ...ctx, rule: "low_ctr", severity: "low",
           message: `Link tıklama oranı %${pct(r.ctr, 2)} (${r.impressions} gösterim). Görsel veya hedefleme zayıf.` });
       }

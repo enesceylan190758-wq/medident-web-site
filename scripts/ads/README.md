@@ -50,7 +50,18 @@ Etkileşim/bilinirlik/trafik kampanyaları CPL kurallarına girmez.
 
 Kurallar yalnızca öneri üretir; hiçbir reklamı durdurmaz, bütçe değiştirmez.
 
-## Dashboard için kurallar (adım 4)
+## Panel prototipi (adım 4)
+
+```
+npm run ads:dashboard -- --since 2026-01-01 --until 2026-05-31 --out .cache/ads-panel.html
+```
+
+`dashboard/` altında: `template.html` (iskelet), `styles.css`, `app.js` (arayüz, DE/EN/TR, EUR/CHF),
+`demo.js` (kurgusal demo klinikleri). `build.mjs` gerçek veriyi sunucu tarafında çekip hepsini tek
+sayfaya gömer. Demo hesaplar tamamen uydurmadır, arayüzde her yerde "Demo" etiketi taşır.
+Onayla/Reddet ve onboarding şimdilik sadece arayüzdür; Meta'ya hiçbir şey gönderilmez.
+
+## Dashboard için kurallar
 
 - Veri modeli baştan hesap bazlı: insights, adset ve ad kayıtlarının hepsi `account_id` taşır.
   Para birimi hesaba göre değişebilir (`account_currency`), farklı para birimleri toplanmaz.

@@ -1,6 +1,8 @@
 /**
  * Panel (statik prototip): Meta verisini SUNUCU tarafinda ceker, kucultur ve
- * template.html'e gomer. Jeton sayfaya hic girmez; sayfa sadece hazir sayilari tasir.
+ * template.html'e gomer (styles.css, demo.js, app.js ve kural motoru ile birlikte).
+ * Jeton sayfaya hic girmez; sayfa sadece hazir sayilari tasir.
+ * demo.js tamamen kurgusal demo klinikleri uretir; arayuzde "Demo" etiketlidir.
  * Cikti repo disinda/gitignore'da kalir (repo herkese acik, reklam verisi commit edilmez).
  *
  *   npm run ads:dashboard -- --since 2026-01-01 --until 2026-05-31 --out .cache/ads-panel.html
@@ -60,8 +62,12 @@ const data = { generatedAt: new Date().toISOString(), since, until, accounts: ac
 
 // Kural motoru tarayicida da ayni kod: analyze.mjs'i export'suz gom
 const engine = readFileSync(join(here, "../lib/analyze.mjs"), "utf8").replace(/^export /gm, "");
-const html = readFileSync(join(here, "template.html"), "utf8")
+const read = (f) => readFileSync(join(here, f), "utf8");
+const html = read("template.html")
+  .replace("/*__STYLES__*/", () => read("styles.css"))
   .replace("/*__ENGINE__*/", () => engine)
+  .replace("/*__DEMO__*/", () => read("demo.js"))
+  .replace("/*__APP__*/", () => read("app.js"))
   .replace("/*__DATA__*/null", () => JSON.stringify(data).replace(/</g, "\\u003c"));
 mkdirSync(dirname(out), { recursive: true });
 writeFileSync(out, html);
