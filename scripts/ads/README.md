@@ -50,6 +50,18 @@ Etkileşim/bilinirlik/trafik kampanyaları CPL kurallarına girmez.
 
 Kurallar yalnızca öneri üretir; hiçbir reklamı durdurmaz, bütçe değiştirmez.
 
+## Google Ads
+
+`lib/google.mjs`: GAQL ile sadece okuma. Bulut ortamında OAuth jetonu ve developer-token ortamın
+API credentials bölümünde (`googleads.googleapis.com`), proxy ekler. Yönetici hesabın (MCC) altındaki
+hesaplar `login-customer-id` ile okunur.
+
+## Müşteri eşlemesi
+
+Hangi reklam hesabının hangi müşteriye ait olduğu `scripts/ads/clients.json` dosyasında (gitignore'da,
+örnek: `clients.example.json`). Panel ajans (admin) görünümünde müşteri listesiyle açılır; bir müşteri
+seçilince yalnızca o müşterinin verisi görünür. "Kundenansicht" müşterinin kendi portalını önizler.
+
 ## Panel prototipi (adım 4)
 
 ```
