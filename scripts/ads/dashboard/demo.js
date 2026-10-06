@@ -46,7 +46,7 @@ function buildDemo(range) {
 
   const CLINICS = [
     {
-      key: "implant", name: "Elbwerk Implantologie", city: "Hamburg", currency: "EUR", seed: 1101, target: 85, measureAgo: 48,
+      key: "implant", name: "Elbwerk Implantologie", city: "Hamburg", currency: "EUR", seed: 1101, ig: 0.38, an: true, target: 85, measureAgo: 48,
       assumptions: { booking: 0.35, close: 0.4, value: 4200 },
       access: { status: "active", users: 2 },
       measure: { de: "Zielgruppe auf 40–70 Jahre eingegrenzt, Formular von 7 auf 4 Fragen gekürzt", en: "Narrowed audience to ages 40–70, cut the form from 7 to 4 questions", tr: "Hedef kitle 40–70 yaşa daraltıldı, form 7 sorudan 4 soruya indirildi" },
@@ -72,7 +72,7 @@ function buildDemo(range) {
       social: { fb: [3100, 0.9], ig: [6400, 3.2], posts: 3.2, topics: ["Ablauf einer Implantation in 60 Sekunden", "Patientenfrage: Wie lange hält ein Implantat?", "Praxisrundgang", "Unser Team stellt sich vor", "All-on-4 einfach erklärt", "Mythen über Implantate", "Tag der offenen Tür"] },
     },
     {
-      key: "hair", name: "Turmalin Haarklinik", city: "Zürich", currency: "CHF", seed: 2207, target: 140, measureAgo: 60,
+      key: "hair", name: "Turmalin Haarklinik", city: "Zürich", currency: "CHF", seed: 2207, ig: 0.62, target: 140, measureAgo: 60,
       assumptions: { booking: 0.3, close: 0.35, value: 6800 },
       access: { status: "invited", users: 1 },
       measure: { de: "Budget von Bild- auf Videoanzeigen umgeschichtet (60/40 → 25/75)", en: "Shifted budget from image to video ads (60/40 → 25/75)", tr: "Bütçe görsel reklamlardan video reklamlara kaydırıldı (60/40 → 25/75)" },
@@ -96,7 +96,7 @@ function buildDemo(range) {
       social: { fb: [1800, 0.4], ig: [9200, 4.1], posts: 1.4, topics: ["Was passiert am OP-Tag?", "FUE oder DHI – der Unterschied", "Haarwachstum nach 3, 6 und 12 Monaten", "Fragen an unseren Arzt", "Pflege nach der Behandlung"] },
     },
     {
-      key: "aesthetic", name: "Atelier Nordlicht Ästhetik", city: "München", currency: "EUR", seed: 3301, target: 120, measureAgo: 41,
+      key: "aesthetic", name: "Atelier Nordlicht Ästhetik", city: "München", currency: "EUR", seed: 3301, ig: 0.72, target: 120, measureAgo: 41,
       assumptions: { booking: 0.4, close: 0.45, value: 3600 },
       access: { status: "active", users: 3 },
       measure: { de: "Kampagne „Lidstraffung“ auf Beratungstermin statt Preisanfrage optimiert", en: "Optimised the eyelid campaign for consultation bookings instead of price requests", tr: "Göz kapağı kampanyası fiyat talebi yerine muayene randevusuna optimize edildi" },
@@ -123,7 +123,7 @@ function buildDemo(range) {
       social: { fb: [2400, 0.5], ig: [11800, 2.6], posts: 3.8, topics: ["Lidstraffung: Heilungsverlauf Tag 1 bis 14", "Was ist eine Faltenbehandlung?", "Behind the scenes: Beratungsgespräch", "5 Fragen vor einer Brust-OP", "Unsere Ärztin im Interview", "Sommer-Pflegetipps"] },
     },
     {
-      key: "eye", name: "Seeblick Augenlaser", city: "Luzern", currency: "CHF", seed: 4409, target: 95, measureAgo: 55,
+      key: "eye", name: "Seeblick Augenlaser", city: "Luzern", currency: "CHF", seed: 4409, ig: 0.42, target: 95, measureAgo: 55,
       assumptions: { booking: 0.45, close: 0.5, value: 4900 },
       access: { status: "none", users: 0 },
       measure: { de: "Eignungstest als Sofort-Formular eingeführt, Landingpage entfernt", en: "Introduced an instant eligibility form and dropped the landing page", tr: "Uygunluk testi anlık form olarak eklendi, açılış sayfası kaldırıldı" },
@@ -150,7 +150,7 @@ function buildDemo(range) {
     },
   ];
 
-  const accounts = [], campaigns = [], ads = [], rows = [], log = [], clients = [];
+  const accounts = [], campaigns = [], ads = [], rows = [], plat = [], log = [], clients = [];
   const gCustomers = [], gCampaigns = [], gRows = [], gTerms = [];
   const social = {};
   CLINICS.forEach((c, ci) => {
@@ -159,8 +159,11 @@ function buildDemo(range) {
     const mDate = addD(end, -c.measureAgo);
     accounts.push({ id, name: c.name, currency: c.currency, status: 1, demo: true });
     const r = rng(c.seed);
+    const rp = rng(c.seed + 7); // yayin yeri bolusu ayri rastgele dizi: mevcut demo rakamlari degismesin
     c.campaigns.forEach((cp, k) => {
       const campIndex = campaigns.length;
+      const igShare = Math.min(0.8, Math.max(0.2, c.ig + (rp() - 0.5) * 0.24));
+      const day = new Map();
       campaigns.push([`${id}_c${k}`, cp.name, cp.obj, cp.obj === "MESSAGES" ? "CONVERSATIONS" : cp.obj === "OUTCOME_LEADS" ? "LEAD_GENERATION" : "REACH", accIndex]);
       cp.ads.forEach((ad, j) => {
         const adIndex = ads.length;
@@ -182,8 +185,19 @@ function buildDemo(range) {
             if (ad.msgs) msgs = n; else leads = n;
           }
           rows.push([d, adIndex, spend, imp, freq, clicks, leads, msgs]);
+          const o = day.get(d) || [0, 0, 0];
+          o[0] += spend; o[1] += leads; o[2] += msgs; day.set(d, o);
         });
       });
+      // Gunluk kampanya toplamini Facebook / Instagram (+ kucuk Audience Network payi) olarak bol
+      for (const [d, [spend, leads, msgs]] of day) {
+        const other = c.an ? spend * 0.04 : 0;
+        const igS = +((spend - other) * Math.min(0.9, Math.max(0.1, igShare - 0.05 + rp() * 0.1))).toFixed(2);
+        const split = (n) => { let i = 0; for (let q = 0; q < n; q++) if (rp() < igShare) i++; return [n - i, i]; };
+        const [fl, il] = split(leads), [fm, im] = split(msgs);
+        plat.push([d, campIndex, "f", +(spend - other - igS).toFixed(2), fl, fm], [d, campIndex, "i", igS, il, im]);
+        if (other) plat.push([d, campIndex, "o", +other.toFixed(2), 0, 0]);
+      }
     });
 
     // Google Ads
@@ -263,7 +277,7 @@ function buildDemo(range) {
   });
   return {
     since,
-    meta: { accounts, campaigns, ads, rows },
+    meta: { accounts, campaigns, ads, rows, plat },
     google: { customers: gCustomers, campaigns: gCampaigns, rows: gRows, terms: gTerms },
     social, log, clients,
   };

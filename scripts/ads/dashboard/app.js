@@ -36,6 +36,12 @@
     };
   });
 
+  // Meta yayin yeri kirilimi: [tarih, kampanya, f|i|o, harcama, form, mesaj]
+  const PROWS = [...(RAW.meta.plat || []), ...(DEMO.meta.plat || []).map((r) => [r[0], r[1] + nC, ...r.slice(2)])].map(([date, ci, code, spend, leads, msgs]) => {
+    const acci = CAMPS[ci][4];
+    return { date, acci, code, spend, res: leads + msgs, _cur: ACC[acci].currency };
+  });
+
   // Google
   const GC = [...RAW.google.customers.map((c) => ({ ...c, demo: false })), ...DEMO.google.customers];
   const nG = RAW.google.customers.length, nGC = RAW.google.campaigns.length;
@@ -127,7 +133,7 @@
       dec_none: "Heute ist keine Entscheidung offen.", dec_open: "{n} offene Maßnahmen, die wichtigste:", dec_open_1: "Eine offene Maßnahme:",
       approve: "Annehmen", approve_client: "Freigeben", reject: "Ablehnen", see_all: "Alle ansehen", undo: "Rückgängig", mark_done: "Als erledigt markieren",
       chart_req: "Anfragen pro Tag", chart_spend: "Werbebudget pro Tag", per_day: "pro Tag",
-      top_actions: "Nächste Schritte", channels: "Kanäle", last_data: "Datenstand {d}",
+      top_actions: "Nächste Schritte", src_t: "Woher kommen Ihre Anfragen?", src_sub: "Letzte {n} Tage · nach Kanal", src_f: "Facebook-Anzeigen", src_i: "Instagram-Anzeigen", src_o: "Weitere Meta-Plätze", src_meta: "Meta-Anzeigen", src_g: "Google-Anzeigen", src_fs: "Facebook", src_is: "Instagram", src_os: "Audience Network", src_metas: "Meta", src_gs: "Google", src_bar_req: "Anteil an Anfragen", src_bar_spend: "Anteil am Budget", src_col_req: "Anfragen", src_col_cpr: "pro Anfrage", src_col_spend: "Budget", src_s_best: "{a} bringt die meisten Anfragen ({p}) und ist zugleich am günstigsten: {c} pro Anfrage.", src_s_top: "{a} bringt die meisten Anfragen ({p}). Am günstigsten ist {b} mit {c} pro Anfrage.", src_s_one: "Alle Anfragen kamen über {a}, im Schnitt {c} pro Anfrage.", src_s_waste: "{a} hat {s} gekostet, aber keine Anfrage gebracht.", src_s_none: "Im Zeitraum gab es keine Anfragen.", src_note: "Facebook und Instagram laufen über dasselbe Meta-Werbekonto; die Aufteilung meldet Meta je Platzierung.", src_note_o: "Weitere Meta-Plätze: Audience Network (Apps und Websites außerhalb von Meta) und Messenger.", channels: "Kanäle", last_data: "Datenstand {d}",
       ba_title: "Vorher / Nachher", ba_measure: "Seit der Maßnahme am {date}", ba_period: "Vorperiode gegenüber aktueller Periode", before: "Vorher", after: "Nachher", ba_weekly: "Kosten pro Anfrage je Woche", ba_marker: "Maßnahme", ba_none: "Zu wenige Anfragen für einen Vergleich.",
       roi_title: "Wirtschaftlichkeit", roi_est: "Schätzung", roi_req: "Anfragen", roi_book: "Beratungstermine", roi_pat: "Behandlungen", roi_rev: "Umsatz", roi_ratio: "Jeder Werbe-{cur} bringt ca. {x} Umsatz.", roi_assume: "Annahmen: {b} der Anfragen buchen einen Termin, {c} davon starten eine Behandlung, Ø Behandlungswert {v}.", roi_missing: "Legen Sie Termin-Quote, Behandlungs-Quote und Ø Behandlungswert fest, um den Umsatz aus Werbung zu schätzen.", roi_set: "Annahmen festlegen", roi_edit: "Annahmen anpassen",
       plan_intro: "Konkrete nächste Schritte aus allen Kanälen, nach Wirkung sortiert. Nichts wird ohne Freigabe geändert.",
@@ -280,7 +286,7 @@
       dec_none: "No decision is waiting today.", dec_open: "{n} open actions, the most important:", dec_open_1: "One open action:",
       approve: "Approve", approve_client: "Approve", reject: "Reject", see_all: "See all", undo: "Undo", mark_done: "Mark as done",
       chart_req: "Enquiries per day", chart_spend: "Ad budget per day", per_day: "per day",
-      top_actions: "Next steps", channels: "Channels", last_data: "Data as of {d}",
+      top_actions: "Next steps", src_t: "Where do your enquiries come from?", src_sub: "Last {n} days · by channel", src_f: "Facebook ads", src_i: "Instagram ads", src_o: "Other Meta placements", src_meta: "Meta ads", src_g: "Google ads", src_fs: "Facebook", src_is: "Instagram", src_os: "Audience Network", src_metas: "Meta", src_gs: "Google", src_bar_req: "Share of enquiries", src_bar_spend: "Share of budget", src_col_req: "Enquiries", src_col_cpr: "per enquiry", src_col_spend: "Budget", src_s_best: "{a} brings the most enquiries ({p}) and is also the cheapest: {c} per enquiry.", src_s_top: "{a} brings the most enquiries ({p}). {b} is the cheapest at {c} per enquiry.", src_s_one: "All enquiries came via {a}, at {c} each on average.", src_s_waste: "{a} cost {s} but brought no enquiries.", src_s_none: "There were no enquiries in this period.", src_note: "Facebook and Instagram run through the same Meta ad account; Meta reports the split per placement.", src_note_o: "Other Meta placements: Audience Network (apps and websites outside Meta) and Messenger.", channels: "Channels", last_data: "Data as of {d}",
       ba_title: "Before / after", ba_measure: "Since the change on {date}", ba_period: "Previous period vs current period", before: "Before", after: "After", ba_weekly: "Cost per enquiry by week", ba_marker: "Change", ba_none: "Too few enquiries to compare.",
       roi_title: "Return", roi_est: "Estimate", roi_req: "Enquiries", roi_book: "Consultations", roi_pat: "Treatments", roi_rev: "Revenue", roi_ratio: "Each {cur} of ad spend brings about {x} in revenue.", roi_assume: "Assumptions: {b} of enquiries book a consultation, {c} of those start treatment, average treatment value {v}.", roi_missing: "Set booking rate, treatment rate and average treatment value to estimate revenue from ads.", roi_set: "Set assumptions", roi_edit: "Edit assumptions",
       plan_intro: "Concrete next steps across all channels, sorted by impact. Nothing changes without approval.",
@@ -433,7 +439,7 @@
       dec_none: "Bugün bekleyen karar yok.", dec_open: "{n} açık aksiyon, en önemlisi:", dec_open_1: "Bir açık aksiyon:",
       approve: "Onayla", approve_client: "Onayla", reject: "Reddet", see_all: "Tümünü gör", undo: "Geri al", mark_done: "Yapıldı olarak işaretle",
       chart_req: "Günlük talep", chart_spend: "Günlük reklam bütçesi", per_day: "günlük",
-      top_actions: "Sıradaki adımlar", channels: "Kanallar", last_data: "Veri tarihi {d}",
+      top_actions: "Sıradaki adımlar", src_t: "Talepleriniz nereden geliyor?", src_sub: "Son {n} gün · kanala göre", src_f: "Facebook reklamları", src_i: "Instagram reklamları", src_o: "Diğer Meta alanları", src_meta: "Meta reklamları", src_g: "Google reklamları", src_fs: "Facebook", src_is: "Instagram", src_os: "Audience Network", src_metas: "Meta", src_gs: "Google", src_bar_req: "Taleplerdeki payı", src_bar_spend: "Bütçedeki payı", src_col_req: "Talep", src_col_cpr: "talep başı", src_col_spend: "Bütçe", src_s_best: "En çok talep {a} üzerinden geliyor ({p}) ve en ucuz kanal da bu: talep başı {c}.", src_s_top: "En çok talep {a} üzerinden geliyor ({p}). En ucuz kanal ise talep başı {c} ile {b}.", src_s_one: "Tüm talepler {a} üzerinden geldi, talep başı ortalama {c}.", src_s_waste: "{a} için {s} harcandı, ancak hiç talep gelmedi.", src_s_none: "Bu dönemde talep gelmedi.", src_note: "Facebook ve Instagram aynı Meta reklam hesabından yayınlanır; dağılımı Meta, yayın yerine göre bildirir.", src_note_o: "Diğer Meta alanları: Audience Network (Meta dışındaki uygulama ve siteler) ve Messenger.", channels: "Kanallar", last_data: "Veri tarihi {d}",
       ba_title: "Önce / sonra", ba_measure: "{date} tarihindeki değişiklikten beri", ba_period: "Önceki dönem / bu dönem", before: "Önce", after: "Sonra", ba_weekly: "Haftalık talep başı maliyet", ba_marker: "Değişiklik", ba_none: "Karşılaştırma için yeterli talep yok.",
       roi_title: "Kârlılık", roi_est: "Tahmin", roi_req: "Talep", roi_book: "Muayene randevusu", roi_pat: "Tedavi", roi_rev: "Ciro", roi_ratio: "Reklama harcanan her {cur} yaklaşık {x} ciro getiriyor.", roi_assume: "Varsayımlar: taleplerin {b} kadarı randevu alıyor, bunların {c} kadarı tedaviye başlıyor, ortalama tedavi değeri {v}.", roi_missing: "Reklamdan gelen ciroyu tahmin etmek için randevu oranını, tedavi oranını ve ortalama tedavi değerini girin.", roi_set: "Varsayımları gir", roi_edit: "Varsayımları düzenle",
       plan_intro: "Tüm kanallardan somut sıradaki adımlar, etkisine göre sıralı. Onay olmadan hiçbir şey değişmez.",
@@ -564,7 +570,12 @@
   // ================================================================ format
   const loc = () => LOC[state.lang];
   const conv = (amount, from) => (amount / (state.fx[from] || 1)) * (state.fx[state.cur] || 1);
-  const money = (v, opt = {}) => v == null || !isFinite(v) ? "–" : new Intl.NumberFormat(loc(), { style: "currency", currency: state.cur, maximumFractionDigits: opt.dec ?? (Math.abs(v) < 100 ? 2 : 0), minimumFractionDigits: 0 }).format(v);
+  const money = (v, opt = {}) => {
+    if (v == null || !isFinite(v)) return "–";
+    const d = opt.dec ?? (Math.abs(v) < 100 ? 2 : 0);
+    // 45,4 € yerine 45,40 €: kesirli tutarlarda kurus hanesi hep tam
+    return new Intl.NumberFormat(loc(), { style: "currency", currency: state.cur, maximumFractionDigits: d, minimumFractionDigits: d && Math.round(v * 10 ** d) % 10 ** d ? d : 0 }).format(v);
+  };
   const num = (v, d = 0) => v == null || !isFinite(v) ? "–" : new Intl.NumberFormat(loc(), { maximumFractionDigits: d, minimumFractionDigits: d }).format(v);
   const compact = (v) => v == null || !isFinite(v) ? "–" : new Intl.NumberFormat(loc(), { notation: "compact", maximumFractionDigits: 1 }).format(v);
   const pct = (v, d = 1) => v == null || !isFinite(v) ? "–" : new Intl.NumberFormat(loc(), { style: "percent", maximumFractionDigits: d, minimumFractionDigits: d }).format(v);
@@ -643,6 +654,61 @@
     const req = m.res + g.conv, spend = m.spend + g.cost;
     return { m, g, req, spend, cpr: req ? spend / req : null };
   }
+  // Talepler hangi kanaldan: Meta toplamini yayin yeri paylarina gore Facebook / Instagram / diger olarak boler
+  const SRC_COLOR = { f: "var(--s-fb)", i: "var(--s-ig)", o: "var(--fg-3)", meta: "var(--s-meta)", g: "var(--s-google)" };
+  const SRC_ICON = { f: "fb", i: "ig", o: "meta", meta: "meta", g: "google" };
+  function channelSplit(cl, from, to, A = aggAll(cl, from, to)) {
+    const s = new Set(cl.metaIdx), P = { f: { s: 0, r: 0 }, i: { s: 0, r: 0 }, o: { s: 0, r: 0 } };
+    for (const r of PROWS) if (s.has(r.acci) && inRange(r.date, from, to)) { P[r.code].s += conv(r.spend, r._cur); P[r.code].r += r.res; }
+    const pS = P.f.s + P.i.s + P.o.s, pR = P.f.r + P.i.r + P.o.r;
+    const out = [];
+    if (A.m.spend > 0 || A.m.res > 0) {
+      if (pS > 0) {
+        for (const k of ["f", "i", "o"]) {
+          const spend = A.m.spend * (P[k].s / pS), req = pR ? A.m.res * (P[k].r / pR) : 0;
+          if (k === "o" && spend < A.spend * 0.01 && req < 0.5) continue;
+          if (spend > 0 || req > 0) out.push({ key: k, spend, req });
+        }
+      } else out.push({ key: "meta", spend: A.m.spend, req: A.m.res });
+    }
+    if (A.g.cost > 0 || A.g.conv > 0) out.push({ key: "g", spend: A.g.cost, req: A.g.conv });
+    for (const c of out) { c.cpr = c.req >= 0.5 ? c.spend / c.req : null; c.share = A.req ? c.req / A.req : 0; c.spendShare = A.spend ? c.spend / A.spend : 0; }
+    return out.sort((a, b) => b.req - a.req || b.spend - a.spend);
+  }
+  function channelSay(list, A) {
+    const n = (c) => t("src_" + c.key + "s"), live = list.filter((c) => c.req >= 0.5);
+    if (!live.length) return [t("src_s_none")];
+    const top = live[0], minReq = Math.min(3, Math.max(1, A.req * 0.05));
+    const cheap = live.filter((c) => c.req >= minReq).sort((a, b) => a.cpr - b.cpr)[0] || top;
+    const out = [live.length === 1 && list.every((c) => c === top || c.spendShare < 0.05) ? t("src_s_one", { a: n(top), c: money(top.cpr) })
+      : cheap === top ? t("src_s_best", { a: n(top), p: pct(top.share, 0), c: money(top.cpr) })
+      : t("src_s_top", { a: n(top), p: pct(top.share, 0), b: n(cheap), c: money(cheap.cpr) })];
+    const waste = list.filter((c) => c.req < 0.5 && c.spendShare >= 0.05).sort((a, b) => b.spend - a.spend)[0];
+    if (waste) out.push(t("src_s_waste", { a: n(waste), s: money(waste.spend, { dec: 0 }) }));
+    return out;
+  }
+  const srcBar = (list, k) => `<div class="sbar" role="img" aria-label="${esc(list.map((c) => `${t("src_" + c.key + "s")} ${pct(c[k], 0)}`).join(", "))}">${list.filter((c) => c[k] > 0.004).map((c) => `<span style="flex-grow:${c[k].toFixed(4)};background:${SRC_COLOR[c.key]}" title="${esc(t("src_" + c.key + "s"))}: ${pct(c[k], 0)}">${c[k] >= 0.12 ? pct(c[k], 0) : ""}</span>`).join("")}</div>`;
+  function srcCard(cl, A) {
+    const list = channelSplit(cl, addD(state.end, -(state.win - 1)), state.end, A);
+    if (!list.length) return "";
+    const say = channelSay(list, A);
+    return `<section class="card src">
+      <div class="card-h"><h2>${t("src_t")}</h2><span class="sub">${t("src_sub", { n: state.win })}</span></div>
+      <div class="card-b">
+        <p class="src-say">${say.map((x, i) => `<span class="${i ? "warn-t" : ""}">${esc(x)}</span>`).join(" ")}</p>
+        <div class="src-bars">
+          <div class="src-bar"><span class="k">${t("src_bar_req")}</span>${srcBar(list, "share")}</div>
+          <div class="src-bar"><span class="k">${t("src_bar_spend")}</span>${srcBar(list, "spendShare")}</div>
+        </div>
+        <div class="src-rows" role="table">
+          <div class="src-row head" role="row"><span role="columnheader"></span><span role="columnheader">${t("src_col_req")}</span><span role="columnheader">${t("src_col_cpr")}</span><span role="columnheader">${t("src_col_spend")}</span></div>
+          ${list.map((c) => `<div class="src-row" role="row"><span class="src-name" role="cell"><i class="sw" style="background:${SRC_COLOR[c.key]}"></i>${icon(SRC_ICON[c.key])}${esc(t("src_" + c.key))}</span><span class="v" role="cell"><b>${num(c.req, c.key === "g" && c.req % 1 ? 1 : 0)}</b><em>${pct(c.share, 0)}</em></span><span class="v" role="cell">${money(c.cpr)}</span><span class="v" role="cell">${money(c.spend, { dec: 0 })}</span></div>`).join("")}
+        </div>
+        <p class="footnote">${t("src_note")}${list.some((c) => c.key === "o") ? " " + t("src_note_o") : ""}</p>
+      </div>
+    </section>`;
+  }
+
   const lastMeta = (cl) => { let d = ""; const s = new Set(cl.metaIdx); for (const r of MROWS) if (s.has(r.acci) && r._spend > 0 && r.date_start <= state.end && r.date_start > d) d = r.date_start; return d || null; };
   const lastGoogle = (cl) => { let d = ""; const s = new Set(cl.gIdx); for (const r of GROWS) if (s.has(r.gi) && r.cost > 0 && r.date <= state.end && r.date > d) d = r.date; return d || null; };
   function socialAgg(cl, from, to) {
@@ -1163,10 +1229,13 @@
     const acts = openActions(cl);
     const vKey = P.req && P.cpr && A.cpr ? (A.req >= P.req ? (A.cpr <= P.cpr ? "v_up_cheap" : "v_up_dear") : (A.cpr <= P.cpr ? "v_down_cheap" : "v_down_dear")) : null;
     const st = openActions(cl).some((a) => a.sev === "high") ? "bad" : openActions(cl).some((a) => a.sev === "medium") ? "warn" : "good";
+    const SRC = channelSplit(cl, from, end, A).filter((c) => c.share > 0.004);
+    const heroSrc = SRC.length > 1 ? `<div class="mh-src">${srcBar(SRC, "share")}<div class="mh-leg">${SRC.map((c) => `<span><i style="background:${SRC_COLOR[c.key]}"></i>${esc(t("src_" + c.key + "s"))} <b>${pct(c.share, 0)}</b></span>`).join("")}</div></div>` : "";
     const hero = `<section class="card m-hero m-only">
       <div class="mh-top"><span class="mh-lbl">${t("hero_lbl", { n: state.win })}</span><div class="seg sm">${[7, 30, 90].map((n) => `<button type="button" data-win="${n}" aria-pressed="${state.win === n}">${n}</button>`).join("")}</div></div>
       <div class="mh-main"><span class="mh-num" data-count="${A.req}" data-fmt="int">${num(A.req)}</span>${deltaMini(A.req, P.req, true)}</div>
       <p class="mh-help">${t("help_req")}</p>
+      ${heroSrc}
       <div class="mh-spark">${spark(reqS, "var(--s-leads)", 300, 44)}</div>
       ${vKey ? `<p class="mh-verdict ${st}"><span class="dot"></span>${esc(t(vKey))}</p>` : ""}
       <div class="mh-pair">
@@ -1181,6 +1250,7 @@
       <div class="ov-head">${clientHead(cl)}</div>
       ${hero}
       ${statusCard(cl)}
+      <div class="m-only">${srcCard(cl, A)}</div>
       <section class="grid-kpi ov">
         ${kpiCard(t("requests"), A.req, "int", deltaPill(A.req, P.req, true), t("split", { m: num(A.m.res), g: num(A.g.conv, 0) }), spark(reqS, "var(--s-leads)"))}
         ${kpiCard(t("cpr"), A.cpr, "money", deltaPill(A.cpr, P.cpr, false), "", spark(cprRoll, "var(--s-cpl)"))}
@@ -1188,6 +1258,7 @@
         ${S ? kpiCard(t("reach_org"), S.reach, "compact", deltaPill(S.reach, SP?.reach, true), `Facebook ${compact(S.fbReach)} · Instagram ${compact(S.igReach)}`, orgSpark)
           : `<div class="card kpi off"><div class="l">${t("reach_org")}</div><div class="v muted">–</div><div class="d">${t("not_connected")}</div><a class="btn sm" href="#social" data-nav="social" style="justify-self:start;margin-top:8px">${icon("plug")}${t("connect")}</a></div>`}
       </section>
+      <div class="d-only">${srcCard(cl, A)}</div>
       <div class="grid-2">
         <div class="stack">
           <section class="card">

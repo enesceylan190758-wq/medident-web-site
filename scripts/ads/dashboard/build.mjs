@@ -6,7 +6,7 @@
  * Cikti repo disinda/gitignore'da kalir (repo herkese acik, reklam verisi commit edilmez).
  *
  *   npm run ads:dashboard -- --since 2026-01-01 --out .cache/ads-panel.html [--clients scripts/ads/clients.json]
- *   ... --from-json meta.json --google-json google.json   # onceden cekilmis veriyle
+ *   ... --from-json meta.json --google-json google.json [--platform-json plat.json]   # onceden cekilmis veriyle
  *
  * --clients: hangi reklam hesabinin hangi musteriye ait oldugu (bkz. clients.example.json).
  * Verilmezse her Meta hesabi kendi musterisi olur, Google hesaplari atanmamis kalir.
@@ -14,7 +14,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { listAdAccounts, adInsights } from "../lib/meta.mjs";
+import { listAdAccounts, adInsights, platformInsights } from "../lib/meta.mjs";
 import { accessibleCustomers, clientAccounts, campaignDaily, searchTerms } from "../lib/google.mjs";
 import { results } from "../lib/analyze.mjs";
 
@@ -62,6 +62,23 @@ for (const r of rows) {
   }
   const res = results(r);
   R.push([r.date_start, adIdx.get(r.ad_id), +r.spend, +r.impressions, +(r.frequency || 0), +(r.inline_link_clicks || 0), res.leads, res.messages]);
+}
+
+// ---- Meta yayin yeri (Facebook / Instagram / diger) kirilimi, kampanya-gun bazinda
+let platRows = [];
+if (arg("platform-json")) platRows = JSON.parse(readFileSync(arg("platform-json"), "utf8")).rows;
+else if (!arg("from-json")) {
+  for (const a of accounts) for (const [s, e] of chunks(since, until, 60)) {
+    try { platRows.push(...(await platformInsights(a.id, s, e))); } catch (e2) { console.warn(`Platform kirilimi atlandi (${a.name}): ${e2.message}`); }
+  }
+}
+const PLAT_CODE = { facebook: "f", instagram: "i" };
+const PR = [];
+for (const r of platRows) {
+  const ci = campIdx.get(r.campaign_id);
+  if (ci == null) continue;
+  const res = results(r);
+  PR.push([r.date_start, ci, PLAT_CODE[r.publisher_platform] || "o", +r.spend, res.leads, res.messages]);
 }
 
 // ---- Google Ads
@@ -113,7 +130,7 @@ const unassigned = {
 
 const data = {
   generatedAt: new Date().toISOString(), since, until,
-  meta: { accounts: acc, campaigns: camps, ads, rows: R },
+  meta: { accounts: acc, campaigns: camps, ads, rows: R, plat: PR },
   google: { customers: gCust, campaigns: gCamps, rows: GR, terms: GT, termsDays: 90 },
   clients, unassigned,
 };

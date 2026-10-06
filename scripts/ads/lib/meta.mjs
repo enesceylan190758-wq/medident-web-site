@@ -122,6 +122,19 @@ export function adInsights(accountId, since, until) {
   });
 }
 
+/** Kampanya bazinda, gun gun, yayin yeri (facebook / instagram / messenger / audience_network) kirilimi */
+export function platformInsights(accountId, since, until) {
+  return getAll(`${actId(accountId)}/insights`, {
+    level: "campaign",
+    time_increment: "1",
+    time_range: JSON.stringify({ since, until }),
+    breakdowns: "publisher_platform",
+    fields: "account_id,campaign_id,spend,impressions,inline_link_clicks,actions",
+    filtering: JSON.stringify([{ field: "spend", operator: "GREATER_THAN", value: 0 }]),
+    limit: "100",
+  });
+}
+
 /** Butceler (daily_budget/lifetime_budget) hesap para biriminin alt biriminde gelir: kurus */
 export function adSets(accountId) {
   return getAll(`${actId(accountId)}/adsets`, {

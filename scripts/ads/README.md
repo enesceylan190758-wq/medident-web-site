@@ -107,3 +107,11 @@ Panelin sesi `dashboard/VOICE.md`'de: Almanca „Sie“, Türkçe „siz“; ön
 müşterinin dili (Anfrage / talep), ünlem ve emoji yok. KI-Assistent de aynı kurallarla cevap verir.
 Mobilde (≤ 700 px) Übersicht üstte tek kart gösterir: talep sayısı + değişim, talep başı maliyet,
 reklam bütçesi ve tek cümlelik yorum. Alt sekme çubuğu: Start / Plan / Assistent / Berichte / Mehr.
+
+## Talepler nereden geliyor
+
+Übersicht'te "Woher kommen Ihre Anfragen?" kartı: önce tek cümle (en çok talep getiren ve en ucuz kanal,
+talep getirmeyen harcama), sonra iki renkli çubuk (taleplerdeki pay / bütçedeki pay) ve kanal satırları.
+Facebook/Instagram ayrımı Meta'nın `publisher_platform` kırılımından gelir (`platformInsights`, kampanya-gün);
+toplamlar reklam bazlı veriyle aynı kalsın diye Meta toplamı bu paylara göre bölünür.
+Önceden çekilmiş veriyle: `--platform-json plat.json`.

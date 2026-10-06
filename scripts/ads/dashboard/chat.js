@@ -54,6 +54,7 @@
       period: `${from} – ${end}`, previousPeriod: `${pFrom} – ${pTo}`, currency: state.cur, current: pack(a), previous: pack(p),
       social: S ? { reach: S.reach, facebookFollowers: S.fbF, instagramFollowers: S.igF, followerGrowthFb: S.fbG, followerGrowthIg: S.igG, posts: S.posts.length, engagementRate: r2(S.rate) } : "not connected",
       lastMetaSpendDay: lastMeta(cl), lastGoogleSpendDay: lastGoogle(cl),
+      requestsByChannel: channelSplit(cl, from, end, a).map((c) => ({ channel: { f: "Facebook ads", i: "Instagram ads", o: "Other Meta placements (Audience Network, Messenger)", meta: "Meta ads", g: "Google ads" }[c.key], requests: r2(c.req), shareOfRequests: r2(c.share), spend: r2(c.spend), costPerRequest: r2(c.cpr) })),
     };
   }
   const TOOLS = (cl, onStatus) => [
