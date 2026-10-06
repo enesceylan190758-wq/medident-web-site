@@ -84,6 +84,13 @@ Onayla/Reddet ve onboarding şimdilik sadece arayüzdür; Meta'ya hiçbir şey g
   varyantları + HWG/UWG kontrolü, özet). Taslaklar ve onay durumu `campaigns` koleksiyonunda; müşteri
   görünümünde "Freigeben / Änderung anfragen". Reklam hesabına yazma henüz yok (sonraki adım).
 
+## KI-Assistent
+
+`dashboard/chat.js` (app.js içine gömülür): müşteri bazlı sohbet. Claude (`sample`) yalnızca seçili
+müşterinin verisini sayfa fonksiyonları (tools) üzerinden okur: dönem kennzahlen, günlük seyir,
+kampanyalar, aksiyon planı, arama terimleri, sosyal gönderiler, rakip araştırmaları. Sohbet geçmişi
+tarayıcıda, müşteri başına saklanır. Kampanyalarda değişiklik yapmaz.
+
 ## Dashboard için kurallar
 
 - Veri modeli baştan hesap bazlı: insights, adset ve ad kayıtlarının hepsi `account_id` taşır.

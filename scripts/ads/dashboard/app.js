@@ -993,7 +993,7 @@
     const preview = state.preview && cl;
     const themeIc = state.theme === "dark" ? "moon" : state.theme === "light" ? "sun" : "auto";
     const nOpen = cl ? openActions(cl).length : 0;
-    const clientNav = [["overview", "overview"], ["plan", "plan"], ["research", "radar"], ["create", "studio"], ["meta", "meta"], ["google", "google"], ["social", "social"], ["reports", "reports"], ["log", "log"], ["settings", "settings"]];
+    const clientNav = [["overview", "overview"], ["chat", "chat"], ["plan", "plan"], ["research", "radar"], ["create", "studio"], ["meta", "meta"], ["google", "google"], ["social", "social"], ["reports", "reports"], ["log", "log"], ["settings", "settings"]];
     const navItem = (v, ic, label, extra = "") => `<a href="#${v}" data-nav="${v}" ${(!cl && v === "clients") || (cl && state.view === v) ? 'aria-current="page"' : ""}>${icon(ic)}<span>${label}</span>${extra}</a>`;
     document.getElementById("app").innerHTML = `
       <div class="app ${preview ? "is-preview" : ""}">
@@ -1586,6 +1586,7 @@
   const VIEWS = { overview: vOverview, plan: vPlan, meta: vMeta, google: vGoogle, social: vSocial, reports: vReports, log: vLog, settings: vSettings };
   const DRAW = { overview: () => { drawMain(); drawBA(); }, meta: drawMeta, google: drawGoogle, social: drawSocial, reports: drawRep };
   /*__STUDIO__*/
+  /*__CHAT__*/
 
   const lastCount = new Map();
   function render(opts = {}) {
