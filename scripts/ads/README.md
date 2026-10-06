@@ -99,3 +99,10 @@ tarayıcıda, müşteri başına saklanır. Kampanyalarda değişiklik yapmaz.
   Graph API'ye tarayıcıdan istek atılmaz, jeton frontend'e hiçbir yoldan düşmez.
 - Panelde hesap seçici (tümü / tek hesap) ilk günden var; müşteri hesabı geldiğinde kod değişmez.
 - Repo herkese açık: reklam verisi commit edilmez, GitHub artifact'ine yüklenmez.
+
+## Hitap ve mobil
+
+Panelin sesi `dashboard/VOICE.md`'de: Almanca „Sie“, Türkçe „siz“; önce sayı, sonra anlamı, sonra adım;
+müşterinin dili (Anfrage / talep), ünlem ve emoji yok. KI-Assistent de aynı kurallarla cevap verir.
+Mobilde (≤ 700 px) Übersicht üstte tek kart gösterir: talep sayısı + değişim, talep başı maliyet,
+reklam bütçesi ve tek cümlelik yorum. Alt sekme çubuğu: Start / Plan / Assistent / Berichte / Mehr.

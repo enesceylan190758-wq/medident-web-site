@@ -96,7 +96,7 @@
   const LOC = { de: "de-DE", en: "en-GB", tr: "tr-TR" };
   const T = {
     de: {
-      brand_sub: "Werbe-Cockpit für Kliniken", admin: "Agentur-Admin", menu: "Menü",
+      greet_m: "Guten Morgen", greet_d: "Guten Tag", greet_e: "Guten Abend", greet_team: "Team {name}", greet_sub_c: "Hier sehen Sie, was Ihre Werbung in den letzten {n} Tagen gebracht hat – und was als Nächstes zu tun ist.", greet_sub_a: "{name} im Überblick: Ergebnisse der letzten {n} Tage und offene Entscheidungen.", hero_lbl: "Patientenanfragen · letzte {n} Tage", help_req: "Formulare, WhatsApp-Chats und Google-Conversions", help_cpr: "Was eine Anfrage im Schnitt kostet", help_budget: "Ausgaben für Meta und Google", v_up_cheap: "Mehr Anfragen zu geringeren Kosten als im Zeitraum davor.", v_up_dear: "Mehr Anfragen, aber jede kostet mehr als zuvor.", v_down_cheap: "Weniger Anfragen, dafür günstiger als zuvor.", v_down_dear: "Weniger Anfragen zu höheren Kosten – der Maßnahmenplan zeigt, wo Sie ansetzen.", tab_overview: "Start", tab_plan: "Plan", tab_chat: "Assistent", tab_reports: "Berichte", tab_more: "Mehr", view_settings: "Ansicht", brand_sub: "Werbe-Cockpit für Kliniken", admin: "Agentur-Admin", menu: "Menü",
       nav_clients: "Kunden", nav_overview: "Übersicht", nav_plan: "Maßnahmenplan", nav_meta: "Meta Ads", nav_google: "Google Ads", nav_social: "Facebook & Instagram", nav_reports: "Berichte", nav_log: "Protokoll", nav_settings: "Einstellungen",
       sec_admin: "Agentur", sec_client: "Kunde", sec_portal: "Ihr Portal",
       all_clients: "Alle Kunden", new_client: "Neuer Kunde", demo: "Demo", real: "Echt", days: "{n} T",
@@ -249,7 +249,7 @@
       footnote: "Beträge umgerechnet zu Näherungskursen (1 EUR = {chf} CHF = {try} TRY).",
     },
     en: {
-      brand_sub: "Ad cockpit for clinics", admin: "Agency admin", menu: "Menu",
+      greet_m: "Good morning", greet_d: "Good afternoon", greet_e: "Good evening", greet_team: "{name} team", greet_sub_c: "Here is what your advertising delivered in the last {n} days – and what to do next.", greet_sub_a: "{name} at a glance: results of the last {n} days and open decisions.", hero_lbl: "Patient enquiries · last {n} days", help_req: "Forms, WhatsApp chats and Google conversions", help_cpr: "What one enquiry costs on average", help_budget: "Spend on Meta and Google", v_up_cheap: "More enquiries at lower cost than the period before.", v_up_dear: "More enquiries, but each costs more than before.", v_down_cheap: "Fewer enquiries, but cheaper than before.", v_down_dear: "Fewer enquiries at higher cost – the action plan shows where to start.", tab_overview: "Home", tab_plan: "Plan", tab_chat: "Assistant", tab_reports: "Reports", tab_more: "More", view_settings: "View", brand_sub: "Ad cockpit for clinics", admin: "Agency admin", menu: "Menu",
       nav_clients: "Clients", nav_overview: "Overview", nav_plan: "Action plan", nav_meta: "Meta Ads", nav_google: "Google Ads", nav_social: "Facebook & Instagram", nav_reports: "Reports", nav_log: "Audit log", nav_settings: "Settings",
       sec_admin: "Agency", sec_client: "Client", sec_portal: "Your portal",
       all_clients: "All clients", new_client: "New client", demo: "Demo", real: "Real", days: "{n}d",
@@ -402,13 +402,13 @@
       footnote: "Amounts converted at approximate rates (1 EUR = {chf} CHF = {try} TRY).",
     },
     tr: {
-      brand_sub: "Klinikler için reklam paneli", admin: "Ajans yöneticisi", menu: "Menü",
+      greet_m: "Günaydın", greet_d: "İyi günler", greet_e: "İyi akşamlar", greet_team: "{name} ekibi", greet_sub_c: "Reklamlarınızın son {n} günde ne getirdiğini ve sırada ne yapılması gerektiğini burada görürsünüz.", greet_sub_a: "{name} genel bakış: son {n} günün sonuçları ve bekleyen kararlar.", hero_lbl: "Hasta talepleri · son {n} gün", help_req: "Formlar, WhatsApp yazışmaları ve Google dönüşümleri", help_cpr: "Bir talebin ortalama maliyeti", help_budget: "Meta ve Google harcaması", v_up_cheap: "Önceki döneme göre daha düşük maliyetle daha fazla talep.", v_up_dear: "Daha fazla talep var, ancak her biri öncekinden pahalı.", v_down_cheap: "Talep sayısı azaldı, ancak maliyet düştü.", v_down_dear: "Daha az talep, daha yüksek maliyet; nereden başlanacağını aksiyon planı gösteriyor.", tab_overview: "Ana sayfa", tab_plan: "Plan", tab_chat: "Asistan", tab_reports: "Raporlar", tab_more: "Daha fazla", view_settings: "Görünüm", brand_sub: "Klinikler için reklam paneli", admin: "Ajans yöneticisi", menu: "Menü",
       nav_clients: "Müşteriler", nav_overview: "Genel bakış", nav_plan: "Aksiyon planı", nav_meta: "Meta reklamları", nav_google: "Google reklamları", nav_social: "Facebook ve Instagram", nav_reports: "Raporlar", nav_log: "Kayıt", nav_settings: "Ayarlar",
       sec_admin: "Ajans", sec_client: "Müşteri", sec_portal: "Portalınız",
       all_clients: "Tüm müşteriler", new_client: "Yeni müşteri", demo: "Demo", real: "Gerçek", days: "{n} gün",
       preview_btn: "Müşteri görünümü", preview_on: "Müşteri görünümü", preview_text: "{name} portalı böyle görüyor. İç bölümler ve diğer müşteriler gizli.", preview_exit: "Çık",
       period: "Dönem", currency: "Para birimi", language: "Dil", theme: "Görünüm",
-      cl_intro: "Bir müşteri seç. Her müşteri sadece kendi verisini görür; sen burada hepsini görürsün.",
+      cl_intro: "Bir müşteri seçin. Her müşteri yalnızca kendi verisini görür; burada hepsini görürsünüz.",
       cl_count: "Müşteri", cl_open: "Açık aksiyon", cl_urgent: "Acil", cl_access: "Müşteri girişi olan",
       col_client: "Müşteri", col_channels: "Kanallar", col_requests: "Talep 30 g", col_cpr: "Talep başı maliyet", col_budget: "Bütçe 30 g", col_actions: "Aksiyon", col_access: "Giriş",
       acc_active: "Aktif · {n} kullanıcı", acc_invited: "Davet edildi", acc_none: "Giriş yok",
@@ -420,7 +420,7 @@
       spend: "Harcama", leads: "Lead", cpl: "Lead başı maliyet", ctr: "Tıklama oranı", freq: "Frekans", impressions: "Gösterim",
       clicks: "Tıklama", cpc: "Tıklama başı maliyet", conv: "Dönüşüm", cpa: "Dönüşüm başı maliyet", cost: "Maliyet",
       vs_prev: "önceki döneme göre", no_prev: "önceki dönem yok", split: "{m} Meta · {g} Google", spend_day: "Günlük harcama",
-      status_title: "Günlük durum", happened: "Ne oldu", means: "Ne anlama geliyor", decide: "Senden beklenen karar",
+      status_title: "Günlük durum", happened: "Ne oldu", means: "Ne anlama geliyor", decide: "Sizden beklenen karar",
       st_ok: "Planda", st_watch: "İzle", st_act: "Aksiyon gerekli",
       head_req: "{spend} reklam bütçesi, {n} talep.", head_better: "Talep başı maliyet 7 günlük ortalamanın {pct} altında.", head_worse: "Talep başı maliyet 7 günlük ortalamanın {pct} üzerinde.", head_flat: "Talep başı maliyet son 7 günle aynı seviyede.", head_none: "O gün harcama var, talep yok.", head_nospend: "O gün reklam harcaması yok.",
       avg7: "7 gün ort.: {v}",
@@ -435,7 +435,7 @@
       chart_req: "Günlük talep", chart_spend: "Günlük reklam bütçesi", per_day: "günlük",
       top_actions: "Sıradaki adımlar", channels: "Kanallar", last_data: "Veri tarihi {d}",
       ba_title: "Önce / sonra", ba_measure: "{date} tarihindeki değişiklikten beri", ba_period: "Önceki dönem / bu dönem", before: "Önce", after: "Sonra", ba_weekly: "Haftalık talep başı maliyet", ba_marker: "Değişiklik", ba_none: "Karşılaştırma için yeterli talep yok.",
-      roi_title: "Kârlılık", roi_est: "Tahmin", roi_req: "Talep", roi_book: "Muayene randevusu", roi_pat: "Tedavi", roi_rev: "Ciro", roi_ratio: "Reklama harcanan her {cur} yaklaşık {x} ciro getiriyor.", roi_assume: "Varsayımlar: taleplerin {b} kadarı randevu alıyor, bunların {c} kadarı tedaviye başlıyor, ortalama tedavi değeri {v}.", roi_missing: "Reklamdan gelen ciroyu tahmin etmek için randevu oranı, tedavi oranı ve ortalama tedavi değerini gir.", roi_set: "Varsayımları gir", roi_edit: "Varsayımları düzenle",
+      roi_title: "Kârlılık", roi_est: "Tahmin", roi_req: "Talep", roi_book: "Muayene randevusu", roi_pat: "Tedavi", roi_rev: "Ciro", roi_ratio: "Reklama harcanan her {cur} yaklaşık {x} ciro getiriyor.", roi_assume: "Varsayımlar: taleplerin {b} kadarı randevu alıyor, bunların {c} kadarı tedaviye başlıyor, ortalama tedavi değeri {v}.", roi_missing: "Reklamdan gelen ciroyu tahmin etmek için randevu oranını, tedavi oranını ve ortalama tedavi değerini girin.", roi_set: "Varsayımları gir", roi_edit: "Varsayımları düzenle",
       plan_intro: "Tüm kanallardan somut sıradaki adımlar, etkisine göre sıralı. Onay olmadan hiçbir şey değişmez.",
       plan_sum_n: "{n} açık aksiyon", plan_sum_save: "haftada yaklaşık {save} tasarruf", plan_sum_more: "haftada yaklaşık {more} ek talep",
       plan_preview: "Önizleme: kararlar sadece kayda işlenir, Meta'ya veya Google'a gönderilmez.",
@@ -446,73 +446,73 @@
       reason_q: "Neden (isteğe bağlı):", r_seasonal: "Sezonluk planlı", r_early: "Erken, izlemeye devam", r_brand: "Marka kampanyası, lead hedefi yok", r_other: "Başka neden", skip: "Nedensiz", cancel: "Vazgeç",
       toast_ok: "Onaylandı ve kayda işlendi.", toast_no: "Reddedildi ve kayda işlendi.", toast_done: "Yapıldı olarak işaretlendi.", toast_undo: "Karar geri alındı.",
       sev_high: "Acil", sev_medium: "Önemli", sev_low: "Not", sev_info: "Fırsat",
-      a_spend_no_results: "“{ad}” reklamını durdur",
+      a_spend_no_results: "“{ad}” reklamını durdurun",
       w_spend_no_results: "Bu reklam son 7 günde {spend} harcadı ve hiç talep getirmedi; hedef lead maliyetinin ({target}) iki katından fazla.",
-      s_spend_no_results: ["Reklamı Reklam Yöneticisi'nde durdur", "Açılan bütçeyi en iyi reklama aktar", "7 gün sonra lead maliyetini tekrar kontrol et"],
+      s_spend_no_results: ["Reklamı Reklam Yöneticisi'nde durdurun", "Açılan bütçeyi en iyi reklama aktarın", "7 gün sonra lead maliyetini tekrar kontrol edin"],
       i_save: "Haftada yaklaşık {v} tasarruf",
-      a_high_cpl: "“{ad}” maliyetini düşür",
-      w_high_cpl: "Burada bir lead {cpl}; {target} hedefinin {pct} üzerinde.",
-      s_high_cpl: ["Günlük bütçeyi %25 düşür", "Hedef kitleyi daralt (yaş, mesafe)", "Formu en fazla 4 soruya indir"],
+      a_high_cpl: "“{ad}” maliyetini düşürün",
+      w_high_cpl: "Burada bir lead {cpl}; hedefiniz olan {target} değerinin {pct} üzerinde.",
+      s_high_cpl: ["Günlük bütçeyi %25 düşürün", "Hedef kitleyi daraltın (yaş, mesafe)", "Formu en fazla 4 soruya indirin"],
       i_high_cpl: "Hedef seviyede haftada yaklaşık {v} daha az",
       a_creative_fatigue: "“{ad}” için yeni reklam varyantı",
       w_creative_fatigue: "Aynı kişiler reklamı ortalama {freq} kez görmüş. Tıklama oranı {p} → {r} düştü; tipik reklam yorgunluğu.",
-      s_creative_fatigue: ["Klinik 2–3 yeni fotoğraf veya kısa video gönderir", "Ajans 2 varyant hazırlar (15 sn video, karusel)", "Eski reklamı 5 gün sonra durdur"],
+      s_creative_fatigue: ["Klinik 2–3 yeni fotoğraf veya kısa video gönderir", "Ajans 2 varyant hazırlar (15 sn video, karusel)", "Eski reklamı 5 gün sonra durdurun"],
       i_fatigue: "Lead maliyetini sabit tutar",
-      a_low_ctr: "“{ad}” metnini ve görselini yenile",
+      a_low_ctr: "“{ad}” metnini ve görselini yenileyin",
       w_low_ctr: "Kişilerin yalnızca {ctr} kadarı tıklıyor ({imp} gösterim). Normali %0,7 ve üzeri.",
-      s_low_ctr: ["İlk satırda net bir fayda yaz", "Yüz veya doktor içeren görsel dene"],
+      s_low_ctr: ["İlk satırda net bir fayda yazın", "Yüz veya doktor içeren bir görsel deneyin"],
       i_low_ctr: "Aynı bütçeyle daha çok tıklama",
-      a_spend_stopped: "Meta yayınını kontrol et",
+      a_spend_stopped: "Meta yayınını kontrol edin",
       w_spend_stopped: "Bu hesapta 7 gündür harcama yok.",
-      s_spend_stopped: ["Reklam hesabındaki ödeme yöntemini kontrol et", "Durdurulan kampanyaları bilinçli olarak aç ya da nedenini not et"],
+      s_spend_stopped: ["Reklam hesabındaki ödeme yöntemini kontrol edin", "Durdurulan kampanyaları bilinçli olarak açın ya da nedenini not edin"],
       i_spend_stopped: "Talep kaybını önler",
-      a_winner: "“{ad}” bütçesini artır",
-      w_winner: "Burada bir lead {cpl}; hedefin ({target}) {pct} altında, 7 günde {n} lead.",
-      s_winner: ["Günlük bütçeyi %20 artır", "3 gün sonra kontrol et, sonra tekrar +%20", "Aynı mesajı yeni bir varyantla test et"],
+      a_winner: "“{ad}” bütçesini artırın",
+      w_winner: "Burada bir lead {cpl}; hedefinizin ({target}) {pct} altında, 7 günde {n} lead.",
+      s_winner: ["Günlük bütçeyi %20 artırın", "3 gün sonra kontrol edin, ardından tekrar +%20", "Aynı mesajı yeni bir varyantla test edin"],
       i_more: "haftada yaklaşık +{n} talep",
-      a_shift: "Bütçeyi “{from}” reklamından “{to}” reklamına kaydır",
+      a_shift: "Bütçeyi “{from}” reklamından “{to}” reklamına kaydırın",
       w_shift: "“{from}” 7 günde {spendL} harcadı, {resL} talep getirdi. “{to}” bir talebi {cplW} maliyetle getiriyor. Aynı bütçe, daha çok talep.",
-      s_shift: ["“{from}” reklamından günde {amt} çek", "Bu tutarı “{to}” reklamına ekle", "7 gün sonra talep başı maliyeti kontrol et"],
-      a_wa_tracking: "WhatsApp taleplerini ölçülebilir yap",
+      s_shift: ["“{from}” reklamından günde {amt} çekin", "Bu tutarı “{to}” reklamına ekleyin", "7 gün sonra talep başı maliyeti kontrol edin"],
+      a_wa_tracking: "WhatsApp taleplerini ölçülebilir hale getirin",
       w_wa_tracking: "“{camp}” {spend} harcadı ama Meta tek bir başlatılmış konuşma saymıyor. Ölçüm olmadan Meta talebe göre optimize edemez.",
-      s_wa_tracking: ["WhatsApp Business hesabını Facebook sayfasına bağla", "Kampanya hedefini “Konuşmalar” yap", "Gelen WhatsApp taleplerini 2 hafta elle say"],
+      s_wa_tracking: ["WhatsApp Business hesabını Facebook sayfasına bağlayın", "Kampanya hedefini “Konuşmalar” olarak değiştirin", "Gelen WhatsApp taleplerini 2 hafta boyunca elle sayın"],
       i_wa: "Talep başı maliyeti görünür kılar",
       a_meta_paused: "Meta reklamları yeniden başlatılsın mı?",
       w_meta_paused: "{d} tarihinden beri Meta reklamı yok. Öncesinde Meta'da bir lead {cplM}; Google'da şu an {cpa}.",
       w_meta_paused_nog: "{d} tarihinden beri Meta reklamı yok. Öncesinde bir lead {cplM}.",
-      s_meta_paused: ["Karar ver: yeniden başlat ya da bilinçli olarak kapalı tut", "Önceki en iyi reklamla başla: “{ad}”", "Küçük günlük bütçeyle başla, 7 gün sonra değerlendir"],
+      s_meta_paused: ["Karar verin: yeniden başlatın ya da bilinçli olarak kapalı tutun", "Önceki en iyi reklamla başlayın: “{ad}”", "Küçük bir günlük bütçeyle başlayın, 7 gün sonra değerlendirin"],
       i_meta_paused: "Talepler için ikinci kanal",
-      a_g_tracking: "Google dönüşüm ölçümünü kontrol et",
+      a_g_tracking: "Google dönüşüm ölçümünü kontrol edin",
       w_g_tracking: "Google Ads {cost} harcadı ama tek bir dönüşüm ölçmedi. Büyük ihtimalle dönüşüm takibi eksik.",
-      s_g_tracking: ["Form ve arama için dönüşüm işlemleri oluştur", "Teşekkür sayfasındaki Google etiketini kontrol et", "Teklif stratejisini ancak bundan sonra dönüşüme çevir"],
+      s_g_tracking: ["Form ve arama için dönüşüm işlemleri oluşturun", "Teşekkür sayfasındaki Google etiketini kontrol edin", "Teklif stratejisini ancak bundan sonra dönüşüme çevirin"],
       i_g_tracking: "Her optimizasyonun temeli",
-      a_g_no_conv: "“{camp}” Google kampanyasını gözden geçir",
+      a_g_no_conv: "“{camp}” Google kampanyasını gözden geçirin",
       w_g_no_conv: "{cost} harcama, hiç dönüşüm yok; hesap ortalaması dönüşüm başına {cpa}.",
-      s_g_no_conv: ["Kampanyanın arama terimlerini incele", "Teklifleri düşür veya kampanyayı durdur"],
+      s_g_no_conv: ["Kampanyanın arama terimlerini inceleyin", "Teklifleri düşürün veya kampanyayı durdurun"],
       a_g_budget: "“{camp}” için daha fazla bütçe",
       w_g_budget: "Günlük bütçe bittiği için kampanya aramaların {pct} kadarını kaçırıyor; dönüşüm başı maliyet ise düşük: {cpa}.",
-      s_g_budget: ["Günlük bütçeyi %25 artır", "7 gün sonra dönüşüm başı maliyeti kontrol et"],
-      a_g_negative: "Hariç tutulacak anahtar kelimeler ekle",
+      s_g_budget: ["Günlük bütçeyi %25 artırın", "7 gün sonra dönüşüm başı maliyeti kontrol edin"],
+      a_g_negative: "Hariç tutulacak anahtar kelimeler ekleyin",
       w_g_negative: "Bu arama terimleri 90 günde {cost} harcadı ve hiç dönüşüm getirmedi.",
-      s_g_negative: ["Terimleri hesap düzeyinde hariç tutulan anahtar kelime olarak ekle", "Arama terimleri raporunu 2 haftada bir incele"],
-      a_g_low_ctr: "“{camp}” Google reklam metinlerini yenile",
+      s_g_negative: ["Terimleri hesap düzeyinde hariç tutulan anahtar kelime olarak ekleyin", "Arama terimleri raporunu 2 haftada bir inceleyin"],
+      a_g_low_ctr: "“{camp}” Google reklam metinlerini yenileyin",
       w_g_low_ctr: "{imp} gösterimde tıklama oranı sadece {ctr}. Arama kampanyalarında %3 ve üzeri normal.",
-      s_g_low_ctr: ["Başlığa şehir ve tedaviyi yaz", "Fiyat aralığı veya ücretsiz muayene belirt", "Her reklam grubunda en az 2 reklam test et"],
-      a_social_connect: "Facebook sayfasını ve Instagram'ı bağla",
+      s_g_low_ctr: ["Başlığa şehir ve tedaviyi yazın", "Fiyat aralığı veya ücretsiz muayene belirtin", "Her reklam grubunda en az 2 reklam test edin"],
+      a_social_connect: "Facebook sayfanızı ve Instagram'ı bağlayın",
       w_social_connect: "Sayfa istatistiklerine erişim olmadan erişim, takipçi ve gönderileri göremiyoruz.",
-      s_social_connect: ["Facebook sayfasını Business Manager'da ajansla paylaş", "Instagram hesabını sayfaya bağla", "Sayfa ve Instagram istatistik izinlerini onayla"],
+      s_social_connect: ["Facebook sayfasını Business Manager'da ajansla paylaşın", "Instagram hesabını sayfaya bağlayın", "Sayfa ve Instagram istatistik izinlerini onaylayın"],
       i_social_connect: "Tüm kanalların eksiksiz görünümü",
-      a_post_freq: "Daha sık paylaşım yap",
+      a_post_freq: "Daha sık paylaşım yapın",
       w_post_freq: "Son 4 haftada sadece {n} gönderi. Instagram takipçi artışı {pct} düştü.",
-      s_post_freq: ["Haftada en az 3 gönderi planla", "Bunlardan 1'i doktor veya ekiple Reel olsun", "Hasta sorularını konu olarak kullan"],
+      s_post_freq: ["Haftada en az 3 gönderi planlayın", "Bunlardan biri doktor veya ekiple bir Reel olsun", "Hasta sorularını konu olarak kullanın"],
       i_post_freq: "Reklam bütçesi olmadan daha çok erişim",
-      a_boost: "En iyi gönderiyi reklam olarak öne çıkar",
+      a_boost: "En iyi gönderiyi reklam olarak öne çıkarın",
       w_boost: "“{topic}” {reach} kişiye ulaştı; ortalama bir gönderiden {x} kat fazla etkileşim aldı.",
-      s_boost: ["Gönderiyi Meta'da lead hedefiyle reklam yap", "7 gün küçük günlük bütçeyle test et", "Hedef: klinik çevresi, 30–65 yaş"],
+      s_boost: ["Gönderiyi Meta'da lead hedefiyle reklama dönüştürün", "7 gün küçük bir günlük bütçeyle test edin", "Hedef: klinik çevresi, 30–65 yaş"],
       i_boost: "Kanıtlanmış içerikten ucuz talep",
       a_reels: "Tekli görsel yerine daha çok Reel",
       w_reels: "Reel'ler ortalamada tekli görsellerin {x} katı kişiye ulaşıyor.",
-      s_reels: ["Görselleri kısa videolarla (15–30 sn) değiştir", "Altyazı ekle, çoğu kişi sesi kapalı izliyor"],
+      s_reels: ["Görselleri kısa videolarla (15–30 sn) değiştirin", "Altyazı ekleyin; çoğu kişi sesi kapalı izliyor"],
       f_spend7: "Harcama 7 g", f_leads7: "Lead 7 g", f_cpl7: "Lead başı 7 g", f_ctr7: "Tıklama 7 g", f_freq: "Frekans", f_target: "Hedef {v}", f_prev: "Önceki hafta {v}",
       f_cost: "Maliyet", f_conv: "Dönüşüm", f_lost: "Kaçırılan (bütçe)", f_posts: "Gönderi 4 hf", f_growth: "IG artışı", f_reach: "Erişim", f_inter: "Etkileşim", f_terms: "Arama terimleri", f_30: "30 g",
       meta_paused_banner: "Bu müşterinin Meta reklamları {d} tarihinden beri durdurulmuş.", show_until: "{d} tarihine kadar göster",
@@ -521,12 +521,12 @@
       obj_OUTCOME_LEADS: "Lead", obj_LEAD_GENERATION: "Lead", obj_MESSAGES: "WhatsApp", obj_OUTCOME_ENGAGEMENT: "Etkileşim", obj_OUTCOME_AWARENESS: "Bilinirlik", obj_OUTCOME_TRAFFIC: "Trafik", obj_OUTCOME_SALES: "Satış", obj_LINK_CLICKS: "Tıklama",
       gt_SEARCH: "Arama", gt_PERFORMANCE_MAX: "Performance Max", gt_DISPLAY: "Görüntülü", gt_VIDEO: "Video",
       g_terms: "Arama terimleri (son 90 gün)", g_neg: "Hariç tutma adayı", g_none: "Bağlı Google Ads hesabı yok.", g_campaigns: "Kampanyalar",
-      s_followers: "Takipçi", s_reach: "Erişim", s_inter_rate: "Etkileşim oranı", s_posts: "Gönderi", s_top: "Dönemdeki gönderiler", s_none_t: "Facebook ve Instagram henüz bağlı değil", s_none_s: "Erişim, takipçi ve en iyi gönderileri burada görmek için Facebook sayfasını ve Instagram hesabını bağla.", s_connect: "Şimdi bağla",
+      s_followers: "Takipçi", s_reach: "Erişim", s_inter_rate: "Etkileşim oranı", s_posts: "Gönderi", s_top: "Dönemdeki gönderiler", s_none_t: "Facebook ve Instagram henüz bağlı değil", s_none_s: "Erişim, takipçi ve en iyi gönderileri burada görmek için Facebook sayfanızı ve Instagram hesabınızı bağlayın.", s_connect: "Şimdi bağla",
       fmt_reel: "Reel", fmt_image: "Görsel", fmt_carousel: "Karusel", top: "En iyi",
       rep_title: "Haftalık rapor · {w}. hafta", rep_sent: "Her pazartesi 07:00 · e-posta ve Telegram",
       rep_sum: "Bu hafta {spend} reklam bütçesiyle {n} talep geldi, talep başı {cpr}{delta}.", rep_better: "; önceki haftadan {pct} daha ucuz", rep_worse: "; önceki haftadan {pct} daha pahalı", rep_none: "Bu hafta reklam harcaması yok.",
       rep_channels: "Kanallara genel bakış", rep_top: "Sıradaki adımlar", rep_noact: "Açık aksiyon yok.", rep_daily: "Günlük talep",
-      log_all: "Tümü", log_dec: "Kararlar", log_sys: "Sistem", log_empty: "Henüz kayıt yok.", you: "Sen", system: "Sistem", rules: "Kurallar", clientUser: "Müşteri",
+      log_all: "Tümü", log_dec: "Kararlar", log_sys: "Sistem", log_empty: "Henüz kayıt yok.", you: "Siz", system: "Sistem", rules: "Kurallar", clientUser: "Müşteri",
       lg_connect: "Meta reklam hesabı bağlandı (sadece okuma)", lg_connectGoogle: "Google Ads hesabı bağlandı", lg_firstRun: "İlk analiz tamamlandı · {n} aksiyon", lg_report: "Haftalık rapor gönderildi",
       lg_measure: "Değişiklik uygulandı: {text}", lg_pauseRejected: "Reddedildi: “{ad}” durdurulsun", lg_budgetUp: "Onaylandı: “{ad}” bütçesi +%{pct}", lg_negKw: "Yapıldı: “{term}” hariç tutulan anahtar kelime olarak eklendi",
       lg_sync: "Veri senkronize edildi", lg_real_connect: "Meta reklam hesabı sistem kullanıcısıyla bağlandı (sadece okuma)", lg_real_google: "Google Ads hesabı yönetici hesap üzerinden bağlandı (sadece okuma)",
@@ -542,10 +542,10 @@
       set_sec: "Güvenlik", sec_text: "Meta ve Google erişim anahtarları yalnızca sunucuda durur. Bu sayfada sadece hazır rakamlar var, anahtar yok.",
       connect: "Bağla", auto: "Otomatik",
       ob_t: "Yeni müşteri ekle", ob_steps: ["Müşteri", "Kanalları bağla", "Hedefler", "Giriş"], ob_preview: "Önizleme · hiçbir şey oluşturulmaz veya bağlanmaz",
-      ob1_h: "Hangi kliniği yönetiyorsun?", ob_name: "Klinik adı", ob_sector: "Uzmanlık", ob_city: "Şehir",
+      ob1_h: "Hangi kliniği yönetiyorsunuz?", ob_name: "Klinik adı", ob_sector: "Uzmanlık", ob_city: "Şehir",
       ob2_h: "Kanalları bağla", ob2_p: "Şifresiz, iş ortağı paylaşımıyla erişim. Başlangıçta sadece okuma, istendiğinde geri alınabilir.",
-      ob_meta_d: "Business Manager iş ortağı paylaşımıyla reklam hesabı", ob_google_d: "Yönetici hesabın (MCC) altındaki hesap", ob_fb_d: "Sayfa istatistikleri", ob_ig_d: "Instagram istatistikleri",
-      ob3_h: "Bir talep en fazla kaça mal olmalı?", ob3_p: "Aksiyonlar kliniğin hedeflerine göre çalışsın diye. Ortalama için boş bırak.", ob_target: "Hedef talep başı maliyet",
+      ob_meta_d: "Business Manager iş ortağı paylaşımıyla reklam hesabı", ob_google_d: "Yönetici hesabınızın (MCC) altındaki hesap", ob_fb_d: "Sayfa istatistikleri", ob_ig_d: "Instagram istatistikleri",
+      ob3_h: "Bir talep en fazla kaça mal olmalı?", ob3_p: "Aksiyonlar kliniğin hedeflerine göre çalışsın diye. Ortalama için boş bırakın.", ob_target: "Hedef talep başı maliyet",
       ob4_h: "Klinik için giriş", ob4_p: "Klinik kendi girişini alır ve sadece kendi verisini görür.", ob_email: "İletişim kişisinin e-postası",
       ob_done: "Müşteriyi oluştur", ob_done_toast: "Önizleme: müşteri oluşturulmadı.",
       back: "Geri", next: "İleri", connecting: "Bağlanıyor …",
@@ -996,7 +996,7 @@
     const clientNav = [["overview", "overview"], ["chat", "chat"], ["plan", "plan"], ["research", "radar"], ["create", "studio"], ["meta", "meta"], ["google", "google"], ["social", "social"], ["reports", "reports"], ["log", "log"], ["settings", "settings"]];
     const navItem = (v, ic, label, extra = "") => `<a href="#${v}" data-nav="${v}" ${(!cl && v === "clients") || (cl && state.view === v) ? 'aria-current="page"' : ""}>${icon(ic)}<span>${label}</span>${extra}</a>`;
     document.getElementById("app").innerHTML = `
-      <div class="app ${preview ? "is-preview" : ""}">
+      <div class="app ${preview ? "is-preview" : ""} ${cl ? "has-tabs" : ""}">
         <aside class="side ${state.menu ? "open" : ""}" aria-label="${t("menu")}">
           ${preview ? `<div class="brand"><div class="brand-mark client">${esc(cl.name.slice(0, 1))}</div><div><div class="brand-name">${esc(cl.name)}</div><div class="brand-sub">MediDent Ads</div></div></div>`
             : `<div class="brand"><div class="brand-mark">${icon("logo")}</div><div><div class="brand-name">MediDent Ads</div><div class="brand-sub">${t("brand_sub")}</div></div></div>`}
@@ -1006,13 +1006,20 @@
               ${clientNav.filter(([v]) => !(preview && v === "log")).map(([v, ic]) => navItem(v, ic, t("nav_" + v), v === "plan" && nOpen ? `<span class="count">${nOpen}</span>` : "")).join("")}` : ""}
           </nav>
           <div class="side-foot">
+            <div class="m-only m-settings"><span class="nav-label">${t("view_settings")}</span>
+              ${cl ? `<div class="seg">${[7, 30, 90].map((n) => `<button type="button" data-win="${n}" aria-pressed="${state.win === n}">${t("days", { n })}</button>`).join("")}</div>` : ""}
+              <div class="m-row"><div class="seg">${["EUR", "CHF"].map((c) => `<button type="button" data-cur="${c}" aria-pressed="${state.cur === c}">${c}</button>`).join("")}</div>
+              <div class="seg">${["de", "en", "tr"].map((l) => `<button type="button" data-lang="${l}" aria-pressed="${state.lang === l}">${l.toUpperCase()}</button>`).join("")}</div>
+              <button class="btn icon" type="button" data-act="theme" aria-label="${t("theme")}">${icon(themeIc)}</button></div>
+              ${cl ? `<button class="btn" type="button" data-act="preview">${icon("eye")}${preview ? t("preview_exit") : t("preview_btn")}</button>` : ""}
+            </div>
             ${preview ? "" : `<button class="connect-cta" type="button" data-act="ob-open">${icon("plus")}<div><b>${t("new_client")}</b><span>Meta · Google · Facebook · Instagram</span></div></button>`}
             <div class="who"><span class="avatar"></span><span>${preview ? esc(cl.name) : "Enes Ceylan · " + t("admin")}</span></div>
           </div>
         </aside>
         <div class="scrim ${state.menu ? "open" : ""}" data-act="menu-close"></div>
         <div class="main">
-          ${preview ? `<div class="preview-bar">${icon("eye")}<span><b>${t("preview_on")}</b> · ${esc(t("preview_text", { name: cl.name }))}</span><button class="btn sm" type="button" data-act="preview">${t("preview_exit")}</button></div>` : ""}
+          ${preview ? `<div class="preview-bar">${icon("eye")}<span><b>${t("preview_on")}</b><span class="pv-long"> · ${esc(t("preview_text", { name: cl.name }))}</span></span><button class="btn sm" type="button" data-act="preview">${t("preview_exit")}</button></div>` : ""}
           <div class="top">
             <button class="btn icon ghost menu-btn" type="button" data-act="menu" aria-label="${t("menu")}">${icon("menu")}</button>
             <h1>${cl ? t("nav_" + state.view) : t("nav_clients")}</h1>
@@ -1028,6 +1035,7 @@
           <main class="content"><div class="view" id="view"></div></main>
         </div>
       </div>
+      ${cl ? `<nav class="tabbar m-only" aria-label="${t("menu")}">${[["overview", "overview"], ["plan", "plan"], ["chat", "chat"], ["reports", "reports"]].map(([v, ic]) => `<a href="#${v}" data-nav="${v}" ${state.view === v ? 'aria-current="page"' : ""}>${icon(ic)}<span>${t("tab_" + v)}</span>${v === "plan" && nOpen ? `<i class="tb-badge">${nOpen}</i>` : ""}</a>`).join("")}<button type="button" data-act="menu" ${!["overview", "plan", "chat", "reports"].includes(state.view) ? 'aria-current="page"' : ""}>${icon("menu")}<span>${t("tab_more")}</span></button></nav>` : ""}
       ${state.ob ? onboarding() : ""}
       <div class="toasts" id="toasts" aria-live="polite"></div>`;
     document.documentElement.lang = state.lang;
@@ -1049,6 +1057,7 @@
       ${chDots(cl)}
     </div>`;
   const kpiCard = (l, v, f, d, sub = "", sp = "") => `<div class="card kpi"><div class="l">${l}</div><div class="v" data-count="${v ?? ""}" data-fmt="${f}">${fmtVal(v, f)}</div><div class="d">${d}</div>${sub ? `<div class="kpi-sub">${sub}</div>` : ""}${sp ? `<div class="spark">${sp}</div>` : ""}</div>`;
+  const greet = () => { const h = new Date().getHours(); return t(h < 11 ? "greet_m" : h < 18 ? "greet_d" : "greet_e"); };
   const dayList = (from, n) => Array.from({ length: n }, (_, i) => addD(from, i));
   function fmtVal(v, f) {
     if (v == null || !isFinite(v)) return "–";
@@ -1127,7 +1136,7 @@
       <div class="status-top"><span class="pill ${st[0]}"><span class="pulse"></span>${st[1]}</span><span class="eyebrow">${t("status_title")}</span><span class="date">${esc(dlong(end))}</span></div>
       <h2>${esc(head)}</h2>
       <div class="status-cols">
-        <div class="status-col"><span class="eyebrow">${t("happened")}</span><div class="hap">
+        <div class="status-col hap-col"><span class="eyebrow">${t("happened")}</span><div class="hap">
           <div><span class="k">${t("budget")}</span><span class="v">${money(day.spend)}</span><span class="c">${esc(t("avg7", { v: money(prev.spend / 7) }))}</span></div>
           <div><span class="k">${t("requests")}</span><span class="v">${num(day.req)}</span><span class="c">${esc(t("avg7", { v: num(prev.req / 7, 1) }))}</span></div>
           <div><span class="k">${t("cpr")}</span><span class="v">${money(day.cpr)}</span><span class="c">${esc(t("avg7", { v: money(prev.cpr) }))}</span></div>
@@ -1150,11 +1159,27 @@
     const reqS = days.map((d) => req.get(d)), spS = days.map((d) => sp.get(d));
     const cprRoll = days.map((_, i) => { let s = 0, r = 0; for (let k = Math.max(0, i - 6); k <= i; k++) { s += spS[k]; r += reqS[k]; } return r ? s / r : null; });
     const acts = openActions(cl);
+    const vKey = P.req && P.cpr && A.cpr ? (A.req >= P.req ? (A.cpr <= P.cpr ? "v_up_cheap" : "v_up_dear") : (A.cpr <= P.cpr ? "v_down_cheap" : "v_down_dear")) : null;
+    const st = openActions(cl).some((a) => a.sev === "high") ? "bad" : openActions(cl).some((a) => a.sev === "medium") ? "warn" : "good";
+    const hero = `<section class="card m-hero m-only">
+      <div class="mh-top"><span class="mh-lbl">${t("hero_lbl", { n: state.win })}</span><div class="seg sm">${[7, 30, 90].map((n) => `<button type="button" data-win="${n}" aria-pressed="${state.win === n}">${n}</button>`).join("")}</div></div>
+      <div class="mh-main"><span class="mh-num" data-count="${A.req}" data-fmt="int">${num(A.req)}</span>${deltaMini(A.req, P.req, true)}</div>
+      <p class="mh-help">${t("help_req")}</p>
+      <div class="mh-spark">${spark(reqS, "var(--s-leads)", 300, 44)}</div>
+      ${vKey ? `<p class="mh-verdict ${st}"><span class="dot"></span>${esc(t(vKey))}</p>` : ""}
+      <div class="mh-pair">
+        <div><span class="k">${t("cpr")}</span><span class="v">${money(A.cpr)}</span>${deltaMini(A.cpr, P.cpr, false)}<span class="h">${t("help_cpr")}</span></div>
+        <div><span class="k">${t("budget")}</span><span class="v">${money(A.spend, { dec: 0 })}</span><span class="h">${t("help_budget")}</span></div>
+      </div>
+    </section>`;
+    const greeting = `<div class="greet"><h2>${esc(greet())}, ${esc(state.preview ? t("greet_team", { name: cl.name }) : "Enes")}</h2><p>${esc(state.preview ? t("greet_sub_c", { n: state.win }) : t("greet_sub_a", { name: cl.name, n: state.win }))}</p></div>`;
     const orgSpark = S ? spark(days.map((d) => (S.fb.find((x) => x[0] === d)?.[2] || 0) + (S.ig.find((x) => x[0] === d)?.[2] || 0)), "var(--s-org)") : "";
     return `
-      ${clientHead(cl)}
+      ${greeting}
+      <div class="ov-head">${clientHead(cl)}</div>
+      ${hero}
       ${statusCard(cl)}
-      <section class="grid-kpi">
+      <section class="grid-kpi ov">
         ${kpiCard(t("requests"), A.req, "int", deltaPill(A.req, P.req, true), t("split", { m: num(A.m.res), g: num(A.g.conv, 0) }), spark(reqS, "var(--s-leads)"))}
         ${kpiCard(t("cpr"), A.cpr, "money", deltaPill(A.cpr, P.cpr, false), "", spark(cprRoll, "var(--s-cpl)"))}
         ${kpiCard(t("budget"), A.spend, "money", deltaPill(A.spend, P.spend, true, true), t("split", { m: money(A.m.spend, { dec: 0 }), g: money(A.g.cost, { dec: 0 }) }), spark(spS, "var(--s-spend)"))}
