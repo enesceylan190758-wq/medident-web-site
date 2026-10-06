@@ -102,7 +102,7 @@
   const LOC = { de: "de-DE", en: "en-GB", tr: "tr-TR" };
   const T = {
     de: {
-      greet_m: "Guten Morgen", greet_d: "Guten Tag", greet_e: "Guten Abend", greet_team: "Team {name}", greet_sub_c: "Hier sehen Sie, was Ihre Werbung in den letzten {n} Tagen gebracht hat – und was als Nächstes zu tun ist.", greet_sub_a: "{name} im Überblick: Ergebnisse der letzten {n} Tage und offene Entscheidungen.", hero_lbl: "Patientenanfragen · letzte {n} Tage", help_req: "Formulare, WhatsApp-Chats und Google-Conversions", help_cpr: "Was eine Anfrage im Schnitt kostet", help_budget: "Ausgaben für Meta und Google", v_up_cheap: "Mehr Anfragen zu geringeren Kosten als im Zeitraum davor.", v_up_dear: "Mehr Anfragen, aber jede kostet mehr als zuvor.", v_down_cheap: "Weniger Anfragen, dafür günstiger als zuvor.", v_down_dear: "Weniger Anfragen zu höheren Kosten – der Maßnahmenplan zeigt, wo Sie ansetzen.", tab_overview: "Start", tab_plan: "Plan", tab_chat: "Assistent", tab_meta: "Anzeigen", tab_reports: "Berichte", tab_more: "Mehr", view_settings: "Ansicht", brand_sub: "Werbe-Cockpit für Kliniken", admin: "Agentur-Admin", menu: "Menü",
+      greet_m: "Guten Morgen", greet_d: "Guten Tag", greet_e: "Guten Abend", greet_team: "Team {name}", greet_sub_c: "Hier sehen Sie, was Ihre Werbung in den letzten {n} Tagen gebracht hat – und was als Nächstes zu tun ist.", greet_sub_a: "{name} im Überblick: Ergebnisse der letzten {n} Tage und offene Entscheidungen.", hero_lbl: "Patientenanfragen · letzte {n} Tage", help_req: "Formulare, WhatsApp-Chats und Google-Conversions", help_cpr: "Was eine Anfrage im Schnitt kostet", help_budget: "Ausgaben für Meta und Google", hero_prev: "Zeitraum davor: {n}", mh_book: "Beratungstermine", mh_rev: "Umsatz", mh_est: "geschätzt", mh_x: "{x}× das Budget", mh_book_h: "{p} der Anfragen", mh_reach: "Organische Reichweite", mh_ctr: "Klickrate", v_up_cheap: "Mehr Anfragen zu geringeren Kosten als im Zeitraum davor.", v_up_dear: "Mehr Anfragen, aber jede kostet mehr als zuvor.", v_down_cheap: "Weniger Anfragen, dafür günstiger als zuvor.", v_down_dear: "Weniger Anfragen zu höheren Kosten – der Maßnahmenplan zeigt, wo Sie ansetzen.", tab_overview: "Start", tab_plan: "Plan", tab_chat: "Assistent", tab_meta: "Anzeigen", tab_reports: "Berichte", tab_more: "Mehr", view_settings: "Ansicht", brand_sub: "Werbe-Cockpit für Kliniken", admin: "Agentur-Admin", menu: "Menü",
       nav_clients: "Kunden", nav_overview: "Übersicht", nav_plan: "Maßnahmenplan", nav_meta: "Meta Ads", nav_google: "Google Ads", nav_social: "Facebook & Instagram", nav_reports: "Berichte", nav_log: "Protokoll", nav_settings: "Einstellungen",
       sec_admin: "Agentur", sec_client: "Kunde", sec_portal: "Ihr Portal",
       all_clients: "Alle Kunden", new_client: "Neuer Kunde", demo: "Demo", real: "Echt", days: "{n} T",
@@ -255,7 +255,7 @@
       footnote: "Beträge umgerechnet zu Näherungskursen (1 EUR = {chf} CHF = {try} TRY).",
     },
     en: {
-      greet_m: "Good morning", greet_d: "Good afternoon", greet_e: "Good evening", greet_team: "{name} team", greet_sub_c: "Here is what your advertising delivered in the last {n} days – and what to do next.", greet_sub_a: "{name} at a glance: results of the last {n} days and open decisions.", hero_lbl: "Patient enquiries · last {n} days", help_req: "Forms, WhatsApp chats and Google conversions", help_cpr: "What one enquiry costs on average", help_budget: "Spend on Meta and Google", v_up_cheap: "More enquiries at lower cost than the period before.", v_up_dear: "More enquiries, but each costs more than before.", v_down_cheap: "Fewer enquiries, but cheaper than before.", v_down_dear: "Fewer enquiries at higher cost – the action plan shows where to start.", tab_overview: "Home", tab_plan: "Plan", tab_chat: "Assistant", tab_meta: "Ads", tab_reports: "Reports", tab_more: "More", view_settings: "View", brand_sub: "Ad cockpit for clinics", admin: "Agency admin", menu: "Menu",
+      greet_m: "Good morning", greet_d: "Good afternoon", greet_e: "Good evening", greet_team: "{name} team", greet_sub_c: "Here is what your advertising delivered in the last {n} days – and what to do next.", greet_sub_a: "{name} at a glance: results of the last {n} days and open decisions.", hero_lbl: "Patient enquiries · last {n} days", help_req: "Forms, WhatsApp chats and Google conversions", help_cpr: "What one enquiry costs on average", help_budget: "Spend on Meta and Google", hero_prev: "Previous period: {n}", mh_book: "Consultations", mh_rev: "Revenue", mh_est: "estimate", mh_x: "{x}× the budget", mh_book_h: "{p} of enquiries", mh_reach: "Organic reach", mh_ctr: "Click rate", v_up_cheap: "More enquiries at lower cost than the period before.", v_up_dear: "More enquiries, but each costs more than before.", v_down_cheap: "Fewer enquiries, but cheaper than before.", v_down_dear: "Fewer enquiries at higher cost – the action plan shows where to start.", tab_overview: "Home", tab_plan: "Plan", tab_chat: "Assistant", tab_meta: "Ads", tab_reports: "Reports", tab_more: "More", view_settings: "View", brand_sub: "Ad cockpit for clinics", admin: "Agency admin", menu: "Menu",
       nav_clients: "Clients", nav_overview: "Overview", nav_plan: "Action plan", nav_meta: "Meta Ads", nav_google: "Google Ads", nav_social: "Facebook & Instagram", nav_reports: "Reports", nav_log: "Audit log", nav_settings: "Settings",
       sec_admin: "Agency", sec_client: "Client", sec_portal: "Your portal",
       all_clients: "All clients", new_client: "New client", demo: "Demo", real: "Real", days: "{n}d",
@@ -408,7 +408,7 @@
       footnote: "Amounts converted at approximate rates (1 EUR = {chf} CHF = {try} TRY).",
     },
     tr: {
-      greet_m: "Günaydın", greet_d: "İyi günler", greet_e: "İyi akşamlar", greet_team: "{name} ekibi", greet_sub_c: "Reklamlarınızın son {n} günde ne getirdiğini ve sırada ne yapılması gerektiğini burada görürsünüz.", greet_sub_a: "{name} genel bakış: son {n} günün sonuçları ve bekleyen kararlar.", hero_lbl: "Hasta talepleri · son {n} gün", help_req: "Formlar, WhatsApp yazışmaları ve Google dönüşümleri", help_cpr: "Bir talebin ortalama maliyeti", help_budget: "Meta ve Google harcaması", v_up_cheap: "Önceki döneme göre daha düşük maliyetle daha fazla talep.", v_up_dear: "Daha fazla talep var, ancak her biri öncekinden pahalı.", v_down_cheap: "Talep sayısı azaldı, ancak maliyet düştü.", v_down_dear: "Daha az talep, daha yüksek maliyet; nereden başlanacağını aksiyon planı gösteriyor.", tab_overview: "Ana sayfa", tab_plan: "Plan", tab_chat: "Asistan", tab_meta: "Reklamlar", tab_reports: "Raporlar", tab_more: "Daha fazla", view_settings: "Görünüm", brand_sub: "Klinikler için reklam paneli", admin: "Ajans yöneticisi", menu: "Menü",
+      greet_m: "Günaydın", greet_d: "İyi günler", greet_e: "İyi akşamlar", greet_team: "{name} ekibi", greet_sub_c: "Reklamlarınızın son {n} günde ne getirdiğini ve sırada ne yapılması gerektiğini burada görürsünüz.", greet_sub_a: "{name} genel bakış: son {n} günün sonuçları ve bekleyen kararlar.", hero_lbl: "Hasta talepleri · son {n} gün", help_req: "Formlar, WhatsApp yazışmaları ve Google dönüşümleri", help_cpr: "Bir talebin ortalama maliyeti", help_budget: "Meta ve Google harcaması", hero_prev: "Önceki dönem: {n}", mh_book: "Randevular", mh_rev: "Ciro", mh_est: "tahmini", mh_x: "Bütçenin {x} katı", mh_book_h: "Taleplerin {p}", mh_reach: "Organik erişim", mh_ctr: "Tıklama oranı", v_up_cheap: "Önceki döneme göre daha düşük maliyetle daha fazla talep.", v_up_dear: "Daha fazla talep var, ancak her biri öncekinden pahalı.", v_down_cheap: "Talep sayısı azaldı, ancak maliyet düştü.", v_down_dear: "Daha az talep, daha yüksek maliyet; nereden başlanacağını aksiyon planı gösteriyor.", tab_overview: "Ana sayfa", tab_plan: "Plan", tab_chat: "Asistan", tab_meta: "Reklamlar", tab_reports: "Raporlar", tab_more: "Daha fazla", view_settings: "Görünüm", brand_sub: "Klinikler için reklam paneli", admin: "Ajans yöneticisi", menu: "Menü",
       nav_clients: "Müşteriler", nav_overview: "Genel bakış", nav_plan: "Aksiyon planı", nav_meta: "Meta reklamları", nav_google: "Google reklamları", nav_social: "Facebook ve Instagram", nav_reports: "Raporlar", nav_log: "Kayıt", nav_settings: "Ayarlar",
       sec_admin: "Ajans", sec_client: "Müşteri", sec_portal: "Portalınız",
       all_clients: "Tüm müşteriler", new_client: "Yeni müşteri", demo: "Demo", real: "Gerçek", days: "{n} gün",
@@ -702,7 +702,7 @@
         </div>
         <div class="src-rows" role="table">
           <div class="src-row head" role="row"><span role="columnheader"></span><span role="columnheader">${t("src_col_req")}</span><span role="columnheader">${t("src_col_cpr")}</span><span role="columnheader">${t("src_col_spend")}</span></div>
-          ${list.map((c) => `<div class="src-row" role="row"><span class="src-name" role="cell"><i class="sw" style="background:${SRC_COLOR[c.key]}"></i>${icon(SRC_ICON[c.key])}${esc(t("src_" + c.key))}</span><span class="v" role="cell"><b>${num(c.req, c.key === "g" && c.req % 1 ? 1 : 0)}</b><em>${pct(c.share, 0)}</em></span><span class="v" role="cell">${money(c.cpr)}</span><span class="v" role="cell">${money(c.spend, { dec: 0 })}</span></div>`).join("")}
+          ${list.map((c) => `<div class="src-row" role="row"><span class="src-name" role="cell"><i class="sw" style="background:${SRC_COLOR[c.key]}"></i>${icon(SRC_ICON[c.key])}<span class="nm-l">${esc(t("src_" + c.key))}</span><span class="nm-s">${esc(t("src_" + c.key + "s"))}</span></span><span class="v" role="cell"><b>${num(c.req, c.key === "g" && c.req % 1 ? 1 : 0)}</b><em>${pct(c.share, 0)}</em></span><span class="v" role="cell">${money(c.cpr)}</span><span class="v" role="cell">${money(c.spend, { dec: 0 })}</span></div>`).join("")}
         </div>
         <p class="footnote">${t("src_note")}${list.some((c) => c.key === "o") ? " " + t("src_note_o") : ""}</p>
       </div>
@@ -1231,17 +1231,26 @@
     const st = openActions(cl).some((a) => a.sev === "high") ? "bad" : openActions(cl).some((a) => a.sev === "medium") ? "warn" : "good";
     const SRC = channelSplit(cl, from, end, A).filter((c) => c.share > 0.004);
     const heroSrc = SRC.length > 1 ? `<div class="mh-src">${srcBar(SRC, "share")}<div class="mh-leg">${SRC.map((c) => `<span><i style="background:${SRC_COLOR[c.key]}"></i>${esc(t("src_" + c.key + "s"))} <b>${pct(c.share, 0)}</b></span>`).join("")}</div></div>` : "";
+    // Mobil ust kart: 2x2 kucuk rakam karosu (maliyet, butce, tahmini randevu ve ciro; varsayim yoksa organik erisim / tiklama orani)
+    const as = assumptionsOf(cl), deltaN = (a, b) => deltaMini(a, b, true).replace(/delta (good|bad)/, "delta flat");
+    const tiles = [[t("cpr"), money(A.cpr), deltaMini(A.cpr, P.cpr, false), t("help_cpr")], [t("budget"), money(A.spend, { dec: 0 }), deltaN(A.spend, P.spend), t("help_budget")]];
+    if (as) {
+      const book = A.req * as.booking, rev = book * as.close * conv(as.value, cl.currency), pb = P.req * as.booking;
+      tiles.push([`${t("mh_book")} <em>${t("mh_est")}</em>`, num(book, 0), deltaMini(book, pb, true), t("mh_book_h", { p: pct(as.booking, 0) })]);
+      tiles.push([`${t("mh_rev")} <em>${t("mh_est")}</em>`, money(rev, { dec: 0 }), "", A.spend ? t("mh_x", { x: num(rev / A.spend, 1) }) : ""]);
+    } else {
+      if (S) tiles.push([t("mh_reach"), compact(S.reach), deltaMini(S.reach, SP?.reach, true), "Facebook + Instagram"]);
+      const ctr = A.m.imp ? A.m.clicks / A.m.imp : null, pctr = P.m.imp ? P.m.clicks / P.m.imp : null;
+      if (ctr != null) tiles.push([t("mh_ctr"), pct(ctr, 2), deltaMini(ctr, pctr, true), "Meta"]);
+    }
     const hero = `<section class="card m-hero m-only">
       <div class="mh-top"><span class="mh-lbl">${t("hero_lbl", { n: state.win })}</span><div class="seg sm">${[7, 30, 90].map((n) => `<button type="button" data-win="${n}" aria-pressed="${state.win === n}">${n}</button>`).join("")}</div></div>
-      <div class="mh-main"><span class="mh-num" data-count="${A.req}" data-fmt="int">${num(A.req)}</span>${deltaMini(A.req, P.req, true)}</div>
+      <div class="mh-main"><span class="mh-num" data-count="${A.req}" data-fmt="int">${num(A.req)}</span>${deltaMini(A.req, P.req, true)}${P.req ? `<span class="mh-prev">${t("hero_prev", { n: num(P.req) })}</span>` : ""}</div>
       <p class="mh-help">${t("help_req")}</p>
       ${heroSrc}
       <div class="mh-spark">${spark(reqS, "var(--s-leads)", 300, 44)}</div>
       ${vKey ? `<p class="mh-verdict ${st}"><span class="dot"></span>${esc(t(vKey))}</p>` : ""}
-      <div class="mh-pair">
-        <div><span class="k">${t("cpr")}</span><span class="v">${money(A.cpr)}</span>${deltaMini(A.cpr, P.cpr, false)}<span class="h">${t("help_cpr")}</span></div>
-        <div><span class="k">${t("budget")}</span><span class="v">${money(A.spend, { dec: 0 })}</span><span class="h">${t("help_budget")}</span></div>
-      </div>
+      <div class="mh-pair">${tiles.map(([k, v, d, h]) => `<div><span class="k">${k}</span><span class="v">${v}</span>${d ? `<span class="dl">${d}</span>` : ""}<span class="h">${h}</span></div>`).join("")}</div>
     </section>`;
     const greeting = `<div class="greet"><h2>${esc(greet())}, ${esc(state.preview ? t("greet_team", { name: cl.name }) : "Enes")}</h2><p>${esc(state.preview ? t("greet_sub_c", { n: state.win }) : t("greet_sub_a", { name: cl.name, n: state.win }))}</p></div>`;
     const orgSpark = S ? spark(days.map((d) => (S.fb.find((x) => x[0] === d)?.[2] || 0) + (S.ig.find((x) => x[0] === d)?.[2] || 0)), "var(--s-org)") : "";
