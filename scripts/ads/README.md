@@ -73,6 +73,17 @@ npm run ads:dashboard -- --since 2026-01-01 --until 2026-05-31 --out .cache/ads-
 sayfaya gömer. Demo hesaplar tamamen uydurmadır, arayüzde her yerde "Demo" etiketi taşır.
 Onayla/Reddet ve onboarding şimdilik sadece arayüzdür; Meta'ya hiçbir şey gönderilmez.
 
+## Rakip araştırması ve kampanya stüdyosu
+
+`dashboard/studio.js` (app.js içine gömülür):
+- **Wettbewerb**: Meta Reklam Kütüphanesi araması, Apify `apify/facebook-ads-scraper` üzerinden.
+  Panel, görüntüleyenin claude.ai Apify bağlayıcısını kullanır (artifact `mcp` yeteneği; jeton sayfaya
+  girmez). Sonuçlar artifact veritabanında (`research`) müşteri bazlı saklanır. "Claude ile analiz et"
+  (`sample`) mesajları, teklifleri, boşlukları ve kampanya fikirlerini çıkarır.
+- **Kampagnen-Studio**: 5 adımlı sihirbaz (hedef, kitle, bütçe + tahmin, reklam metni + Claude
+  varyantları + HWG/UWG kontrolü, özet). Taslaklar ve onay durumu `campaigns` koleksiyonunda; müşteri
+  görünümünde "Freigeben / Änderung anfragen". Reklam hesabına yazma henüz yok (sonraki adım).
+
 ## Dashboard için kurallar
 
 - Veri modeli baştan hesap bazlı: insights, adset ve ad kayıtlarının hepsi `account_id` taşır.

@@ -993,7 +993,7 @@
     const preview = state.preview && cl;
     const themeIc = state.theme === "dark" ? "moon" : state.theme === "light" ? "sun" : "auto";
     const nOpen = cl ? openActions(cl).length : 0;
-    const clientNav = [["overview", "overview"], ["plan", "plan"], ["meta", "meta"], ["google", "google"], ["social", "social"], ["reports", "reports"], ["log", "log"], ["settings", "settings"]];
+    const clientNav = [["overview", "overview"], ["plan", "plan"], ["research", "radar"], ["create", "studio"], ["meta", "meta"], ["google", "google"], ["social", "social"], ["reports", "reports"], ["log", "log"], ["settings", "settings"]];
     const navItem = (v, ic, label, extra = "") => `<a href="#${v}" data-nav="${v}" ${(!cl && v === "clients") || (cl && state.view === v) ? 'aria-current="page"' : ""}>${icon(ic)}<span>${label}</span>${extra}</a>`;
     document.getElementById("app").innerHTML = `
       <div class="app ${preview ? "is-preview" : ""}">
@@ -1486,6 +1486,8 @@
       if (cl.metaIdx.length) list.push({ at: new Date(Date.parse(RAW.generatedAt) - 6e5).toISOString(), type: "system", kind: "realConnect" });
       if (cl.gIdx.length) list.push({ at: new Date(Date.parse(RAW.generatedAt) - 3e5).toISOString(), type: "system", kind: "realGoogle" });
     }
+    for (const c of (typeof live !== "undefined" ? live.campaigns : [])) if (c.client === cl.id && c.status !== "draft") list.push({ at: c.updatedAt || c.createdAt, type: "decision", kind: "campaign", status: c.status, name: c.name || c.topic || "—", by: c.by });
+    for (const r of (typeof live !== "undefined" ? live.research : [])) if (r.client === cl.id) list.push({ at: r.at, type: "system", kind: "research", q: r.query, n: r.ads.length });
     for (const [k, d] of Object.entries(state.decisions)) if (k.startsWith(cl.id + "|")) list.push({ at: d.at, type: "decision", kind: "user", status: d.status, title: d.title, reason: d.reason, key: k, by: d.by });
     if (state.logFilter === "dec") list = list.filter((e) => e.type === "decision");
     if (state.logFilter === "sys") list = list.filter((e) => e.type === "system");
@@ -1501,6 +1503,8 @@
         pauseRejected: () => { text = t("lg_pauseRejected", { ad: e.adName }); who = t("clientUser"); ic = "x"; cls = "bad"; sub = t("lg_reason", { r: t("r_" + e.reason) }); },
         budgetUp: () => { text = t("lg_budgetUp", { ad: e.adName, pct: e.pct }); who = t("clientUser"); ic = "check"; cls = "good"; },
         negKw: () => { text = t("lg_negKw", { term: e.term }); who = t("you"); ic = "google"; cls = "good"; },
+        campaign: () => { text = t(e.status === "approved" ? "lg_campaign_approved" : e.status === "changes" ? "lg_campaign_changes" : "lg_campaign_sent", { n: e.name }); who = e.by === "client" ? t("clientUser") : t("you"); ic = e.status === "changes" ? "x" : e.status === "approved" ? "check" : "send"; cls = e.status === "changes" ? "bad" : e.status === "approved" ? "good" : "info"; },
+        research: () => { text = t("lg_research", { q: e.q, n: e.n }); who = t("you"); ic = "radar"; },
         user: () => { const title = e.title?.[state.lang] || e.title?.de || ""; text = t("lg_dec_" + e.status, { title }); who = e.by === "client" ? t("clientUser") : t("you"); ic = e.status === "rejected" ? "x" : "check"; cls = e.status === "rejected" ? "bad" : "good"; sub = e.reason ? t("lg_reason", { r: t("r_" + e.reason) }) : ""; },
       };
       (M[e.kind] || (() => {}))();
@@ -1581,6 +1585,8 @@
   // ================================================================ render
   const VIEWS = { overview: vOverview, plan: vPlan, meta: vMeta, google: vGoogle, social: vSocial, reports: vReports, log: vLog, settings: vSettings };
   const DRAW = { overview: () => { drawMain(); drawBA(); }, meta: drawMeta, google: drawGoogle, social: drawSocial, reports: drawRep };
+  /*__STUDIO__*/
+
   const lastCount = new Map();
   function render(opts = {}) {
     const focusId = document.activeElement?.id;
