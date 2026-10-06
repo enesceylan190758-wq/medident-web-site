@@ -95,13 +95,14 @@ const INSIGHT_FIELDS = [
   "date_start",
   "campaign_id",
   "campaign_name",
+  "objective",
+  "optimization_goal",
   "adset_id",
   "adset_name",
   "ad_id",
   "ad_name",
   "spend",
   "impressions",
-  "reach",
   "frequency",
   "clicks",
   "inline_link_clicks",
@@ -115,7 +116,9 @@ export function adInsights(accountId, since, until) {
     time_increment: "1",
     time_range: JSON.stringify({ since, until }),
     fields: INSIGHT_FIELDS,
-    limit: "500",
+    // harcamasiz satirlari Meta tarafinda ele; buyuk sayfalar (500) proxy'de 30 sn'yi asip 502 veriyor
+    filtering: JSON.stringify([{ field: "spend", operator: "GREATER_THAN", value: 0 }]),
+    limit: "100",
   });
 }
 

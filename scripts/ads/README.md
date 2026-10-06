@@ -24,6 +24,32 @@ paylaşımıyla aynı System User'a atandığında ek ayar gerekmeden listeye gi
 npm run ads:check   # jeton sahibi, izinler, görünen hesaplar, son 30 gün harcama
 ```
 
+## Analiz kuralları (adım 3)
+
+```
+npm run ads:analyze                         # tüm hesaplar, dünden geriye 30 gün
+npm run ads:analyze -- --account act_...    # tek hesap
+npm run ads:analyze -- --until 2026-03-31   # geçmiş dönem
+npm run ads:analyze -- --json               # dashboard/Telegram için
+npm run ads:test                            # kural testleri (sentetik veri)
+```
+
+Sonuç = form (lead) + WhatsApp konuşması başlatma. Hedef CPL, her hesabın kendi 30 günlük
+ortalamasıdır (sadece form/mesaj amaçlı kampanyalardan); sabit hedef için `ADS_TARGET_CPL` JSON'u.
+Etkileşim/bilinirlik/trafik kampanyaları CPL kurallarına girmez.
+
+| Kural | Ne zaman | Seviye |
+|---|---|---|
+| `spend_no_results` | Son 7 gün harcama ≥ 2 × hedef CPL ve 0 sonuç | yüksek |
+| `high_cpl` | Son 7 gün CPL > 1,5 × hedef | orta |
+| `creative_fatigue` | Frekans ≥ 3 ve link CTR önceki 7 güne göre %30+ düştü | orta |
+| `spend_stopped` | Hesapta son 7 gün harcama yok, öncesinde var | orta |
+| `low_ctr` | Link CTR < %0,7 (≥ 2000 gösterim) | düşük |
+| `learning_limited` | Aktif reklam seti öğrenme sınırlı | düşük |
+| `winner` | CPL < 0,7 × hedef ve ≥ 3 sonuç → bütçe artırma adayı | bilgi |
+
+Kurallar yalnızca öneri üretir; hiçbir reklamı durdurmaz, bütçe değiştirmez.
+
 ## Dashboard için kurallar (adım 4)
 
 - Veri modeli baştan hesap bazlı: insights, adset ve ad kayıtlarının hepsi `account_id` taşır.

@@ -27,7 +27,9 @@
     "seo:approve": "node scripts/seo/approve.mjs",
     "seo:baseline": "node scripts/seo/check-baseline.mjs --report lint-all.json",
     "deploy:domain:emergency": "SITE_DOMAIN=https://medidentistanbul.com SITE_BASE= CUSTOM_DOMAIN=medidentistanbul.com node scripts/deploy-pages.mjs",
-    "ads:check": "NODE_USE_ENV_PROXY=1 node --disable-warning=UNDICI-EHPA scripts/ads/check.mjs"
+    "ads:check": "NODE_USE_ENV_PROXY=1 node --disable-warning=UNDICI-EHPA scripts/ads/check.mjs",
+    "ads:analyze": "NODE_USE_ENV_PROXY=1 node --disable-warning=UNDICI-EHPA scripts/ads/analyze.mjs",
+    "ads:test": "node --test scripts/ads/lib/*.test.mjs"
   },
   "devDependencies": {
     "basic-ftp": "^6.0.1",
