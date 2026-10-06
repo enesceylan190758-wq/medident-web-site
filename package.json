@@ -29,7 +29,8 @@
     "deploy:domain:emergency": "SITE_DOMAIN=https://medidentistanbul.com SITE_BASE= CUSTOM_DOMAIN=medidentistanbul.com node scripts/deploy-pages.mjs",
     "ads:check": "NODE_USE_ENV_PROXY=1 node --disable-warning=UNDICI-EHPA scripts/ads/check.mjs",
     "ads:analyze": "NODE_USE_ENV_PROXY=1 node --disable-warning=UNDICI-EHPA scripts/ads/analyze.mjs",
-    "ads:test": "node --test scripts/ads/lib/*.test.mjs"
+    "ads:test": "node --test scripts/ads/lib/*.test.mjs",
+    "ads:dashboard": "NODE_USE_ENV_PROXY=1 node --disable-warning=UNDICI-EHPA scripts/ads/dashboard/build.mjs"
   },
   "devDependencies": {
     "basic-ftp": "^6.0.1",

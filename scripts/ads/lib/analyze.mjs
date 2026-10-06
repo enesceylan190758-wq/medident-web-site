@@ -137,10 +137,10 @@ export function analyze(rows, opts = {}) {
       // 1) Sonucsuz harcama (yalnizca sonuc amacli kampanyalar)
       if (ad.measured && r.results === 0 && target && r.spend >= target * o.minSpendFactor) {
         push({ ...ctx, rule: "spend_no_results", severity: "high",
-          message: `Son ${o.recentDays} gunde ${fmt(r.spend, cur)} harcadi, hic sonuc yok (hedef CPL ${fmt(target, cur)}). ` +
+          message: `Son ${o.recentDays} günde ${fmt(r.spend, cur)} harcadı, hiç sonuç yok (hedef sonuç başı maliyet ${fmt(target, cur)}). ` +
             (ad.objective === "MESSAGES"
-              ? "Mesaj kampanyasi: once WhatsApp konusmalarinin Meta'ya sayilip sayilmadigini kontrol et, sonra durdurmayi degerlendir."
-              : "Durdurmayi degerlendir.") });
+              ? "Mesaj kampanyası: önce WhatsApp konuşmalarının Meta'ya sayılıp sayılmadığını kontrol et, sonra durdurmayı değerlendir."
+              : "Durdurmayı değerlendir.") });
         continue; // CPL kurallari anlamsiz
       }
 
@@ -148,21 +148,21 @@ export function analyze(rows, opts = {}) {
       if (ad.measured && r.cpl && target && r.impressions >= o.minImpressions) {
         if (r.cpl > target * o.highCplFactor) {
           push({ ...ctx, rule: "high_cpl", severity: "medium",
-            message: `CPL ${fmt(r.cpl, cur)}, hesap ortalamasinin (${fmt(target, cur)}) %${pct(r.cpl / target - 1)} uzerinde.` });
+            message: `Sonuç başı ${fmt(r.cpl, cur)}, hesap ortalamasının (${fmt(target, cur)}) %${pct(r.cpl / target - 1)} üzerinde.` });
         } else if (r.cpl < target * o.winnerCplFactor && r.results >= o.winnerMinResults) {
           push({ ...ctx, rule: "winner", severity: "info",
-            message: `CPL ${fmt(r.cpl, cur)}, ortalamanin %${pct(1 - r.cpl / target)} altinda (${r.results} sonuc). Butce artirma adayi.` });
+            message: `Sonuç başı ${fmt(r.cpl, cur)}, ortalamanın %${pct(1 - r.cpl / target)} altında (${r.results} sonuç). Bütçe artırma adayı.` });
         }
       }
 
       // 4) Kreatif yorgunlugu
       if (r.frequency >= o.fatigueFrequency && p.ctr && r.ctr != null && r.ctr < p.ctr * (1 - o.fatigueCtrDrop)) {
         push({ ...ctx, rule: "creative_fatigue", severity: "medium",
-          message: `Frekans ${r.frequency}, link CTR %${pct(p.ctr, 2)} -> %${pct(r.ctr, 2)}. Kreatif yenilenmeli.` });
+          message: `Aynı kişi reklamı ortalama ${r.frequency} kez görmüş, link tıklama oranı %${pct(p.ctr, 2)} → %${pct(r.ctr, 2)} düştü. Görseli/videoyu yenile.` });
       } else if (r.impressions >= o.lowCtrMinImpressions && r.ctr != null && r.ctr < o.lowCtr) {
         // 5) Dusuk CTR
         push({ ...ctx, rule: "low_ctr", severity: "low",
-          message: `Link CTR %${pct(r.ctr, 2)} (${r.impressions} gosterim). Kreatif/hedefleme zayif.` });
+          message: `Link tıklama oranı %${pct(r.ctr, 2)} (${r.impressions} gösterim). Görsel veya hedefleme zayıf.` });
       }
     }
 
@@ -170,7 +170,7 @@ export function analyze(rows, opts = {}) {
     const recentAcc = metrics(A.recent);
     if (!recentAcc.spend && A.all.spend) {
       push({ account_id, account_name: A.name, level: "account", id: account_id, name: A.name, rule: "spend_stopped", severity: "medium", metrics: metrics(A.all),
-        message: `Son ${o.recentDays} gunde harcama yok. Odeme yontemi, hesap durumu veya kapali kampanyalari kontrol et.` });
+        message: `Son ${o.recentDays} günde harcama yok. Ödeme yöntemini, hesap durumunu ve kapalı kampanyaları kontrol et.` });
     }
   }
 
@@ -179,7 +179,7 @@ export function analyze(rows, opts = {}) {
     if (s.effective_status !== "ACTIVE") continue;
     if (s.learning_stage_info?.status === "FAIL") {
       push({ account_id: `act_${s.account_id}`, level: "adset", id: s.id, name: s.name, rule: "learning_limited", severity: "low",
-        message: "Ogrenme sinirli: haftada ~50 sonuca ulasamiyor. Reklam setlerini birlestirmeyi veya hedeflemeyi genisletmeyi degerlendir." });
+        message: "Öğrenme sınırlı: haftada ~50 sonuca ulaşamıyor. Reklam setlerini birleştirmeyi veya hedeflemeyi genişletmeyi değerlendir." });
     }
   }
 
