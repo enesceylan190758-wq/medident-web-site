@@ -1,4 +1,4 @@
-# MediDent Ads — hitap ve üslup
+# Nefalix Ads — hitap ve üslup
 
 Panel, Almanya/İsviçre/Türkiye'deki kliniklere satılan bir ürün. Her metin (arayüz, öneriler,
 raporlar, yapay zeka asistanı) aynı sesle konuşur: **sakin, deneyimli bir meslektaş**. Satıcı gibi değil,

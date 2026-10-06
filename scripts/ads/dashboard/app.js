@@ -96,7 +96,7 @@
   const LOC = { de: "de-DE", en: "en-GB", tr: "tr-TR" };
   const T = {
     de: {
-      greet_m: "Guten Morgen", greet_d: "Guten Tag", greet_e: "Guten Abend", greet_team: "Team {name}", greet_sub_c: "Hier sehen Sie, was Ihre Werbung in den letzten {n} Tagen gebracht hat – und was als Nächstes zu tun ist.", greet_sub_a: "{name} im Überblick: Ergebnisse der letzten {n} Tage und offene Entscheidungen.", hero_lbl: "Patientenanfragen · letzte {n} Tage", help_req: "Formulare, WhatsApp-Chats und Google-Conversions", help_cpr: "Was eine Anfrage im Schnitt kostet", help_budget: "Ausgaben für Meta und Google", v_up_cheap: "Mehr Anfragen zu geringeren Kosten als im Zeitraum davor.", v_up_dear: "Mehr Anfragen, aber jede kostet mehr als zuvor.", v_down_cheap: "Weniger Anfragen, dafür günstiger als zuvor.", v_down_dear: "Weniger Anfragen zu höheren Kosten – der Maßnahmenplan zeigt, wo Sie ansetzen.", tab_overview: "Start", tab_plan: "Plan", tab_chat: "Assistent", tab_reports: "Berichte", tab_more: "Mehr", view_settings: "Ansicht", brand_sub: "Werbe-Cockpit für Kliniken", admin: "Agentur-Admin", menu: "Menü",
+      greet_m: "Guten Morgen", greet_d: "Guten Tag", greet_e: "Guten Abend", greet_team: "Team {name}", greet_sub_c: "Hier sehen Sie, was Ihre Werbung in den letzten {n} Tagen gebracht hat – und was als Nächstes zu tun ist.", greet_sub_a: "{name} im Überblick: Ergebnisse der letzten {n} Tage und offene Entscheidungen.", hero_lbl: "Patientenanfragen · letzte {n} Tage", help_req: "Formulare, WhatsApp-Chats und Google-Conversions", help_cpr: "Was eine Anfrage im Schnitt kostet", help_budget: "Ausgaben für Meta und Google", v_up_cheap: "Mehr Anfragen zu geringeren Kosten als im Zeitraum davor.", v_up_dear: "Mehr Anfragen, aber jede kostet mehr als zuvor.", v_down_cheap: "Weniger Anfragen, dafür günstiger als zuvor.", v_down_dear: "Weniger Anfragen zu höheren Kosten – der Maßnahmenplan zeigt, wo Sie ansetzen.", tab_overview: "Start", tab_plan: "Plan", tab_chat: "Assistent", tab_meta: "Anzeigen", tab_reports: "Berichte", tab_more: "Mehr", view_settings: "Ansicht", brand_sub: "Werbe-Cockpit für Kliniken", admin: "Agentur-Admin", menu: "Menü",
       nav_clients: "Kunden", nav_overview: "Übersicht", nav_plan: "Maßnahmenplan", nav_meta: "Meta Ads", nav_google: "Google Ads", nav_social: "Facebook & Instagram", nav_reports: "Berichte", nav_log: "Protokoll", nav_settings: "Einstellungen",
       sec_admin: "Agentur", sec_client: "Kunde", sec_portal: "Ihr Portal",
       all_clients: "Alle Kunden", new_client: "Neuer Kunde", demo: "Demo", real: "Echt", days: "{n} T",
@@ -249,7 +249,7 @@
       footnote: "Beträge umgerechnet zu Näherungskursen (1 EUR = {chf} CHF = {try} TRY).",
     },
     en: {
-      greet_m: "Good morning", greet_d: "Good afternoon", greet_e: "Good evening", greet_team: "{name} team", greet_sub_c: "Here is what your advertising delivered in the last {n} days – and what to do next.", greet_sub_a: "{name} at a glance: results of the last {n} days and open decisions.", hero_lbl: "Patient enquiries · last {n} days", help_req: "Forms, WhatsApp chats and Google conversions", help_cpr: "What one enquiry costs on average", help_budget: "Spend on Meta and Google", v_up_cheap: "More enquiries at lower cost than the period before.", v_up_dear: "More enquiries, but each costs more than before.", v_down_cheap: "Fewer enquiries, but cheaper than before.", v_down_dear: "Fewer enquiries at higher cost – the action plan shows where to start.", tab_overview: "Home", tab_plan: "Plan", tab_chat: "Assistant", tab_reports: "Reports", tab_more: "More", view_settings: "View", brand_sub: "Ad cockpit for clinics", admin: "Agency admin", menu: "Menu",
+      greet_m: "Good morning", greet_d: "Good afternoon", greet_e: "Good evening", greet_team: "{name} team", greet_sub_c: "Here is what your advertising delivered in the last {n} days – and what to do next.", greet_sub_a: "{name} at a glance: results of the last {n} days and open decisions.", hero_lbl: "Patient enquiries · last {n} days", help_req: "Forms, WhatsApp chats and Google conversions", help_cpr: "What one enquiry costs on average", help_budget: "Spend on Meta and Google", v_up_cheap: "More enquiries at lower cost than the period before.", v_up_dear: "More enquiries, but each costs more than before.", v_down_cheap: "Fewer enquiries, but cheaper than before.", v_down_dear: "Fewer enquiries at higher cost – the action plan shows where to start.", tab_overview: "Home", tab_plan: "Plan", tab_chat: "Assistant", tab_meta: "Ads", tab_reports: "Reports", tab_more: "More", view_settings: "View", brand_sub: "Ad cockpit for clinics", admin: "Agency admin", menu: "Menu",
       nav_clients: "Clients", nav_overview: "Overview", nav_plan: "Action plan", nav_meta: "Meta Ads", nav_google: "Google Ads", nav_social: "Facebook & Instagram", nav_reports: "Reports", nav_log: "Audit log", nav_settings: "Settings",
       sec_admin: "Agency", sec_client: "Client", sec_portal: "Your portal",
       all_clients: "All clients", new_client: "New client", demo: "Demo", real: "Real", days: "{n}d",
@@ -402,7 +402,7 @@
       footnote: "Amounts converted at approximate rates (1 EUR = {chf} CHF = {try} TRY).",
     },
     tr: {
-      greet_m: "Günaydın", greet_d: "İyi günler", greet_e: "İyi akşamlar", greet_team: "{name} ekibi", greet_sub_c: "Reklamlarınızın son {n} günde ne getirdiğini ve sırada ne yapılması gerektiğini burada görürsünüz.", greet_sub_a: "{name} genel bakış: son {n} günün sonuçları ve bekleyen kararlar.", hero_lbl: "Hasta talepleri · son {n} gün", help_req: "Formlar, WhatsApp yazışmaları ve Google dönüşümleri", help_cpr: "Bir talebin ortalama maliyeti", help_budget: "Meta ve Google harcaması", v_up_cheap: "Önceki döneme göre daha düşük maliyetle daha fazla talep.", v_up_dear: "Daha fazla talep var, ancak her biri öncekinden pahalı.", v_down_cheap: "Talep sayısı azaldı, ancak maliyet düştü.", v_down_dear: "Daha az talep, daha yüksek maliyet; nereden başlanacağını aksiyon planı gösteriyor.", tab_overview: "Ana sayfa", tab_plan: "Plan", tab_chat: "Asistan", tab_reports: "Raporlar", tab_more: "Daha fazla", view_settings: "Görünüm", brand_sub: "Klinikler için reklam paneli", admin: "Ajans yöneticisi", menu: "Menü",
+      greet_m: "Günaydın", greet_d: "İyi günler", greet_e: "İyi akşamlar", greet_team: "{name} ekibi", greet_sub_c: "Reklamlarınızın son {n} günde ne getirdiğini ve sırada ne yapılması gerektiğini burada görürsünüz.", greet_sub_a: "{name} genel bakış: son {n} günün sonuçları ve bekleyen kararlar.", hero_lbl: "Hasta talepleri · son {n} gün", help_req: "Formlar, WhatsApp yazışmaları ve Google dönüşümleri", help_cpr: "Bir talebin ortalama maliyeti", help_budget: "Meta ve Google harcaması", v_up_cheap: "Önceki döneme göre daha düşük maliyetle daha fazla talep.", v_up_dear: "Daha fazla talep var, ancak her biri öncekinden pahalı.", v_down_cheap: "Talep sayısı azaldı, ancak maliyet düştü.", v_down_dear: "Daha az talep, daha yüksek maliyet; nereden başlanacağını aksiyon planı gösteriyor.", tab_overview: "Ana sayfa", tab_plan: "Plan", tab_chat: "Asistan", tab_meta: "Reklamlar", tab_reports: "Raporlar", tab_more: "Daha fazla", view_settings: "Görünüm", brand_sub: "Klinikler için reklam paneli", admin: "Ajans yöneticisi", menu: "Menü",
       nav_clients: "Müşteriler", nav_overview: "Genel bakış", nav_plan: "Aksiyon planı", nav_meta: "Meta reklamları", nav_google: "Google reklamları", nav_social: "Facebook ve Instagram", nav_reports: "Raporlar", nav_log: "Kayıt", nav_settings: "Ayarlar",
       sec_admin: "Ajans", sec_client: "Müşteri", sec_portal: "Portalınız",
       all_clients: "Tüm müşteriler", new_client: "Yeni müşteri", demo: "Demo", real: "Gerçek", days: "{n} gün",
@@ -584,7 +584,9 @@
 
   // ================================================================ icons
   const I = {
-    logo: '<path d="M4 17 9.5 9l4 5 2.5-3L20 17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>',
+    logo: '<path d="M7 18V6l10 12V6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>',
+    spark: '<path d="M12 3.5c.6 3.9 2.6 5.9 6.5 6.5-3.9.6-5.9 2.6-6.5 6.5-.6-3.9-2.6-5.9-6.5-6.5 3.9-.6 5.9-2.6 6.5-6.5Z"/><path d="M18.5 15.5c.3 1.6 1 2.3 2.5 2.5-1.5.3-2.2 1-2.5 2.5-.3-1.5-1-2.2-2.5-2.5 1.5-.2 2.2-.9 2.5-2.5Z"/>',
+    expand: '<path d="M14 4.5h5.5V10M10 19.5H4.5V14M19.5 4.5 13.5 10.5M4.5 19.5l6-6"/>',
     clients: '<rect x="3.5" y="4" width="17" height="16" rx="3"/><path d="M3.5 9.5h17M9 9.5V20"/>',
     overview: '<rect x="3.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="3.5" width="7" height="4.5" rx="1.6"/><rect x="13.5" y="11" width="7" height="9.5" rx="1.6"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.6"/>',
     plan: '<path d="M9 6.5h11M9 12h11M9 17.5h11"/><path d="m3.5 6.5 1.2 1.2L7 5.4M3.5 12l1.2 1.2L7 10.9"/><circle cx="5" cy="17.5" r="1.2"/>',
@@ -998,8 +1000,8 @@
     document.getElementById("app").innerHTML = `
       <div class="app ${preview ? "is-preview" : ""} ${cl ? "has-tabs" : ""}">
         <aside class="side ${state.menu ? "open" : ""}" aria-label="${t("menu")}">
-          ${preview ? `<div class="brand"><div class="brand-mark client">${esc(cl.name.slice(0, 1))}</div><div><div class="brand-name">${esc(cl.name)}</div><div class="brand-sub">MediDent Ads</div></div></div>`
-            : `<div class="brand"><div class="brand-mark">${icon("logo")}</div><div><div class="brand-name">MediDent Ads</div><div class="brand-sub">${t("brand_sub")}</div></div></div>`}
+          ${preview ? `<div class="brand"><div class="brand-mark client">${esc(cl.name.slice(0, 1))}</div><div><div class="brand-name">${esc(cl.name)}</div><div class="brand-sub">Nefalix Ads</div></div></div>`
+            : `<div class="brand"><div class="brand-mark">${icon("logo")}</div><div><div class="brand-name">Nefalix Ads</div><div class="brand-sub">${t("brand_sub")}</div></div></div>`}
           <nav class="nav">
             ${preview ? "" : `<div class="nav-label">${t("sec_admin")}</div>${navItem("clients", "clients", t("nav_clients"), `<span class="count neutral">${CLIENTS.length}</span>`)}`}
             ${cl ? `<div class="nav-label nav-client">${preview ? t("sec_portal") : `<span>${t("sec_client")}</span><span class="nav-cname">${esc(cl.name)}</span>`}</div>
@@ -1035,7 +1037,7 @@
           <main class="content"><div class="view" id="view"></div></main>
         </div>
       </div>
-      ${cl ? `<nav class="tabbar m-only" aria-label="${t("menu")}">${[["overview", "overview"], ["plan", "plan"], ["chat", "chat"], ["reports", "reports"]].map(([v, ic]) => `<a href="#${v}" data-nav="${v}" ${state.view === v ? 'aria-current="page"' : ""}>${icon(ic)}<span>${t("tab_" + v)}</span>${v === "plan" && nOpen ? `<i class="tb-badge">${nOpen}</i>` : ""}</a>`).join("")}<button type="button" data-act="menu" ${!["overview", "plan", "chat", "reports"].includes(state.view) ? 'aria-current="page"' : ""}>${icon("menu")}<span>${t("tab_more")}</span></button></nav>` : ""}
+      ${cl ? `<nav class="tabbar m-only" aria-label="${t("menu")}">${[["overview", "overview"], ["plan", "plan"], ["meta", "meta"], ["reports", "reports"]].map(([v, ic]) => `<a href="#${v}" data-nav="${v}" ${state.view === v ? 'aria-current="page"' : ""}>${icon(ic)}<span>${t("tab_" + v)}</span>${v === "plan" && nOpen ? `<i class="tb-badge">${nOpen}</i>` : ""}</a>`).join("")}<button type="button" data-act="menu" ${!["overview", "plan", "meta", "reports"].includes(state.view) ? 'aria-current="page"' : ""}>${icon("menu")}<span>${t("tab_more")}</span></button></nav>` : ""}
       ${state.ob ? onboarding() : ""}
       <div class="toasts" id="toasts" aria-live="polite"></div>`;
     document.documentElement.lang = state.lang;
@@ -1626,6 +1628,7 @@
     if (cl && DRAW[state.view]) DRAW[state.view]();
     for (const id of charts.keys()) { const el = document.getElementById(id); if (el) ro.observe(el); }
     countUp();
+    paintDock();
     if (focusId) { const el = document.getElementById(focusId); if (el) { el.focus(); if (sel != null && el.setSelectionRange) try { el.setSelectionRange(sel, sel); } catch {} } }
   }
   function countUp() {

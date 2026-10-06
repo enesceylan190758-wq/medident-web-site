@@ -102,6 +102,7 @@ tarayıcıda, müşteri başına saklanır. Kampanyalarda değişiklik yapmaz.
 
 ## Hitap ve mobil
 
+Ürün adı **Nefalix Ads**. Her müşteri ekranında sağ altta "KI fragen" baloncuğu aynı asistanı küçük pencerede açar.
 Panelin sesi `dashboard/VOICE.md`'de: Almanca „Sie“, Türkçe „siz“; önce sayı, sonra anlamı, sonra adım;
 müşterinin dili (Anfrage / talep), ünlem ve emoji yok. KI-Assistent de aynı kurallarla cevap verir.
 Mobilde (≤ 700 px) Übersicht üstte tek kart gösterir: talep sayısı + değişim, talep başı maliyet,

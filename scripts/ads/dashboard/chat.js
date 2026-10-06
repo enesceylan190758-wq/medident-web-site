@@ -3,7 +3,7 @@
   // Claude (sample) yalnizca SECILI musterinin verisini, sayfa fonksiyonlari (tools) uzerinden okur.
 
   Object.assign(T.de, {
-    nav_chat: "KI-Assistent",
+    nav_chat: "KI-Assistent", k_fab: "KI fragen", k_full: "Groß öffnen", k_close: "Schließen", k_ph_s: "Ihre Frage …",
     k_intro: "Fragen Sie alles zu Anzeigen, Kosten und nächsten Schritten. Der Assistent liest dafür die Daten dieses Kunden.",
     k_ph: "Frage stellen, z. B. „Wie lief der letzte Monat?“", k_send: "Senden", k_stop: "Stopp", k_clear: "Neuer Chat", k_thinking: "Denkt nach …",
     k_unavail: "Der Assistent ist nur verfügbar, wenn das Panel in claude.ai geöffnet ist.", k_consent: "Beim ersten Mal fragt claude.ai, ob diese Seite Claude verwenden darf.",
@@ -13,7 +13,7 @@
     k_q: ["Wie lief der letzte Monat?", "Welche Kampagne bringt die günstigsten Anfragen?", "Wo sollte ich nächste Woche mehr Budget einsetzen?", "Vergleiche Meta und Google für mich.", "Was sollte ich diese Woche als Erstes tun?", "Schreibe 3 Ideen für Instagram-Beiträge."],
   });
   Object.assign(T.en, {
-    nav_chat: "AI assistant",
+    nav_chat: "AI assistant", k_fab: "Ask AI", k_full: "Open full view", k_close: "Close", k_ph_s: "Your question …",
     k_intro: "Ask anything about ads, costs and next steps. The assistant reads this client's data to answer.",
     k_ph: "Ask a question, e.g. “How did last month go?”", k_send: "Send", k_stop: "Stop", k_clear: "New chat", k_thinking: "Thinking …",
     k_unavail: "The assistant is only available when the panel is opened in claude.ai.", k_consent: "The first time, claude.ai asks whether this page may use Claude.",
@@ -23,7 +23,7 @@
     k_q: ["How did last month go?", "Which campaign brings the cheapest enquiries?", "Where should I spend more budget next week?", "Compare Meta and Google for me.", "What should I do first this week?", "Write 3 ideas for Instagram posts."],
   });
   Object.assign(T.tr, {
-    nav_chat: "Yapay zeka asistanı",
+    nav_chat: "Yapay zeka asistanı", k_fab: "Yapay zekaya sorun", k_full: "Tam ekran aç", k_close: "Kapat", k_ph_s: "Sorunuzu yazın …",
     k_intro: "Reklamlar, maliyetler ve sıradaki adımlar hakkında her şeyi sorabilirsiniz. Asistan cevap için bu müşterinin verisini okur.",
     k_ph: "Bir soru sorun, ör. “Geçen ay nasıl geçti?”", k_send: "Gönder", k_stop: "Durdur", k_clear: "Yeni sohbet", k_thinking: "Düşünüyor …",
     k_unavail: "Asistan yalnızca panel claude.ai içinde açıldığında kullanılabilir.", k_consent: "İlk seferde claude.ai, bu sayfanın Claude'u kullanmasına izin verip vermediğini sorar.",
@@ -34,7 +34,7 @@
   });
   I.chat = '<path d="M5 5.5h14a1.5 1.5 0 0 1 1.5 1.5v8.5A1.5 1.5 0 0 1 19 17h-8l-4.5 3.5V17H5a1.5 1.5 0 0 1-1.5-1.5V7A1.5 1.5 0 0 1 5 5.5Z"/><path d="M8 10h8M8 13h5"/>';
 
-  const chat = { busy: false, ctl: null, status: "", draft: "", error: null, live: "", useTools: null };
+  const chat = { dock: false, busy: false, ctl: null, status: "", draft: "", error: null, live: "", useTools: null };
   const histKey = (id) => "chat:" + id;
   const hist = (cl) => store.get(histKey(cl.id), []);
   const saveHist = (cl, h) => store.set(histKey(cl.id), h.slice(-30));
@@ -98,7 +98,7 @@
     const lang = { de: "Deutsch", en: "English", tr: "Türkçe" }[state.lang];
     const ch = chStatus(cl).map((s) => `${s.ch}: ${s.on ? (s.paused ? "paused since " + s.paused : "connected") : "not connected"}`).join(", ");
     const snap = periodStats(cl, 30);
-    return `Du bist der Werbe-Assistent im Kundenportal "MediDent Ads" einer Marketing-Agentur für Kliniken.
+    return `Du bist der Werbe-Assistent im Kundenportal "Nefalix Ads" einer Marketing-Agentur für Kliniken.
 Du sprichst mit ${state.preview ? "der Klinik selbst (Kunde)" : "der Agentur (Admin)"} über den Kunden "${cl.name}" (${t("sector_" + cl.sector)}, ${cl.city})${cl.demo ? ". ACHTUNG: Dies ist ein fiktiver Demo-Kunde mit erfundenen Daten; erwähne das, wenn es um Ergebnisse geht" : ""}.
 Heute ist ${state.end}. Beträge in ${state.cur}. Kanäle: ${ch}.
 Kennzahlen der letzten 30 Tage (JSON): ${JSON.stringify(snap)}
@@ -173,29 +173,62 @@ ${withTools ? "- Nutze die Tools, um Details zu prüfen (Kampagnen, Tagesverlauf
     return html;
   }
   function paintLive() {
-    const el = document.getElementById("chLive");
-    if (!el) return;
-    el.innerHTML = chat.live ? md(chat.live) : `<span class="typing"><i></i><i></i><i></i></span><span class="muted">${esc(t(chat.status || "k_thinking"))}</span>`;
-    if (chat.live && chat.status) el.insertAdjacentHTML("beforeend", `<p class="muted tool-st">${esc(t(chat.status))}</p>`);
+    for (const el of document.querySelectorAll(".js-live")) paintLiveEl(el);
     scrollChat();
   }
-  function scrollChat() { requestAnimationFrame(() => { const b = document.getElementById("chBox"); if (b) b.scrollTop = b.scrollHeight; }); }
+  function paintLiveEl(el) {
+    el.innerHTML = chat.live ? md(chat.live) : `<span class="typing"><i></i><i></i><i></i></span><span class="muted">${esc(t(chat.status || "k_thinking"))}</span>`;
+    if (chat.live && chat.status) el.insertAdjacentHTML("beforeend", `<p class="muted tool-st">${esc(t(chat.status))}</p>`);
+  }
+  function scrollChat() { requestAnimationFrame(() => { for (const b of document.querySelectorAll(".js-box")) b.scrollTop = b.scrollHeight; }); }
+
+  const msgsHtml = (h) => h.map((m) => `<div class="msg ${m.role}">${m.role === "assistant" ? `<div class="msg-av">${icon("spark")}</div>` : ""}<div class="bubble">${m.role === "assistant" ? md(m.content) : `<p>${esc(m.content)}</p>`}</div></div>`).join("")
+    + (chat.busy ? `<div class="msg assistant"><div class="msg-av">${icon("spark")}</div><div class="bubble js-live"></div></div>` : "");
+  const inputHtml = (id, ph = "k_ph") => `<div class="chat-in">
+      <textarea id="${id}" class="js-in" rows="1" placeholder="${esc(t(ph))}" ${caps.sample ? "" : "disabled"}>${esc(chat.draft)}</textarea>
+      ${chat.busy ? `<button class="btn" type="button" data-kstop="1" aria-label="${esc(t("k_stop"))}">${icon("x")}<span class="lbl">${t("k_stop")}</span></button>` : `<button class="btn primary" type="button" data-ksend="1" aria-label="${esc(t("k_send"))}" ${caps.sample ? "" : "disabled"}>${icon("send")}<span class="lbl">${t("k_send")}</span></button>`}
+    </div>`;
+
+  // Kucuk baloncuk: her musteri ekraninda sag altta, tiklayinca ayni sohbet acilir
+  function paintDock() {
+    let root = document.getElementById("dock");
+    if (!root) { root = document.createElement("div"); root.id = "dock"; document.body.appendChild(root); }
+    const cl = C();
+    if (!cl || state.view === "chat" || state.ob) { root.innerHTML = ""; return; }
+    if (!chat.dock) {
+      root.innerHTML = `<button class="fab" type="button" data-kdock="open" aria-expanded="false">${icon("spark")}<span>${esc(t("k_fab"))}</span>${chat.busy ? '<i class="fab-dot"></i>' : ""}</button>`;
+      return;
+    }
+    const h = hist(cl), empty = !h.length && !chat.busy;
+    root.innerHTML = `<div class="dock-bg" data-kdock="close"></div>
+      <section class="dock" role="dialog" aria-label="${esc(t("nav_chat"))}">
+        <header class="dock-h">
+          <div class="msg-av">${icon("spark")}</div>
+          <div class="dock-t"><b>${esc(t("nav_chat"))}</b><span>${esc(cl.name)}${cl.demo ? " · Demo" : ""}</span></div>
+          ${h.length && !chat.busy ? `<button class="icon-btn" type="button" data-kclear="1" title="${esc(t("k_clear"))}" aria-label="${esc(t("k_clear"))}">${icon("plus")}</button>` : ""}
+          <button class="icon-btn" type="button" data-kdock="full" title="${esc(t("k_full"))}" aria-label="${esc(t("k_full"))}">${icon("expand")}</button>
+          <button class="icon-btn" type="button" data-kdock="close" title="${esc(t("k_close"))}" aria-label="${esc(t("k_close"))}">${icon("x")}</button>
+        </header>
+        <div class="dock-box js-box" id="dkBox">
+          ${empty ? `<div class="dock-hello"><p>${esc(t("k_intro"))}</p><div class="sugg">${t("k_q").slice(0, 4).map((q, i) => `<button type="button" class="fchip" data-kq="${i}">${esc(q)}</button>`).join("")}</div>${caps.sample ? "" : `<div class="banner warn">${icon("lock")}<span>${t("k_unavail")}</span></div>`}</div>` : msgsHtml(h)}
+        </div>
+        ${chat.error ? `<div class="banner warn chat-err">${icon("x")}<span>${esc(chat.error)}</span></div>` : ""}
+        ${inputHtml("dkIn", "k_ph_s")}
+      </section>`;
+    if (chat.busy) for (const el of root.querySelectorAll(".js-live")) paintLiveEl(el);
+    scrollChat();
+  }
 
   function vChat() {
     const cl = C(), h = hist(cl);
-    const msgs = h.map((m) => `<div class="msg ${m.role}">${m.role === "assistant" ? `<div class="msg-av">${icon("studio")}</div>` : ""}<div class="bubble">${m.role === "assistant" ? md(m.content) : `<p>${esc(m.content)}</p>`}</div></div>`).join("");
     const empty = !h.length && !chat.busy;
     return `${clientHead(cl)}
       <section class="card chat">
-        <div class="chat-box" id="chBox">
-          ${empty ? `<div class="chat-hello"><div class="hello-ic">${icon("studio")}</div><h2>${esc(t("k_intro"))}</h2><div class="sugg">${t("k_q").map((q, i) => `<button type="button" class="fchip" data-kq="${i}">${esc(q)}</button>`).join("")}</div>${caps.sample ? `<p class="footnote">${t("k_consent")}</p>` : `<div class="banner warn">${icon("lock")}<span>${t("k_unavail")}</span></div>`}</div>` : msgs}
-          ${chat.busy ? `<div class="msg assistant"><div class="msg-av">${icon("studio")}</div><div class="bubble" id="chLive"></div></div>` : ""}
+        <div class="chat-box js-box" id="chBox">
+          ${empty ? `<div class="chat-hello"><div class="hello-ic">${icon("spark")}</div><h2>${esc(t("k_intro"))}</h2><div class="sugg">${t("k_q").map((q, i) => `<button type="button" class="fchip" data-kq="${i}">${esc(q)}</button>`).join("")}</div>${caps.sample ? `<p class="footnote">${t("k_consent")}</p>` : `<div class="banner warn">${icon("lock")}<span>${t("k_unavail")}</span></div>`}</div>` : msgsHtml(h)}
         </div>
         ${chat.error ? `<div class="banner warn chat-err">${icon("x")}<span>${esc(chat.error)}</span></div>` : ""}
-        <div class="chat-in">
-          <textarea id="chIn" rows="1" placeholder="${esc(t("k_ph"))}" ${caps.sample ? "" : "disabled"}>${esc(chat.draft)}</textarea>
-          ${chat.busy ? `<button class="btn" type="button" data-kstop="1">${icon("x")}${t("k_stop")}</button>` : `<button class="btn primary" type="button" data-ksend="1" ${caps.sample ? "" : "disabled"}>${icon("send")}${t("k_send")}</button>`}
-        </div>
+        ${inputHtml("chIn")}
         <div class="chat-foot"><span class="footnote">${t("k_note")}</span>${h.length && !chat.busy ? `<button class="linkbtn" type="button" data-kclear="1">${t("k_clear")}</button>` : ""}</div>
       </section>`;
   }
@@ -205,19 +238,28 @@ ${withTools ? "- Nutze die Tools, um Details zu prüfen (Kampagnen, Tagesverlauf
   DRAW.chat = () => { if (chat.busy) paintLive(); scrollChat(); };
 
   document.addEventListener("click", (e) => {
-    const el = e.target.closest("[data-kq],[data-ksend],[data-kstop],[data-kclear]");
+    const el = e.target.closest("[data-kq],[data-ksend],[data-kstop],[data-kclear],[data-kdock]");
     if (!el) return;
     const d = el.dataset;
+    if (d.kdock) {
+      chat.dock = d.kdock === "open";
+      if (d.kdock === "full") { go("chat"); return; }
+      paintDock();
+      if (chat.dock) document.getElementById("dkIn")?.focus({ preventScroll: true });
+      else document.querySelector("#dock .fab")?.focus({ preventScroll: true });
+      return;
+    }
     if (d.kq !== undefined) return ask(t("k_q")[+d.kq]);
-    if (d.ksend) { const v = document.getElementById("chIn")?.value || ""; return ask(v); }
+    if (d.ksend) { const v = el.closest(".chat-in")?.querySelector("textarea")?.value || ""; return ask(v); }
     if (d.kstop) { chat.ctl?.abort(); return; }
     if (d.kclear) { const cl = C(); store.set(histKey(cl.id), []); chat.error = null; render({ still: true }); }
   });
   document.addEventListener("input", (e) => {
-    if (e.target.id !== "chIn") return;
+    if (!e.target.classList?.contains("js-in")) return;
     chat.draft = e.target.value;
     e.target.style.height = "auto"; e.target.style.height = Math.min(160, e.target.scrollHeight) + "px";
   });
   document.addEventListener("keydown", (e) => {
-    if (e.target.id === "chIn" && e.key === "Enter" && !e.shiftKey && !e.isComposing) { e.preventDefault(); ask(e.target.value); }
+    if (e.key === "Escape" && chat.dock) { chat.dock = false; paintDock(); return; }
+    if (e.target.classList?.contains("js-in") && e.key === "Enter" && !e.shiftKey && !e.isComposing) { e.preventDefault(); ask(e.target.value); }
   });
