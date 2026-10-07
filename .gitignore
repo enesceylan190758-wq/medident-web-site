@@ -17,3 +17,6 @@ decay-report.md
 lint-*.json
 gate.txt
 prelint.txt
+
+# reklam paneli: hesap -> musteri eslemesi (yerel)
+scripts/ads/clients.json
