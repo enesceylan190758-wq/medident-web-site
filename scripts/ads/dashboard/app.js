@@ -78,7 +78,7 @@
     view: store.get("view", "overview"),
     preview: false,
     lang: store.get("lang", "de"),
-    cur: store.get("cur", "EUR"),
+    cur: store.get("cur_v2", "TRY"),
     win: store.get("win", 30),
     end: store.get("end", RAW.until),
     theme: store.get("theme", null),
@@ -583,7 +583,7 @@
     if (v == null || !isFinite(v)) return "–";
     const d = opt.dec ?? (Math.abs(v) < 100 ? 2 : 0);
     // 45,4 € yerine 45,40 €: kesirli tutarlarda kurus hanesi hep tam
-    return new Intl.NumberFormat(loc(), { style: "currency", currency: state.cur, maximumFractionDigits: d, minimumFractionDigits: d && Math.round(v * 10 ** d) % 10 ** d ? d : 0 }).format(v);
+    return new Intl.NumberFormat(loc(), { style: "currency", currency: state.cur, currencyDisplay: state.cur === "TRY" ? "narrowSymbol" : "symbol", maximumFractionDigits: d, minimumFractionDigits: d && Math.round(v * 10 ** d) % 10 ** d ? d : 0 }).format(v);
   };
   const num = (v, d = 0) => v == null || !isFinite(v) ? "–" : new Intl.NumberFormat(loc(), { maximumFractionDigits: d, minimumFractionDigits: d }).format(v);
   const compact = (v) => v == null || !isFinite(v) ? "–" : new Intl.NumberFormat(loc(), { notation: "compact", maximumFractionDigits: 1 }).format(v);
@@ -1085,7 +1085,7 @@
           <div class="side-foot">
             <div class="m-only m-settings"><span class="nav-label">${t("view_settings")}</span>
               ${cl ? `<div class="seg">${[7, 30, 90].map((n) => `<button type="button" data-win="${n}" aria-pressed="${state.win === n}">${t("days", { n })}</button>`).join("")}</div>` : ""}
-              <div class="m-row"><div class="seg">${["EUR", "CHF"].map((c) => `<button type="button" data-cur="${c}" aria-pressed="${state.cur === c}">${c}</button>`).join("")}</div>
+              <div class="m-row"><div class="seg">${["TRY", "EUR", "CHF"].map((c) => `<button type="button" data-cur="${c}" aria-pressed="${state.cur === c}">${c === "TRY" ? "TL" : c}</button>`).join("")}</div>
               <div class="seg">${["de", "en", "tr"].map((l) => `<button type="button" data-lang="${l}" aria-pressed="${state.lang === l}">${l.toUpperCase()}</button>`).join("")}</div>
               <button class="btn icon" type="button" data-act="theme" aria-label="${t("theme")}">${icon(themeIc)}</button></div>
               ${cl ? `<button class="btn" type="button" data-act="preview">${icon("eye")}${preview ? t("preview_exit") : t("preview_btn")}</button>` : ""}
@@ -1103,7 +1103,7 @@
             <div class="tools">
               ${preview ? "" : `<div class="select" id="clSel"><button type="button" data-act="pop" aria-haspopup="listbox" aria-expanded="${state.pop}">${cl ? `<span class="dot" style="background:${cl.demo ? "var(--demo)" : "var(--accent)"}"></span>` : icon("clients")}<span class="lbl">${esc(cl ? cl.name : t("all_clients"))}</span>${icon("chev")}</button>${state.pop ? clientPop() : ""}</div>`}
               ${cl ? `<div class="seg" role="group" aria-label="${t("period")}">${[7, 30, 90].map((n) => `<button type="button" data-win="${n}" aria-pressed="${state.win === n}">${t("days", { n })}</button>`).join("")}</div>` : ""}
-              <div class="seg" role="group" aria-label="${t("currency")}">${["EUR", "CHF"].map((c) => `<button type="button" data-cur="${c}" aria-pressed="${state.cur === c}">${c}</button>`).join("")}</div>
+              <div class="seg" role="group" aria-label="${t("currency")}">${["TRY", "EUR", "CHF"].map((c) => `<button type="button" data-cur="${c}" aria-pressed="${state.cur === c}">${c === "TRY" ? "TL" : c}</button>`).join("")}</div>
               <div class="seg hide-sm" role="group" aria-label="${t("language")}">${["de", "en", "tr"].map((l) => `<button type="button" data-lang="${l}" aria-pressed="${state.lang === l}">${l.toUpperCase()}</button>`).join("")}</div>
               ${cl && !preview ? `<button class="btn" type="button" data-act="preview" title="${t("preview_btn")}">${icon("eye")}<span class="hide-sm">${t("preview_btn")}</span></button>` : ""}
               <button class="btn icon" type="button" data-act="theme" aria-label="${t("theme")}" title="${t("theme")}">${icon(themeIc)}</button>
@@ -1643,7 +1643,7 @@
       <section class="card">
         ${pv ? "" : `<div class="set-row"><div><h3>${t("set_general")}</h3><p>${t("set_general_d")}</p></div><div class="set-ctl">
           <div class="seg" style="justify-self:start">${[["de", "Deutsch"], ["en", "English"], ["tr", "Türkçe"]].map(([l, n]) => `<button type="button" data-lang="${l}" aria-pressed="${state.lang === l}">${n}</button>`).join("")}</div>
-          <div class="seg" style="justify-self:start">${["EUR", "CHF"].map((c) => `<button type="button" data-cur="${c}" aria-pressed="${state.cur === c}">${c}</button>`).join("")}</div>
+          <div class="seg" style="justify-self:start">${["TRY", "EUR", "CHF"].map((c) => `<button type="button" data-cur="${c}" aria-pressed="${state.cur === c}">${c === "TRY" ? "TL" : c}</button>`).join("")}</div>
           <div class="field-row"><div class="field"><label for="fxCHF">1 EUR =</label><div class="input"><input id="fxCHF" data-fx="CHF" inputmode="decimal" value="${state.fx.CHF}"><span>CHF</span></div></div>
           <div class="field"><label for="fxTRY">1 EUR =</label><div class="input"><input id="fxTRY" data-fx="TRY" inputmode="decimal" value="${state.fx.TRY}"><span>TRY</span></div></div>
           <div class="field"><label for="endDate">${t("set_end")}</label><div class="input"><input id="endDate" type="date" min="${addD(RAW.since, 30)}" max="${RAW.until}" value="${state.end}" style="font-family:var(--sans)"></div></div></div>
@@ -1769,7 +1769,7 @@
     if (d.nav) { e.preventDefault(); if (d.nav === "clients") go(null, null); else go(d.nav); return; }
     if (d.client !== undefined) { e.preventDefault(); go(d.client ? (VIEWS_CLIENT.includes(state.view) ? state.view : "overview") : null, d.client); return; }
     if (d.win) { state.win = +d.win; store.set("win", state.win); render({ still: true }); return; }
-    if (d.cur) { state.cur = d.cur; store.set("cur", d.cur); render({ still: true }); return; }
+    if (d.cur) { state.cur = d.cur; store.set("cur_v2", d.cur); render({ still: true }); return; }
     if (d.lang) { state.lang = d.lang; store.set("lang", d.lang); render({ still: true }); return; }
     if (d.chart) { state.chart = d.chart; render({ still: true }); return; }
     if (d.gchart) { state.gChart = d.gchart; render({ still: true }); return; }

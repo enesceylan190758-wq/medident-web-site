@@ -330,7 +330,7 @@ ${ads}`;
     return {
       _id: `${cl.id}__c${Date.now().toString(36)}`, client: cl.id, status: "draft", createdAt: new Date().toISOString(),
       obj: "lead", name: "", topic: "", loc: cl.city || "", radius: 50, ageMin: 30, ageMax: 65, langs: cityLang,
-      keywords: "", negatives: g.join("\n"), daily: 40, days: 30, start: addD(today(), 3),
+      keywords: "", negatives: g.join("\n"), daily: Math.max(5, Math.round(conv(40, "EUR") / (state.cur === "TRY" ? 100 : 5)) * (state.cur === "TRY" ? 100 : 5)), cur: state.cur, days: 30, start: addD(today(), 3),
       adLang: cityLang[0], headline: "", text: "", desc: "", cta: "LEARN_MORE", inspired: null, ...seed,
     };
   }
@@ -338,7 +338,7 @@ ${ads}`;
   function forecast(cl, d) {
     const a = aggAll(cl, addD(state.end, -89), state.end);
     if (!a.cpr) return null;
-    const total = d.daily * d.days;
+    const total = conv(d.daily * d.days, d.cur || "EUR");
     const base = total / a.cpr;
     return { a: Math.max(0, Math.floor(base * 0.7)), b: Math.ceil(base * 1.3), cpr: a.cpr };
   }
@@ -369,7 +369,7 @@ Antworte nur als JSON: {"variants":[{"angle": string (2–4 Wörter, auf ${({ de
     const list = live.campaigns.filter((c) => c.client === cl.id && (!pv || c.status !== "draft")).sort((a, b) => ((a.updatedAt || a.createdAt) < (b.updatedAt || b.createdAt) ? 1 : -1));
     const rows = list.map((c) => `<div class="camp-row">
         <div class="cr-ic">${icon(c.obj === "search" ? "google" : "meta")}</div>
-        <div class="cr-main"><b>${esc(c.name || c.topic || "—")}</b><span>${t("w_obj_" + c.obj)} · ${money(c.daily, { dec: 0 })}/${t("days", { n: 1 }).replace(/\d+\s?/, "")} · ${t("w_days_n", { n: c.days })} · ${esc(dfmt(c.start))}</span></div>
+        <div class="cr-main"><b>${esc(c.name || c.topic || "—")}</b><span>${t("w_obj_" + c.obj)} · ${money(conv(c.daily, c.cur || "EUR"), { dec: 0 })}/${t("days", { n: 1 }).replace(/\d+\s?/, "")} · ${t("w_days_n", { n: c.days })} · ${esc(dfmt(c.start))}</span></div>
         ${stPill(c.status)}
         <div class="cr-acts">${pv ? (c.status === "pending" ? `<button class="btn sm primary" type="button" data-cappr="${esc(c._id)}">${icon("check")}${t("c_approve")}</button><button class="btn sm" type="button" data-cchg="${esc(c._id)}">${t("c_changes")}</button>` : "")
           : `<button class="btn sm" type="button" data-cedit="${esc(c._id)}">${t("w_edit")}</button><button class="btn sm ghost icon" type="button" data-cdel="${esc(c._id)}" aria-label="${t("w_delete")}">${icon("trash")}</button>`}</div>
@@ -408,10 +408,10 @@ Antworte nur als JSON: {"variants":[{"angle": string (2–4 Wörter, auf ${({ de
         ${d.obj === "search" ? `<div class="field-row"><div class="field grow"><label for="w-keywords">${t("w_kw")}</label><textarea id="w-keywords" data-w="keywords" rows="5" class="ta">${esc(d.keywords)}</textarea></div><div class="field grow"><label for="w-negatives">${t("w_neg")}</label><textarea id="w-negatives" data-w="negatives" rows="5" class="ta">${esc(d.negatives)}</textarea>${d.negatives ? `<span class="footnote">${t("w_neg_hint")}</span>` : ""}</div></div>` : ""}`;
     } else if (s === 2) {
       const fc = forecast(cl, d);
-      body = `<div class="field-row">${fld("w-daily", t("w_daily"), `<div class="input"><input id="w-daily" data-w="daily" type="number" min="5" step="5" value="${d.daily}"><span>${state.cur}</span></div>`)}
+      body = `<div class="field-row">${fld("w-daily", t("w_daily"), `<div class="input"><input id="w-daily" data-w="daily" type="number" min="5" step="5" value="${d.daily}"><span>${(d.cur || "EUR") === "TRY" ? "TL" : d.cur || "EUR"}</span></div>`)}
         ${fld("w-days", t("w_days"), `<div class="input"><select id="w-days" data-w="days">${[7, 14, 30, 60, 90].map((n) => `<option value="${n}" ${+d.days === n ? "selected" : ""}>${t("w_days_n", { n })}</option>`).join("")}</select></div>`)}
         ${fld("w-start", t("w_start"), `<div class="input"><input id="w-start" data-w="start" type="date" value="${d.start}" style="font-family:var(--sans)"></div>`)}</div>
-        <div class="fc"><div><span class="eyebrow">${t("w_fc_t")}</span><b>${fc ? t("w_fc", { a: num(fc.a), b: num(fc.b) }) : "–"}</b><span class="muted">${fc ? t("w_fc_basis", { v: money(fc.cpr) }) : t("w_fc_none")}</span></div><div class="fc-total">${t("w_total", { v: money(d.daily * d.days, { dec: 0 }) })}</div></div>`;
+        <div class="fc"><div><span class="eyebrow">${t("w_fc_t")}</span><b>${fc ? t("w_fc", { a: num(fc.a), b: num(fc.b) }) : "–"}</b><span class="muted">${fc ? t("w_fc_basis", { v: money(fc.cpr) }) : t("w_fc_none")}</span></div><div class="fc-total">${t("w_total", { v: money(conv(d.daily * d.days, d.cur || "EUR"), { dec: 0 }) })}</div></div>`;
     } else if (s === 3) {
       const rk = risks(d);
       body = `<div class="wz-ad"><div class="wz-ad-form">
@@ -430,7 +430,7 @@ Antworte nur als JSON: {"variants":[{"angle": string (2–4 Wörter, auf ${({ de
     } else {
       const fc = forecast(cl, d);
       const mat = chosenMedia(d);
-      const rows = [[t("w_channel"), t("w_obj_" + d.obj)], [t("w_name"), d.name || "—"], [t("w_topic"), d.topic || "—"], [t("w_loc"), `${d.loc} · ${d.radius} km`], [t("w_age"), `${d.ageMin}–${d.ageMax}`], [t("w_langs"), d.langs.map((l) => l.toUpperCase()).join(", ")], [t("w_daily"), money(+d.daily, { dec: 0 })], [t("w_days"), t("w_days_n", { n: d.days }) + " · " + dfmt(d.start)], [t("w_fc_t"), fc ? t("w_fc", { a: num(fc.a), b: num(fc.b) }) : "–"], [t("w_material"), mat ? `${t(mat.kind === "video" ? "p_kind_video" : "p_kind_image")}${mat.ratio ? " · " + mat.ratio : ""}` : t("w_material_none")]];
+      const rows = [[t("w_channel"), t("w_obj_" + d.obj)], [t("w_name"), d.name || "—"], [t("w_topic"), d.topic || "—"], [t("w_loc"), `${d.loc} · ${d.radius} km`], [t("w_age"), `${d.ageMin}–${d.ageMax}`], [t("w_langs"), d.langs.map((l) => l.toUpperCase()).join(", ")], [t("w_daily"), money(conv(+d.daily, d.cur || "EUR"), { dec: 0 })], [t("w_days"), t("w_days_n", { n: d.days }) + " · " + dfmt(d.start)], [t("w_fc_t"), fc ? t("w_fc", { a: num(fc.a), b: num(fc.b) }) : "–"], [t("w_material"), mat ? `${t(mat.kind === "video" ? "p_kind_video" : "p_kind_image")}${mat.ratio ? " · " + mat.ratio : ""}` : t("w_material_none")]];
       const rk = risks(d);
       body = `<div class="wz-ad"><div><table class="sum-tbl">${rows.map(([k, v]) => `<tr><th>${esc(k)}</th><td>${esc(v)}</td></tr>`).join("")}</table>
         ${rk.length ? `<div class="check bad"><span class="eyebrow">${t("w_check")}</span><ul>${rk.map((k) => `<li>${esc(t(k))}</li>`).join("")}</ul></div>` : ""}
