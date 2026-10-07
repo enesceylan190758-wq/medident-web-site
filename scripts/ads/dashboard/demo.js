@@ -148,6 +148,36 @@ function buildDemo(range) {
       terms: [["augenlasern luzern", 0.25, 0.1], ["smile pro kosten", 0.16, 0.07], ["augenlasern erfahrungen", 0.1, 0.03], ["brille online kaufen", 0.07, 0], ["kontaktlinsen günstig", 0.05, 0], ["lasik risiken", 0.07, 0.01], ["augenarzt luzern termin", 0.08, 0.02]],
       social: { fb: [4200, 0.7], ig: [5100, 2.2], posts: 2.6, topics: ["Ablauf SMILE pro in 90 Sekunden", "Bin ich geeignet? 4 Kriterien", "Ein Jahr ohne Brille – Erfahrungsbericht", "Fragen an den Augenarzt", "Sport nach dem Augenlasern"] },
     },
+    {
+      key: "bakery", name: "Konditorei Kandelhof", city: "Köln", currency: "EUR", seed: 5503, ig: 0.74, target: 15, measureAgo: 35,
+      assumptions: { booking: 0.55, close: 0.92, value: 68 },
+      access: { status: "active", users: 2 },
+      measure: { de: "Bestellformular auf 3 Fragen gekürzt, Video „Torte entsteht“ gestartet", en: "Cut the order form to 3 questions, launched the “cake in the making” video", tr: "Sipariş formu 3 soruya indirildi, “Pasta nasıl yapılır” videosu başlatıldı" },
+      campaigns: [
+        { name: "Hochzeitstorten · Anfrageformular · Köln", obj: "OUTCOME_LEADS", ads: [
+          { name: "Video · Torte entsteht in 30 Sekunden", budget: 22, cpl: 14, ctr: 0.019, cpm: 7, story: "winnerLate" },
+          { name: "Karussell · Tortenkatalog 2026", budget: 16, cpl: 19, ctr: 0.015, cpm: 7, story: "fatigue" },
+          { name: "Bild · Probiertermin vereinbaren", budget: 12, cpl: 21, ctr: 0.012, cpm: 6, story: "improve" },
+        ] },
+        { name: "Geburtstagstorten · WhatsApp-Bestellung", obj: "MESSAGES", ads: [
+          { name: "Reel · Motivtorten für Kinder", budget: 14, cpl: 8, ctr: 0.021, cpm: 6, msgs: true, story: "steady" },
+          { name: "Bild · Bestellung bis 48 h vorher", budget: 8, cpl: 9, ctr: 0.012, cpm: 6, msgs: true, story: "highcpl" },
+        ] },
+        { name: "Weihnachtsstollen · Vorbestellung", obj: "OUTCOME_LEADS", ads: [
+          { name: "Bild · Stollen jetzt vorbestellen", budget: 15, cpl: 11, ctr: 0.014, cpm: 6, story: "seasonal" },
+        ] },
+        { name: "Reichweite · Café Ehrenfeld", obj: "OUTCOME_AWARENESS", ads: [
+          { name: "Reel 15 s · Frühstück am Wochenende", budget: 9, cpl: 0, ctr: 0.006, cpm: 3.5, story: "steady" },
+        ] },
+      ],
+      google: [
+        { name: "Suche · Hochzeitstorte Köln", type: "SEARCH", budget: 18, cpc: 1.4, ctr: 0.07, cvr: 0.09, lost: 0.12 },
+        { name: "Suche · Torte bestellen Köln", type: "SEARCH", budget: 14, cpc: 1.1, ctr: 0.065, cvr: 0.11, lost: 0.28 },
+        { name: "Performance Max · Café & Konditorei", type: "PERFORMANCE_MAX", budget: 10, cpc: 0.6, ctr: 0.015, cvr: 0.03, lost: null },
+      ],
+      terms: [["hochzeitstorte köln", 0.2, 0.1], ["torte bestellen köln", 0.18, 0.12], ["motivtorte kinder", 0.12, 0.08], ["konditorei in der nähe", 0.1, 0.06], ["café ehrenfeld frühstück", 0.08, 0.04], ["tortenrezept", 0.07, 0], ["kuchen backen kurs", 0.05, 0], ["fondant kaufen", 0.05, 0]],
+      social: { fb: [1900, 0.6], ig: [8700, 4.1], posts: 4.5, topics: ["Torte des Tages", "So entsteht eine Hochzeitstorte", "Wochenend-Frühstück", "Saisonkuchen: Zwetschge", "Hinter den Kulissen der Backstube", "Neue Pralinen", "Kundenwunsch: Motivtorte"] },
+    },
   ];
 
   const accounts = [], campaigns = [], ads = [], rows = [], plat = [], log = [], clients = [];

@@ -249,7 +249,7 @@
       ob4_h: "Zugang für die Klinik", ob4_p: "Die Klinik erhält ein eigenes Login und sieht nur ihre Daten.", ob_email: "E-Mail der Ansprechperson",
       ob_done: "Kunde anlegen", ob_done_toast: "Vorschau: Es wurde kein Kunde angelegt.",
       back: "Zurück", next: "Weiter", connecting: "Verbinde …",
-      sector_dental: "Zahnmedizin", sector_implant: "Zahnimplantate", sector_hair: "Haartransplantation", sector_aesthetic: "Ästhetische Chirurgie", sector_eye: "Augenlaser",
+      sector_dental: "Zahnmedizin", sector_implant: "Zahnimplantate", sector_hair: "Haartransplantation", sector_aesthetic: "Ästhetische Chirurgie", sector_eye: "Augenlaser", sector_bakery: "Konditorei & Café",
       demo_strip: "<b>Demo-Kunde:</b> fiktive Klinik mit erfundenen Daten, nur zur Vorführung. Keine echten Kundenergebnisse.",
       real_strip: "<b>Echte Daten</b> aus den verbundenen Werbekonten. Beträge zu Näherungskursen in {cur} umgerechnet.",
       footnote: "Beträge umgerechnet zu Näherungskursen (1 EUR = {chf} CHF = {try} TRY).",
@@ -402,7 +402,7 @@
       ob4_h: "Login for the clinic", ob4_p: "The clinic gets its own login and only sees its own data.", ob_email: "Contact email",
       ob_done: "Create client", ob_done_toast: "Preview: no client was created.",
       back: "Back", next: "Next", connecting: "Connecting …",
-      sector_dental: "Dentistry", sector_implant: "Dental implants", sector_hair: "Hair transplant", sector_aesthetic: "Aesthetic surgery", sector_eye: "Laser eye surgery",
+      sector_dental: "Dentistry", sector_implant: "Dental implants", sector_hair: "Hair transplant", sector_aesthetic: "Aesthetic surgery", sector_eye: "Laser eye surgery", sector_bakery: "Patisserie & café",
       demo_strip: "<b>Demo client:</b> fictional clinic with invented data, for demonstration only. Not real client results.",
       real_strip: "<b>Real data</b> from the connected ad accounts. Amounts converted to {cur} at approximate rates.",
       footnote: "Amounts converted at approximate rates (1 EUR = {chf} CHF = {try} TRY).",
@@ -555,14 +555,23 @@
       ob4_h: "Klinik için giriş", ob4_p: "Klinik kendi girişini alır ve sadece kendi verisini görür.", ob_email: "İletişim kişisinin e-postası",
       ob_done: "Müşteriyi oluştur", ob_done_toast: "Önizleme: müşteri oluşturulmadı.",
       back: "Geri", next: "İleri", connecting: "Bağlanıyor …",
-      sector_dental: "Diş hekimliği", sector_implant: "Diş implantı", sector_hair: "Saç ekimi", sector_aesthetic: "Estetik cerrahi", sector_eye: "Göz lazeri",
+      sector_dental: "Diş hekimliği", sector_implant: "Diş implantı", sector_hair: "Saç ekimi", sector_aesthetic: "Estetik cerrahi", sector_eye: "Göz lazeri", sector_bakery: "Pastane & kafe",
       demo_strip: "<b>Demo müşteri:</b> uydurma verili kurgusal klinik, sadece tanıtım için. Gerçek müşteri sonucu değildir.",
       real_strip: "<b>Gerçek veri:</b> bağlı reklam hesaplarından. Tutarlar yaklaşık kurla {cur}'ya çevrildi.",
       footnote: "Tutarlar yaklaşık kurlarla çevrildi (1 EUR = {chf} CHF = {try} TRY).",
     },
   };
+  // Branchenwortschatz: Kliniksprache (Patient, Termin, Behandlung) für Nicht-Kliniken ersetzen
+  const SECTOR_T = {
+    bakery: {
+      de: { hero_lbl: "Bestellanfragen · letzte {n} Tage", help_req: "Bestellformulare, WhatsApp-Bestellungen und Google-Conversions", roi_book: "Bestellungen", roi_pat: "Abgeholt", mh_book: "Bestellungen", as_book: "Anfragen, die bestellen", as_close: "Bestellungen, die abgeholt werden", as_value: "Ø Bestellwert", roi_assume: "Annahmen: {b} der Anfragen werden zur Bestellung, {c} davon werden abgeholt, Ø Bestellwert {v}." },
+      en: { hero_lbl: "Order enquiries · last {n} days", help_req: "Order forms, WhatsApp orders and Google conversions", roi_book: "Orders", roi_pat: "Picked up", mh_book: "Orders", as_book: "Enquiries that order", as_close: "Orders that are picked up", as_value: "Average order value", roi_assume: "Assumptions: {b} of enquiries become an order, {c} of those are picked up, average order value {v}." },
+      tr: { hero_lbl: "Sipariş talepleri · son {n} gün", help_req: "Sipariş formları, WhatsApp siparişleri ve Google dönüşümleri", roi_book: "Siparişler", roi_pat: "Teslim edilen", mh_book: "Siparişler", as_book: "Siparişe dönen talepler", as_close: "Teslim alınan siparişler", as_value: "Ortalama sipariş tutarı", roi_assume: "Varsayımlar: taleplerin {b} siparişe dönüşür, bunların {c} teslim alınır, ortalama sipariş tutarı {v}." },
+    },
+  };
   const t = (k, v = {}) => {
-    const s = T[state.lang]?.[k] ?? T.de[k] ?? k;
+    const sec = SECTOR_T[clientById(state.client)?.sector];
+    const s = sec?.[state.lang]?.[k] ?? T[state.lang]?.[k] ?? T.de[k] ?? k;
     return typeof s === "string" ? s.replace(/\{(\w+)\}/g, (_, x) => (v[x] ?? "")) : s;
   };
   const tAll = (k, v) => Object.fromEntries(["de", "en", "tr"].map((l) => { const keep = state.lang; state.lang = l; const r = t(k, v); state.lang = keep; return [l, r]; }));
