@@ -137,6 +137,14 @@
   (async () => {
     const [m, s, d] = await Promise.all([useCap("mcp"), useCap("sample"), useCap("db")]);
     caps.mcp = m; caps.sample = s; caps.db = d;
+    // Tek pencerede bir kerelik izin: Apify (araştırma), Higgsfield (üretim), Claude (asistan). Verilmiş olanlar tekrar sorulmaz.
+    useCap("permissions").then(async (perms) => {
+      if (!perms) return;
+      const names = ["mcp:Apify", "mcp:Higgsfield", "sample"];
+      const st = await Promise.all(names.map((n) => perms.state(n).catch(() => "unavailable")));
+      const ask = names.filter((n, i) => st[i] === "prompt");
+      if (ask.length) perms.request(ask).catch(() => {});
+    });
     if (d) {
       const sub = (name) => {
         try {
