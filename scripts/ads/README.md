@@ -126,7 +126,11 @@ Akış: Recherche → Kampagne → **Produktion** → Freigabe (sayfanın üstü
   yükleme bu önizlemede yok (kendi sunucuda gelecek).
 - **Bearbeiten:** kendi ya da üretilmiş video/görsel Higgsfield sandbox'ında ffmpeg ile kredisiz düzenlenir:
   başlangıç/bitiş kırpma, format (9:16, 1:1, 4:5, 16:9, ortadan kırpma), görsel üstü yazı (üst/alt), sesi kaldırma.
-  Sonuç `media_upload` imzalı adrese yüklenir, `media_confirm` ile kaydedilir; orijinal korunur. Foto KI ile hareketlendirilebilir
+  Sonuç `media_upload` imzalı adrese yüklenir, `media_confirm` ile kaydedilir; orijinal korunur.
+- **Talimatla düzenleme ("Was soll geändert werden?"):** Claude talimatı okur. Basit kesim/format/yazı isteklerini
+  yukarıdaki alanlara doldurur (kredisiz). İçerik değişikliklerinde (renk, nesne, arka plan, ışık) Higgsfield ile
+  düzenler: görsel `gpt_image_2_5` + `image_references` (≈ 0,5 kredi), video `seedance_2_5` `mode: video_edit` +
+  `video_references` (süreye göre, 5 sn ≈ 38 kredi). Fiyat önce gösterilir. Materyal eklenince düzenleyici açılır. Foto KI ile hareketlendirilebilir
   (`start_image`) ya da KI görseli için örnek olarak kullanılabilir.
 - **Mit KI erstellen:** brief'i müşteri yazar ya da "Brief von KI schreiben" (Claude, kampanya + reklam metni +
   rakip araştırması). Brief İngilizce model komutuna çevrilir; her komuta sağlık reklamı kuralları eklenir

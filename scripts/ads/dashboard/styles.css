@@ -857,6 +857,9 @@ a.flow-st:hover { background: var(--bg-sunk); }
 .p-edit-prev { position: relative; }
 .p-edit-prev video, .p-edit-prev img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 .p-edit-f { display: grid; gap: 10px; min-width: 0; }
+.p-plan { align-items: flex-start; }
+.p-plan > div { display: grid; gap: 2px; }
+.p-or { margin-top: 4px; padding-top: 10px; border-top: 1px solid var(--line); }
 
 /* ---------- KI baloncugu (dock) ---------- */
 .fab { position: fixed; right: 20px; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); z-index: 45; display: inline-flex; align-items: center; gap: 8px;
