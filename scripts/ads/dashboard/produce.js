@@ -29,7 +29,7 @@
     p_how_note: "Direktes Hochladen ist in der claude.ai-Vorschau aus Sicherheitsgründen gesperrt; auf dem eigenen Nefalix-Server entfällt dieser Schritt.",
     e_btn: "Bearbeiten", e_t: "Bearbeiten", e_src: "Quelle", e_start: "Start (s)", e_end: "Ende (s)", e_end_ph: "bis Ende", e_format: "Format", e_orig: "Original",
     e_text: "Text im Bild", e_text_ph: "z. B. „Ihr Behandlungsweg in Istanbul“", e_pos: "Position", e_top: "Oben", e_bottom: "Unten", e_mute: "Ton entfernen",
-    e_apply: "Anwenden", e_free: "ohne Credits", e_busy: "Wird bearbeitet …", e_done: "Bearbeitete Fassung erstellt.", e_fail: "Bearbeitung fehlgeschlagen: {m}", e_note: "Für Videos bis etwa 60 Sekunden. Das Original bleibt erhalten.", e_edited: "bearbeitet", e_instr: "Was soll geändert werden?", e_instr_ph: "z. B. „Torte in Schokolade“, „Hintergrund wärmer“ oder „erste 2 Sekunden weg, quadratisch, Text: Jetzt anfragen“", e_go: "Mit KI umsetzen", e_going: "KI liest die Anweisung …", e_plan_basic: "Einfache Bearbeitung erkannt – die Felder unten sind ausgefüllt. Bitte prüfen und „Anwenden“ tippen.", e_plan_ai: "KI-Bearbeitung: {s}", e_ai: "KI-Bearbeitung starten · {c} Credits", e_ai0: "KI-Bearbeitung starten", e_ai_note: "Video-Bearbeitung mit KI wird nach Länge berechnet (5 s ≈ 38 Credits), Bilder ≈ 0,5 Credits.", e_or: "oder manuell:", e_nosrc: "Für dieses Material fehlt die Higgsfield-Referenz. Bitte das Material erneut übernehmen.",
+    e_apply: "Anwenden", e_free: "ohne Credits", e_busy: "Wird bearbeitet …", e_done: "Bearbeitete Fassung erstellt.", e_fail: "Bearbeitung fehlgeschlagen: {m}", e_note: "Für Videos bis etwa 60 Sekunden. Das Original bleibt erhalten.", e_edited: "bearbeitet", e_instr: "Was soll geändert werden?", p_mode_slides: "Diashow aus Fotos", p_mode_slides_d: "Mehrere Fotos werden zu einem Video – ohne Credits", s_pick: "Fotos auswählen", s_links: "Weitere Foto-Links (einer pro Zeile)", s_links_ph: "https://drive.google.com/…\nhttps://www.dropbox.com/…", s_sec: "Sekunden pro Foto", s_make: "Diashow erstellen · ohne Credits", s_busy: "Diashow wird erstellt …", s_need: "Bitte mindestens 2 Fotos wählen (höchstens 10).", s_done: "Diashow erstellt.", s_count: "{n} Fotos · ca. {s} s", s_none: "Noch keine Fotos im Projekt. Fügen Sie unten Links ein oder erstellen Sie Bilder mit KI.", job_fail: "Die Verarbeitung ist fehlgeschlagen. Bitte Links prüfen (öffentlich erreichbar?) und erneut versuchen.", e_instr_ph: "z. B. „Torte in Schokolade“, „Hintergrund wärmer“ oder „erste 2 Sekunden weg, quadratisch, Text: Jetzt anfragen“", e_go: "Mit KI umsetzen", e_going: "KI liest die Anweisung …", e_plan_basic: "Einfache Bearbeitung erkannt – die Felder unten sind ausgefüllt. Bitte prüfen und „Anwenden“ tippen.", e_plan_ai: "KI-Bearbeitung: {s}", e_ai: "KI-Bearbeitung starten · {c} Credits", e_ai0: "KI-Bearbeitung starten", e_ai_note: "Video-Bearbeitung mit KI wird nach Länge berechnet (5 s ≈ 38 Credits), Bilder ≈ 0,5 Credits.", e_or: "oder manuell:", e_nosrc: "Für dieses Material fehlt die Higgsfield-Referenz. Bitte das Material erneut übernehmen.",
     flow_t: "So entsteht eine Kampagne", flow_1: "Recherche", flow_2: "Kampagne", flow_3: "Produktion", flow_4: "Freigabe",
   });
   Object.assign(T.en, {
@@ -58,7 +58,7 @@
     p_how_note: "Direct upload is blocked in the claude.ai preview for security reasons; on the own Nefalix server this step goes away.",
     e_btn: "Edit", e_t: "Edit", e_src: "Source", e_start: "Start (s)", e_end: "End (s)", e_end_ph: "to the end", e_format: "Format", e_orig: "Original",
     e_text: "Text on image", e_text_ph: "e.g. “Your treatment journey in Istanbul”", e_pos: "Position", e_top: "Top", e_bottom: "Bottom", e_mute: "Remove sound",
-    e_apply: "Apply", e_free: "no credits", e_busy: "Editing …", e_done: "Edited version created.", e_fail: "Editing failed: {m}", e_note: "For videos up to about 60 seconds. The original is kept.", e_edited: "edited", e_instr: "What should change?", e_instr_ph: "e.g. “make the cake chocolate”, “warmer background” or “cut the first 2 seconds, square, text: Enquire now”", e_go: "Apply with AI", e_going: "AI is reading the instruction …", e_plan_basic: "Simple edit detected – the fields below are filled in. Please check and tap “Apply”.", e_plan_ai: "AI edit: {s}", e_ai: "Start AI edit · {c} credits", e_ai0: "Start AI edit", e_ai_note: "AI video edits are charged by length (5 s ≈ 38 credits), images ≈ 0.5 credits.", e_or: "or manually:", e_nosrc: "This material has no Higgsfield reference. Please add it again.",
+    e_apply: "Apply", e_free: "no credits", e_busy: "Editing …", e_done: "Edited version created.", e_fail: "Editing failed: {m}", e_note: "For videos up to about 60 seconds. The original is kept.", e_edited: "edited", e_instr: "What should change?", p_mode_slides: "Slideshow from photos", p_mode_slides_d: "Several photos become one video – no credits", s_pick: "Choose photos", s_links: "More photo links (one per line)", s_links_ph: "https://drive.google.com/…\nhttps://www.dropbox.com/…", s_sec: "Seconds per photo", s_make: "Create slideshow · no credits", s_busy: "Creating slideshow …", s_need: "Please choose at least 2 photos (at most 10).", s_done: "Slideshow created.", s_count: "{n} photos · about {s} s", s_none: "No photos in this project yet. Paste links below or create images with AI.", job_fail: "Processing failed. Please check the links (publicly reachable?) and try again.", e_instr_ph: "e.g. “make the cake chocolate”, “warmer background” or “cut the first 2 seconds, square, text: Enquire now”", e_go: "Apply with AI", e_going: "AI is reading the instruction …", e_plan_basic: "Simple edit detected – the fields below are filled in. Please check and tap “Apply”.", e_plan_ai: "AI edit: {s}", e_ai: "Start AI edit · {c} credits", e_ai0: "Start AI edit", e_ai_note: "AI video edits are charged by length (5 s ≈ 38 credits), images ≈ 0.5 credits.", e_or: "or manually:", e_nosrc: "This material has no Higgsfield reference. Please add it again.",
     flow_t: "How a campaign comes together", flow_1: "Research", flow_2: "Campaign", flow_3: "Production", flow_4: "Approval",
   });
   Object.assign(T.tr, {
@@ -87,7 +87,7 @@
     p_how_note: "claude.ai önizlemesinde doğrudan yükleme güvenlik nedeniyle kapalı; kendi Nefalix sunucumuzda bu adım kalkacak.",
     e_btn: "Düzenle", e_t: "Düzenle", e_src: "Kaynak", e_start: "Başlangıç (sn)", e_end: "Bitiş (sn)", e_end_ph: "sonuna kadar", e_format: "Format", e_orig: "Orijinal",
     e_text: "Görsel üstü yazı", e_text_ph: "ör. “İstanbul'da tedavi yolculuğunuz”", e_pos: "Konum", e_top: "Üst", e_bottom: "Alt", e_mute: "Sesi kaldır",
-    e_apply: "Uygula", e_free: "kredisiz", e_busy: "Düzenleniyor …", e_done: "Düzenlenmiş sürüm oluşturuldu.", e_fail: "Düzenleme başarısız: {m}", e_note: "Yaklaşık 60 saniyeye kadar videolar için. Orijinal korunur.", e_edited: "düzenlendi", e_instr: "Ne değişsin?", e_instr_ph: "ör. “pasta çikolatalı olsun”, “arka plan daha sıcak” ya da “ilk 2 saniyeyi kes, kare yap, yazı: Hemen sorun”", e_go: "Yapay zekayla uygula", e_going: "Yapay zeka talimatı okuyor …", e_plan_basic: "Basit düzenleme algılandı; aşağıdaki alanlar dolduruldu. Kontrol edip “Uygula”ya dokunun.", e_plan_ai: "Yapay zeka düzenlemesi: {s}", e_ai: "Yapay zeka düzenlemesini başlat · {c} kredi", e_ai0: "Yapay zeka düzenlemesini başlat", e_ai_note: "Videoda yapay zeka düzenlemesi süreye göre ücretlenir (5 sn ≈ 38 kredi), görselde ≈ 0,5 kredi.", e_or: "ya da elle:", e_nosrc: "Bu materyalin Higgsfield referansı yok. Lütfen materyali yeniden ekleyin.",
+    e_apply: "Uygula", e_free: "kredisiz", e_busy: "Düzenleniyor …", e_done: "Düzenlenmiş sürüm oluşturuldu.", e_fail: "Düzenleme başarısız: {m}", e_note: "Yaklaşık 60 saniyeye kadar videolar için. Orijinal korunur.", e_edited: "düzenlendi", e_instr: "Ne değişsin?", p_mode_slides: "Fotoğraflardan slayt video", p_mode_slides_d: "Birden fazla fotoğraf tek videoya dönüşür – kredisiz", s_pick: "Fotoğrafları seçin", s_links: "Diğer fotoğraf linkleri (her satıra bir tane)", s_links_ph: "https://drive.google.com/…\nhttps://www.dropbox.com/…", s_sec: "Fotoğraf başına saniye", s_make: "Slayt videoyu oluştur · kredisiz", s_busy: "Slayt video oluşturuluyor …", s_need: "Lütfen en az 2 fotoğraf seçin (en fazla 10).", s_done: "Slayt video oluşturuldu.", s_count: "{n} fotoğraf · yaklaşık {s} sn", s_none: "Bu projede henüz fotoğraf yok. Aşağıya link ekleyin ya da yapay zekayla görsel oluşturun.", job_fail: "İşlem başarısız oldu. Lütfen linkleri kontrol edin (herkese açık mı?) ve tekrar deneyin.", e_instr_ph: "ör. “pasta çikolatalı olsun”, “arka plan daha sıcak” ya da “ilk 2 saniyeyi kes, kare yap, yazı: Hemen sorun”", e_go: "Yapay zekayla uygula", e_going: "Yapay zeka talimatı okuyor …", e_plan_basic: "Basit düzenleme algılandı; aşağıdaki alanlar dolduruldu. Kontrol edip “Uygula”ya dokunun.", e_plan_ai: "Yapay zeka düzenlemesi: {s}", e_ai: "Yapay zeka düzenlemesini başlat · {c} kredi", e_ai0: "Yapay zeka düzenlemesini başlat", e_ai_note: "Videoda yapay zeka düzenlemesi süreye göre ücretlenir (5 sn ≈ 38 kredi), görselde ≈ 0,5 kredi.", e_or: "ya da elle:", e_nosrc: "Bu materyalin Higgsfield referansı yok. Lütfen materyali yeniden ekleyin.",
     flow_t: "Bir kampanya nasıl oluşur", flow_1: "Araştırma", flow_2: "Kampanya", flow_3: "Prodüksiyon", flow_4: "Onay",
   });
   I.film = '<rect x="3.5" y="5" width="17" height="14" rx="2.5"/><path d="m10 9.5 4.5 2.5-4.5 2.5v-5Z" fill="currentColor"/>';
@@ -298,15 +298,50 @@ Antworte auf ${lang}, nur als JSON: {"brief": string (2–3 Sätze, konkret: Mot
     if (line) out.push(line);
     return out.slice(0, 3).join("\n");
   }
-  function editCmd(src, upUrl, e, kind) {
+  function editCmd(src, e, kind) {
     const R = EFMT[e.format], isV = kind === "video", tall = R && R[0] < R[1], wide = R && R[0] > R[1];
     const vf = R ? [`crop='min(iw,ih*${R[0]}/${R[1]})':'min(ih,iw*${R[1]}/${R[0]})'`, "scale=1080:-2"] : ["scale='min(1080,iw)':-2"];
     const text = wrapText(e.text || "", wide ? 34 : tall ? 20 : 24);
-    if (text) vf.push(`drawtext=fontfile=${FONT}:textfile=t.txt:expansion=none:fontsize=h/${tall ? 26 : 20}:fontcolor=white:line_spacing=12:box=1:boxcolor=black@0.45:boxborderw=28:x=(w-tw)/2:y=${e.pos === "bottom" ? "h-th-h*0.12" : "h*0.08"}`);
+    if (text) vf.push(drawText(e.pos, tall, wide));
     const trim = isV ? `${+e.start > 0 ? `-ss ${+e.start}` : ""} ${+e.end > 0 ? `-to ${+e.end}` : ""}` : "";
     const out = isV ? "out.mp4" : "out.jpg";
     const enc = isV ? `${e.mute ? "-an" : "-c:a aac -b:a 128k"} -c:v libx264 -preset veryfast -crf 23 -pix_fmt yuv420p -movflags +faststart` : "-frames:v 1 -q:v 3";
-    return `set -e; cd /home/user; rm -f in.bin out.mp4 out.jpg t.txt; curl -sSfL -o in.bin ${sq(src)}; ${text ? `echo ${b64(text)} | base64 -d > t.txt;` : ""} ffmpeg -v error -y ${trim} -i in.bin -vf "${vf.join(",")}" ${enc} ${out}; curl -s -o /dev/null -w "PUT=%{http_code}" -X PUT -H ${sq("Content-Type: " + (isV ? "video/mp4" : "image/jpeg"))} --data-binary @${out} ${sq(upUrl)}`;
+    return { out, core: `curl -sSfL -o in.bin ${sq(src)}; ${text ? `echo ${b64(text)} | base64 -d > t.txt;` : ""} ffmpeg -v error -y ${trim} -i in.bin -vf "${vf.join(",")}" ${enc} ${out}` };
+  }
+  // Schriftgröße nach Breite, damit lange Zeilen im Hochformat nicht abgeschnitten werden
+  const drawText = (pos, tall, wide) => `drawtext=fontfile=${FONT}:textfile=t.txt:expansion=none:fontsize=w/${tall ? 19 : wide ? 30 : 22}:fontcolor=white:line_spacing=12:box=1:boxcolor=black@0.45:boxborderw=24:x=(w-tw)/2:y=${pos === "bottom" ? "h-th-h*0.12" : "h*0.08"}`;
+  const SDIM = { "9:16": [1080, 1920], "4:5": [1080, 1350], "1:1": [1080, 1080], "16:9": [1920, 1080] };
+  function slidesCmd(urls, o) {
+    const [W, H] = SDIM[o.format], D = +o.sec, T = 0.6, n = urls.length, R = EFMT[o.format];
+    const tall = R[0] < R[1], wide = R[0] > R[1];
+    const text = wrapText(o.text || "", wide ? 34 : tall ? 22 : 26);
+    const zw = Math.round(W * 1.5), zh = Math.round(H * 1.5);
+    let fc = "";
+    urls.forEach((_, i) => { fc += `[${i}:v]scale=${zw}:${zh}:force_original_aspect_ratio=increase,crop=${zw}:${zh},zoompan=z='min(zoom+0.0009,1.1)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=${D * 25}:s=${W}x${H}:fps=25,setsar=1[v${i}];`; });
+    let prev = "[v0]";
+    for (let i = 1; i < n; i++) { fc += `${prev}[v${i}]xfade=transition=fade:duration=${T}:offset=${(i * (D - T)).toFixed(2)}[x${i}];`; prev = `[x${i}]`; }
+    fc += `${prev}${text ? drawText(o.pos, tall, wide) + "," : ""}format=yuv420p[out]`;
+    const dl = urls.map((u, i) => `curl -sSfL -o s${i} ${sq(u)}`).join(" && ");
+    return { out: "out.mp4", core: `${dl}; ${text ? `echo ${b64(text)} | base64 -d > t.txt;` : ""} ffmpeg -v error -y ${urls.map((_, i) => `-i s${i}`).join(" ")} -filter_complex "${fc}" -map "[out]" -c:v libx264 -preset veryfast -crf 23 -movflags +faststart out.mp4` };
+  }
+  // Arbeit im Hintergrund der Higgsfield-Sandbox starten, Ergebnis per PUT hochladen, Status-Datei abfragen
+  async function runJob(core, out, kind) {
+    const isV = kind === "video", ct = isV ? "video/mp4" : "image/jpeg";
+    const up = ((await hf("media_upload", { filename: `nefalix-${Date.now()}.${isV ? "mp4" : "jpg"}`, content_type: ct })).uploads || [])[0];
+    if (!up?.upload_url) throw { code: "tool_error", message: "upload url" };
+    const J = "nfx_" + Date.now().toString(36);
+    const cmd = `cd /home/user; mkdir -p ${J} && cd ${J} && ( set -e; ${core}; curl -s -o /dev/null -w "PUT=%{http_code}" -X PUT -H ${sq("Content-Type: " + ct)} --data-binary @${out} ${sq(up.upload_url)} > ../${J}.put ) > ../${J}.log 2>&1; echo "$(cat ../${J}.put 2>/dev/null || echo FAIL)" > ../${J}.done`;
+    await hf("sandbox_exec", { command: cmd, background: true });
+    for (let i = 0; i < 60; i++) {
+      await new Promise((ok) => setTimeout(ok, 4000));
+      const r = await hf("sandbox_exec", { command: `cat /home/user/${J}.done 2>/dev/null || echo RUNNING; tail -c 300 /home/user/${J}.log 2>/dev/null`, timeout_seconds: 20 });
+      const txt = String(r.stdout || "");
+      if (/PUT=200/.test(txt)) break;
+      if (/PUT=\d+|FAIL/.test(txt)) throw { code: "job_fail", message: txt.slice(-200) };
+      if (i === 59) throw { code: "job_fail", message: "timeout" };
+    }
+    const cf = await hf("media_confirm", { type: kind, media_id: up.media_id });
+    return { url: cf.results?.[0]?.url || up.url, mediaId: up.media_id };
   }
   function openEditor(srcId) {
     const c = crt();
@@ -323,20 +358,52 @@ Antworte auf ${lang}, nur als JSON: {"brief": string (2–3 Sätze, konkret: Mot
     pr.busy = "edit"; pr.error = null; render({ still: true });
     try {
       await ensureHf();
-      const isV = e.kind === "video", ext = isV ? "mp4" : "jpg", ct = isV ? "video/mp4" : "image/jpeg";
-      const up = ((await hf("media_upload", { filename: `nefalix-edit-${Date.now()}.${ext}`, content_type: ct })).uploads || [])[0];
-      if (!up?.upload_url) throw { code: "tool_error", message: "upload url" };
-      const r = await hf("sandbox_exec", { command: editCmd(e.url, up.upload_url, e, e.kind), timeout_seconds: 120 });
-      const outText = `${r.stdout || ""}${r.stderr || ""}`;
-      if (!/PUT=200/.test(outText)) throw { code: "tool_error", message: (r.stderr || r.stdout || "ffmpeg").slice(-160) };
-      const cf = await hf("media_confirm", { type: e.kind, media_id: up.media_id });
-      const url = cf.results?.[0]?.url || up.url;
+      const { core, out } = editCmd(e.url, e, e.kind);
+      const res = await runJob(core, out, e.kind);
+      const url = res.url, up = { media_id: res.mediaId };
       const id = "edit-" + up.media_id;
       c.items.unshift({ id, kind: e.kind, format: c.format, ratio: e.format === "orig" ? e.ratio || "1:1" : e.format, status: "done", url, at: new Date().toISOString(), brief: e.text || "", model: "edit", edited: true, mediaId: up.media_id, from: e.srcId });
       c.chosen = id; pr.edit = null; toast(t("e_done"));
       await persist();
-    } catch (er) { pr.error = er?.code === "tool_error" ? t("e_fail", { m: er.message || "?" }) : hfErr(er); }
+    } catch (er) { pr.error = er?.code === "job_fail" ? t("job_fail") : er?.code === "tool_error" ? t("e_fail", { m: er.message || "?" }) : hfErr(er); }
     finally { pr.busy = ""; render({ still: true }); }
+  }
+  // ---------------------------------------------------------------- Diashow aus mehreren Fotos
+  function slidePool(c) {
+    const pool = [];
+    if (c.own?.type === "image") pool.push({ key: "own", url: c.own.url });
+    for (const it of c.items) if (it.kind === "image" && it.status === "done") pool.push({ key: it.id, url: it.url });
+    return pool;
+  }
+  async function makeSlides() {
+    const c = crt(), o = c.slides; if (pr.busy) return;
+    const pool = slidePool(c);
+    const urls = [...pool.filter((x) => o.pick.includes(x.key)).map((x) => x.url), ...String(o.links || "").split(/\s+/).filter((u) => /^https:\/\//i.test(u)).map((u) => directLink(u).url)];
+    if (urls.length < 2 || urls.length > 10) { pr.error = t("s_need"); return render({ still: true }); }
+    pr.busy = "slides"; pr.error = null; render({ still: true });
+    try {
+      await ensureHf();
+      const { core, out } = slidesCmd(urls, o);
+      const res = await runJob(core, out, "video");
+      const id = "slides-" + res.mediaId;
+      c.items.unshift({ id, kind: "video", format: c.format, ratio: o.format, status: "done", url: res.url, at: new Date().toISOString(), brief: o.text || "", model: "slideshow", edited: true, mediaId: res.mediaId });
+      c.chosen = id; toast(t("s_done")); await persist();
+    } catch (er) { pr.error = er?.code === "job_fail" ? t("job_fail") : hfErr(er); }
+    finally { pr.busy = ""; render({ still: true }); }
+  }
+  function slidesPane(c, connected) {
+    const o = (c.slides ||= { pick: [], links: "", sec: 3, format: { story: "9:16", feed: "4:5", square: "1:1", wide: "16:9" }[c.format] || "9:16", text: "", pos: "bottom" });
+    const pool = slidePool(c);
+    const nLinks = String(o.links || "").split(/\s+/).filter((u) => /^https:\/\//i.test(u)).length;
+    const n = o.pick.filter((k) => pool.some((x) => x.key === k)).length + nLinks;
+    const seg = (k, opts) => `<div class="seg">${opts.map(([v, l]) => `<button type="button" data-ps="${k}:${v}" aria-pressed="${String(o[k]) === String(v)}">${l}</button>`).join("")}</div>`;
+    return `<div class="field"><span class="flabel">${t("s_pick")}</span>${pool.length ? `<div class="s-pool">${pool.map((x) => `<button type="button" class="s-thumb ${o.pick.includes(x.key) ? "on" : ""}" data-pspick="${esc(x.key)}">${mediaTag(x.url, "image")}<i>${o.pick.includes(x.key) ? o.pick.indexOf(x.key) + 1 : ""}</i></button>`).join("")}</div>` : `<p class="muted" style="margin:0;font-size:13px">${t("s_none")}</p>`}</div>
+      <div class="field"><label for="psL">${t("s_links")}</label><textarea id="psL" data-psv="links" rows="3" class="ta" placeholder="${esc(t("s_links_ph"))}">${esc(o.links)}</textarea></div>
+      <div class="field-row"><div class="field"><span class="flabel">${t("s_sec")}</span>${seg("sec", [[2, "2"], [3, "3"], [4, "4"]])}</div>
+        <div class="field"><span class="flabel">${t("e_format")}</span>${seg("format", [["9:16", "9:16"], ["4:5", "4:5"], ["1:1", "1:1"], ["16:9", "16:9"]])}</div></div>
+      <div class="field"><label for="psT">${t("e_text")}</label><div class="input wide"><input id="psT" data-psv="text" value="${esc(o.text)}" maxlength="80" placeholder="${esc(t("e_text_ph"))}" style="font-family:var(--sans)"></div></div>
+      ${o.text ? `<div class="field"><span class="flabel">${t("e_pos")}</span>${seg("pos", [["top", t("e_top")], ["bottom", t("e_bottom")]])}</div>` : ""}
+      <div class="p-make"><button class="btn primary" type="button" data-psgo="1" ${pr.busy || !connected || n < 2 ? "disabled" : ""}>${pr.busy === "slides" ? `<span class="spin"></span>${t("s_busy")}` : `${icon("film")}${t("s_make")}`}</button><span class="muted" style="font-size:12.5px;align-self:center">${t("s_count", { n, s: n ? Math.round(n * o.sec - (n - 1) * 0.6) : 0 })}</span></div>`;
   }
   // Anweisung in Worten: einfache Schnitte -> Felder (kostenlos), inhaltliche Änderungen -> KI-Bearbeitung (Credits)
   async function interpret() {
@@ -473,11 +540,11 @@ Answer only as JSON: {"mode": "basic" | "ai" | "both", "basic": {"start": number
     return `<div class="wz-ad"><div class="wz-ad-form">
         <p class="muted" style="margin:0">${t("p_intro")}</p>
         ${from}
-        <div class="obj-grid two">${modeCard("own", "upload")}${modeCard("ai", "studio")}</div>
+        <div class="obj-grid three">${modeCard("own", "upload")}${modeCard("slides", "film")}${modeCard("ai", "studio")}</div>
         ${connected ? "" : `<div class="banner warn">${icon("lock")}<span>${t("p_hf_missing")}</span></div>`}
         <div class="field"><span class="flabel">${t("p_format")}</span><div class="fmt-grid">${Object.keys(PFORMATS).map((f) => `<button type="button" class="fmt ${c.format === f ? "on" : ""}" data-pset="format:${f}"><i class="fr r${(c.kind === "image" ? PFORMATS[f].img : PFORMATS[f][c.tier]).replace(":", "x")}"></i><b>${t("p_f_" + f)}</b><span>${c.kind === "image" ? PFORMATS[f].img : PFORMATS[f][c.tier]}</span></button>`).join("")}</div>
           ${c.kind === "video" && c.format === "feed" ? `<span class="footnote">${t("p_note_ratio", { r: PFORMATS.feed[c.tier] })}</span>` : ""}</div>
-        ${c.mode === "own" ? ownPane : aiPane}
+        ${c.mode === "own" ? ownPane : c.mode === "slides" ? slidesPane(c, connected) : aiPane}
         ${pr.error ? `<div class="banner warn">${icon("x")}<span>${esc(pr.error)}</span>${pr.fix === "perm" ? `<button class="btn sm" type="button" data-pperm="1">${icon("lock")}${t("p_hf_perm_btn")}</button>` : ""}</div>` : ""}
         ${isMed() ? `<p class="footnote">${t("p_rules")}</p>` : ""}
         ${editorHtml()}
@@ -487,10 +554,13 @@ Answer only as JSON: {"mode": "basic" | "ai" | "both", "basic": {"start": number
 
   // ---------------------------------------------------------------- Ereignisse
   document.addEventListener("click", async (e) => {
-    const el = e.target.closest("[data-pset],[data-pcost],[data-pmake],[data-pbrief],[data-pchoose],[data-pownlink],[data-pown],[data-pperm],[data-pedit],[data-pe]");
+    const el = e.target.closest("[data-pset],[data-pcost],[data-pmake],[data-pbrief],[data-pchoose],[data-pownlink],[data-pown],[data-pperm],[data-pedit],[data-pe],[data-ps],[data-pspick],[data-psgo]");
     if (!el || !wiz.d) return;
     const d = el.dataset, c = crt();
     if (d.pperm) return openPerms();
+    if (d.psgo) return makeSlides();
+    if (d.pspick) { const o = c.slides; const i = o.pick.indexOf(d.pspick); if (i >= 0) o.pick.splice(i, 1); else if (o.pick.length < 10) o.pick.push(d.pspick); return render({ still: true }); }
+    if (d.ps) { const i = d.ps.indexOf(":"), k = d.ps.slice(0, i), v = d.ps.slice(i + 1); c.slides[k] = k === "sec" ? +v : v; return render({ still: true }); }
     if (d.pedit) return openEditor(d.pedit);
     if (d.pe) {
       if (d.pe === "close") { pr.edit = null; return render({ still: true }); }
@@ -516,6 +586,10 @@ Answer only as JSON: {"mode": "basic" | "ai" | "both", "basic": {"start": number
     const el = e.target;
     if (el.dataset?.pbr && wiz.d) { crt().brief = el.value; const b = document.querySelector("[data-pmake]"); if (b) b.disabled = !!pr.busy || !caps.mcp || !el.value.trim(); }
     if (el.dataset?.plink) pr.link = el.value;
+    if (el.dataset?.psv && wiz.d?.creative?.slides) {
+      const o = wiz.d.creative.slides, k = el.dataset.psv; const had = !!o[k]; o[k] = el.value;
+      if (k === "links" || (k === "text" && had !== !!el.value)) render({ still: true });
+    }
     if (el.dataset?.pev && pr.edit) {
       const k = el.dataset.pev; pr.edit[k] = k === "mute" ? el.checked : el.value;
       if (k === "instr") { const b = document.querySelector("[data-pe='interpret']"); if (b) b.disabled = !!pr.busy || !el.value.trim(); }

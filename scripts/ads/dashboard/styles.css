@@ -861,6 +861,15 @@ a.flow-st:hover { background: var(--bg-sunk); }
 .p-plan > div { display: grid; gap: 2px; }
 .p-or { margin-top: 4px; padding-top: 10px; border-top: 1px solid var(--line); }
 
+
+.obj-grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.s-pool { display: grid; grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 8px; }
+.s-thumb { position: relative; aspect-ratio: 1; padding: 0; border: 2px solid transparent; border-radius: 10px; overflow: hidden; background: var(--bg-sunk); cursor: pointer; }
+.s-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.s-thumb.on { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-ring); }
+.s-thumb i { position: absolute; top: 4px; right: 4px; width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; font-style: normal; font-size: 11px; font-weight: 700; background: rgba(0,0,0,0.35); color: #fff; }
+.s-thumb.on i { background: var(--accent); }
+
 /* ---------- KI baloncugu (dock) ---------- */
 .fab { position: fixed; right: 20px; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); z-index: 45; display: inline-flex; align-items: center; gap: 8px;
   height: 44px; padding: 0 16px 0 13px; border: 0; border-radius: 999px; background: var(--fg); color: var(--bg); font: inherit; font-size: 13.5px; font-weight: 600; letter-spacing: -0.01em;
@@ -1001,6 +1010,7 @@ body:has(.fab) .toasts { bottom: calc(76px + env(safe-area-inset-bottom, 0px)); 
   .p-results { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .p-edit-b { grid-template-columns: 96px minmax(0, 1fr); }
   .obj-grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .obj-grid.three { grid-template-columns: minmax(0, 1fr); }
   .flow { gap: 2px; padding: 8px; }
   .flow-st { padding: 4px 6px 4px 4px; font-size: 11.5px; }
   .flow-st > svg { display: none; }
