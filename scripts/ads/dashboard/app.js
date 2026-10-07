@@ -1776,7 +1776,7 @@
       case "invite": toast(t("invite_toast"), "send"); break;
       case "assign": obOpen({ blank: true, a: { name: UNASSIGNED[0]?.name || "" } }); break;
       case "ob-open": obOpen(); break;
-      case "ob-new": obOpen({ blank: true }); break;
+      case "ob-new": obOpen(state.client ? {} : { blank: true }); break;
     }
   });
   document.addEventListener("input", (e) => {

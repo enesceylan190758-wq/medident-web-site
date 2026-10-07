@@ -113,6 +113,7 @@
   // Fehler nach Code, nie nach Text verzweigen; pr.fix sagt, welche Handlung den Zustand behebt
   function hfErr(e) {
     const c = e?.code, m = String(e?.message || "");
+    if (e instanceof TypeError) { pr.fix = ""; return m; } // Panel-Fehler, nicht Higgsfield
     pr.fix = "";
     if (["server_not_connected", "server_not_found", "capability_disabled", "capability_removed"].includes(c)) return t("p_hf_missing");
     if (c === "selection_required") return t("p_hf_select");

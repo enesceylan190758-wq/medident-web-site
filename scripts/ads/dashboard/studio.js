@@ -159,6 +159,8 @@
     }
     if (["research", "create"].includes(state.view)) render({ still: true });
   })();
+  // db'den gelen belgeler dondurulmuş (salt okunur) olabilir: değiştirmeden önce derin kopya al
+  const clone = (o) => { try { return structuredClone(o); } catch { return JSON.parse(JSON.stringify(o)); } };
   async function saveDoc(coll, id, data) {
     const doc = { ...data, _id: id };
     const i = live[coll].findIndex((x) => x._id === id);
@@ -462,7 +464,7 @@ Antworte nur als JSON: {"variants":[{"angle": string (2–4 Wörter, auf ${({ de
     if (!o || o.client !== cl.id) return;
     const c = live.campaigns.find((x) => x._id === o.id);
     if (!c) return;
-    wiz.open = true; wiz.d = { ...c }; wiz.step = Math.max(0, Math.min(5, +(o.step ?? c.step ?? 0))); wiz.variants = null; wiz.error = null;
+    wiz.open = true; wiz.d = clone(c); wiz.step = Math.max(0, Math.min(5, +(o.step ?? c.step ?? 0))); wiz.variants = null; wiz.error = null;
     setTimeout(() => toast(t("w_restored"), "check"), 50);
   }
   const closeWizard = () => { flushDraft(); wiz.open = false; wiz.dirty = false; store.set("wizOpen", null); };
@@ -496,7 +498,7 @@ Antworte nur als JSON: {"variants":[{"angle": string (2–4 Wörter, auf ${({ de
       return;
     }
     if (d.cnew) { flushDraft(); wiz.open = true; wiz.step = 0; wiz.d = newDraft(cl); wiz.variants = null; wiz.error = null; return render({ still: true }); }
-    if (d.cedit) { const c = live.campaigns.find((x) => x._id === d.cedit); if (c) { flushDraft(); wiz.open = true; wiz.step = c.status === "draft" ? Math.max(0, Math.min(5, +(c.step || 0))) : 0; wiz.d = { ...c }; wiz.variants = null; wiz.error = null; store.set("wizOpen", { id: c._id, step: wiz.step, client: c.client }); } return render({ still: true }); }
+    if (d.cedit) { const c = live.campaigns.find((x) => x._id === d.cedit); if (c) { flushDraft(); wiz.open = true; wiz.step = c.status === "draft" ? Math.max(0, Math.min(5, +(c.step || 0))) : 0; wiz.d = clone(c); wiz.variants = null; wiz.error = null; store.set("wizOpen", { id: c._id, step: wiz.step, client: c.client }); } return render({ still: true }); }
     if (d.cdel) { if (wiz.d?._id === d.cdel) { clearTimeout(draftT); draftT = null; wiz.open = false; store.set("wizOpen", null); } await deleteDoc("campaigns", d.cdel); return render({ still: true }); }
     if (d.cappr || d.cchg) {
       const c = live.campaigns.find((x) => x._id === (d.cappr || d.cchg));

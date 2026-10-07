@@ -187,10 +187,13 @@
 
   // ---------------------------------------------------------------- onboarding (modal)
   function obOpen(pre = {}) {
-    const cl = C(), ex = pre.pid ? allProfiles().find((p) => p._id === pre.pid) : null;
+    const cl = pre.blank ? null : C();
+    // Bu müşteri için yarım kalmış bir kurulum varsa (bağlı ya da aynı adla bağlanmamış) onu aç: girilen bilgiler kaybolmasın
+    const pid = pre.pid || (cl && ((live.profiles || []).filter((p) => p.client === cl.id || (!p.client && slug(p.a?.name || "") === slug(cl.name))).sort((x, y) => ((x.at || "") < (y.at || "") ? 1 : -1))[0]?._id));
+    const ex = pid ? allProfiles().find((p) => p._id === pid) : null;
     const base = { name: "", contact: "", sector: "bakery", sectorText: "", city: "", country: "DE", offer: "", best: "", audience: "", web: "", ig: "", fb: "", budget: "", goal: "wa", adLang: "de", have: { photo: false, video: false, logo: false }, client: "" };
-    const a = ex ? { ...base, ...ex.a, have: { ...base.have, ...(ex.a?.have || {}) } } : { ...base, ...(cl && !pre.blank ? { name: cl.name, contact: cl.contact || "", sector: OSECT.includes(cl.sector) ? cl.sector : "other", city: cl.city, client: cl.id, adLang: cl.currency === "TRY" ? "tr" : "de" } : {}), ...(pre.a || {}) };
-    state.ob = { step: ex ? Math.min(2, ex.step ?? (ex.s ? 2 : 0)) : 0, a, pid: ex && !ex.demo ? ex._id : null, src: ex?.src || {}, data: ex?.data || {}, busy: "", error: null, cur: ex?.cur || state.cur, s: ex?.s || null };
+    const a = ex ? { ...base, ...clone(ex.a || {}), have: { ...base.have, ...(ex.a?.have || {}) }, ...(cl && !ex.a?.client ? { client: cl.id } : {}) } : { ...base, ...(cl && !pre.blank ? { name: cl.name, contact: cl.contact || "", sector: OSECT.includes(cl.sector) ? cl.sector : "other", city: cl.city, client: cl.id, adLang: cl.currency === "TRY" ? "tr" : "de" } : {}), ...(pre.a || {}) };
+    state.ob = { step: ex ? Math.min(2, ex.step ?? (ex.s ? 2 : 0)) : 0, a, pid: ex && !ex.demo ? ex._id : null, src: clone(ex?.src || {}), data: clone(ex?.data || {}), busy: "", error: null, cur: ex?.cur || state.cur, s: ex?.s ? clone(ex.s) : null };
     state.menu = false; render({ still: true });
   }
   // her adımda kaydet: "kaldığı yerden devam"
@@ -410,7 +413,7 @@ ${c ? `Anzeigen ähnlicher Firmen (Meta-Werbebibliothek, Suche „${c.q}“, Lau
 
   // ---------------------------------------------------------------- production for concepts (reuses produce.js)
   const curProfile = (pid) => allProfiles().find((x) => x._id === (pid || (state.client ? profileOf(state.client)?._id : sys.open)));
-  const mutable = (p) => (p.demo && !(live.profiles || []).some((x) => x._id === p._id) ? JSON.parse(JSON.stringify(p)) : p);
+  const mutable = (p) => clone(p);
   async function waitJob(id) {
     for (let n = 0; n < 50; n++) {
       const r = await hf("jobs_wait", { jobs: [{ index: 0, job_id: id }], timeout_seconds: 15 }).catch(() => ({}));
