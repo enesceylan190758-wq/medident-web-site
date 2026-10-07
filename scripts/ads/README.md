@@ -115,3 +115,17 @@ talep getirmeyen harcama), sonra iki renkli çubuk (taleplerdeki pay / bütçede
 Facebook/Instagram ayrımı Meta'nın `publisher_platform` kırılımından gelir (`platformInsights`, kampanya-gün);
 toplamlar reklam bazlı veriyle aynı kalsın diye Meta toplamı bu paylara göre bölünür.
 Önceden çekilmiş veriyle: `--platform-json plat.json`.
+
+## Higgsfield (kreatif üretim) — plan
+
+Video/görsel üretimi Higgsfield'ın resmi MCP bağlayıcısıyla yapılacak; jeton/anahtar panele girmez,
+çağrılar görüntüleyenin claude.ai bağlayıcısı üzerinden gider (Apify ile aynı yöntem).
+
+- Bağlayıcı: claude.ai → Settings → Connectors → Add custom connector, ad `Higgsfield`,
+  URL `https://mcp.higgsfield.ai/mcp` (Higgsfield OAuth ile giriş, ücretli Higgsfield aboneliği gerekir;
+  üretim kredileri Higgsfield hesabından düşer).
+- Panel akışı ("Kreativ-Studio"): görsel/video yükle → brief yaz ya da Claude'a yazdır → mecra seç
+  (Instagram Feed 4:5, Story/Reels 9:16, Facebook, Google) → mecraya göre Higgsfield komutu + metin
+  (HWG/UWG kontrollü) → Higgsfield'da üret → panelde telefon önizlemesi → onay → kampanya taslağı.
+- Sırada: bağlayıcının araç adları ve girdi şemaları okunup bir deneme üretimiyle doğrulanacak, sonra
+  panelin `mcp` yeteneğine `Higgsfield` sunucusu olarak eklenecek. Gerçek hasta görseli yalnız yazılı izinle.
