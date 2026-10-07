@@ -23,7 +23,7 @@
     p_hf_missing: "Higgsfield ist für diese Seite nicht verbunden. Die Agentur erstellt das Material; als Agentur verbinden Sie Higgsfield in claude.ai unter Connectors.",
     p_hf_err: "Higgsfield: {m}", p_hf_credits: "Nicht genug Higgsfield-Credits. Bitte im Higgsfield-Konto aufladen.",
     p_hf_denied: "Higgsfield ist für diese Seite nicht freigegeben. Bitte im Berechtigungsmenü des Artefakts erlauben.",
-    p_note_ratio: "Instagram-Feed-Videos werden im nächstliegenden Format erstellt ({r}).",
+    p_from: "Vorlage aus der Recherche „{q}“", p_auto: "Die KI schreibt den Brief aus Anzeigentext und Vorlage …", p_note_ratio: "Instagram-Feed-Videos werden im nächstliegenden Format erstellt ({r}).",
     w_material: "Material", w_material_none: "noch keins",
     flow_t: "So entsteht eine Kampagne", flow_1: "Recherche", flow_2: "Kampagne", flow_3: "Produktion", flow_4: "Freigabe",
   });
@@ -47,7 +47,7 @@
     p_hf_missing: "Higgsfield is not connected for this page. The agency creates the material; as the agency, connect Higgsfield in claude.ai under Connectors.",
     p_hf_err: "Higgsfield: {m}", p_hf_credits: "Not enough Higgsfield credits. Please top up in the Higgsfield account.",
     p_hf_denied: "Higgsfield is not allowed for this page. Please allow it in the artifact's permissions menu.",
-    p_note_ratio: "Instagram feed videos are created in the closest format ({r}).",
+    p_from: "Based on the research “{q}”", p_auto: "AI is writing the brief from the ad copy and template …", p_note_ratio: "Instagram feed videos are created in the closest format ({r}).",
     w_material: "Material", w_material_none: "none yet",
     flow_t: "How a campaign comes together", flow_1: "Research", flow_2: "Campaign", flow_3: "Production", flow_4: "Approval",
   });
@@ -71,7 +71,7 @@
     p_hf_missing: "Bu sayfa için Higgsfield bağlı değil. Materyali ajans üretir; ajans olarak Higgsfield'ı claude.ai'de Connectors bölümünden bağlayın.",
     p_hf_err: "Higgsfield: {m}", p_hf_credits: "Higgsfield kredisi yetersiz. Lütfen Higgsfield hesabından yükleyin.",
     p_hf_denied: "Bu sayfa için Higgsfield izni yok. Artefaktın izinler menüsünden izin verin.",
-    p_note_ratio: "Instagram akış videoları en yakın formatta ({r}) üretilir.",
+    p_from: "“{q}” araştırmasından şablon", p_auto: "Yapay zeka tarifi reklam metni ve şablondan yazıyor …", p_note_ratio: "Instagram akış videoları en yakın formatta ({r}) üretilir.",
     w_material: "Materyal", w_material_none: "henüz yok",
     flow_t: "Bir kampanya nasıl oluşur", flow_1: "Araştırma", flow_2: "Kampanya", flow_3: "Prodüksiyon", flow_4: "Onay",
   });
@@ -244,7 +244,14 @@ Antworte auf ${lang}, nur als JSON: {"brief": string (2–3 Sätze, konkret: Mot
   }
 
   function production(cl) {
-    const c = crt(), connected = !!caps.mcp;
+    const c = crt(), connected = !!caps.mcp, d = wiz.d;
+    // Erster Besuch ohne Brief: aus Anzeigentext und Recherche-Vorlage automatisch vorschlagen
+    if (!c.brief && !c.autoBrief && c.mode === "ai") {
+      c.autoBrief = true;
+      if (caps.sample) setTimeout(writeBrief, 0);
+      else c.brief = [d.topic, d.headline, d.inspired?.headline].filter(Boolean).join(" – ");
+    }
+    const from = d.inspired ? `<div class="p-from">${icon("radar")}<div><span class="eyebrow">${esc(t("p_from", { q: d.inspired.q }))}</span><b>${esc(d.inspired.headline || "")}</b>${d.inspired.why ? `<p>${esc(d.inspired.why.slice(0, 220))}</p>` : ""}</div></div>` : "";
     const seg = (k, opts) => `<div class="seg">${opts.map(([v, l]) => `<button type="button" data-pset="${k}:${v}" aria-pressed="${String(c[k]) === String(v)}">${l}</button>`).join("")}</div>`;
     const modeCard = (m, ic) => `<button type="button" class="obj ${c.mode === m ? "on" : ""}" data-pset="mode:${m}">${icon(ic)}<b>${t("p_mode_" + m)}</b><span>${t("p_mode_" + m + "_d")}</span></button>`;
     const fresh = pr.costKey === costKey(c) && pr.cost != null;
@@ -260,7 +267,7 @@ Antworte auf ${lang}, nur als JSON: {"brief": string (2–3 Sätze, konkret: Mot
         ${c.kind === "video" ? `<div class="field"><span class="flabel">${t("p_quality")}</span>${seg("tier", [["fast", t("p_q_fast")], ["premium", t("p_q_premium")]])}</div>
         <div class="field"><span class="flabel">${t("p_dur")}</span>${seg("duration", [[5, t("p_sec", { n: 5 })], [10, t("p_sec", { n: 10 })]])}</div>` : ""}</div>
       <div class="field"><div class="p-brief-h"><label for="pBrief">${t("p_brief")}</label>${caps.sample ? `<button class="btn sm accent" type="button" data-pbrief="1" ${pr.busy ? "disabled" : ""}>${pr.busy === "brief" ? `<span class="spin"></span>${t("p_brief_busy")}` : `${icon("studio")}${t("p_brief_ai")}`}</button>` : ""}</div>
-        <textarea id="pBrief" data-pbr="1" rows="4" class="ta" placeholder="${esc(t("p_brief_ph"))}">${esc(c.brief)}</textarea>
+        <textarea id="pBrief" data-pbr="1" rows="4" class="ta" placeholder="${esc(pr.busy === "brief" ? t("p_auto") : t("p_brief_ph"))}" ${pr.busy === "brief" ? "disabled" : ""}>${esc(c.brief)}</textarea>
         <span class="footnote">${t("p_brief_from", { r: live.research.some((x) => x.client === cl.id) ? t("p_brief_from_r") : "" })}</span></div>
       ${c.animateOwn || c.useOwnAsRef ? `<div class="banner info">${icon(c.animateOwn ? "film" : "image")}<span>${t(c.animateOwn ? "p_own_animate" : "p_own_ref")}</span><button class="linkbtn" type="button" data-pown="none">${t("cancel")}</button></div>` : ""}
       <div class="p-make"><button class="btn" type="button" data-pcost="1" ${pr.busy || !connected ? "disabled" : ""}>${pr.busy === "cost" ? `<span class="spin"></span>` : ""}${fresh ? t("p_cost_v", { c: num(pr.cost, pr.cost % 1 ? 2 : 0) }) : t("p_cost")}</button>
@@ -272,6 +279,7 @@ Antworte auf ${lang}, nur als JSON: {"brief": string (2–3 Sätze, konkret: Mot
     for (const it of c.items) if (it.status === "pending") poll(it.id);
     return `<div class="wz-ad"><div class="wz-ad-form">
         <p class="muted" style="margin:0">${t("p_intro")}</p>
+        ${from}
         <div class="obj-grid two">${modeCard("own", "upload")}${modeCard("ai", "studio")}</div>
         ${connected ? "" : `<div class="banner warn">${icon("lock")}<span>${t("p_hf_missing")}</span></div>`}
         <div class="field"><span class="flabel">${t("p_format")}</span><div class="fmt-grid">${Object.keys(PFORMATS).map((f) => `<button type="button" class="fmt ${c.format === f ? "on" : ""}" data-pset="format:${f}"><i class="fr r${(c.kind === "image" ? PFORMATS[f].img : PFORMATS[f][c.tier]).replace(":", "x")}"></i><b>${t("p_f_" + f)}</b><span>${c.kind === "image" ? PFORMATS[f].img : PFORMATS[f][c.tier]}</span></button>`).join("")}</div>
@@ -280,7 +288,7 @@ Antworte auf ${lang}, nur als JSON: {"brief": string (2–3 Sätze, konkret: Mot
         ${pr.error ? `<div class="banner warn">${icon("x")}<span>${esc(pr.error)}</span></div>` : ""}
         <p class="footnote">${t("p_rules")}</p>
         ${c.items.length ? `<div class="field"><span class="flabel">${t("p_results")}</span>${results}</div>` : ""}
-      </div><div class="wz-prev"><span class="eyebrow">${t("w_preview")}</span>${adPreview(wiz.d, cl)}</div></div>`;
+      </div><div class="wz-prev"><span class="eyebrow">${t("w_preview")}</span>${adPreview(wiz.d, cl, true)}</div></div>`;
   }
 
   // ---------------------------------------------------------------- Ereignisse

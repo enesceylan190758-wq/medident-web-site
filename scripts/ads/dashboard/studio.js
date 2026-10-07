@@ -43,7 +43,7 @@
     w_check: "Werberecht-Check", w_check_ok: "Keine kritischen Formulierungen gefunden.", w_check_note: "Automatische Prüfung auf typische HWG/UWG-Risiken; ersetzt keine Rechtsberatung.",
     c_guarantee: "Garantie- oder Erfolgsversprechen sind im Heilmittelwerberecht unzulässig.", c_beforeafter: "Vorher-Nachher-Darstellungen sind für operative Eingriffe verboten (§ 11 HWG).", c_painless: "„Schmerzfrei“ wirkt wie ein Heilversprechen; besser „schonend“.", c_superlative: "Superlative wie „beste“ sind ohne Beleg irreführend.", c_100: "Absolute Zahlen wie „100 %“ wirken wie eine Garantie.", c_pressure: "Zeitdruck („nur heute“) gilt bei Gesundheitsleistungen als unlauter.",
     w_summary: "Zusammenfassung", w_save: "Als Entwurf speichern", w_send: "Zur Freigabe an Kunden senden", w_create_meta: "Pausiert im Werbekonto anlegen", w_create_soon: "Folgt mit dem Schreibzugriff (nach Meta-/Google-Freischaltung).",
-    w_saved: "Entwurf gespeichert.", w_sent: "An den Kunden zur Freigabe gesendet.", w_back: "Zurück", w_next: "Weiter", w_close: "Schließen", w_edit: "Bearbeiten", w_delete: "Löschen",
+    w_next_prod: "Weiter zur Produktion", w_add_media: "Bild oder Video erstellen", w_add_media_d: "Eigenes Material oder mit KI", w_saved: "Entwurf gespeichert.", w_sent: "An den Kunden zur Freigabe gesendet.", w_back: "Zurück", w_next: "Weiter", w_close: "Schließen", w_edit: "Bearbeiten", w_delete: "Löschen",
     c_approve: "Freigeben", c_changes: "Änderung anfragen", c_approved_t: "Kampagne freigegeben.", c_changes_t: "Änderungswunsch gesendet.",
     lg_campaign_sent: "Kampagne „{n}“ zur Freigabe gesendet", lg_campaign_approved: "Kampagne „{n}“ freigegeben", lg_campaign_changes: "Änderung angefragt: „{n}“", lg_research: "Wettbewerbs-Recherche „{q}“ ({n} Anzeigen)",
     cta_LEARN_MORE: "Mehr dazu", cta_SIGN_UP: "Registrieren", cta_GET_QUOTE: "Angebot anfordern", cta_BOOK_NOW: "Termin buchen", cta_WHATSAPP_MESSAGE: "WhatsApp-Nachricht senden", cta_CONTACT_US: "Kontakt aufnehmen",
@@ -81,7 +81,7 @@
     w_check: "Advertising law check", w_check_ok: "No critical wording found.", w_check_note: "Automatic check for typical medical advertising risks; not legal advice.",
     c_guarantee: "Guarantees or promised results are not allowed in medical advertising.", c_beforeafter: "Before/after images are prohibited for surgical procedures (§ 11 HWG).", c_painless: "“Painless” reads like a promise of cure; prefer “gentle”.", c_superlative: "Superlatives like “best” are misleading without proof.", c_100: "Absolute figures like “100%” read like a guarantee.", c_pressure: "Time pressure (“today only”) is unfair for health services.",
     w_summary: "Summary", w_save: "Save as draft", w_send: "Send to client for approval", w_create_meta: "Create paused in the ad account", w_create_soon: "Comes with write access (after Meta/Google approval).",
-    w_saved: "Draft saved.", w_sent: "Sent to the client for approval.", w_back: "Back", w_next: "Next", w_close: "Close", w_edit: "Edit", w_delete: "Delete",
+    w_next_prod: "Continue to production", w_add_media: "Create image or video", w_add_media_d: "Own material or with AI", w_saved: "Draft saved.", w_sent: "Sent to the client for approval.", w_back: "Back", w_next: "Next", w_close: "Close", w_edit: "Edit", w_delete: "Delete",
     c_approve: "Approve", c_changes: "Request changes", c_approved_t: "Campaign approved.", c_changes_t: "Change request sent.",
     lg_campaign_sent: "Campaign “{n}” sent for approval", lg_campaign_approved: "Campaign “{n}” approved", lg_campaign_changes: "Changes requested: “{n}”", lg_research: "Competitor research “{q}” ({n} ads)",
     cta_LEARN_MORE: "Learn more", cta_SIGN_UP: "Sign up", cta_GET_QUOTE: "Get quote", cta_BOOK_NOW: "Book now", cta_WHATSAPP_MESSAGE: "Send WhatsApp message", cta_CONTACT_US: "Contact us",
@@ -119,7 +119,7 @@
     w_check: "Reklam hukuku kontrolü", w_check_ok: "Kritik ifade bulunamadı.", w_check_note: "Tipik sağlık reklamı risklerine otomatik bakar; hukuki danışmanlık yerine geçmez.",
     c_guarantee: "Sağlık reklamlarında garanti veya sonuç vaadi yasak.", c_beforeafter: "Cerrahi işlemlerde öncesi/sonrası görseller yasak (§ 11 HWG).", c_painless: "“Ağrısız” tedavi vaadi gibi okunur; “nazik” daha uygun.", c_superlative: "“En iyi” gibi üstünlük ifadeleri kanıtsız yanıltıcıdır.", c_100: "“%100” gibi kesin rakamlar garanti gibi okunur.", c_pressure: "Zaman baskısı (“sadece bugün”) sağlık hizmetlerinde haksız rekabettir.",
     w_summary: "Özet", w_save: "Taslak olarak kaydet", w_send: "Müşteri onayına gönder", w_create_meta: "Reklam hesabında durdurulmuş olarak oluştur", w_create_soon: "Yazma izniyle gelecek (Meta/Google onayından sonra).",
-    w_saved: "Taslak kaydedildi.", w_sent: "Müşteri onayına gönderildi.", w_back: "Geri", w_next: "İleri", w_close: "Kapat", w_edit: "Düzenle", w_delete: "Sil",
+    w_next_prod: "Prodüksiyona geç", w_add_media: "Görsel veya video oluştur", w_add_media_d: "Kendi materyaliniz ya da yapay zeka", w_saved: "Taslak kaydedildi.", w_sent: "Müşteri onayına gönderildi.", w_back: "Geri", w_next: "İleri", w_close: "Kapat", w_edit: "Düzenle", w_delete: "Sil",
     c_approve: "Onayla", c_changes: "Değişiklik iste", c_approved_t: "Kampanya onaylandı.", c_changes_t: "Değişiklik isteği gönderildi.",
     lg_campaign_sent: "“{n}” kampanyası onaya gönderildi", lg_campaign_approved: "“{n}” kampanyası onaylandı", lg_campaign_changes: "Değişiklik istendi: “{n}”", lg_research: "Rakip araştırması “{q}” ({n} reklam)",
     cta_LEARN_MORE: "Daha fazla bilgi", cta_SIGN_UP: "Kaydol", cta_GET_QUOTE: "Teklif al", cta_BOOK_NOW: "Randevu al", cta_WHATSAPP_MESSAGE: "WhatsApp mesajı gönder", cta_CONTACT_US: "Bize ulaşın",
@@ -376,13 +376,13 @@ Antworte nur als JSON: {"variants":[{"angle": string (2–4 Wörter, auf ${({ de
       <section class="card"><div class="card-h"><h2>${t("c_drafts")}</h2><span class="sub">${list.length}</span></div><div class="card-b camp-list">${rows || `<div class="empty">${icon("studio")}<span>${t("c_none")}</span></div>`}</div></section>
       ${strip(cl)}`;
   }
-  function adPreview(d, cl) {
+  function adPreview(d, cl, edit = false) {
     if (d.obj === "search") {
       return `<div class="gad"><div class="gad-top"><b>${t("w_ad")}</b> · ${esc(slug(cl.name))}.de</div><div class="gad-h">${esc(d.headline || t("w_headline"))}</div><div class="gad-d">${esc(d.desc || d.text || t("w_desc"))}</div></div>`;
     }
     return `<div class="fad"><div class="fad-h"><div class="ch-avatar sm">${esc(cl.name.slice(0, 1))}</div><div><b>${esc(cl.name)}</b><span>${t("w_sponsored")}</span></div></div>
       <p class="fad-t">${esc(d.text || t("w_text"))}</p>
-      ${(() => { const m = chosenMedia(d); return m ? `<div class="fad-img has-media r${(m.ratio || "1:1").replace(":", "x")}">${mediaTag(m.url, m.kind)}</div>` : `<div class="fad-img"><span>${esc(d.topic || cl.name)}</span></div>`; })()}
+      ${(() => { const m = chosenMedia(d); return m ? `<div class="fad-img has-media r${(m.ratio || "1:1").replace(":", "x")}">${mediaTag(m.url, m.kind)}</div>` : edit ? `<button type="button" class="fad-img fad-add" data-wstep="4">${icon("studio")}<b>${t("w_add_media")}</b><span>${t("w_add_media_d")}</span></button>` : `<div class="fad-img"><span>${esc(d.topic || cl.name)}</span></div>`; })()}
       <div class="fad-f"><div><span class="muted">${esc(slug(cl.name))}.de</span><b>${esc(d.headline || t("w_headline"))}</b></div><span class="btn sm">${esc(t("cta_" + d.cta))}</span></div></div>`;
   }
   function wizard(cl) {
@@ -416,7 +416,7 @@ Antworte nur als JSON: {"variants":[{"angle": string (2–4 Wörter, auf ${({ de
           ${fld("w-headline", t("w_headline"), inp("headline", "text", `maxlength="${d.obj === "search" ? 30 : 60}"`))}
           ${d.obj === "search" ? fld("w-desc", t("w_desc"), `<textarea id="w-desc" data-w="desc" rows="2" maxlength="90" class="ta">${esc(d.desc)}</textarea>`) : fld("w-text", t("w_text"), `<textarea id="w-text" data-w="text" rows="6" class="ta">${esc(d.text)}</textarea>`)}
           <div class="check ${rk.length ? "bad" : "ok"}"><span class="eyebrow">${t("w_check")}</span>${rk.length ? `<ul>${rk.map((k) => `<li>${esc(t(k))}</li>`).join("")}</ul>` : `<p>${icon("check")}${t("w_check_ok")}</p>`}<span class="footnote">${t("w_check_note")}</span></div>
-        </div><div class="wz-prev"><span class="eyebrow">${t("w_preview")}</span>${adPreview(d, cl)}</div></div>`;
+        </div><div class="wz-prev"><span class="eyebrow">${t("w_preview")}</span>${adPreview(d, cl, true)}</div></div>`;
     } else if (s === 4) {
       body = production(cl);
     } else {
@@ -428,11 +428,11 @@ Antworte nur als JSON: {"variants":[{"angle": string (2–4 Wörter, auf ${({ de
         ${rk.length ? `<div class="check bad"><span class="eyebrow">${t("w_check")}</span><ul>${rk.map((k) => `<li>${esc(t(k))}</li>`).join("")}</ul></div>` : ""}
         <div class="wz-final"><button class="btn" type="button" data-wsave="draft">${t("w_save")}</button><button class="btn primary" type="button" data-wsave="pending">${icon("send")}${t("w_send")}</button>
         <button class="btn ghost" type="button" disabled title="${esc(t("w_create_soon"))}">${icon("lock")}${t("w_create_meta")}</button></div><p class="footnote">${t("w_create_soon")}</p></div>
-        <div class="wz-prev"><span class="eyebrow">${t("w_preview")}</span>${adPreview(d, cl)}</div></div>`;
+        <div class="wz-prev"><span class="eyebrow">${t("w_preview")}</span>${adPreview(d, cl, true)}</div></div>`;
     }
     return `<section class="card wz"><div class="wz-steps">${steps.map((x, i) => `<button type="button" class="wz-step ${i === s ? "on" : i < s ? "done" : ""}" data-wstep="${i}"><span class="n">${i < s ? "✓" : i + 1}</span>${esc(x)}</button>`).join("")}<button class="btn sm ghost icon" type="button" data-wclose="1" aria-label="${t("w_close")}" style="margin-left:auto">${icon("x")}</button></div>
       <div class="wz-body">${body}</div>
-      <div class="wz-foot">${s > 0 ? `<button class="btn ghost" type="button" data-wstep="${s - 1}">${t("w_back")}</button>` : ""}<span class="grow"></span>${s < 5 ? `<button class="btn accent" type="button" data-wstep="${s + 1}">${t("w_next")} ${icon("arrow")}</button>` : ""}</div></section>`;
+      <div class="wz-foot">${s > 0 ? `<button class="btn ghost" type="button" data-wstep="${s - 1}">${t("w_back")}</button>` : ""}<span class="grow"></span>${s < 5 ? `<button class="btn accent" type="button" data-wstep="${s + 1}">${s === 3 ? `${icon("film")}${t("w_next_prod")}` : t("w_next")} ${icon("arrow")}</button>` : ""}</div></section>`;
   }
 
   function openWizard(seed) { const cl = C(); wiz.open = true; wiz.step = seed?.obj ? 3 : 0; wiz.d = newDraft(cl, seed || {}); wiz.variants = null; wiz.error = null; go("create"); }
@@ -453,12 +453,12 @@ Antworte nur als JSON: {"variants":[{"angle": string (2–4 Wörter, auf ${({ de
     if (d.rsexp) { rs.expanded[d.rsexp] = !rs.expanded[d.rsexp]; return render({ still: true }); }
     if (d.rsuse) {
       const doc = live.research.find((x) => x._id === d.doc), a = doc?.ads.find((x) => x.id === d.rsuse);
-      if (a) openWizard({ obj: "lead", topic: doc.query, inspired: { q: doc.query, headline: a.title, why: a.body.slice(0, 300) } });
+      if (a) openWizard({ obj: "lead", topic: "", inspired: { q: doc.query, headline: a.title, why: a.body.slice(0, 300) } });
       return;
     }
     if (d.rsidea) {
       const doc = live.research.find((x) => x._id === d.doc), idea = doc?.analysis?.ideas?.[+d.rsidea];
-      if (idea) openWizard({ obj: "lead", name: idea.title, topic: doc.query, headline: idea.headline || "", inspired: { q: doc.query, headline: idea.headline, why: idea.why } });
+      if (idea) openWizard({ obj: "lead", name: idea.title, topic: idea.title, headline: idea.headline || "", inspired: { q: doc.query, headline: idea.headline, why: idea.why } });
       return;
     }
     if (d.cnew) { wiz.open = true; wiz.step = 0; wiz.d = newDraft(cl); wiz.variants = null; wiz.error = null; return render({ still: true }); }
@@ -496,7 +496,7 @@ Antworte nur als JSON: {"variants":[{"angle": string (2–4 Wörter, auf ${({ de
       if (e.type === "change" || ["headline", "text", "desc"].includes(k)) {
         if (["headline", "text", "desc", "cta"].includes(k)) {
           // nur Vorschau und Check aktualisieren, Fokus bleibt
-          const pv = document.querySelector(".wz-prev"); if (pv) pv.innerHTML = `<span class="eyebrow">${t("w_preview")}</span>${adPreview(wiz.d, C())}`;
+          const pv = document.querySelector(".wz-prev"); if (pv) pv.innerHTML = `<span class="eyebrow">${t("w_preview")}</span>${adPreview(wiz.d, C(), true)}`;
           const ck = document.querySelector(".wz-ad-form .check");
           if (ck) { const rk = risks(wiz.d); ck.className = `check ${rk.length ? "bad" : "ok"}`; ck.innerHTML = `<span class="eyebrow">${t("w_check")}</span>${rk.length ? `<ul>${rk.map((x) => `<li>${esc(t(x))}</li>`).join("")}</ul>` : `<p>${icon("check")}${t("w_check_ok")}</p>`}<span class="footnote">${t("w_check_note")}</span>`; }
         } else if (e.type === "change") render({ still: true });
