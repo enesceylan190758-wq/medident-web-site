@@ -816,7 +816,8 @@ td.go svg { width: 15px; height: 15px; transition: transform 0.15s var(--ease); 
 .p-item.on { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-ring); }
 .p-media { background: var(--bg-sunk); display: grid; place-items: center; overflow: hidden; aspect-ratio: 1; }
 .p-media.r9x16 { aspect-ratio: 9 / 16; } .p-media.r4x5 { aspect-ratio: 4 / 5; } .p-media.r3x4 { aspect-ratio: 3 / 4; } .p-media.r16x9 { aspect-ratio: 16 / 9; }
-.p-media video, .p-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.p-media { position: relative; }
+.p-media video, .p-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 .p-wait { display: grid; justify-items: center; gap: 8px; font-size: 11.5px; color: var(--fg-3); text-align: center; padding: 10px; }
 .p-item-f { display: flex; align-items: center; gap: 6px; padding: 8px; flex-wrap: wrap; font-size: 11px; }
 .p-item-f .muted { display: inline-flex; align-items: center; gap: 4px; }
@@ -829,7 +830,8 @@ td.go svg { width: 15px; height: 15px; transition: transform 0.15s var(--ease); 
 .media-fallback { display: grid; place-items: center; width: 100%; height: 100%; min-height: 80px; font-weight: 600; color: var(--accent); text-decoration: none; }
 .fad-img.has-media { padding: 0; aspect-ratio: 1; background: #000; }
 .fad-img.has-media.r9x16 { aspect-ratio: 9 / 16; width: min(100%, 300px); margin: 0 auto; } .fad-img.has-media.r4x5 { aspect-ratio: 4 / 5; } .fad-img.has-media.r3x4 { aspect-ratio: 3 / 4; } .fad-img.has-media.r16x9 { aspect-ratio: 16 / 9; }
-.fad-img.has-media video, .fad-img.has-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.fad-img.has-media { position: relative; }
+.fad-img.has-media video, .fad-img.has-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 .flow { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg-elev); }
 .flow-st { display: inline-flex; align-items: center; gap: 7px; padding: 5px 10px 5px 5px; border-radius: 999px; font-size: 12.5px; font-weight: 500; color: var(--fg-2); text-decoration: none; }
 .flow-st > svg { width: 15px; height: 15px; color: var(--fg-3); }
@@ -839,6 +841,22 @@ td.go svg { width: 15px; height: 15px; transition: transform 0.15s var(--ease); 
 .flow-st.done { color: var(--fg); }
 a.flow-st:hover { background: var(--bg-sunk); }
 .flow-sep svg { width: 13px; height: 13px; color: var(--fg-4, var(--fg-3)); display: block; }
+
+
+.p-how { border: 1px dashed var(--line-2); border-radius: 12px; padding: 12px 14px; display: grid; gap: 6px; font-size: 13px; }
+.p-how b { display: inline-flex; align-items: center; gap: 8px; }
+.p-how b svg { width: 16px; height: 16px; color: var(--accent); }
+.p-how ol { margin: 0; padding-left: 20px; display: grid; gap: 3px; color: var(--fg-2); }
+.p-edit { border: 1px solid var(--accent); border-radius: 14px; box-shadow: 0 0 0 3px var(--accent-ring); background: var(--bg-elev); overflow: hidden; }
+.p-edit-h { display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+.p-edit-h svg { width: 16px; height: 16px; color: var(--accent); }
+.p-edit-h .muted { font-size: 12px; flex: 1; }
+.p-edit-b { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 14px; padding: 12px; align-items: start; }
+.p-edit-prev { background: #000; border-radius: 10px; overflow: hidden; aspect-ratio: 1; display: grid; place-items: center; transition: aspect-ratio 0.25s var(--ease); }
+.p-edit-prev.r9x16 { aspect-ratio: 9 / 16; } .p-edit-prev.r4x5 { aspect-ratio: 4 / 5; } .p-edit-prev.r3x4 { aspect-ratio: 3 / 4; } .p-edit-prev.r16x9 { aspect-ratio: 16 / 9; }
+.p-edit-prev { position: relative; }
+.p-edit-prev video, .p-edit-prev img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.p-edit-f { display: grid; gap: 10px; min-width: 0; }
 
 /* ---------- KI baloncugu (dock) ---------- */
 .fab { position: fixed; right: 20px; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); z-index: 45; display: inline-flex; align-items: center; gap: 8px;
@@ -978,6 +996,7 @@ body:has(.fab) .toasts { bottom: calc(76px + env(safe-area-inset-bottom, 0px)); 
   .d-only { display: none; }
   .fmt-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .p-results { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .p-edit-b { grid-template-columns: 96px minmax(0, 1fr); }
   .obj-grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .flow { gap: 2px; padding: 8px; }
   .flow-st { padding: 4px 6px 4px 4px; font-size: 11.5px; }

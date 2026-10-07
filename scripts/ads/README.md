@@ -121,8 +121,12 @@ toplamlar reklam bazlı veriyle aynı kalsın diye Meta toplamı bu paylara gör
 `dashboard/produce.js` (studio.js'ten sonra gömülür): Kampagnen-Studio sihirbazının 5. adımı.
 Akış: Recherche → Kampagne → **Produktion** → Freigabe (sayfanın üstünde adım şeridi olarak görünür).
 
-- **Eigenes Material:** herkese açık link (`media_import_url`) ya da dosya (`media_upload` + tarayıcıdan PUT +
-  `media_confirm`; tarayıcı yüklemesi engellenirse link yoluna yönlendirir). Foto KI ile hareketlendirilebilir
+- **Eigenes Material:** herkese açık link (`media_import_url`). Google Drive ve Dropbox paylaşım linkleri otomatik
+  doğrudan indirme linkine çevrilir. claude.ai artefaktları dış adreslere dosya gönderemediği için cihazdan doğrudan
+  yükleme bu önizlemede yok (kendi sunucuda gelecek).
+- **Bearbeiten:** kendi ya da üretilmiş video/görsel Higgsfield sandbox'ında ffmpeg ile kredisiz düzenlenir:
+  başlangıç/bitiş kırpma, format (9:16, 1:1, 4:5, 16:9, ortadan kırpma), görsel üstü yazı (üst/alt), sesi kaldırma.
+  Sonuç `media_upload` imzalı adrese yüklenir, `media_confirm` ile kaydedilir; orijinal korunur. Foto KI ile hareketlendirilebilir
   (`start_image`) ya da KI görseli için örnek olarak kullanılabilir.
 - **Mit KI erstellen:** brief'i müşteri yazar ya da "Brief von KI schreiben" (Claude, kampanya + reklam metni +
   rakip araştırması). Brief İngilizce model komutuna çevrilir; her komuta sağlık reklamı kuralları eklenir

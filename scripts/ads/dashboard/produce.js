@@ -25,6 +25,11 @@
     p_hf_denied: "Higgsfield ist für diese Seite nicht freigegeben. Bitte im Berechtigungsmenü des Artefakts erlauben.",
     p_from: "Vorlage aus der Recherche „{q}“", p_auto: "Die KI schreibt den Brief aus Anzeigentext und Vorlage …", p_note_ratio: "Instagram-Feed-Videos werden im nächstliegenden Format erstellt ({r}).",
     w_material: "Material", w_material_none: "noch keins",
+    p_how_t: "Datei vom Computer oder Handy", p_how_1: "In Google Drive oder Dropbox hochladen", p_how_2: "Freigeben: „Jeder mit dem Link“ und Link kopieren", p_how_3: "Link hier einfügen und „Übernehmen“ tippen",
+    p_how_note: "Direktes Hochladen ist in der claude.ai-Vorschau aus Sicherheitsgründen gesperrt; auf dem eigenen Nefalix-Server entfällt dieser Schritt.",
+    e_btn: "Bearbeiten", e_t: "Bearbeiten", e_src: "Quelle", e_start: "Start (s)", e_end: "Ende (s)", e_end_ph: "bis Ende", e_format: "Format", e_orig: "Original",
+    e_text: "Text im Bild", e_text_ph: "z. B. „Ihr Behandlungsweg in Istanbul“", e_pos: "Position", e_top: "Oben", e_bottom: "Unten", e_mute: "Ton entfernen",
+    e_apply: "Anwenden", e_free: "ohne Credits", e_busy: "Wird bearbeitet …", e_done: "Bearbeitete Fassung erstellt.", e_fail: "Bearbeitung fehlgeschlagen: {m}", e_note: "Für Videos bis etwa 60 Sekunden. Das Original bleibt erhalten.", e_edited: "bearbeitet",
     flow_t: "So entsteht eine Kampagne", flow_1: "Recherche", flow_2: "Kampagne", flow_3: "Produktion", flow_4: "Freigabe",
   });
   Object.assign(T.en, {
@@ -49,6 +54,11 @@
     p_hf_denied: "Higgsfield is not allowed for this page. Please allow it in the artifact's permissions menu.",
     p_from: "Based on the research “{q}”", p_auto: "AI is writing the brief from the ad copy and template …", p_note_ratio: "Instagram feed videos are created in the closest format ({r}).",
     w_material: "Material", w_material_none: "none yet",
+    p_how_t: "File from computer or phone", p_how_1: "Upload it to Google Drive or Dropbox", p_how_2: "Share: “anyone with the link” and copy the link", p_how_3: "Paste the link here and tap “Add”",
+    p_how_note: "Direct upload is blocked in the claude.ai preview for security reasons; on the own Nefalix server this step goes away.",
+    e_btn: "Edit", e_t: "Edit", e_src: "Source", e_start: "Start (s)", e_end: "End (s)", e_end_ph: "to the end", e_format: "Format", e_orig: "Original",
+    e_text: "Text on image", e_text_ph: "e.g. “Your treatment journey in Istanbul”", e_pos: "Position", e_top: "Top", e_bottom: "Bottom", e_mute: "Remove sound",
+    e_apply: "Apply", e_free: "no credits", e_busy: "Editing …", e_done: "Edited version created.", e_fail: "Editing failed: {m}", e_note: "For videos up to about 60 seconds. The original is kept.", e_edited: "edited",
     flow_t: "How a campaign comes together", flow_1: "Research", flow_2: "Campaign", flow_3: "Production", flow_4: "Approval",
   });
   Object.assign(T.tr, {
@@ -73,10 +83,16 @@
     p_hf_denied: "Bu sayfa için Higgsfield izni yok. Artefaktın izinler menüsünden izin verin.",
     p_from: "“{q}” araştırmasından şablon", p_auto: "Yapay zeka tarifi reklam metni ve şablondan yazıyor …", p_note_ratio: "Instagram akış videoları en yakın formatta ({r}) üretilir.",
     w_material: "Materyal", w_material_none: "henüz yok",
+    p_how_t: "Bilgisayardan veya telefondan dosya", p_how_1: "Google Drive veya Dropbox'a yükleyin", p_how_2: "Paylaşın: “Linke sahip herkes” ve linki kopyalayın", p_how_3: "Linki buraya yapıştırıp “Ekle”ye dokunun",
+    p_how_note: "claude.ai önizlemesinde doğrudan yükleme güvenlik nedeniyle kapalı; kendi Nefalix sunucumuzda bu adım kalkacak.",
+    e_btn: "Düzenle", e_t: "Düzenle", e_src: "Kaynak", e_start: "Başlangıç (sn)", e_end: "Bitiş (sn)", e_end_ph: "sonuna kadar", e_format: "Format", e_orig: "Orijinal",
+    e_text: "Görsel üstü yazı", e_text_ph: "ör. “İstanbul'da tedavi yolculuğunuz”", e_pos: "Konum", e_top: "Üst", e_bottom: "Alt", e_mute: "Sesi kaldır",
+    e_apply: "Uygula", e_free: "kredisiz", e_busy: "Düzenleniyor …", e_done: "Düzenlenmiş sürüm oluşturuldu.", e_fail: "Düzenleme başarısız: {m}", e_note: "Yaklaşık 60 saniyeye kadar videolar için. Orijinal korunur.", e_edited: "düzenlendi",
     flow_t: "Bir kampanya nasıl oluşur", flow_1: "Araştırma", flow_2: "Kampanya", flow_3: "Prodüksiyon", flow_4: "Onay",
   });
   I.film = '<rect x="3.5" y="5" width="17" height="14" rx="2.5"/><path d="m10 9.5 4.5 2.5-4.5 2.5v-5Z" fill="currentColor"/>';
   I.image = '<rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><circle cx="9" cy="10" r="1.6"/><path d="m4 17 5-4.5 3.5 3 3-2.5 4.5 4"/>';
+  I.edit = '<path d="M4.5 19.5h4l10-10-4-4-10 10v4Z"/><path d="m13 7.5 4 4"/>';
   I.upload = '<path d="M12 15.5V4.5M7.5 9 12 4.5 16.5 9M5 15v3.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V15"/>';
 
   const HF = "Higgsfield";
@@ -226,14 +242,23 @@ Antworte auf ${lang}, nur als JSON: {"brief": string (2–3 Sätze, konkret: Mot
   }
   async function persist() { if (!wiz.d) return; const { _id, ...rest } = wiz.d; await saveDoc("campaigns", _id, { ...rest, updatedAt: new Date().toISOString() }); }
 
+  // Freigabelinks in direkte Download-Links umwandeln (Google Drive, Dropbox)
+  function directLink(u) {
+    const d = u.match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:[^#]*&)?id=)([\w-]{10,})/);
+    if (d) return { url: `https://drive.google.com/uc?export=download&id=${d[1]}`, type: "auto" };
+    if (/dropbox\.com\//.test(u)) return { url: u.replace(/([?&])dl=0/, "$1raw=1").replace(/^(?!.*[?&](?:raw|dl)=1)(.*)$/, (m) => m + (m.includes("?") ? "&" : "?") + "raw=1"), type: "auto" };
+    return { url: u, type: /\.(mp4|mov|webm)(\?|$)/i.test(u) ? "video" : /\.(jpe?g|png|webp)(\?|$)/i.test(u) ? "image" : "auto" };
+  }
   async function addOwnLink() {
-    const c = crt(), url = pr.link.trim(); if (!/^https:\/\//i.test(url) || pr.busy) return;
+    const c = crt(), raw = pr.link.trim(); if (!/^https:\/\//i.test(raw) || pr.busy) return;
+    const { url, type: guess } = directLink(raw);
     pr.busy = "own"; pr.error = null; render({ still: true });
-    const type = /\.(mp4|mov|webm)(\?|$)/i.test(url) ? "video" : /\.(jpe?g|png|webp)(\?|$)/i.test(url) ? "image" : "auto";
+    const type = guess;
     try {
       await ensureHf();
       const p = await hf("media_import_url", { url, type });
-      c.own = { url: p.source_url || url, mediaId: p.media_id, type: p.type || (type === "auto" ? "image" : type) };
+      // Anzeige über die Higgsfield-Kopie (Drive/Dropbox-Links sind keine Medien-URLs)
+      c.own = { url: p.url || p.source_url || url, mediaId: p.media_id, type: p.type || (type === "auto" ? "image" : type), src: raw };
       pr.link = ""; toast(t("p_own_ok"));
       await persist();
     } catch (e) { pr.error = hfErr(e); }
@@ -256,6 +281,77 @@ Antworte auf ${lang}, nur als JSON: {"brief": string (2–3 Sätze, konkret: Mot
       toast(t("p_own_ok")); await persist();
     } catch (e) { pr.error = e?.code === "tool_error" && e.message === "upload" ? t("p_upload_fail") : hfErr(e); }
     finally { pr.busy = ""; render({ still: true }); }
+  }
+
+  // ---------------------------------------------------------------- Bearbeiten (ffmpeg in der Higgsfield-Sandbox, ohne Credits)
+  const EFMT = { "9:16": [9, 16], "1:1": [1, 1], "4:5": [4, 5], "16:9": [16, 9] };
+  const FONT = "/usr/share/fonts/truetype/higgsfield/Montserrat-ExtraBold.ttf";
+  const b64 = (str) => btoa(unescape(encodeURIComponent(str)));
+  const sq = (str) => "'" + String(str).replace(/'/g, "") + "'";
+  function wrapText(str, n) {
+    const out = []; let line = "";
+    for (const w of String(str).replace(/\s+/g, " ").trim().split(" ")) {
+      if (!w) continue;
+      if ((line + " " + w).trim().length > n && line) { out.push(line); line = w; } else line = (line + " " + w).trim();
+    }
+    if (line) out.push(line);
+    return out.slice(0, 3).join("\n");
+  }
+  function editCmd(src, upUrl, e, kind) {
+    const R = EFMT[e.format], isV = kind === "video", tall = R && R[0] < R[1], wide = R && R[0] > R[1];
+    const vf = R ? [`crop='min(iw,ih*${R[0]}/${R[1]})':'min(ih,iw*${R[1]}/${R[0]})'`, "scale=1080:-2"] : ["scale='min(1080,iw)':-2"];
+    const text = wrapText(e.text || "", wide ? 34 : tall ? 20 : 24);
+    if (text) vf.push(`drawtext=fontfile=${FONT}:textfile=t.txt:expansion=none:fontsize=h/${tall ? 26 : 20}:fontcolor=white:line_spacing=12:box=1:boxcolor=black@0.45:boxborderw=28:x=(w-tw)/2:y=${e.pos === "bottom" ? "h-th-h*0.12" : "h*0.08"}`);
+    const trim = isV ? `${+e.start > 0 ? `-ss ${+e.start}` : ""} ${+e.end > 0 ? `-to ${+e.end}` : ""}` : "";
+    const out = isV ? "out.mp4" : "out.jpg";
+    const enc = isV ? `${e.mute ? "-an" : "-c:a aac -b:a 128k"} -c:v libx264 -preset veryfast -crf 23 -pix_fmt yuv420p -movflags +faststart` : "-frames:v 1 -q:v 3";
+    return `set -e; cd /home/user; rm -f in.bin out.mp4 out.jpg t.txt; curl -sSfL -o in.bin ${sq(src)}; ${text ? `echo ${b64(text)} | base64 -d > t.txt;` : ""} ffmpeg -v error -y ${trim} -i in.bin -vf "${vf.join(",")}" ${enc} ${out}; curl -s -o /dev/null -w "PUT=%{http_code}" -X PUT -H ${sq("Content-Type: " + (isV ? "video/mp4" : "image/jpeg"))} --data-binary @${out} ${sq(upUrl)}`;
+  }
+  function openEditor(srcId) {
+    const c = crt();
+    const it = srcId === "own" ? (c.own && { url: c.own.url, kind: c.own.type === "video" ? "video" : "image", ratio: "" }) : c.items.find((x) => x.id === srcId);
+    if (!it) return;
+    pr.edit = { srcId, url: it.url, kind: it.kind, ratio: it.ratio || "", start: "", end: "", format: it.ratio && EFMT[it.ratio] ? it.ratio : "orig", text: wiz.d.headline || "", pos: "top", mute: false };
+    render({ still: true });
+    requestAnimationFrame(() => document.querySelector(".p-edit")?.scrollIntoView({ behavior: "smooth", block: "center" }));
+  }
+  async function applyEdit() {
+    const c = crt(), e = pr.edit; if (!e || pr.busy) return;
+    pr.busy = "edit"; pr.error = null; render({ still: true });
+    try {
+      await ensureHf();
+      const isV = e.kind === "video", ext = isV ? "mp4" : "jpg", ct = isV ? "video/mp4" : "image/jpeg";
+      const up = ((await hf("media_upload", { filename: `nefalix-edit-${Date.now()}.${ext}`, content_type: ct })).uploads || [])[0];
+      if (!up?.upload_url) throw { code: "tool_error", message: "upload url" };
+      const r = await hf("sandbox_exec", { command: editCmd(e.url, up.upload_url, e, e.kind), timeout_seconds: 120 });
+      const outText = `${r.stdout || ""}${r.stderr || ""}`;
+      if (!/PUT=200/.test(outText)) throw { code: "tool_error", message: (r.stderr || r.stdout || "ffmpeg").slice(-160) };
+      const cf = await hf("media_confirm", { type: e.kind, media_id: up.media_id });
+      const url = cf.results?.[0]?.url || up.url;
+      const id = "edit-" + up.media_id;
+      c.items.unshift({ id, kind: e.kind, format: c.format, ratio: e.format === "orig" ? e.ratio || "1:1" : e.format, status: "done", url, at: new Date().toISOString(), brief: e.text || "", model: "edit", edited: true, mediaId: up.media_id, from: e.srcId });
+      c.chosen = id; pr.edit = null; toast(t("e_done"));
+      await persist();
+    } catch (er) { pr.error = er?.code === "tool_error" ? t("e_fail", { m: er.message || "?" }) : hfErr(er); }
+    finally { pr.busy = ""; render({ still: true }); }
+  }
+  function editorHtml() {
+    const e = pr.edit; if (!e) return "";
+    const fseg = `<div class="seg">${["orig", "9:16", "1:1", "4:5", "16:9"].map((f) => `<button type="button" data-pe="format:${f}" aria-pressed="${e.format === f}">${f === "orig" ? t("e_orig") : f}</button>`).join("")}</div>`;
+    const pseg = `<div class="seg">${["top", "bottom"].map((p) => `<button type="button" data-pe="pos:${p}" aria-pressed="${e.pos === p}">${t("e_" + p)}</button>`).join("")}</div>`;
+    return `<section class="p-edit">
+      <div class="p-edit-h">${icon("edit")}<b>${t("e_t")}</b><span class="muted">${t(e.kind === "video" ? "p_kind_video" : "p_kind_image")}${e.ratio ? " · " + esc(e.ratio) : ""}</span><button class="btn sm ghost icon" type="button" data-pe="close" aria-label="${t("w_close")}">${icon("x")}</button></div>
+      <div class="p-edit-b"><div class="p-edit-prev r${(e.format !== "orig" ? e.format : e.ratio || "1:1").replace(":", "x")}">${mediaTag(e.url, e.kind)}</div>
+      <div class="p-edit-f">
+        ${e.kind === "video" ? `<div class="field-row"><div class="field"><label for="peS">${t("e_start")}</label><div class="input"><input id="peS" data-pev="start" type="number" min="0" step="0.5" value="${esc(e.start)}" placeholder="0"></div></div>
+          <div class="field"><label for="peE">${t("e_end")}</label><div class="input"><input id="peE" data-pev="end" type="number" min="0" step="0.5" value="${esc(e.end)}" placeholder="${esc(t("e_end_ph"))}"></div></div></div>` : ""}
+        <div class="field"><span class="flabel">${t("e_format")}</span>${fseg}</div>
+        <div class="field"><label for="peT">${t("e_text")}</label><div class="input wide"><input id="peT" data-pev="text" value="${esc(e.text)}" maxlength="80" placeholder="${esc(t("e_text_ph"))}" style="font-family:var(--sans)"></div></div>
+        ${e.text ? `<div class="field"><span class="flabel">${t("e_pos")}</span>${pseg}</div>` : ""}
+        ${e.kind === "video" ? `<label class="chk"><input type="checkbox" data-pev="mute" ${e.mute ? "checked" : ""}> ${t("e_mute")}</label>` : ""}
+        <div class="p-make"><button class="btn primary" type="button" data-pe="apply" ${pr.busy ? "disabled" : ""}>${pr.busy === "edit" ? `<span class="spin"></span>${t("e_busy")}` : `${icon("edit")}${t("e_apply")} · ${t("e_free")}`}</button></div>
+        <span class="footnote">${t("e_note")}</span>
+      </div></div></section>`;
   }
 
   // ---------------------------------------------------------------- Darstellung
@@ -294,11 +390,12 @@ Antworte auf ${lang}, nur als JSON: {"brief": string (2–3 Sätze, konkret: Mot
     const fresh = pr.costKey === costKey(c) && pr.cost != null;
     const own = c.own ? `<div class="own-card">${mediaTag(c.own.url, c.own.type === "video" ? "video" : "image", "own-media")}
         <div class="own-meta"><b>${esc(c.own.name || c.own.url.split("/").pop().slice(0, 48))}</b><span class="muted">${t(c.own.type === "video" ? "p_kind_video" : "p_kind_image")}</span>
-          <div class="own-acts"><button class="btn sm ${c.chosen === "own" ? "primary" : ""}" type="button" data-pchoose="own">${c.chosen === "own" ? `${icon("check")}${t("p_used")}` : t("p_use")}</button>
+          <div class="own-acts"><button class="btn sm" type="button" data-pedit="own">${icon("edit")}${t("e_btn")}</button><button class="btn sm ${c.chosen === "own" ? "primary" : ""}" type="button" data-pchoose="own">${c.chosen === "own" ? `${icon("check")}${t("p_used")}` : t("p_use")}</button>
           ${c.own.type === "image" ? `<button class="btn sm" type="button" data-pown="animate">${icon("film")}${t("p_own_animate")}</button><button class="btn sm" type="button" data-pown="ref">${icon("image")}${t("p_own_ref")}</button>` : ""}</div></div></div>` : "";
     const ownPane = `<div class="field"><label for="pLink">${t("p_own_link")}</label><div class="p-link"><div class="input wide"><input id="pLink" data-plink="1" value="${esc(pr.link)}" placeholder="${esc(t("p_own_link_ph"))}" style="font-family:var(--sans)" ${pr.busy ? "disabled" : ""}></div>
         <button class="btn" type="button" data-pownlink="1" ${pr.busy || !connected ? "disabled" : ""}>${pr.busy === "own" ? `<span class="spin"></span>${t("p_own_busy")}` : t("p_own_add")}</button>
-        <label class="btn ghost ${pr.busy || !connected ? "disabled" : ""}">${icon("upload")}${t("p_own_file")}<input type="file" accept="image/*,video/*" data-pfile="1" hidden ${pr.busy || !connected ? "disabled" : ""}></label></div></div>${own}`;
+</div></div>
+      ${c.own ? "" : `<div class="p-how"><b>${icon("upload")}${t("p_how_t")}</b><ol><li>${t("p_how_1")}</li><li>${t("p_how_2")}</li><li>${t("p_how_3")}</li></ol><span class="footnote">${t("p_how_note")}</span></div>`}${own}`;
     const aiPane = `<div class="field-row">
         <div class="field"><span class="flabel">${t("p_kind")}</span>${seg("kind", [["video", t("p_kind_video")], ["image", t("p_kind_image")]])}</div>
         ${c.kind === "video" ? `<div class="field"><span class="flabel">${t("p_quality")}</span>${seg("tier", [["fast", t("p_q_fast")], ["premium", t("p_q_premium")]])}</div>
@@ -312,7 +409,7 @@ Antworte auf ${lang}, nur als JSON: {"brief": string (2–3 Sätze, konkret: Mot
     const results = c.items.length ? `<div class="p-results">${c.items.map((it) => `<div class="p-item ${c.chosen === it.id ? "on" : ""}">
         <div class="p-media r${it.ratio.replace(":", "x")}">${it.status === "done" ? mediaTag(it.url, it.kind) : it.status === "failed" ? `<span class="muted">${t("p_failed")}</span>` : `<span class="p-wait"><span class="spin"></span>${t("p_wait")}</span>`}</div>
         <div class="p-item-f"><span class="muted">${icon(it.kind === "video" ? "film" : "image")}${esc(it.ratio)} · ${esc(dtime(it.at))}${it.credits != null ? ` · ${t("p_cost_v", { c: num(it.credits, it.credits % 1 ? 2 : 0) })}` : ""}</span>
-          ${it.status === "done" ? `<span class="grow"></span><a class="btn sm ghost icon" href="${esc(it.url)}" target="_blank" rel="noopener" aria-label="${t("p_open")}">${icon("ext")}</a><button class="btn sm ${c.chosen === it.id ? "primary" : ""}" type="button" data-pchoose="${esc(it.id)}">${c.chosen === it.id ? `${icon("check")}${t("p_used")}` : t("p_use")}</button>` : ""}</div></div>`).join("")}</div>` : "";
+          ${it.edited ? `<span class="pill neutral">${t("e_edited")}</span>` : ""}${it.status === "done" ? `<span class="grow"></span><button class="btn sm ghost icon" type="button" data-pedit="${esc(it.id)}" aria-label="${t("e_btn")}" title="${t("e_btn")}">${icon("edit")}</button><a class="btn sm ghost icon" href="${esc(it.url)}" target="_blank" rel="noopener" aria-label="${t("p_open")}">${icon("ext")}</a><button class="btn sm ${c.chosen === it.id ? "primary" : ""}" type="button" data-pchoose="${esc(it.id)}">${c.chosen === it.id ? `${icon("check")}${t("p_used")}` : t("p_use")}</button>` : ""}</div></div>`).join("")}</div>` : "";
     for (const it of c.items) if (it.status === "pending") poll(it.id);
     return `<div class="wz-ad"><div class="wz-ad-form">
         <p class="muted" style="margin:0">${t("p_intro")}</p>
@@ -324,16 +421,24 @@ Antworte auf ${lang}, nur als JSON: {"brief": string (2–3 Sätze, konkret: Mot
         ${c.mode === "own" ? ownPane : aiPane}
         ${pr.error ? `<div class="banner warn">${icon("x")}<span>${esc(pr.error)}</span>${pr.fix === "perm" ? `<button class="btn sm" type="button" data-pperm="1">${icon("lock")}${t("p_hf_perm_btn")}</button>` : ""}</div>` : ""}
         ${isMed() ? `<p class="footnote">${t("p_rules")}</p>` : ""}
+        ${editorHtml()}
         ${c.items.length ? `<div class="field"><span class="flabel">${t("p_results")}</span>${results}</div>` : ""}
       </div><div class="wz-prev"><span class="eyebrow">${t("w_preview")}</span>${adPreview(wiz.d, cl, true)}</div></div>`;
   }
 
   // ---------------------------------------------------------------- Ereignisse
   document.addEventListener("click", async (e) => {
-    const el = e.target.closest("[data-pset],[data-pcost],[data-pmake],[data-pbrief],[data-pchoose],[data-pownlink],[data-pown],[data-pperm]");
+    const el = e.target.closest("[data-pset],[data-pcost],[data-pmake],[data-pbrief],[data-pchoose],[data-pownlink],[data-pown],[data-pperm],[data-pedit],[data-pe]");
     if (!el || !wiz.d) return;
     const d = el.dataset, c = crt();
     if (d.pperm) return openPerms();
+    if (d.pedit) return openEditor(d.pedit);
+    if (d.pe) {
+      if (d.pe === "close") { pr.edit = null; return render({ still: true }); }
+      if (d.pe === "apply") return applyEdit();
+      const i = d.pe.indexOf(":"), k = d.pe.slice(0, i), v = d.pe.slice(i + 1); if (pr.edit) { pr.edit[k] = v; render({ still: true }); }
+      return;
+    }
     if (d.pset) { const [k, v] = d.pset.split(":"); c[k] = k === "duration" ? +v : v; if (k === "mode" && v === "own") { c.animateOwn = false; c.useOwnAsRef = false; } return render({ still: true }); }
     if (d.pcost) return checkCost();
     if (d.pmake) return generate();
@@ -350,6 +455,7 @@ Antworte auf ${lang}, nur als JSON: {"brief": string (2–3 Sätze, konkret: Mot
     const el = e.target;
     if (el.dataset?.pbr && wiz.d) { crt().brief = el.value; const b = document.querySelector("[data-pmake]"); if (b) b.disabled = !!pr.busy || !caps.mcp || !el.value.trim(); }
     if (el.dataset?.plink) pr.link = el.value;
+    if (el.dataset?.pev && pr.edit) { const k = el.dataset.pev; pr.edit[k] = k === "mute" ? el.checked : el.value; if (k === "text" && !!el.value !== !!document.querySelector("[data-pe^='pos:']")) render({ still: true }); }
   });
   document.addEventListener("change", (e) => { if (e.target.dataset?.pfile && e.target.files?.[0]) uploadOwn(e.target.files[0]); });
   document.addEventListener("keydown", (e) => { if (e.key === "Enter" && e.target.dataset?.plink) addOwnLink(); });
