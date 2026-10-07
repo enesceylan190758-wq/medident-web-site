@@ -1258,10 +1258,10 @@
       <p class="mh-help">${t("help_req")}</p>
       ${heroSrc}
       <div class="mh-spark">${spark(reqS, "var(--s-leads)", 300, 44)}</div>
-      ${vKey ? `<p class="mh-verdict ${st}"><span class="dot"></span>${esc(t(vKey))}</p>` : ""}
+      ${vKey ? `<p class="mh-verdict ${{ v_up_cheap: "good", v_down_dear: "bad" }[vKey] || "warn"}"><span class="dot"></span>${esc(t(vKey))}</p>` : ""}
       <div class="mh-pair">${tiles.map(([k, v, d, h]) => `<div><span class="k">${k}</span><span class="v">${v}</span>${d ? `<span class="dl">${d}</span>` : ""}<span class="h">${h}</span></div>`).join("")}</div>
     </section>`;
-    const greeting = `<div class="greet"><h2>${esc(greet())}, ${esc(state.preview ? t("greet_team", { name: cl.name }) : "Enes")}</h2><p>${esc(state.preview ? t("greet_sub_c", { n: state.win }) : t("greet_sub_a", { name: cl.name, n: state.win }))}</p></div>`;
+    const greeting = `<div class="greet"><h2>${esc(greet())}, ${esc(state.preview ? (cl.contact || t("greet_team", { name: cl.name })) : "Enes")}</h2><p>${esc(state.preview ? t("greet_sub_c", { n: state.win }) : t("greet_sub_a", { name: cl.name, n: state.win }))}</p></div>`;
     const orgSpark = S ? spark(days.map((d) => (S.fb.find((x) => x[0] === d)?.[2] || 0) + (S.ig.find((x) => x[0] === d)?.[2] || 0)), "var(--s-org)") : "";
     return `
       ${greeting}

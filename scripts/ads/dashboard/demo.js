@@ -149,7 +149,7 @@ function buildDemo(range) {
       social: { fb: [4200, 0.7], ig: [5100, 2.2], posts: 2.6, topics: ["Ablauf SMILE pro in 90 Sekunden", "Bin ich geeignet? 4 Kriterien", "Ein Jahr ohne Brille – Erfahrungsbericht", "Fragen an den Augenarzt", "Sport nach dem Augenlasern"] },
     },
     {
-      key: "bakery", name: "Konditorei Kandelhof", city: "Köln", currency: "EUR", seed: 5503, ig: 0.74, target: 15, measureAgo: 35,
+      key: "bakery", name: "İnci Patisserie", contact: "Seda Hanım", city: "Köln", currency: "EUR", seed: 5503, ig: 0.74, target: 15, measureAgo: 35,
       assumptions: { booking: 0.55, close: 0.92, value: 68 },
       access: { status: "active", users: 2 },
       measure: { de: "Bestellformular auf 3 Fragen gekürzt, Video „Torte entsteht“ gestartet", en: "Cut the order form to 3 questions, launched the “cake in the making” video", tr: "Sipariş formu 3 soruya indirildi, “Pasta nasıl yapılır” videosu başlatıldı" },
@@ -285,7 +285,7 @@ function buildDemo(range) {
     social[id] = { fb: fbDaily, ig: igDaily, posts };
 
     clients.push({
-      id, name: c.name, city: c.city, sector: c.key, currency: c.currency, demo: true,
+      id, name: c.name, contact: c.contact || "", city: c.city, sector: c.key, currency: c.currency, demo: true,
       meta: [id], google: [`g_${c.key}`], social: id,
       targets: { [id]: c.target }, assumptions: c.assumptions, access: c.access,
       measure: { ...c.measure, date: mDate },
