@@ -6,7 +6,7 @@
   const ACTOR = "apify/facebook-ads-scraper";
   const COUNTRIES = ["DE", "CH", "AT", "TR", "NL", "GB", "FR", "BE"];
   const caps = { mcp: null, sample: null, db: null };
-  const live = { research: [], campaigns: [] };
+  const live = { research: [], campaigns: [], profiles: [] };
   const rs = { q: "", country: "DE", n: 25, active: true, busy: false, step: "", error: null, openId: null, analyzing: false, expanded: {} };
   const wiz = { open: false, step: 0, d: null, busy: false, error: null, variants: null };
 
@@ -43,7 +43,7 @@
     w_check: "Werberecht-Check", w_check_ok: "Keine kritischen Formulierungen gefunden.", w_check_note: "Automatische Prüfung auf typische HWG/UWG-Risiken; ersetzt keine Rechtsberatung.",
     c_guarantee: "Garantie- oder Erfolgsversprechen sind im Heilmittelwerberecht unzulässig.", c_beforeafter: "Vorher-Nachher-Darstellungen sind für operative Eingriffe verboten (§ 11 HWG).", c_painless: "„Schmerzfrei“ wirkt wie ein Heilversprechen; besser „schonend“.", c_superlative: "Superlative wie „beste“ sind ohne Beleg irreführend.", c_100: "Absolute Zahlen wie „100 %“ wirken wie eine Garantie.", c_pressure: "Zeitdruck („nur heute“) gilt bei Gesundheitsleistungen als unlauter.",
     w_summary: "Zusammenfassung", w_save: "Als Entwurf speichern", w_send: "Zur Freigabe an Kunden senden", w_create_meta: "Pausiert im Werbekonto anlegen", w_create_soon: "Folgt mit dem Schreibzugriff (nach Meta-/Google-Freischaltung).",
-    w_next_prod: "Weiter zur Produktion", w_add_media: "Bild oder Video erstellen", w_add_media_d: "Eigenes Material oder mit KI", w_saved: "Entwurf gespeichert.", w_sent: "An den Kunden zur Freigabe gesendet.", w_back: "Zurück", w_next: "Weiter", w_close: "Schließen", w_edit: "Bearbeiten", w_delete: "Löschen",
+    w_next_prod: "Weiter zur Produktion", w_add_media: "Bild oder Video erstellen", w_add_media_d: "Eigenes Material oder mit KI", w_saved: "Entwurf gespeichert.", w_sent: "An den Kunden zur Freigabe gesendet.", w_back: "Zurück", w_next: "Weiter", w_close: "Schließen", w_edit: "Bearbeiten", w_resume: "Weitermachen", w_autosaved: "Automatisch gespeichert", w_restored: "Ihr Entwurf ist wieder da – Sie machen dort weiter, wo Sie aufgehört haben.", w_delete: "Löschen",
     c_approve: "Freigeben", c_changes: "Änderung anfragen", c_approved_t: "Kampagne freigegeben.", c_changes_t: "Änderungswunsch gesendet.",
     lg_campaign_sent: "Kampagne „{n}“ zur Freigabe gesendet", lg_campaign_approved: "Kampagne „{n}“ freigegeben", lg_campaign_changes: "Änderung angefragt: „{n}“", lg_research: "Wettbewerbs-Recherche „{q}“ ({n} Anzeigen)",
     cta_LEARN_MORE: "Mehr dazu", cta_SIGN_UP: "Registrieren", cta_GET_QUOTE: "Angebot anfordern", cta_BOOK_NOW: "Termin buchen", cta_WHATSAPP_MESSAGE: "WhatsApp-Nachricht senden", cta_CONTACT_US: "Kontakt aufnehmen",
@@ -81,7 +81,7 @@
     w_check: "Advertising law check", w_check_ok: "No critical wording found.", w_check_note: "Automatic check for typical medical advertising risks; not legal advice.",
     c_guarantee: "Guarantees or promised results are not allowed in medical advertising.", c_beforeafter: "Before/after images are prohibited for surgical procedures (§ 11 HWG).", c_painless: "“Painless” reads like a promise of cure; prefer “gentle”.", c_superlative: "Superlatives like “best” are misleading without proof.", c_100: "Absolute figures like “100%” read like a guarantee.", c_pressure: "Time pressure (“today only”) is unfair for health services.",
     w_summary: "Summary", w_save: "Save as draft", w_send: "Send to client for approval", w_create_meta: "Create paused in the ad account", w_create_soon: "Comes with write access (after Meta/Google approval).",
-    w_next_prod: "Continue to production", w_add_media: "Create image or video", w_add_media_d: "Own material or with AI", w_saved: "Draft saved.", w_sent: "Sent to the client for approval.", w_back: "Back", w_next: "Next", w_close: "Close", w_edit: "Edit", w_delete: "Delete",
+    w_next_prod: "Continue to production", w_add_media: "Create image or video", w_add_media_d: "Own material or with AI", w_saved: "Draft saved.", w_sent: "Sent to the client for approval.", w_back: "Back", w_next: "Next", w_close: "Close", w_edit: "Edit", w_resume: "Continue", w_autosaved: "Saved automatically", w_restored: "Your draft is back – continue where you left off.", w_delete: "Delete",
     c_approve: "Approve", c_changes: "Request changes", c_approved_t: "Campaign approved.", c_changes_t: "Change request sent.",
     lg_campaign_sent: "Campaign “{n}” sent for approval", lg_campaign_approved: "Campaign “{n}” approved", lg_campaign_changes: "Changes requested: “{n}”", lg_research: "Competitor research “{q}” ({n} ads)",
     cta_LEARN_MORE: "Learn more", cta_SIGN_UP: "Sign up", cta_GET_QUOTE: "Get quote", cta_BOOK_NOW: "Book now", cta_WHATSAPP_MESSAGE: "Send WhatsApp message", cta_CONTACT_US: "Contact us",
@@ -119,7 +119,7 @@
     w_check: "Reklam hukuku kontrolü", w_check_ok: "Kritik ifade bulunamadı.", w_check_note: "Tipik sağlık reklamı risklerine otomatik bakar; hukuki danışmanlık yerine geçmez.",
     c_guarantee: "Sağlık reklamlarında garanti veya sonuç vaadi yasak.", c_beforeafter: "Cerrahi işlemlerde öncesi/sonrası görseller yasak (§ 11 HWG).", c_painless: "“Ağrısız” tedavi vaadi gibi okunur; “nazik” daha uygun.", c_superlative: "“En iyi” gibi üstünlük ifadeleri kanıtsız yanıltıcıdır.", c_100: "“%100” gibi kesin rakamlar garanti gibi okunur.", c_pressure: "Zaman baskısı (“sadece bugün”) sağlık hizmetlerinde haksız rekabettir.",
     w_summary: "Özet", w_save: "Taslak olarak kaydet", w_send: "Müşteri onayına gönder", w_create_meta: "Reklam hesabında durdurulmuş olarak oluştur", w_create_soon: "Yazma izniyle gelecek (Meta/Google onayından sonra).",
-    w_next_prod: "Prodüksiyona geç", w_add_media: "Görsel veya video oluştur", w_add_media_d: "Kendi materyaliniz ya da yapay zeka", w_saved: "Taslak kaydedildi.", w_sent: "Müşteri onayına gönderildi.", w_back: "Geri", w_next: "İleri", w_close: "Kapat", w_edit: "Düzenle", w_delete: "Sil",
+    w_next_prod: "Prodüksiyona geç", w_add_media: "Görsel veya video oluştur", w_add_media_d: "Kendi materyaliniz ya da yapay zeka", w_saved: "Taslak kaydedildi.", w_sent: "Müşteri onayına gönderildi.", w_back: "Geri", w_next: "İleri", w_close: "Kapat", w_edit: "Düzenle", w_resume: "Devam et", w_autosaved: "Otomatik kaydedildi", w_restored: "Taslağınız geri geldi – kaldığınız yerden devam edin.", w_delete: "Sil",
     c_approve: "Onayla", c_changes: "Değişiklik iste", c_approved_t: "Kampanya onaylandı.", c_changes_t: "Değişiklik isteği gönderildi.",
     lg_campaign_sent: "“{n}” kampanyası onaya gönderildi", lg_campaign_approved: "“{n}” kampanyası onaylandı", lg_campaign_changes: "Değişiklik istendi: “{n}”", lg_research: "Rakip araştırması “{q}” ({n} reklam)",
     cta_LEARN_MORE: "Daha fazla bilgi", cta_SIGN_UP: "Kaydol", cta_GET_QUOTE: "Teklif al", cta_BOOK_NOW: "Randevu al", cta_WHATSAPP_MESSAGE: "WhatsApp mesajı gönder", cta_CONTACT_US: "Bize ulaşın",
@@ -131,9 +131,10 @@
 
   // ---------------------------------------------------------------- capabilities
   const useCap = (n) => { try { return window.claude?.use ? window.claude.use(n).catch(() => null) : Promise.resolve(null); } catch { return Promise.resolve(null); } };
-  const localKey = { research: "research", campaigns: "campaigns" };
+  const localKey = { research: "research", campaigns: "campaigns", profiles: "profiles" };
   live.research = store.get(localKey.research, []);
   live.campaigns = store.get(localKey.campaigns, []);
+  live.profiles = store.get(localKey.profiles, []);
   (async () => {
     const [m, s, d] = await Promise.all([useCap("mcp"), useCap("sample"), useCap("db")]);
     caps.mcp = m; caps.sample = s; caps.db = d;
@@ -150,11 +151,11 @@
         try {
           d.collection(name).onSnapshot((snap) => {
             live[name] = snap.docs.map((x) => ({ _id: x.id, ...x.data() }));
-            if (["research", "create", "log", "overview"].includes(state.view) && !wiz.open) render({ still: true });
+            if ((["research", "create", "log", "overview", "system"].includes(state.view) || !state.client) && !wiz.open && !state.ob && !document.activeElement?.matches?.("input,textarea,select")) render({ still: true });
           }, () => {});
         } catch {}
       };
-      sub("research"); sub("campaigns");
+      sub("research"); sub("campaigns"); sub("profiles");
     }
     if (["research", "create"].includes(state.view)) render({ still: true });
   })();
@@ -366,13 +367,14 @@ Antworte nur als JSON: {"variants":[{"angle": string (2–4 Wörter, auf ${({ de
   const stPill = (s) => `<span class="pill ${s === "approved" ? "good" : s === "pending" ? "warn" : s === "changes" ? "bad" : "neutral"}">${t(s === "approved" ? "st_approvedc" : "st_" + s)}</span>`;
   function vCreate() {
     const cl = C(), pv = state.preview;
+    restoreDraft(cl);
     const list = live.campaigns.filter((c) => c.client === cl.id && (!pv || c.status !== "draft")).sort((a, b) => ((a.updatedAt || a.createdAt) < (b.updatedAt || b.createdAt) ? 1 : -1));
     const rows = list.map((c) => `<div class="camp-row">
         <div class="cr-ic">${icon(c.obj === "search" ? "google" : "meta")}</div>
         <div class="cr-main"><b>${esc(c.name || c.topic || "—")}</b><span>${t("w_obj_" + c.obj)} · ${money(conv(c.daily, c.cur || "EUR"), { dec: 0 })}/${t("days", { n: 1 }).replace(/\d+\s?/, "")} · ${t("w_days_n", { n: c.days })} · ${esc(dfmt(c.start))}</span></div>
         ${stPill(c.status)}
         <div class="cr-acts">${pv ? (c.status === "pending" ? `<button class="btn sm primary" type="button" data-cappr="${esc(c._id)}">${icon("check")}${t("c_approve")}</button><button class="btn sm" type="button" data-cchg="${esc(c._id)}">${t("c_changes")}</button>` : "")
-          : `<button class="btn sm" type="button" data-cedit="${esc(c._id)}">${t("w_edit")}</button><button class="btn sm ghost icon" type="button" data-cdel="${esc(c._id)}" aria-label="${t("w_delete")}">${icon("trash")}</button>`}</div>
+          : `<button class="btn sm${c.status === "draft" ? " primary" : ""}" type="button" data-cedit="${esc(c._id)}">${t(c.status === "draft" ? "w_resume" : "w_edit")}</button><button class="btn sm ghost icon" type="button" data-cdel="${esc(c._id)}" aria-label="${t("w_delete")}">${icon("trash")}</button>`}</div>
         ${pv ? `<div class="cr-prev">${adPreview(c, cl)}</div>` : ""}
       </div>`).join("");
     const hasR = live.research.some((x) => x.client === cl.id), hasC = list.length > 0, hasM = list.some((c) => chosenMedia(c)), hasA = list.some((c) => c.status === "approved");
@@ -443,7 +445,31 @@ Antworte nur als JSON: {"variants":[{"angle": string (2–4 Wörter, auf ${({ de
       <div class="wz-foot">${s > 0 ? `<button class="btn ghost" type="button" data-wstep="${s - 1}">${t("w_back")}</button>` : ""}<span class="grow"></span>${s < 5 ? `<button class="btn accent" type="button" data-wstep="${s + 1}">${s === 3 ? `${icon("film")}${t("w_next_prod")}` : t("w_next")} ${icon("arrow")}</button>` : ""}</div></section>`;
   }
 
-  function openWizard(seed) { const cl = C(); wiz.open = true; wiz.step = seed?.obj ? 3 : 0; wiz.d = newDraft(cl, seed || {}); wiz.variants = null; wiz.error = null; go("create"); }
+  // Taslak otomatik kayıt: her değişiklik 0,8 sn sonra campaigns'e yazılır; açık taslak + adım hatırlanır, geri gelince aynı yerden açılır.
+  let draftT = null;
+  function autosave(now) {
+    if (!wiz.open || !wiz.d || state.preview) return;
+    wiz.dirty = true;
+    store.set("wizOpen", { id: wiz.d._id, step: wiz.step, client: wiz.d.client });
+    clearTimeout(draftT);
+    const run = () => { draftT = null; if (!wiz.d) return; const { _id, ...rest } = wiz.d; saveDoc("campaigns", _id, { ...rest, step: wiz.step, updatedAt: new Date().toISOString() }); };
+    if (now) run(); else draftT = setTimeout(run, 800);
+  }
+  const flushDraft = () => { if (draftT) { clearTimeout(draftT); autosave(true); } };
+  function restoreDraft(cl) {
+    if (wiz.open || state.preview) return;
+    const o = store.get("wizOpen", null);
+    if (!o || o.client !== cl.id) return;
+    const c = live.campaigns.find((x) => x._id === o.id);
+    if (!c) return;
+    wiz.open = true; wiz.d = { ...c }; wiz.step = Math.max(0, Math.min(5, +(o.step ?? c.step ?? 0))); wiz.variants = null; wiz.error = null;
+    setTimeout(() => toast(t("w_restored"), "check"), 50);
+  }
+  const closeWizard = () => { flushDraft(); wiz.open = false; wiz.dirty = false; store.set("wizOpen", null); };
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") flushDraft(); });
+  window.addEventListener("pagehide", flushDraft);
+
+  function openWizard(seed) { flushDraft(); const cl = C(); wiz.open = true; wiz.step = seed?.obj ? 3 : 0; wiz.d = newDraft(cl, seed || {}); wiz.variants = null; wiz.error = null; autosave(); go("create"); }
 
   VIEWS.research = vResearch;
   VIEWS.create = vCreate;
@@ -469,24 +495,25 @@ Antworte nur als JSON: {"variants":[{"angle": string (2–4 Wörter, auf ${({ de
       if (idea) openWizard({ obj: "lead", name: idea.title, topic: idea.title, headline: idea.headline || "", inspired: { q: doc.query, headline: idea.headline, why: idea.why } });
       return;
     }
-    if (d.cnew) { wiz.open = true; wiz.step = 0; wiz.d = newDraft(cl); wiz.variants = null; wiz.error = null; return render({ still: true }); }
-    if (d.cedit) { const c = live.campaigns.find((x) => x._id === d.cedit); if (c) { wiz.open = true; wiz.step = 0; wiz.d = { ...c }; wiz.variants = null; } return render({ still: true }); }
-    if (d.cdel) { await deleteDoc("campaigns", d.cdel); return render({ still: true }); }
+    if (d.cnew) { flushDraft(); wiz.open = true; wiz.step = 0; wiz.d = newDraft(cl); wiz.variants = null; wiz.error = null; return render({ still: true }); }
+    if (d.cedit) { const c = live.campaigns.find((x) => x._id === d.cedit); if (c) { flushDraft(); wiz.open = true; wiz.step = c.status === "draft" ? Math.max(0, Math.min(5, +(c.step || 0))) : 0; wiz.d = { ...c }; wiz.variants = null; wiz.error = null; store.set("wizOpen", { id: c._id, step: wiz.step, client: c.client }); } return render({ still: true }); }
+    if (d.cdel) { if (wiz.d?._id === d.cdel) { clearTimeout(draftT); draftT = null; wiz.open = false; store.set("wizOpen", null); } await deleteDoc("campaigns", d.cdel); return render({ still: true }); }
     if (d.cappr || d.cchg) {
       const c = live.campaigns.find((x) => x._id === (d.cappr || d.cchg));
       if (c) { const { _id, ...rest } = c; await saveDoc("campaigns", c._id, { ...rest, status: d.cappr ? "approved" : "changes", updatedAt: new Date().toISOString(), by: state.preview ? "client" : "agency" }); toast(t(d.cappr ? "c_approved_t" : "c_changes_t")); }
       return render({ still: true });
     }
-    if (d.wclose) { wiz.open = false; return render({ still: true }); }
-    if (d.wstep !== undefined) { wiz.step = Math.max(0, Math.min(5, +d.wstep)); return render({ still: true }); }
-    if (d.wobj) { wiz.d.obj = d.wobj; const o = OBJS.find((x) => x[0] === d.wobj); if (o?.[2]) wiz.d.cta = o[2]; return render({ still: true }); }
-    if (d.wlang) { const s = new Set(wiz.d.langs); s.has(d.wlang) ? s.delete(d.wlang) : s.add(d.wlang); wiz.d.langs = [...s]; return render({ still: true }); }
+    if (d.wclose) { if (wiz.dirty) toast(t("w_autosaved"), "check"); closeWizard(); return render({ still: true }); }
+    if (d.wstep !== undefined) { wiz.step = Math.max(0, Math.min(5, +d.wstep)); autosave(); return render({ still: true }); }
+    if (d.wobj) { wiz.d.obj = d.wobj; const o = OBJS.find((x) => x[0] === d.wobj); if (o?.[2]) wiz.d.cta = o[2]; autosave(); return render({ still: true }); }
+    if (d.wlang) { const s = new Set(wiz.d.langs); s.has(d.wlang) ? s.delete(d.wlang) : s.add(d.wlang); wiz.d.langs = [...s]; autosave(); return render({ still: true }); }
     if (d.wsug) return suggestCopy();
-    if (d.wpick) { const v = wiz.variants?.[+d.wpick]; if (v) Object.assign(wiz.d, { headline: v.headline || "", text: v.text || "", desc: v.desc || "", cta: CTAS.includes(v.cta) ? v.cta : wiz.d.cta }); return render({ still: true }); }
+    if (d.wpick) { const v = wiz.variants?.[+d.wpick]; if (v) { Object.assign(wiz.d, { headline: v.headline || "", text: v.text || "", desc: v.desc || "", cta: CTAS.includes(v.cta) ? v.cta : wiz.d.cta }); autosave(); } return render({ still: true }); }
     if (d.wsave) {
+      clearTimeout(draftT); draftT = null;
       const { _id, ...rest } = wiz.d;
-      await saveDoc("campaigns", _id, { ...rest, status: d.wsave, updatedAt: new Date().toISOString() });
-      wiz.open = false; toast(t(d.wsave === "pending" ? "w_sent" : "w_saved"), d.wsave === "pending" ? "send" : "check");
+      await saveDoc("campaigns", _id, { ...rest, status: d.wsave, step: wiz.step, updatedAt: new Date().toISOString() });
+      wiz.open = false; wiz.dirty = false; store.set("wizOpen", null); toast(t(d.wsave === "pending" ? "w_sent" : "w_saved"), d.wsave === "pending" ? "send" : "check");
       return render({ still: true });
     }
   });
@@ -501,6 +528,7 @@ Antworte nur als JSON: {"variants":[{"angle": string (2–4 Wörter, auf ${({ de
     if (el.dataset.w && wiz.d) {
       const k = el.dataset.w;
       wiz.d[k] = ["radius", "ageMin", "ageMax", "daily", "days"].includes(k) ? +el.value : el.value;
+      autosave();
       if (e.type === "change" || ["headline", "text", "desc"].includes(k)) {
         if (["headline", "text", "desc", "cta"].includes(k)) {
           // nur Vorschau und Check aktualisieren, Fokus bleibt

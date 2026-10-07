@@ -1070,7 +1070,7 @@
     const preview = state.preview && cl;
     const themeIc = state.theme === "dark" ? "moon" : state.theme === "light" ? "sun" : "auto";
     const nOpen = cl ? openActions(cl).length : 0;
-    const clientNav = [["overview", "overview"], ["chat", "chat"], ["plan", "plan"], ["research", "radar"], ["create", "studio"], ["meta", "meta"], ["google", "google"], ["social", "social"], ["reports", "reports"], ["log", "log"], ["settings", "settings"]];
+    const clientNav = [["overview", "overview"], ["chat", "chat"], ["plan", "plan"], ["system", "layers"], ["research", "radar"], ["create", "studio"], ["meta", "meta"], ["google", "google"], ["social", "social"], ["reports", "reports"], ["log", "log"], ["settings", "settings"]];
     const navItem = (v, ic, label, extra = "") => `<a href="#${v}" data-nav="${v}" ${(!cl && v === "clients") || (cl && state.view === v) ? 'aria-current="page"' : ""}>${icon(ic)}<span>${label}</span>${extra}</a>`;
     document.getElementById("app").innerHTML = `
       <div class="app ${preview ? "is-preview" : ""} ${cl ? "has-tabs" : ""}">
@@ -1090,7 +1090,7 @@
               <button class="btn icon" type="button" data-act="theme" aria-label="${t("theme")}">${icon(themeIc)}</button></div>
               ${cl ? `<button class="btn" type="button" data-act="preview">${icon("eye")}${preview ? t("preview_exit") : t("preview_btn")}</button>` : ""}
             </div>
-            ${preview ? "" : `<button class="connect-cta" type="button" data-act="ob-open">${icon("plus")}<div><b>${t("new_client")}</b><span>Meta · Google · Facebook · Instagram</span></div></button>`}
+            ${preview ? "" : `<button class="connect-cta" type="button" data-act="ob-new">${icon("plus")}<div><b>${t("new_client")}</b><span>${t("o_steps").join(" · ")}</span></div></button>`}
             <div class="who"><span class="avatar"></span><span>${preview ? esc(cl.name) : "Enes Ceylan · " + t("admin")}</span></div>
           </div>
         </aside>
@@ -1143,6 +1143,7 @@
 
   // ================================================================ views
   function vClients() {
+    if (sys.open) { const sp = vSysStandalone(); if (sp) return sp; }
     const from = addD(state.end, -29), pFrom = addD(from, -30), pTo = addD(from, -1);
     let open = 0, urgent = 0, withAcc = 0;
     const rows = CLIENTS.map((cl) => {
@@ -1173,6 +1174,7 @@
         <thead><tr><th>${t("col_client")}</th><th>${t("col_channels")}</th><th class="r">${t("col_requests")}</th><th class="r">${t("col_cpr")}</th><th class="r">${t("col_budget")}</th><th class="r">${t("col_actions")}</th><th>${t("col_access")}</th><th></th></tr></thead>
         <tbody>${rows}</tbody></table></div></section>
       ${UNASSIGNED.length ? `<section class="card"><div class="card-h"><h2>${t("unassigned")}</h2><span class="sub">${t("unassigned_d")}</span></div><div class="card-b">${UNASSIGNED.map((a) => `<div class="acc-line">${icon("meta")}<div class="grow"><span class="t">${esc(a.name)}</span><span class="s">${esc(a.id)} · ${a.currency}</span></div><button class="btn sm" type="button" data-act="assign">${t("assign")}</button></div>`).join("")}</div></section>` : ""}
+      ${profilesSection()}
       ${foot()}`;
   }
 
@@ -1671,32 +1673,7 @@
       </section>`;
   }
 
-  // ---------------------------------------------------------------- onboarding
-  function onboarding() {
-    const ob = state.ob, steps = t("ob_steps");
-    let body = "";
-    if (ob.step === 0) {
-      body = `<span class="ob-banner">${t("ob_preview")}</span><h2>${t("ob1_h")}</h2>
-        <div class="field"><label for="obName">${t("ob_name")}</label><div class="input wide"><input id="obName" data-ob="name" value="${esc(ob.name)}" style="font-family:var(--sans)"></div></div>
-        <div class="field-row"><div class="field"><label for="obSector">${t("ob_sector")}</label><div class="input"><select id="obSector" data-ob="sector">${["implant", "dental", "hair", "aesthetic", "eye"].map((s) => `<option value="${s}" ${ob.sector === s ? "selected" : ""}>${t("sector_" + s)}</option>`).join("")}</select></div></div>
-        <div class="field"><label for="obCity">${t("ob_city")}</label><div class="input"><input id="obCity" data-ob="city" value="${esc(ob.city)}" style="font-family:var(--sans)"></div></div></div>`;
-    } else if (ob.step === 1) {
-      const row = (k, ic, name, d) => `<div class="ob-src">${icon(ic)}<div class="grow"><b>${name}</b><span>${d}</span></div>${ob.conn[k] === "ok" ? `<span class="pill good">${icon("check")}${t("connected")}</span>` : ob.conn[k] === "wait" ? `<span class="btn sm" aria-busy="true"><span class="spin"></span>${t("connecting")}</span>` : `<button class="btn sm" type="button" data-obconn="${k}">${t("connect")}</button>`}</div>`;
-      body = `<h2>${t("ob2_h")}</h2><p>${t("ob2_p")}</p><div class="ob-srcs">${row("meta", "meta", "Meta Ads", t("ob_meta_d"))}${row("google", "google", "Google Ads", t("ob_google_d"))}${row("fb", "fb", "Facebook", t("ob_fb_d"))}${row("ig", "ig", "Instagram", t("ob_ig_d"))}</div>`;
-    } else if (ob.step === 2) {
-      body = `<h2>${t("ob3_h")}</h2><p>${t("ob3_p")}</p><div class="field"><label for="obTarget">${t("ob_target")}</label><div class="input"><input id="obTarget" data-ob="target" inputmode="decimal" placeholder="${t("auto")}" value="${esc(ob.target)}"><span>${state.cur}</span></div></div>`;
-    } else {
-      body = `<h2>${t("ob4_h")}</h2><p>${t("ob4_p")}</p><div class="field"><label for="obMail">${t("ob_email")}</label><div class="input wide"><input id="obMail" data-ob="email" type="email" value="${esc(ob.email)}" style="font-family:var(--sans)"></div></div>`;
-    }
-    return `<div class="ob-wrap" role="dialog" aria-modal="true" aria-label="${t("ob_t")}"><div class="ob">
-      <div class="ob-steps"><div class="brand"><div class="brand-mark">${icon("logo")}</div><div class="brand-name">${t("ob_t")}</div></div>
-        ${steps.map((s, i) => `<div class="ob-step ${i === ob.step ? "on" : i < ob.step ? "done" : ""}"><span class="n">${i < ob.step ? "✓" : i + 1}</span><span>${esc(s)}</span></div>`).join("")}</div>
-      <div class="ob-main">${body}
-        <div class="ob-foot"><span class="note">${ob.step + 1} / 4</span>
-          ${ob.step === 0 ? `<button class="btn ghost" type="button" data-act="ob-close">${t("cancel")}</button>` : `<button class="btn ghost" type="button" data-act="ob-back">${t("back")}</button>`}
-          ${ob.step < 3 ? `<button class="btn accent" type="button" data-act="ob-next">${t("next")} ${icon("arrow")}</button>` : `<button class="btn accent" type="button" data-act="ob-finish">${t("ob_done")}</button>`}
-        </div></div></div></div>`;
-  }
+
 
   // ================================================================ render
   const VIEWS = { overview: vOverview, plan: vPlan, meta: vMeta, google: vGoogle, social: vSocial, reports: vReports, log: vLog, settings: vSettings };
@@ -1763,7 +1740,7 @@
 
   // ================================================================ events
   document.addEventListener("click", (e) => {
-    const el = e.target.closest("[data-nav],[data-act],[data-win],[data-cur],[data-lang],[data-client],[data-chart],[data-gchart],[data-dec],[data-reason],[data-undo],[data-done],[data-ptab],[data-pch],[data-sort],[data-cf],[data-lf],[data-week],[data-sw],[data-setend],[data-obconn]");
+    const el = e.target.closest("[data-nav],[data-act],[data-win],[data-cur],[data-lang],[data-client],[data-chart],[data-gchart],[data-dec],[data-reason],[data-undo],[data-done],[data-ptab],[data-pch],[data-sort],[data-cf],[data-lf],[data-week],[data-sw],[data-setend]");
     if (!el) { if (state.pop && !e.target.closest("#clSel")) { state.pop = false; render({ still: true }); } return; }
     const d = el.dataset;
     if (d.nav) { e.preventDefault(); if (d.nav === "clients") go(null, null); else go(d.nav); return; }
@@ -1786,8 +1763,7 @@
     if (d.week) { state.repWeek = +d.week; render({ still: true }); return; }
     if (d.sw) { state.notify = { ...state.notify, [d.sw]: !state.notify[d.sw] }; store.set("notify", state.notify); el.setAttribute("aria-checked", String(state.notify[d.sw])); return; }
     if (d.setend) { state.end = d.setend; store.set("end", d.setend); planCache.clear(); render({ still: true }); return; }
-    if (d.obconn) { const k = d.obconn; state.ob.conn[k] = "wait"; render({ still: true }); setTimeout(() => { if (state.ob) { state.ob.conn[k] = "ok"; render({ still: true }); } }, 1100); return; }
-    switch (d.act) {
+        switch (d.act) {
       case "pop": state.pop = !state.pop; render({ still: true }); break;
       case "menu": state.menu = true; render({ still: true }); break;
       case "menu-close": state.menu = false; render({ still: true }); break;
@@ -1798,18 +1774,14 @@
         store.set("theme", state.theme); render({ still: true }); break;
       case "reason-cancel": state.reasonFor = null; render({ still: true }); break;
       case "invite": toast(t("invite_toast"), "send"); break;
-      case "assign": state.ob = { step: 0, name: UNASSIGNED[0]?.name || "", sector: "dental", city: "", target: "", email: "", conn: { meta: "ok" } }; render({ still: true }); break;
-      case "ob-open": state.ob = { step: 0, name: "", sector: "implant", city: "", target: "", email: "", conn: {} }; state.menu = false; render({ still: true }); break;
-      case "ob-close": state.ob = null; render({ still: true }); break;
-      case "ob-back": state.ob.step = Math.max(0, state.ob.step - 1); render({ still: true }); break;
-      case "ob-next": state.ob.step = Math.min(3, state.ob.step + 1); render({ still: true }); break;
-      case "ob-finish": state.ob = null; render({ still: true }); toast(t("ob_done_toast"), "check"); break;
+      case "assign": obOpen({ blank: true, a: { name: UNASSIGNED[0]?.name || "" } }); break;
+      case "ob-open": obOpen(); break;
+      case "ob-new": obOpen({ blank: true }); break;
     }
   });
   document.addEventListener("input", (e) => {
     const el = e.target;
     if (el.id === "q") { state.search = el.value; render({ still: true }); return; }
-    if (el.dataset.ob && state.ob) { state.ob[el.dataset.ob] = el.value; }
   });
   document.addEventListener("change", (e) => {
     const el = e.target;
@@ -1818,7 +1790,6 @@
     if (el.dataset.target) { const v = String(el.value).trim(); state.targets = { ...state.targets, [el.dataset.target]: v === "" ? "" : numv(v) }; store.set("targets", state.targets); planCache.clear(); render({ still: true }); return; }
     if (el.dataset.as) { const cl = C(), k = el.dataset.as, raw = String(el.value).trim(); const v = raw === "" ? "" : k === "value" ? numv(raw) : numv(raw) / 100; state.assumptions = { ...state.assumptions, [cl.id]: { ...(state.assumptions[cl.id] || {}), [k]: v } }; store.set("assumptions", state.assumptions); render({ still: true }); return; }
     if (el.id === "endDate" && el.value) { state.end = el.value; store.set("end", el.value); planCache.clear(); render({ still: true }); return; }
-    if (el.dataset.ob && state.ob) { state.ob[el.dataset.ob] = el.value; }
   });
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
@@ -1833,5 +1804,7 @@
     else if (VIEWS_CLIENT.includes(v) && state.client && v !== state.view) go(v);
   });
 
+  // Studio/System görünümleri VIEWS_CLIENT'e sonradan eklenir: kayıtlı görünümü şimdi uygula (yenileyince aynı sayfa)
+  { const v0 = VIEWS_CLIENT.includes(hash) ? hash : store.get("view", "overview"); if (VIEWS_CLIENT.includes(v0) && VIEWS[v0]) state.view = v0; }
   render();
 })();

@@ -142,3 +142,45 @@ Akış: Recherche → Kampagne → **Produktion** → Freigabe (sayfanın üstü
   Kundenansicht'te oynar. Görüntülenemezse link gösterilir.
 - Bağlayıcı: claude.ai → Connectors → `Higgsfield` (`https://mcp.higgsfield.ai/mcp`). Krediler Higgsfield
   hesabından düşer. Bağlı olmayan görüntüleyici (ör. klinik) üretim düğmelerini kapalı görür; üretimi ajans yapar.
+
+## Müşteri sistemi (onboard.js)
+
+Yeni bir müşteri devralındığında "Müşteri kur" (sol menü) üç adımlı bir sihirbaz açar:
+
+1. **Sorular:** firma, ne sattığı, en kârlı ürün, kim alıyor, web sitesi, Instagram, bütçe, hedef, reklam dili, eldeki materyal, paneldeki reklam hesabı.
+2. **Araştırma (Apify):** web sitesi `apify/rag-web-browser` ile, Instagram `apify/instagram-profile-scraper` ile, benzer firmaların reklamları `apify/facebook-ads-scraper` ile okunur. Her kaynak ayrı çalışır; biri başarısız olsa da devam edilir.
+3. **Strateji (Claude):** tek bir `sample.json` çağrısı şunları üretir:
+   - özet ve konumlandırma,
+   - hedef kitleler,
+   - kanal/bütçe dağılımı,
+   - kampanya planı,
+   - 4 reklam konsepti (metin, görsel tarifi, İngilizce görsel promptu, karusel metinleri),
+   - müşteriden istenecekler / bizim üreteceklerimiz,
+   - hemen yapılacaklar.
+
+Sonuç db `profiles` koleksiyonuna yazılır. Hesaba bağlıysa müşterinin **Müşteri sistemi** sekmesinde, bağlı değilse müşteri listesinin altında "Müşteri sistemleri" bölümünde görünür. Sistem sayfasında:
+
+- konsept başına reklam önizlemesi,
+- **YZ görseli** (gpt_image_2_5, yaklaşık 0,5 kredi; isteğe bağlı olarak seçili fotoğraf referans alınır),
+- **kendi fotoğraflarından karusel** (Higgsfield sandbox'ında ffmpeg ile, kredisiz),
+- **Kampanya olarak oluştur** (konsepti metni ve görseliyle kampanya sihirbazına taşır),
+- müşteri talep listesi (işaretlenebilir; "Mesajı kopyala" / WhatsApp ile gönder).
+
+Her adım otomatik kaydedilir; yarıda kalan kurulum "Devam et" ile açılır. İnci Patisserie için örnek bir sistem (demo) gömülüdür.
+
+### Kampanya taslakları
+
+Kampanya sihirbazındaki her değişiklik 0,8 saniye sonra `campaigns` koleksiyonuna `status: "draft"` ve `step` ile yazılır. Açık taslak hatırlanır: sayfa yenilense ya da başka sekmeye geçilse de aynı adımda geri açılır. Listede taslaklar "Devam et" butonuyla görünür.
+
+### Sunucu gerekiyor mu?
+
+Şu an hayır:
+
+| İhtiyaç | Karşılayan |
+| --- | --- |
+| Uygulama | claude.ai artifact |
+| Depo | artifact veritabanı (`research`, `campaigns`, `profiles`) |
+| Entegrasyon | claude.ai bağlayıcıları (Apify, Higgsfield) |
+| Zamanlama | Claude Routines |
+
+Deploy, sunucu ya da bakım yok. Müşteri sayısı ve müşteri girişi büyüdüğünde hazır bir servis (ör. Supabase) eklenir.
