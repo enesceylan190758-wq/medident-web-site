@@ -21,7 +21,7 @@
     p_upload_fail: "Direkt-Upload ist hier nicht möglich. Bitte einen öffentlichen Link einfügen (z. B. Website, Google Drive „Jeder mit Link“).",
     p_rules: "Für Gesundheitswerbung gilt: keine Vorher-Nachher-Bilder, keine erfundenen Patienten oder Ärzte, keine Heilversprechen. Diese Regeln werden der KI automatisch mitgegeben.",
     p_hf_missing: "Higgsfield ist für diese Seite nicht verbunden. Die Agentur erstellt das Material; als Agentur verbinden Sie Higgsfield in claude.ai unter Connectors.",
-    p_hf_err: "Higgsfield: {m}", p_hf_credits: "Nicht genug Higgsfield-Credits. Bitte im Higgsfield-Konto aufladen.",
+    p_hf_err: "Higgsfield: {m}", p_hf_consent: "Die Freigabe für Higgsfield ist noch nicht bestätigt. Bitte über „Berechtigungen öffnen“ erlauben und dann erneut tippen.", p_hf_busy: "Higgsfield antwortet gerade nicht. Bitte gleich noch einmal tippen.", p_hf_reauth: "Die Higgsfield-Verbindung ist abgelaufen. Bitte in claude.ai unter Connectors neu verbinden.", p_hf_select: "Es gibt mehrere Higgsfield-Verbindungen. Bitte in claude.ai eine auswählen.", p_hf_policy: "Higgsfield ist durch eine Richtlinie Ihrer Organisation gesperrt.", p_hf_perm_btn: "Berechtigungen öffnen", p_hf_perm_menu: "Bitte im Menü des Artefakts unter „Berechtigungen“ Higgsfield erlauben.", p_hf_credits: "Nicht genug Higgsfield-Credits. Bitte im Higgsfield-Konto aufladen.",
     p_hf_denied: "Higgsfield ist für diese Seite nicht freigegeben. Bitte im Berechtigungsmenü des Artefakts erlauben.",
     p_from: "Vorlage aus der Recherche „{q}“", p_auto: "Die KI schreibt den Brief aus Anzeigentext und Vorlage …", p_note_ratio: "Instagram-Feed-Videos werden im nächstliegenden Format erstellt ({r}).",
     w_material: "Material", w_material_none: "noch keins",
@@ -45,7 +45,7 @@
     p_upload_fail: "Direct upload is not possible here. Please paste a public link (e.g. website, Google Drive “anyone with the link”).",
     p_rules: "Health advertising rules apply: no before/after images, no invented patients or doctors, no promises of results. These rules are passed to the AI automatically.",
     p_hf_missing: "Higgsfield is not connected for this page. The agency creates the material; as the agency, connect Higgsfield in claude.ai under Connectors.",
-    p_hf_err: "Higgsfield: {m}", p_hf_credits: "Not enough Higgsfield credits. Please top up in the Higgsfield account.",
+    p_hf_err: "Higgsfield: {m}", p_hf_consent: "Access to Higgsfield is not confirmed yet. Please allow it via “Open permissions”, then tap again.", p_hf_busy: "Higgsfield is not responding right now. Please tap again in a moment.", p_hf_reauth: "The Higgsfield connection has expired. Please reconnect it in claude.ai under Connectors.", p_hf_select: "There are several Higgsfield connections. Please choose one in claude.ai.", p_hf_policy: "Higgsfield is blocked by your organization's policy.", p_hf_perm_btn: "Open permissions", p_hf_perm_menu: "Please allow Higgsfield in the artifact menu under “Permissions”.", p_hf_credits: "Not enough Higgsfield credits. Please top up in the Higgsfield account.",
     p_hf_denied: "Higgsfield is not allowed for this page. Please allow it in the artifact's permissions menu.",
     p_from: "Based on the research “{q}”", p_auto: "AI is writing the brief from the ad copy and template …", p_note_ratio: "Instagram feed videos are created in the closest format ({r}).",
     w_material: "Material", w_material_none: "none yet",
@@ -69,7 +69,7 @@
     p_upload_fail: "Buradan doğrudan yükleme yapılamıyor. Lütfen herkese açık bir link yapıştırın (ör. web sitesi, Google Drive “linke sahip herkes”).",
     p_rules: "Sağlık reklamı kuralları geçerli: öncesi/sonrası görsel, uydurma hasta veya doktor, sonuç vaadi yok. Bu kurallar yapay zekaya otomatik iletilir.",
     p_hf_missing: "Bu sayfa için Higgsfield bağlı değil. Materyali ajans üretir; ajans olarak Higgsfield'ı claude.ai'de Connectors bölümünden bağlayın.",
-    p_hf_err: "Higgsfield: {m}", p_hf_credits: "Higgsfield kredisi yetersiz. Lütfen Higgsfield hesabından yükleyin.",
+    p_hf_err: "Higgsfield: {m}", p_hf_consent: "Higgsfield erişimi henüz onaylanmadı. “İzinleri aç” ile izin verip tekrar dokunun.", p_hf_busy: "Higgsfield şu an cevap vermiyor. Lütfen birazdan tekrar dokunun.", p_hf_reauth: "Higgsfield bağlantısının süresi doldu. claude.ai'de Connectors bölümünden yeniden bağlayın.", p_hf_select: "Birden fazla Higgsfield bağlantısı var. Lütfen claude.ai'de birini seçin.", p_hf_policy: "Higgsfield, organizasyonunuzun kuralı nedeniyle engelli.", p_hf_perm_btn: "İzinleri aç", p_hf_perm_menu: "Lütfen artefakt menüsündeki “İzinler” bölümünden Higgsfield'e izin verin.", p_hf_credits: "Higgsfield kredisi yetersiz. Lütfen Higgsfield hesabından yükleyin.",
     p_hf_denied: "Bu sayfa için Higgsfield izni yok. Artefaktın izinler menüsünden izin verin.",
     p_from: "“{q}” araştırmasından şablon", p_auto: "Yapay zeka tarifi reklam metni ve şablondan yazıyor …", p_note_ratio: "Instagram akış videoları en yakın formatta ({r}) üretilir.",
     w_material: "Materyal", w_material_none: "henüz yok",
@@ -92,19 +92,50 @@
   const crt = () => (wiz.d.creative ||= newCreative());
   const ratioOf = (c) => (c.kind === "image" ? PFORMATS[c.format].img : PFORMATS[c.format][c.tier]);
 
+  // Fehler nach Code, nie nach Text verzweigen; pr.fix sagt, welche Handlung den Zustand behebt
   function hfErr(e) {
     const c = e?.code, m = String(e?.message || "");
-    if (["server_not_connected", "selection_required", "server_not_found", "capability_disabled", "capability_removed"].includes(c)) return t("p_hf_missing");
-    if (["not_in_manifest", "not_granted", "consent_required"].includes(c)) return t("p_hf_denied");
+    pr.fix = "";
+    if (["server_not_connected", "server_not_found", "capability_disabled", "capability_removed"].includes(c)) return t("p_hf_missing");
+    if (c === "selection_required") return t("p_hf_select");
+    if (c === "needs_reauth") return t("p_hf_reauth");
+    if (["not_in_manifest", "not_granted", "consent_required", "hf_denied"].includes(c)) { pr.fix = "perm"; return t("p_hf_denied"); }
+    if (c === "upstream_error" && e?.retryable) { pr.fix = "perm"; return t("p_hf_consent"); }
+    if (c === "server_unavailable") return t("p_hf_busy");
+    if (c === "blocked_by_policy" || c === "approval_required") return t("p_hf_policy");
     if (/credit|insufficient|balance/i.test(m)) return t("p_hf_credits");
     return t("p_hf_err", { m: m || c || "?" });
   }
+  // Vor dem ersten Aufruf ausdrücklich um die Freigabe für Higgsfield bitten (läuft im Klick, daher erlaubt)
+  async function ensureHf() {
+    const perms = await useCap("permissions");
+    if (!perms) return;
+    const st = await perms.state("mcp:" + HF).catch(() => "unavailable");
+    if (st === "prompt") {
+      const r = await perms.request(["mcp:" + HF]).catch(() => ({}));
+      if (r["mcp:" + HF] === "denied") throw { code: "hf_denied" };
+    } else if (st === "denied") throw { code: "hf_denied" };
+  }
+  const SAFE = new Set(["jobs_wait", "media_import_url", "media_upload", "media_confirm"]);
   async function hf(tool, args) {
     if (!caps.mcp) throw { code: "capability_disabled" };
-    const r = await caps.mcp.callTool(HF, tool, args, { cache: false });
+    let r;
+    try { r = await caps.mcp.callTool(HF, tool, args, { cache: false }); }
+    catch (e) {
+      // Einmal wiederholen, wenn der Aufruf die Verbindung nie erreicht hat (Freigabe gerade offen) – nur bei Lese-/Preisabfragen
+      const readOnly = SAFE.has(tool) || args?.params?.get_cost;
+      if (!(e?.retryable && readOnly)) throw e;
+      await new Promise((ok) => setTimeout(ok, Math.min(8000, e.retryAfterMs || 1500 + Math.random() * 1000)));
+      r = await caps.mcp.callTool(HF, tool, args, { cache: false });
+    }
     const p = asJson(r?.payload);
     if (p && typeof p === "object" && p.error) throw { code: "tool_error", message: typeof p.error === "string" ? p.error : p.error.message };
     return p || {};
+  }
+  async function openPerms() {
+    const perms = await useCap("permissions");
+    try { await perms?.manage(); } catch { toast(t("p_hf_perm_menu"), "lock"); }
+    pr.error = null; render({ still: true });
   }
   function genArgs(c, extra = {}) {
     const prompt = (c.prompt || c.brief || "").trim() + GUARD;
@@ -121,6 +152,7 @@
     const c = crt(); if (pr.busy) return;
     pr.busy = "cost"; pr.error = null; render({ still: true });
     try {
+      await ensureHf();
       const { tool, params } = genArgs(c, { get_cost: true });
       const p = await hf(tool, { params, context: "Cost preflight for a clinic ad creative in an agency panel." });
       pr.cost = p.cost?.credits ?? p.cost?.credits_exact ?? null; pr.costKey = costKey(c);
@@ -131,6 +163,7 @@
     const c = crt(); if (pr.busy || !(c.brief || "").trim()) return;
     pr.busy = "make"; pr.error = null; render({ still: true });
     try {
+      await ensureHf();
       if (!c.prompt || c.promptFor !== c.brief) await toPrompt(c);
       const { tool, params } = genArgs(c, { count: 1 });
       const p = await hf(tool, { params, context: "Create a compliant clinic ad creative from the campaign brief in an agency panel." });
@@ -196,6 +229,7 @@ Antworte auf ${lang}, nur als JSON: {"brief": string (2–3 Sätze, konkret: Mot
     pr.busy = "own"; pr.error = null; render({ still: true });
     const type = /\.(mp4|mov|webm)(\?|$)/i.test(url) ? "video" : /\.(jpe?g|png|webp)(\?|$)/i.test(url) ? "image" : "auto";
     try {
+      await ensureHf();
       const p = await hf("media_import_url", { url, type });
       c.own = { url: p.source_url || url, mediaId: p.media_id, type: p.type || (type === "auto" ? "image" : type) };
       pr.link = ""; toast(t("p_own_ok"));
@@ -207,6 +241,7 @@ Antworte auf ${lang}, nur als JSON: {"brief": string (2–3 Sätze, konkret: Mot
     const c = crt(); if (!file || pr.busy) return;
     pr.busy = "own"; pr.error = null; render({ still: true });
     try {
+      await ensureHf();
       const p = await hf("media_upload", { filename: file.name.replace(/[^\w.-]+/g, "_"), content_type: file.type || undefined });
       const u = (p.uploads || [])[0];
       if (!u?.upload_url) throw { code: "tool_error", message: "upload" };
@@ -285,7 +320,7 @@ Antworte auf ${lang}, nur als JSON: {"brief": string (2–3 Sätze, konkret: Mot
         <div class="field"><span class="flabel">${t("p_format")}</span><div class="fmt-grid">${Object.keys(PFORMATS).map((f) => `<button type="button" class="fmt ${c.format === f ? "on" : ""}" data-pset="format:${f}"><i class="fr r${(c.kind === "image" ? PFORMATS[f].img : PFORMATS[f][c.tier]).replace(":", "x")}"></i><b>${t("p_f_" + f)}</b><span>${c.kind === "image" ? PFORMATS[f].img : PFORMATS[f][c.tier]}</span></button>`).join("")}</div>
           ${c.kind === "video" && c.format === "feed" ? `<span class="footnote">${t("p_note_ratio", { r: PFORMATS.feed[c.tier] })}</span>` : ""}</div>
         ${c.mode === "own" ? ownPane : aiPane}
-        ${pr.error ? `<div class="banner warn">${icon("x")}<span>${esc(pr.error)}</span></div>` : ""}
+        ${pr.error ? `<div class="banner warn">${icon("x")}<span>${esc(pr.error)}</span>${pr.fix === "perm" ? `<button class="btn sm" type="button" data-pperm="1">${icon("lock")}${t("p_hf_perm_btn")}</button>` : ""}</div>` : ""}
         <p class="footnote">${t("p_rules")}</p>
         ${c.items.length ? `<div class="field"><span class="flabel">${t("p_results")}</span>${results}</div>` : ""}
       </div><div class="wz-prev"><span class="eyebrow">${t("w_preview")}</span>${adPreview(wiz.d, cl, true)}</div></div>`;
@@ -293,9 +328,10 @@ Antworte auf ${lang}, nur als JSON: {"brief": string (2–3 Sätze, konkret: Mot
 
   // ---------------------------------------------------------------- Ereignisse
   document.addEventListener("click", async (e) => {
-    const el = e.target.closest("[data-pset],[data-pcost],[data-pmake],[data-pbrief],[data-pchoose],[data-pownlink],[data-pown]");
+    const el = e.target.closest("[data-pset],[data-pcost],[data-pmake],[data-pbrief],[data-pchoose],[data-pownlink],[data-pown],[data-pperm]");
     if (!el || !wiz.d) return;
     const d = el.dataset, c = crt();
+    if (d.pperm) return openPerms();
     if (d.pset) { const [k, v] = d.pset.split(":"); c[k] = k === "duration" ? +v : v; if (k === "mode" && v === "own") { c.animateOwn = false; c.useOwnAsRef = false; } return render({ still: true }); }
     if (d.pcost) return checkCost();
     if (d.pmake) return generate();
