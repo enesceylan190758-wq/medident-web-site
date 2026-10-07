@@ -116,16 +116,21 @@ Facebook/Instagram ayrımı Meta'nın `publisher_platform` kırılımından geli
 toplamlar reklam bazlı veriyle aynı kalsın diye Meta toplamı bu paylara göre bölünür.
 Önceden çekilmiş veriyle: `--platform-json plat.json`.
 
-## Higgsfield (kreatif üretim) — plan
+## Produktion (Higgsfield)
 
-Video/görsel üretimi Higgsfield'ın resmi MCP bağlayıcısıyla yapılacak; jeton/anahtar panele girmez,
-çağrılar görüntüleyenin claude.ai bağlayıcısı üzerinden gider (Apify ile aynı yöntem).
+`dashboard/produce.js` (studio.js'ten sonra gömülür): Kampagnen-Studio sihirbazının 5. adımı.
+Akış: Recherche → Kampagne → **Produktion** → Freigabe (sayfanın üstünde adım şeridi olarak görünür).
 
-- Bağlayıcı: claude.ai → Settings → Connectors → Add custom connector, ad `Higgsfield`,
-  URL `https://mcp.higgsfield.ai/mcp` (Higgsfield OAuth ile giriş, ücretli Higgsfield aboneliği gerekir;
-  üretim kredileri Higgsfield hesabından düşer).
-- Panel akışı ("Kreativ-Studio"): görsel/video yükle → brief yaz ya da Claude'a yazdır → mecra seç
-  (Instagram Feed 4:5, Story/Reels 9:16, Facebook, Google) → mecraya göre Higgsfield komutu + metin
-  (HWG/UWG kontrollü) → Higgsfield'da üret → panelde telefon önizlemesi → onay → kampanya taslağı.
-- Sırada: bağlayıcının araç adları ve girdi şemaları okunup bir deneme üretimiyle doğrulanacak, sonra
-  panelin `mcp` yeteneğine `Higgsfield` sunucusu olarak eklenecek. Gerçek hasta görseli yalnız yazılı izinle.
+- **Eigenes Material:** herkese açık link (`media_import_url`) ya da dosya (`media_upload` + tarayıcıdan PUT +
+  `media_confirm`; tarayıcı yüklemesi engellenirse link yoluna yönlendirir). Foto KI ile hareketlendirilebilir
+  (`start_image`) ya da KI görseli için örnek olarak kullanılabilir.
+- **Mit KI erstellen:** brief'i müşteri yazar ya da "Brief von KI schreiben" (Claude, kampanya + reklam metni +
+  rakip araştırması). Brief İngilizce model komutuna çevrilir; her komuta sağlık reklamı kuralları eklenir
+  (metin/logo yok, öncesi/sonrası yok, tanınabilir hasta/doktor yok).
+- Yerleşim → oran: Feed 4:5 (görsel) / 1:1 veya 3:4 (video), Story/Reels 9:16, Kare 1:1, Yatay 16:9.
+- Modeller: video Hızlı = `kling3_0` (5 sn ≈ 7,5 kredi), Premium = `seedance_2_5` (5 sn ≈ 35 kredi);
+  görsel = `gpt_image_2_5` (medium). "Kosten prüfen" `get_cost` ile kredi harcamadan fiyat gösterir.
+- İş takibi `jobs_wait`; sonuç URL'si kampanya kaydına (`campaigns.creative`) yazılır, önizlemede ve
+  Kundenansicht'te oynar. Görüntülenemezse link gösterilir.
+- Bağlayıcı: claude.ai → Connectors → `Higgsfield` (`https://mcp.higgsfield.ai/mcp`). Krediler Higgsfield
+  hesabından düşer. Bağlı olmayan görüntüleyici (ör. klinik) üretim düğmelerini kapalı görür; üretimi ajans yapar.

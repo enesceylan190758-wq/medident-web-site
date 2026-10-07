@@ -17,7 +17,7 @@
     r_cost: "Kosten ca. {v} pro Suche (Apify)", r_step_start: "Apify-Lauf wird gestartet …", r_step_run: "Werbebibliothek wird durchsucht …", r_step_load: "Ergebnisse werden geladen …",
     r_history: "Bisherige Recherchen", r_none_t: "Noch keine Recherche für diesen Kunden", r_none_s: "Geben Sie den Namen eines Wettbewerbers oder ein Thema ein, z. B. „Zahnimplantate Türkei“.",
     r_found: "{n} Anzeigen · {p} Werbetreibende · {d}", r_ads: "Anzeigen", r_pages: "Werbetreibende", r_avgdays: "Ø Laufzeit", r_long: "Langläufer (> 30 Tage)",
-    r_days: "läuft seit {n} Tagen", r_since: "seit {d}", r_open_lib: "In der Werbebibliothek öffnen", r_use: "Als Vorlage nutzen", r_more: "Mehr", r_less: "Weniger",
+    r_days: "läuft seit {n} Tagen", r_since: "seit {d}", r_open_lib: "In der Werbebibliothek öffnen", r_use: "Ähnliche Anzeige erstellen", r_more: "Mehr", r_less: "Weniger",
     r_analyze: "Mit Claude auswerten", r_analyzing: "Claude wertet {n} Anzeigen aus …", r_ana_t: "Auswertung", r_themes: "Wiederkehrende Botschaften", r_offers: "Angebote", r_hooks: "Einstiege", r_gaps: "Lücken für uns", r_ideas: "Ideen für unsere Kampagnen",
     r_long_hint: "Anzeigen, die länger als 30 Tage laufen, funktionieren meist – sonst hätte der Werbetreibende sie gestoppt.",
     r_formats: "Formate", r_platforms: "Plattformen", r_delete: "Entfernen", r_readonly: "Neue Recherchen startet Ihre Agentur.",
@@ -29,10 +29,10 @@
     r_err_run: "Der Apify-Lauf ist fehlgeschlagen ({s}).", r_err_empty: "Keine Anzeigen gefunden. Versuchen Sie einen anderen Begriff oder ein anderes Land.",
     r_err_sample: "Die Auswertung ist gerade nicht verfügbar ({c}).", r_saved_local: "Nur in diesem Browser gespeichert (geteilter Speicher nicht verfügbar).",
     fmt_VIDEO: "Video", fmt_IMAGE: "Bild", fmt_CAROUSEL: "Karussell", fmt_DCO: "Dynamisch", fmt_DPA: "Katalog", fmt_TEXT: "Text",
-    c_intro: "Neue Kampagnen planen, Texte mit Claude erstellen und zur Freigabe an den Kunden senden.",
+    c_intro: "Kampagne planen, Text schreiben, Video oder Bild produzieren und zur Freigabe an den Kunden senden.",
     c_intro_client: "Kampagnen, die Ihre Agentur für Sie vorbereitet hat. Bitte prüfen und freigeben.", c_new: "Neue Kampagne", c_drafts: "Kampagnen", c_none: "Noch keine Kampagnen angelegt.",
     st_draft: "Entwurf", st_pending: "Wartet auf Freigabe", st_approvedc: "Freigegeben", st_changes: "Änderung gewünscht",
-    w_steps: ["Ziel", "Zielgruppe", "Budget", "Anzeige", "Prüfen"],
+    w_steps: ["Ziel", "Zielgruppe", "Budget", "Anzeigentext", "Produktion", "Prüfen"],
     w_channel: "Kanal und Ziel", w_obj_lead: "Leadformular", w_obj_lead_d: "Anfragen direkt in Facebook/Instagram", w_obj_wa: "WhatsApp-Gespräche", w_obj_wa_d: "Patienten schreiben direkt an die Klinik", w_obj_web: "Website-Besuche", w_obj_web_d: "Traffic auf eine Landingpage", w_obj_search: "Google-Suche", w_obj_search_d: "Anzeigen bei Suchanfragen",
     w_name: "Kampagnenname", w_topic: "Behandlung / Thema", w_topic_ph: "z. B. Zahnimplantate, All-on-4",
     w_loc: "Standort", w_radius: "Umkreis", w_age: "Alter", w_langs: "Sprachen der Zielgruppe", w_kw: "Keywords (eines pro Zeile)", w_neg: "Ausschließende Keywords", w_neg_hint: "Aus den Suchbegriffen ohne Conversion übernommen.",
@@ -55,7 +55,7 @@
     r_cost: "About {v} per search (Apify)", r_step_start: "Starting the Apify run …", r_step_run: "Searching the Ad Library …", r_step_load: "Loading results …",
     r_history: "Previous research", r_none_t: "No research for this client yet", r_none_s: "Enter a competitor's name or a topic, e.g. “dental implants Turkey”.",
     r_found: "{n} ads · {p} advertisers · {d}", r_ads: "Ads", r_pages: "Advertisers", r_avgdays: "Avg. runtime", r_long: "Long-runners (> 30 days)",
-    r_days: "running for {n} days", r_since: "since {d}", r_open_lib: "Open in Ad Library", r_use: "Use as template", r_more: "More", r_less: "Less",
+    r_days: "running for {n} days", r_since: "since {d}", r_open_lib: "Open in Ad Library", r_use: "Create a similar ad", r_more: "More", r_less: "Less",
     r_analyze: "Analyse with Claude", r_analyzing: "Claude is analysing {n} ads …", r_ana_t: "Analysis", r_themes: "Recurring messages", r_offers: "Offers", r_hooks: "Hooks", r_gaps: "Gaps for us", r_ideas: "Ideas for our campaigns",
     r_long_hint: "Ads running for more than 30 days usually work – otherwise the advertiser would have stopped them.",
     r_formats: "Formats", r_platforms: "Platforms", r_delete: "Remove", r_readonly: "Your agency starts new research.",
@@ -67,10 +67,10 @@
     r_err_run: "The Apify run failed ({s}).", r_err_empty: "No ads found. Try another term or country.",
     r_err_sample: "The analysis is not available right now ({c}).", r_saved_local: "Saved in this browser only (shared storage unavailable).",
     fmt_VIDEO: "Video", fmt_IMAGE: "Image", fmt_CAROUSEL: "Carousel", fmt_DCO: "Dynamic", fmt_DPA: "Catalogue", fmt_TEXT: "Text",
-    c_intro: "Plan new campaigns, write copy with Claude and send them to the client for approval.",
+    c_intro: "Plan the campaign, write the copy, produce a video or image and send it to the client for approval.",
     c_intro_client: "Campaigns your agency has prepared for you. Please review and approve.", c_new: "New campaign", c_drafts: "Campaigns", c_none: "No campaigns yet.",
     st_draft: "Draft", st_pending: "Awaiting approval", st_approvedc: "Approved", st_changes: "Changes requested",
-    w_steps: ["Goal", "Audience", "Budget", "Ad", "Review"],
+    w_steps: ["Goal", "Audience", "Budget", "Ad copy", "Production", "Review"],
     w_channel: "Channel and goal", w_obj_lead: "Lead form", w_obj_lead_d: "Enquiries right inside Facebook/Instagram", w_obj_wa: "WhatsApp conversations", w_obj_wa_d: "Patients message the clinic directly", w_obj_web: "Website visits", w_obj_web_d: "Traffic to a landing page", w_obj_search: "Google Search", w_obj_search_d: "Ads on search queries",
     w_name: "Campaign name", w_topic: "Treatment / topic", w_topic_ph: "e.g. dental implants, All-on-4",
     w_loc: "Location", w_radius: "Radius", w_age: "Age", w_langs: "Audience languages", w_kw: "Keywords (one per line)", w_neg: "Negative keywords", w_neg_hint: "Taken from search terms without conversions.",
@@ -93,7 +93,7 @@
     r_cost: "Arama başına yaklaşık {v} (Apify)", r_step_start: "Apify çalıştırılıyor …", r_step_run: "Reklam Kütüphanesi taranıyor …", r_step_load: "Sonuçlar yükleniyor …",
     r_history: "Önceki araştırmalar", r_none_t: "Bu müşteri için henüz araştırma yok", r_none_s: "Bir rakibin adını veya bir konu yazın, ör. “diş implantı Türkiye”.",
     r_found: "{n} reklam · {p} reklamveren · {d}", r_ads: "Reklam", r_pages: "Reklamveren", r_avgdays: "Ort. yayın süresi", r_long: "Uzun süredir yayında (> 30 gün)",
-    r_days: "{n} gündür yayında", r_since: "{d} tarihinden beri", r_open_lib: "Reklam Kütüphanesi'nde aç", r_use: "Şablon olarak kullan", r_more: "Devamı", r_less: "Daha az",
+    r_days: "{n} gündür yayında", r_since: "{d} tarihinden beri", r_open_lib: "Reklam Kütüphanesi'nde aç", r_use: "Benzer reklam oluştur", r_more: "Devamı", r_less: "Daha az",
     r_analyze: "Claude ile analiz et", r_analyzing: "Claude {n} reklamı analiz ediyor …", r_ana_t: "Analiz", r_themes: "Tekrar eden mesajlar", r_offers: "Teklifler", r_hooks: "Giriş cümleleri", r_gaps: "Bizim için boşluklar", r_ideas: "Kampanyalarımız için fikirler",
     r_long_hint: "30 günden uzun yayında kalan reklamlar genelde iyi çalışıyordur; yoksa reklamveren durdururdu.",
     r_formats: "Biçimler", r_platforms: "Platformlar", r_delete: "Kaldır", r_readonly: "Yeni araştırmaları ajansınız başlatır.",
@@ -105,10 +105,10 @@
     r_err_run: "Apify çalışması başarısız oldu ({s}).", r_err_empty: "Reklam bulunamadı. Başka bir kelime veya ülke deneyin.",
     r_err_sample: "Analiz şu an kullanılamıyor ({c}).", r_saved_local: "Sadece bu tarayıcıda kaydedildi (ortak depolama yok).",
     fmt_VIDEO: "Video", fmt_IMAGE: "Görsel", fmt_CAROUSEL: "Karusel", fmt_DCO: "Dinamik", fmt_DPA: "Katalog", fmt_TEXT: "Metin",
-    c_intro: "Yeni kampanyalar planlayın, metinleri Claude ile yazın ve müşteri onayına gönderin.",
+    c_intro: "Kampanyayı planlayın, metni yazın, video veya görseli üretin ve müşteri onayına gönderin.",
     c_intro_client: "Ajansınızın sizin için hazırladığı kampanyalar. Lütfen kontrol edip onaylayın.", c_new: "Yeni kampanya", c_drafts: "Kampanyalar", c_none: "Henüz kampanya yok.",
     st_draft: "Taslak", st_pending: "Onay bekliyor", st_approvedc: "Onaylandı", st_changes: "Değişiklik istendi",
-    w_steps: ["Hedef", "Kitle", "Bütçe", "Reklam", "Kontrol"],
+    w_steps: ["Hedef", "Kitle", "Bütçe", "Reklam metni", "Prodüksiyon", "Kontrol"],
     w_channel: "Kanal ve hedef", w_obj_lead: "Lead formu", w_obj_lead_d: "Talepler doğrudan Facebook/Instagram içinde", w_obj_wa: "WhatsApp konuşmaları", w_obj_wa_d: "Hastalar kliniğe doğrudan yazar", w_obj_web: "Web sitesi ziyareti", w_obj_web_d: "Açılış sayfasına trafik", w_obj_search: "Google arama", w_obj_search_d: "Aramalarda görünen reklamlar",
     w_name: "Kampanya adı", w_topic: "Tedavi / konu", w_topic_ph: "ör. diş implantı, All-on-4",
     w_loc: "Konum", w_radius: "Mesafe", w_age: "Yaş", w_langs: "Kitlenin dilleri", w_kw: "Anahtar kelimeler (satır başına bir tane)", w_neg: "Hariç tutulan kelimeler", w_neg_hint: "Dönüşüm getirmeyen arama terimlerinden alındı.",
@@ -367,7 +367,10 @@ Antworte nur als JSON: {"variants":[{"angle": string (2–4 Wörter, auf ${({ de
           : `<button class="btn sm" type="button" data-cedit="${esc(c._id)}">${t("w_edit")}</button><button class="btn sm ghost icon" type="button" data-cdel="${esc(c._id)}" aria-label="${t("w_delete")}">${icon("trash")}</button>`}</div>
         ${pv ? `<div class="cr-prev">${adPreview(c, cl)}</div>` : ""}
       </div>`).join("");
-    return `${clientHead(cl)}<p class="lead-in">${t(pv ? "c_intro_client" : "c_intro")}</p>
+    const hasR = live.research.some((x) => x.client === cl.id), hasC = list.length > 0, hasM = list.some((c) => chosenMedia(c)), hasA = list.some((c) => c.status === "approved");
+    const flow = [[t("flow_1"), hasR, "research", "radar"], [t("flow_2"), hasC, null, "plan"], [t("flow_3"), hasM, null, "film"], [t("flow_4"), hasA, null, "check"]];
+    const flowHtml = pv ? "" : `<nav class="flow" aria-label="${esc(t("flow_t"))}">${flow.map(([l, done, nav, ic], i) => `${i ? '<span class="flow-sep">' + icon("arrow") + "</span>" : ""}<${nav ? `a href="#${nav}" data-nav="${nav}"` : "span"} class="flow-st ${done ? "done" : ""}"><span class="flow-n">${done ? icon("check") : i + 1}</span>${icon(ic)}<span>${esc(l)}</span></${nav ? "a" : "span"}>`).join("")}</nav>`;
+    return `${clientHead(cl)}${flowHtml}<p class="lead-in">${t(pv ? "c_intro_client" : "c_intro")}</p>
       ${pv ? "" : `<div><button class="btn primary" type="button" data-cnew="1">${icon("plus")}${t("c_new")}</button></div>`}
       ${wiz.open && !pv ? wizard(cl) : ""}
       <section class="card"><div class="card-h"><h2>${t("c_drafts")}</h2><span class="sub">${list.length}</span></div><div class="card-b camp-list">${rows || `<div class="empty">${icon("studio")}<span>${t("c_none")}</span></div>`}</div></section>
@@ -379,7 +382,7 @@ Antworte nur als JSON: {"variants":[{"angle": string (2–4 Wörter, auf ${({ de
     }
     return `<div class="fad"><div class="fad-h"><div class="ch-avatar sm">${esc(cl.name.slice(0, 1))}</div><div><b>${esc(cl.name)}</b><span>${t("w_sponsored")}</span></div></div>
       <p class="fad-t">${esc(d.text || t("w_text"))}</p>
-      <div class="fad-img"><span>${esc(d.topic || cl.name)}</span></div>
+      ${(() => { const m = chosenMedia(d); return m ? `<div class="fad-img has-media r${(m.ratio || "1:1").replace(":", "x")}">${mediaTag(m.url, m.kind)}</div>` : `<div class="fad-img"><span>${esc(d.topic || cl.name)}</span></div>`; })()}
       <div class="fad-f"><div><span class="muted">${esc(slug(cl.name))}.de</span><b>${esc(d.headline || t("w_headline"))}</b></div><span class="btn sm">${esc(t("cta_" + d.cta))}</span></div></div>`;
   }
   function wizard(cl) {
@@ -414,9 +417,12 @@ Antworte nur als JSON: {"variants":[{"angle": string (2–4 Wörter, auf ${({ de
           ${d.obj === "search" ? fld("w-desc", t("w_desc"), `<textarea id="w-desc" data-w="desc" rows="2" maxlength="90" class="ta">${esc(d.desc)}</textarea>`) : fld("w-text", t("w_text"), `<textarea id="w-text" data-w="text" rows="6" class="ta">${esc(d.text)}</textarea>`)}
           <div class="check ${rk.length ? "bad" : "ok"}"><span class="eyebrow">${t("w_check")}</span>${rk.length ? `<ul>${rk.map((k) => `<li>${esc(t(k))}</li>`).join("")}</ul>` : `<p>${icon("check")}${t("w_check_ok")}</p>`}<span class="footnote">${t("w_check_note")}</span></div>
         </div><div class="wz-prev"><span class="eyebrow">${t("w_preview")}</span>${adPreview(d, cl)}</div></div>`;
+    } else if (s === 4) {
+      body = production(cl);
     } else {
       const fc = forecast(cl, d);
-      const rows = [[t("w_channel"), t("w_obj_" + d.obj)], [t("w_name"), d.name || "—"], [t("w_topic"), d.topic || "—"], [t("w_loc"), `${d.loc} · ${d.radius} km`], [t("w_age"), `${d.ageMin}–${d.ageMax}`], [t("w_langs"), d.langs.map((l) => l.toUpperCase()).join(", ")], [t("w_daily"), money(+d.daily, { dec: 0 })], [t("w_days"), t("w_days_n", { n: d.days }) + " · " + dfmt(d.start)], [t("w_fc_t"), fc ? t("w_fc", { a: num(fc.a), b: num(fc.b) }) : "–"]];
+      const mat = chosenMedia(d);
+      const rows = [[t("w_channel"), t("w_obj_" + d.obj)], [t("w_name"), d.name || "—"], [t("w_topic"), d.topic || "—"], [t("w_loc"), `${d.loc} · ${d.radius} km`], [t("w_age"), `${d.ageMin}–${d.ageMax}`], [t("w_langs"), d.langs.map((l) => l.toUpperCase()).join(", ")], [t("w_daily"), money(+d.daily, { dec: 0 })], [t("w_days"), t("w_days_n", { n: d.days }) + " · " + dfmt(d.start)], [t("w_fc_t"), fc ? t("w_fc", { a: num(fc.a), b: num(fc.b) }) : "–"], [t("w_material"), mat ? `${t(mat.kind === "video" ? "p_kind_video" : "p_kind_image")}${mat.ratio ? " · " + mat.ratio : ""}` : t("w_material_none")]];
       const rk = risks(d);
       body = `<div class="wz-ad"><div><table class="sum-tbl">${rows.map(([k, v]) => `<tr><th>${esc(k)}</th><td>${esc(v)}</td></tr>`).join("")}</table>
         ${rk.length ? `<div class="check bad"><span class="eyebrow">${t("w_check")}</span><ul>${rk.map((k) => `<li>${esc(t(k))}</li>`).join("")}</ul></div>` : ""}
@@ -426,7 +432,7 @@ Antworte nur als JSON: {"variants":[{"angle": string (2–4 Wörter, auf ${({ de
     }
     return `<section class="card wz"><div class="wz-steps">${steps.map((x, i) => `<button type="button" class="wz-step ${i === s ? "on" : i < s ? "done" : ""}" data-wstep="${i}"><span class="n">${i < s ? "✓" : i + 1}</span>${esc(x)}</button>`).join("")}<button class="btn sm ghost icon" type="button" data-wclose="1" aria-label="${t("w_close")}" style="margin-left:auto">${icon("x")}</button></div>
       <div class="wz-body">${body}</div>
-      <div class="wz-foot">${s > 0 ? `<button class="btn ghost" type="button" data-wstep="${s - 1}">${t("w_back")}</button>` : ""}<span class="grow"></span>${s < 4 ? `<button class="btn accent" type="button" data-wstep="${s + 1}">${t("w_next")} ${icon("arrow")}</button>` : ""}</div></section>`;
+      <div class="wz-foot">${s > 0 ? `<button class="btn ghost" type="button" data-wstep="${s - 1}">${t("w_back")}</button>` : ""}<span class="grow"></span>${s < 5 ? `<button class="btn accent" type="button" data-wstep="${s + 1}">${t("w_next")} ${icon("arrow")}</button>` : ""}</div></section>`;
   }
 
   function openWizard(seed) { const cl = C(); wiz.open = true; wiz.step = seed?.obj ? 3 : 0; wiz.d = newDraft(cl, seed || {}); wiz.variants = null; wiz.error = null; go("create"); }
@@ -464,7 +470,7 @@ Antworte nur als JSON: {"variants":[{"angle": string (2–4 Wörter, auf ${({ de
       return render({ still: true });
     }
     if (d.wclose) { wiz.open = false; return render({ still: true }); }
-    if (d.wstep !== undefined) { wiz.step = Math.max(0, Math.min(4, +d.wstep)); return render({ still: true }); }
+    if (d.wstep !== undefined) { wiz.step = Math.max(0, Math.min(5, +d.wstep)); return render({ still: true }); }
     if (d.wobj) { wiz.d.obj = d.wobj; const o = OBJS.find((x) => x[0] === d.wobj); if (o?.[2]) wiz.d.cta = o[2]; return render({ still: true }); }
     if (d.wlang) { const s = new Set(wiz.d.langs); s.has(d.wlang) ? s.delete(d.wlang) : s.add(d.wlang); wiz.d.langs = [...s]; return render({ still: true }); }
     if (d.wsug) return suggestCopy();

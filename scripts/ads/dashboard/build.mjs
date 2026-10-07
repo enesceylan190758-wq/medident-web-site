@@ -142,7 +142,7 @@ const html = read("template.html")
   .replace("/*__STYLES__*/", () => read("styles.css"))
   .replace("/*__ENGINE__*/", () => engine)
   .replace("/*__DEMO__*/", () => read("demo.js"))
-  .replace("/*__APP__*/", () => read("app.js").replace("/*__STUDIO__*/", () => read("studio.js")).replace("/*__CHAT__*/", () => read("chat.js")))
+  .replace("/*__APP__*/", () => read("app.js").replace("/*__STUDIO__*/", () => read("studio.js") + "\n" + read("produce.js")).replace("/*__CHAT__*/", () => read("chat.js")))
   .replace("/*__DATA__*/null", () => JSON.stringify(data).replace(/</g, "\\u003c"));
 mkdirSync(dirname(out), { recursive: true });
 writeFileSync(out, html);
