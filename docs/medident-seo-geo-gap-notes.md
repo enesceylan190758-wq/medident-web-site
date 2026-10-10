@@ -103,3 +103,13 @@ Her başarılı koşu sonunda bu dosyaya ekle:
 - GSC (merge sonrası): `https://medidentistanbul.com/de/blog/sinuslift-kosten-tuerkei-istanbul/`
 - İnsan onayı: `reviewer` / `reviewedAt` boş — `npm run seo:approve -- --slugs sinuslift-kosten-tuerkei-istanbul --by "Dr. …"`
 
+---
+
+## Koşu 2026-10-10 (günlük blog otomasyonu)
+
+- **Backlog boş, insan araştırması gerekiyor.** `VERI-DESTEKLI KONU BACKLOG'U` (PR #54, 2026-09-18 GSC + Keyword Planner) içinde durumu `bekliyor` olan satır yok.
+- #1–#7 tamamı `uretildi`: #3 PR #52 (merged, `sinuslift-kosten-tuerkei-istanbul`); #1 PR #55; #2 PR #56; #4 PR #57; #5 PR #58; #6 PR #59; #7 PR #60 (taslak, merge yok).
+- PR #54’e 2026-09-18 sonrası yeni GSC / Keyword Planner satırı eklenmemiş. Main’deki bu dosyada backlog tablosu hâlâ yok (PR #54 açık, merge edilmedi).
+- Blog yazılmadı, yeni PR açılmadı (talimat: `bekliyor` yoksa üretme / konu uydurma).
+- Sonraki adım: Enes + Claude gerçek GSC / Keyword Planner verisiyle backlog’a yeni satır eklemeli.
+
