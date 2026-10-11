@@ -77,7 +77,7 @@
     client: store.get("client", null),
     view: store.get("view", "overview"),
     preview: false,
-    lang: store.get("lang", "de"),
+    lang: store.get("lang_v2", "tr"),
     cur: store.get("cur_v2", "TRY"),
     win: store.get("win", 30),
     end: store.get("end", RAW.until),
@@ -1747,7 +1747,7 @@
     if (d.client !== undefined) { e.preventDefault(); go(d.client ? (VIEWS_CLIENT.includes(state.view) ? state.view : "overview") : null, d.client); return; }
     if (d.win) { state.win = +d.win; store.set("win", state.win); render({ still: true }); return; }
     if (d.cur) { state.cur = d.cur; store.set("cur_v2", d.cur); render({ still: true }); return; }
-    if (d.lang) { state.lang = d.lang; store.set("lang", d.lang); render({ still: true }); return; }
+    if (d.lang) { state.lang = d.lang; store.set("lang_v2", d.lang); render({ still: true }); return; }
     if (d.chart) { state.chart = d.chart; render({ still: true }); return; }
     if (d.gchart) { state.gChart = d.gchart; render({ still: true }); return; }
     if (d.dec === "approve") { decide(d.key, "approved"); return; }
