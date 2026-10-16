@@ -1825,7 +1825,7 @@
     "bucket": "kategori",
     "question": "Was sind Sofortimplantate (Zähne am selben Tag)?",
     "title": "Was sind Sofortimplantate (Zähne am selben Tag)",
-    "direct_answer": "Sofortimplantate setzen bei ausreichender Primärstabilität ein Implantat und ein Provisorium in einer Sitzung. Die endgültige Zirkon- oder Keramikversorgung folgt nach Einheilung. MediDent Istanbul prüft den Knochen per 3D, bevor Immediate Loading zugesagt wird.",
+    "direct_answer": "Sofortimplantate setzen bei ausreichender Primärstabilität ein Implantat und ein Provisorium in einer Sitzung. Die endgültige Zirkon- oder Keramikversorgung folgt nach Einheilung. MediDent Istanbul prüft den Knochen per 3D, bevor Sofortbelastung zugesagt wird.",
     "coverImage": "blog/blog-04-implant.jpg",
     "bullets": [
       "3D-Planung vor Sofortversprechen.",
@@ -2812,7 +2812,7 @@
       },
       {
         "q": "Nasıl güvenli klinik seçilir?",
-        "a": "Hekim adı, malzeme markası, yazılı plan, dijital planlama ve aftercare protokolü sorulmalı."
+        "a": "Hekim adı, malzeme markası, yazılı plan, dijital planlama ve sonrası bakım protokolü sorulmalı."
       },
       {
         "q": "Komplikasyon olursa?",

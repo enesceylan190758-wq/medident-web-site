@@ -92,6 +92,9 @@ export const i18nAr = {
   formName: "الاسم الكامل",
   formPhone: "الهاتف / واتساب",
   formEmail: "البريد الإلكتروني",
+  emailPlaceholder: "name@example.com",
+  toTopLabel: "إلى الأعلى",
+  closeLabel: "إغلاق",
   formTreatment: "العلاج المطلوب",
   formSituations: {
     existingImplants: "لدي بالفعل زراعات (تيجان / ترميم)",
@@ -247,6 +250,9 @@ export const i18nRu = {
   formName: "Имя и фамилия",
   formPhone: "Телефон / WhatsApp",
   formEmail: "Email",
+  emailPlaceholder: "name@example.com",
+  toTopLabel: "Наверх",
+  closeLabel: "Закрыть",
   formTreatment: "Интересующее лечение",
   formSituations: {
     existingImplants: "У меня уже есть импланты (коронки / восстановление)",
