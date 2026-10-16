@@ -11,8 +11,8 @@ export const site = {
   // Real clinic contact (Üsküdar branch as primary)
   phone: "+90 549 119 08 19",
   phoneRaw: "+905491190819",
-  whatsapp: "+90 549 119 08 19",
-  whatsappRaw: "905491190819",
+  whatsapp: "+90 216 606 23 98",
+  whatsappRaw: "902166062398",
   email: "info@medidentistanbul.com",
   address: "Acıbadem, Acıbadem Cd. 195F, 34718 Üsküdar/İstanbul",
   addressShort: "Acıbadem, Üsküdar / İstanbul",

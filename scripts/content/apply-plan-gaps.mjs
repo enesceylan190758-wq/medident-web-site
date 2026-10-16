@@ -28,7 +28,7 @@ const pages = [
     faq: [
       { q: "MediDent İstanbul nerede?", a: "Acıbadem, Acıbadem Cd. 195F, 34718 Üsküdar/İstanbul. Pazartesi–Cumartesi 09:00–18:00." },
       { q: "Üsküdar'da implant yapılır mı?", a: "Evet. Klinik 3D planlama ile implant, All-on-4 ve protez süreçlerini yürütür." },
-      { q: "Nasıl randevu alınır?", a: "Web iletişim formu, telefon veya WhatsApp (+90 549 119 08 19)." },
+      { q: "Nasıl randevu alınır?", a: "Web iletişim formu, telefon veya WhatsApp (+90 216 606 23 98)." },
       { q: "Yurt dışından hasta kabul var mı?", a: "Evet. Transfer ve konaklama sağlık turizmi paketinde koordine edilebilir." },
     ],
     internal_links: [
