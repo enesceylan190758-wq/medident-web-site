@@ -49,7 +49,7 @@ Kaynak sayıları (repo): GEO packs **64** (tr 22 / en 23 / de 19 / ar 0 / ru 0)
 ## Açık gap’ler (öncelik sırası)
 
 ### P0 — pazar/dil boşlukları
-1. **DE Nachsorge / Garantie-Rahmen** — UK aftercare var; DE eşdeğer “Zahnbehandlung Türkei Nachsorge” yok (garanti vaadi yasak; süreç/çerçeve anlat).
+1. **DE Nachsorge / Garantie-Rahmen** — taslak: `/de/geo/zahnbehandlung-tuerkei-nachsorge/` (PR, hekim onayı bekliyor). Büro vaadi var; şehir/adres bilinçli yazılmadı (yazılı planda).
 2. **UK veneers Turkey / implants Turkey cost** — güven sayfaları var; ticari long-tail rehber zayıf.
 3. **AR / RU native GEO** — dil UI açık, packs.json’da ar/ru ≈ 0. Fallback EN kabul; native tercih.
 
@@ -92,6 +92,18 @@ Her başarılı koşu sonunda bu dosyaya ekle:
 - GSC’ye manuel gönderilecek URL listesi
 
 ---
+
+## Koşu 2026-09-25 (DE Nachsorge GEO)
+
+- Pazar: **DE**
+- Üretilen: `/de/geo/zahnbehandlung-tuerkei-nachsorge/` (hreflang kardeş: EN aftercare)
+- Canlı smoke: yok (PR taslak, merge/deploy yok)
+- Kapanan gap: P0 DE Nachsorge süreç çerçevesi (Büro + Fernkontrolle + Istanbul; Ergebnisversprechen yok)
+- Açık kalan P0: AR/RU native GEO; UK ticari long-tail rehber
+- GSC (merge sonrası): `https://medidentistanbul.com/de/geo/zahnbehandlung-tuerkei-nachsorge/`
+- İnsan onayı: `reviewer` / `reviewedAt` boş — `npm run seo:approve -- --slugs zahnbehandlung-tuerkei-nachsorge --by "Dr. …"`
+- Ofis: vaat edildi; adres/şehir bu PR’da yok — koordinasyon yazılı planda dolduracak
+- Kannibalizasyon: açık draft PR #57 (`/de/blog/zahnimplantat-tuerkei-ablauf-nachsorge/`) implant süreç blog’u; merge olursa bu GEO’ya link vermeli
 
 ## Koşu 2026-09-18 (günlük blog otomasyonu)
 
