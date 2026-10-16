@@ -313,7 +313,12 @@ export function orgSchema(lang = "tr") {
       closes: "18:00",
     },
     description: hoursLocalized[lang] || hoursLocalized.tr,
-    sameAs: [site.social.instagram, site.social.facebook, site.social.youtube],
+    sameAs: [
+      site.social.instagram,
+      site.social.facebook,
+      site.social.youtube,
+      `https://wa.me/${site.whatsappRaw}`,
+    ],
     areaServed: [
       { "@type": "City", name: "Istanbul" },
       { "@type": "Country", name: "Turkey" },
