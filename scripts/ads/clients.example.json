@@ -1,0 +1,13 @@
+{
+  "clients": [
+    {
+      "id": "musteri-1",
+      "name": "Musteri Klinik",
+      "city": "Istanbul",
+      "sector": "dental",
+      "meta": ["act_000000000000000"],
+      "google": ["0000000000"],
+      "assumptions": { "booking": 0.3, "close": 0.4, "value": 1500 }
+    }
+  ]
+}
