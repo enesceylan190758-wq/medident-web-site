@@ -1,6 +1,6 @@
 # MediDent İstanbul — SEO/GEO Gap Notes (canlı durum)
 
-*Son güncelleme: 2026-09-18 · Domain: https://medidentistanbul.com*  
+*Son güncelleme: 2026-09-19 · Domain: https://medidentistanbul.com*  
 *Plan: `docs/medident-seo-geo-ajan-plani.md` · Rakip: `docs/medident-rakip-anahtar-kelime-arastirmasi.md`*
 
 Bu dosya **canlı site envanteri + açık gap listesidir**. Cloud ajan her koşuda önce bunu ve `src/content/geo/packs.json` / `generated-blog.json` okur; tahminle gap uydurmaz. Smoke sonrası güncelle.
@@ -29,7 +29,7 @@ Bu dosya **canlı site envanteri + açık gap listesidir**. Cloud ajan her koşu
 | `/ar/`, `/ru/` | 200 (UI var; native GEO pack ≈ 0) |
 | `/robots.txt`, `/sitemap.xml`, `/llms.txt` | 200 |
 
-Kaynak sayıları (repo): GEO packs **64** (tr 22 / en 23 / de 19 / ar 0 / ru 0) · blog generated **52**.
+Kaynak sayıları (repo): GEO packs **64** (tr 22 / en 23 / de 19 / ar 0 / ru 0) · blog generated **53**.
 
 ---
 
@@ -102,4 +102,36 @@ Her başarılı koşu sonunda bu dosyaya ekle:
 - Açık kalan P0: DE Nachsorge çerçevesi; AR/RU native GEO
 - GSC (merge sonrası): `https://medidentistanbul.com/de/blog/sinuslift-kosten-tuerkei-istanbul/`
 - İnsan onayı: `reviewer` / `reviewedAt` boş — `npm run seo:approve -- --slugs sinuslift-kosten-tuerkei-istanbul --by "Dr. …"`
+
+---
+
+## VERI-DESTEKLI KONU BACKLOG'U (2026-09-18, GSC + Keyword Planner)
+
+**Yeni çalışma modeli:** Bundan sonra Cursor Automation konu SEÇMEZ. Aşağıdaki backlog tablosundan sıradaki "bekliyor" satırını kullanır, durumu "uretildi" olarak işaretler, yeni satır eklemez. Backlog bittiğinde otomasyon PR açmadan durur ve run-log'a "backlog boş, insan araştırması gerekiyor" yazar. Backlog'u sadece Enes + Claude gerçek veriyle (GSC / Keyword Planner) günceller.
+
+Kaynak notları: açık PR #54 (`docs: GSC + Keyword Planner backlog guncellemesi`) — TR Planner'da "zirkon kaplama fiyat" en yüksek hacimli grup; "dis implant fiyat" ikinci. DE kısa kuyruk (kosten/preis + türkei) Planner eşiğinin altında; GSC'de Almanya tıklaması uzun/doğal sorgulardan geliyor. UK "turkey teeth" site-genel sıralama değil.
+
+| # | Dil | Konu | Durum | Slug / not |
+|---|-----|------|-------|------------|
+| 1 | TR | Zirkon kaplama fiyatları 2026 nelere bağlıdır. Fiyat aralığı değil; malzeme, diş sayısı, klinik değerlendirme. Gerçek TL/USD yok. | **uretildi** (2026-09-19) | `zirkon-kaplama-fiyatlari-2026` |
+| 2 | TR | Diş implant fiyatı neden klinikten kliniğe değişir. Marka ve kemik grefti ihtiyacı gibi değişkenler; fiyat uydurma yok. | bekliyor | |
+| 3 | DE | Sinuslift Kosten Türkei | uretildi (2026-09-18, PR #52) | `sinuslift-kosten-tuerkei-istanbul` |
+| 4 | DE | Zahnimplantat Türkei: süreç, bakım ve fiyatı gerçekten ne etkiler. DE Nachsorge P0 gap'ini de kapatır. | bekliyor | |
+| 5 | TR | Lamina diş kaplama nedir, kime uygundur. TR aramasında veneer yerine lamina/kaplama. | bekliyor | |
+| 6 | EN | All-on-4 in Turkey, the procedure explained. TR değil; TR'de ölçülebilir hacim yok. | bekliyor | |
+| 7 | GEO TR+EN+DE | Türkiye'de diş tedavisi fiyatları neden daha ucuz — şeffaflık ve güven çerçevesi. Garanti/kesin sonuç yok. | bekliyor | |
+
+Yeni satır eklemeden önce: GSC'de o ay gerçek sorgu/tıklama var mı, Keyword Planner'da TR için hacim var mı, DE/EN için en azından GSC sorgu kanıtı var mı. Otomasyon bu listeyi değiştiremez, sadece durum alanını günceller.
+
+---
+
+## Koşu 2026-09-19 (günlük blog otomasyonu)
+
+- Pazar: **TR** — backlog #1 (bekliyor sırasının en üstü); konu tahmin edilmedi
+- Üretilen: `/blog/zirkon-kaplama-fiyatlari-2026/` (fiyat faktörleri; somut TL/USD/EUR yok)
+- Canlı smoke: yok (PR taslak, merge/deploy yok)
+- Kapanan gap: TR “zirkon kaplama fiyat” (Planner en yüksek hacim) blog yoktu; tanım sayfası `/geo/zirkonyum-kaplama-nedir/` ayrı duruyor
+- Açık kalan: backlog #2 (TR implant fiyat değişkenleri), #4 DE Nachsorge/implant süreç, #5–7
+- GSC (merge sonrası): `https://medidentistanbul.com/blog/zirkon-kaplama-fiyatlari-2026/`
+- İnsan onayı: `reviewer` / `reviewedAt` boş — `npm run seo:approve -- --slugs zirkon-kaplama-fiyatlari-2026 --by "Dr. …"`
 
