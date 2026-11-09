@@ -1093,6 +1093,153 @@ export function implantPricePage(lang) {
 }
 
 /**
+ * Gurbetçi (Almanya/Avrupa'daki Türk diasporası) için seyahat odaklı implant +
+ * zirkonyum landing — TR only (`istanbulda-implant-ve-zirkonyum/`). Kasıtlı
+ * olarak fiyat tablosu YOK (bkz. `dis-implant-fiyat/`, zaten fiyat odaklı) —
+ * bu sayfa yerine seyahat planı, otel/transfer ve Alman sigortası fatura
+ * desteğine odaklanır. İnceleyen hekimler site `doctors` listesinden DEĞİL —
+ * Enes'in 2026-11-09'da onayladığı isimler (bkz. proje hafızası); `doctors`
+ * listesindeki Dr. Ahmet Çelik / Dr. Elif Kara bilinçli olarak kullanılmadı.
+ */
+export function implantZirconiaTravelPage(lang) {
+  const t = i18n[lang];
+  const p = t.implantZirconiaTravelPage;
+  const slug = "istanbulda-implant-ve-zirkonyum/";
+  const crumbs = [crumbHome(lang), { name: p.eyebrow, href: url(lang, slug) }];
+  const wa = waHref("Merhaba, Almanya'dan geliyorum; implant ve zirkonyum için ücretsiz foto değerlendirme almak istiyorum.");
+
+  const trustBadges = (t.stats || [])
+    .map((s) => {
+      const val = s.dec ? s.to.toFixed(s.dec) : s.sep ? Math.round(s.to).toLocaleString("tr-TR") : Math.round(s.to);
+      return `<div style="display:flex;align-items:baseline;gap:6px;"><strong style="font-size:19px;color:var(--ink);">${val}${s.suffix || (s.dec ? "" : "+")}</strong><span style="font-size:13px;color:var(--muted-2);">${s.label}</span></div>`;
+    })
+    .join("");
+
+  const heroSection = `<section class="page-hero"><div class="container">
+    ${breadcrumb(lang, crumbs)}
+    <div class="eyebrow">${p.eyebrow}</div>
+    <h1 style="font-size:clamp(34px,5vw,60px);margin:0 0 14px;max-width:820px;">${p.h1}</h1>
+    <p class="lead" style="max-width:680px;">${p.lead}</p>
+    <div style="display:flex;flex-wrap:wrap;gap:20px 28px;margin:22px 0 28px;align-items:flex-start;">
+      <div style="max-width:300px;">
+        <a href="${wa}" target="_blank" rel="noopener" class="btn" style="background:#25D366;color:#fff;padding:15px 28px;font-size:15.5px;">${icons.wa} ${p.ctaPrimary}</a>
+        <p style="font-size:13px;line-height:1.45;color:var(--muted-2);margin:8px 0 0;">${p.ctaPrimaryNote}</p>
+      </div>
+      <div style="max-width:300px;">
+        <a href="#iletisim" data-scroll-form class="btn btn-outline-red" style="padding:15px 28px;font-size:15.5px;">${p.ctaSecondary}</a>
+        <p style="font-size:13px;line-height:1.45;color:var(--muted-2);margin:8px 0 0;">${p.ctaSecondaryNote}</p>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:24px;">${trustBadges}</div>
+  </div></section>`;
+
+  // Fiyata/pakete neler dahil — content.mjs packages.implant (zaten doğrulanmış içerik, bkz. dis-implant-fiyat).
+  const implantPkg = packages.find((pk) => pk.key === "implant");
+  const inclusionsBlock = implantPkg
+    ? `<section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">${landingInclusions(lang, implantPkg.items[lang] || implantPkg.items.tr)}</div></section>`
+    : "";
+
+  const introSection = `<section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:22px;margin:0 0 14px;">${p.introTitle}</h2>
+    <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0;">${p.introText}</p>
+  </div></section>`;
+
+  const travelSection = `<section class="section section-alt"><div class="container" style="max-width:960px;">
+    <h2 data-reveal style="font-size:22px;margin:0 0 18px;">${p.travelTitle}</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;">
+      ${(p.travelStages || [])
+        .map(
+          (s, i) => `<div class="step" data-reveal style="padding:22px;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+          <span class="step-n">${i + 1}</span>
+          <span style="flex:1;height:1px;background:linear-gradient(90deg,var(--gold),transparent);"></span>
+        </div>
+        <h3 style="font-size:17px;margin:0 0 6px;">${s.t}</h3>
+        <p style="font-size:14px;line-height:1.55;color:var(--muted);margin:0 0 8px;">${s.d}</p>
+        ${s.meta ? `<div style="font-size:13px;font-weight:700;color:var(--burgundy);">${s.meta}</div>` : ""}
+      </div>`
+        )
+        .join("")}
+    </div>
+    <p data-reveal style="font-size:14.5px;line-height:1.55;color:var(--muted-2);margin:18px 0 0;max-width:720px;">${p.zirconiaOnlyNote}</p>
+  </div></section>`;
+
+  const insuranceSection = `<section class="section"><div class="container" style="max-width:820px;">
+    <div data-reveal class="pkg" style="padding:22px 24px;">
+      <h3 style="margin:0 0 10px;font-size:18px;">${p.insuranceTitle}</h3>
+      <p style="margin:0;font-size:15px;line-height:1.6;color:var(--ink-soft);">${p.insuranceText}</p>
+    </div>
+  </div></section>`;
+
+  const reviewerCard = (r) =>
+    r
+      ? `<div data-reveal style="padding:18px 20px;border-radius:16px;border:1px solid rgba(43,35,24,.1);background:var(--cream);">
+      <div style="font-weight:800;font-size:15px;color:var(--ink);">${r.name}</div>
+      <div style="font-size:12.5px;color:var(--gold);font-weight:700;margin-top:2px;">${r.title}</div>
+    </div>`
+      : "";
+  const reviewersSection = `<section class="section section-alt"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:22px;margin:0 0 16px;">${p.doctorsTitle}</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;">
+      ${reviewerCard(p.implantReviewer)}
+      ${reviewerCard(p.zirconiaReviewer)}
+    </div>
+  </div></section>`;
+
+  const faqItem = (f) => `<div class="faq-item" data-faq-item><button class="faq-q" data-faq-toggle><span>${f.q}</span><span class="faq-icon"><span class="minus">${miniMinus}</span><span class="plus">${miniPlus}</span></span></button><div class="faq-a"><p style="margin:0;">${f.a}</p></div></div>`;
+
+  const faqSection = `<section class="section"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:24px;margin:0 0 20px;">${p.faqTitle}</h2>
+    <div class="faq" data-reveal>${p.faqs.map(faqItem).join("")}</div>
+  </div></section>`;
+
+  const crossLinksSection = `<section class="section section-alt"><div class="container" style="max-width:820px;display:flex;flex-wrap:wrap;gap:10px;">
+    <a href="${url(lang, "dis-implant-fiyat/")}" class="btn btn-ghost" style="padding:10px 16px;">Diş implant fiyat tablosu</a>
+    <a href="${url(lang, "hizmetler/implantoloji-implant-tedavisi/")}" class="btn btn-ghost" style="padding:10px 16px;">İmplantoloji hakkında</a>
+  </div></section>`;
+
+  const body = `${heroSection}
+  ${inclusionsBlock}
+  ${introSection}
+  ${landingCtaBand(lang)}
+  ${travelSection}
+  ${insuranceSection}
+  ${reviewersSection}
+  ${faqSection}
+  ${crossLinksSection}
+  ${contactSection(lang)}`;
+
+  const pageUrl = site.domain + url(lang, slug);
+  const webPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    headline: p.h1,
+    description: p.lead,
+    inLanguage: langBCP47[lang] || "tr-TR",
+    dateModified: "2026-11-09",
+    author: { "@id": site.domain + "/#organization" },
+    publisher: { "@id": site.domain + "/#organization" },
+    mainEntityOfPage: pageUrl,
+    url: pageUrl,
+    reviewedBy: [p.implantReviewer, p.zirconiaReviewer]
+      .filter(Boolean)
+      .map((r) => ({ "@type": "Person", name: r.name, jobTitle: r.title })),
+  };
+
+  return {
+    body,
+    title: `${p.h1} — ${site.brand}`,
+    description: p.lead,
+    jsonld: [
+      orgSchema(lang),
+      webPageSchema,
+      faqSchema(p.faqs),
+      breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
+    ],
+  };
+}
+
+/**
  * Almanca implant Ads landing sayfası — `/de/zahnimplantate-tuerkei-angebot/`.
  * TR `/dis-implant-fiyat/` sayfasının Almanca karşılığı, sadece Hat B (Zahnimplantate/
  * All-on-4) kampanyası için. noindex + sitemap dışı (emit() rendered.noindex ile

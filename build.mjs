@@ -36,6 +36,7 @@ import {
   hollywoodSmilePage,
   allOn4Page,
   implantPricePage,
+  implantZirconiaTravelPage,
   implantAdPageDe,
 } from "./src/templates/pages.mjs";
 
@@ -207,6 +208,9 @@ function build() {
 
     // Diş implant fiyat landing — TR only (SKAG 1 ads mesaj eşleşmesi)
     if (lang === "tr") emit(lang, "dis-implant-fiyat/", implantPricePage(lang));
+
+    // Gurbetçi (Almanya/Avrupa) için seyahat odaklı implant+zirkonyum landing — TR only
+    if (lang === "tr") emit(lang, "istanbulda-implant-ve-zirkonyum/", implantZirconiaTravelPage(lang));
 
     // Nur-Ads-Landingpage DE (Hat B: Zahnimplantate/All-on-4) — noindex, nicht in Sitemap.
     // Achtung: NICHT "zahnimplantate-tuerkei-kosten/" — das ist bereits die indexierte
