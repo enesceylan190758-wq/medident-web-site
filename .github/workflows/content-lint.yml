@@ -1,15 +1,12 @@
-# RED kapisi. Her content PR'inda calisir. Fail ederse merge edilemez.
+# RED kapisi. Her PR'da calisir. Fail ederse merge edilemez.
 # Bu workflow'u branch protection'da "required status check" yap.
 
 name: Content gate
 
+# Zorunlu kontrol "gate" her PR'da çalışmalı: yol filtresi varken şablon/build/llms.txt PR'ları
+# kontrolü hiç almıyor ve birleştirilemiyordu. Lint yalnız yeni içeriğe bakar; build smoke her PR'da anlamlı.
 on:
   pull_request:
-    paths:
-      - "src/content/**"
-      - "src/data/**"
-      - "src/assets/js/**"
-      - "scripts/seo/**"
   workflow_dispatch:
     inputs:
       scope:
