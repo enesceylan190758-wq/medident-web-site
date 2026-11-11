@@ -535,6 +535,11 @@ export function articlePage(lang, article, relatedServiceSlug) {
     { name: article.title, href: url(lang, "blog/" + article.slug + "/") },
   ];
   const svc = services.find((s) => s.slug === relatedServiceSlug);
+  // İç link: implant yazıları (DE/EN) maliyet sayfasına bağlanır — sayfa sıralamasına destek
+  const maliyetYolu = { de: "zahnimplantate-tuerkei-kosten/", en: "dental-implants-turkey-cost/" }[lang];
+  const maliyet = maliyetYolu && /implant/i.test(article.slug) && t.implantsCostPage?.h1
+    ? `<a class="btn btn-ghost" href="${url(lang, maliyetYolu)}">${t.implantsCostPage.h1} ${icons.arrowSm}</a>`
+    : "";
   const cover = article.coverImage
     ? `<figure class="article-cover" style="margin:0 0 28px;"><img src="${asset(`/assets/img/${article.coverImage}`)}" alt="${article.title}" width="1536" height="1024" style="width:100%;height:auto;border-radius:18px;display:block;" loading="eager"></figure>`
     : "";
@@ -548,7 +553,7 @@ export function articlePage(lang, article, relatedServiceSlug) {
   const body = `${pageHero(lang, t.nav.blog, article.title, "", crumbs)}
   <section class="section" style="padding-top:clamp(30px,4vw,48px);"><div class="container" style="max-width:820px;">
     <article class="prose">${html}
-      ${svc ? `<p style="margin-top:28px;"><a class="btn btn-ghost" href="${url(lang, "hizmetler/" + svc.slug + "/")}">${L(svc.titles, lang)} ${icons.arrowSm}</a></p>` : ""}
+      ${svc || maliyet ? `<p style="margin-top:28px;display:flex;flex-wrap:wrap;gap:12px;">${svc ? `<a class="btn btn-ghost" href="${url(lang, "hizmetler/" + svc.slug + "/")}">${L(svc.titles, lang)} ${icons.arrowSm}</a>` : ""}${maliyet}</p>` : ""}
       <div style="margin-top:24px;display:flex;flex-wrap:wrap;gap:12px;">
         <a href="${url(lang, "iletisim/")}" class="btn btn-primary">${t.bookNow} ${icons.arrow()}</a>
         <a href="${waHref()}" class="btn btn-ghost" target="_blank" rel="noopener">${icons.wa} WhatsApp</a>
