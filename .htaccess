@@ -1,0 +1,123 @@
+# MediDent İstanbul — Apache config (Turhost/cPanel)
+Options -Indexes
+DirectoryIndex index.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # Force HTTPS
+  RewriteCond %{HTTPS} off
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+  # Force www removal (canonical: non-www). Adjust if you prefer www.
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+  # Serve pretty URLs: /path -> /path/ (folder with index.html)
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_URI} !(\.[a-zA-Z0-9]{2,5})$
+  RewriteRule ^(.*[^/])$ /$1/ [L,R=301]
+  # Missing images → jsDelivr (gh-pages) until full FTP asset sync completes
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^assets/img/(.+)$ https://cdn.jsdelivr.net/gh/enesceylan190758-wq/medident-web-site@gh-pages/assets/img/$1 [L,R=302]
+  # Missing pages/files → local PHP router (keeps domain URL, fetches from CDN)
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_URI} !^/router\.php$
+  RewriteRule ^ router.php [L,QSA]
+  # Directory without index.html → router
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteCond %{REQUEST_FILENAME}/index.html !-f
+  RewriteCond %{REQUEST_URI} !^/router\.php$
+  RewriteRule ^ router.php [L,QSA]
+</IfModule>
+
+# ---- Legacy WordPress URLs -> new structure (301) ----
+Redirect 301 /implantoloji-implant-tedavisi/ https://medidentistanbul.com/hizmetler/implantoloji-implant-tedavisi/
+Redirect 301 /estetik-dis-hekimligi/ https://medidentistanbul.com/hizmetler/estetik-dis-hekimligi/
+Redirect 301 /dis-beyazlatma/ https://medidentistanbul.com/hizmetler/dis-beyazlatma/
+Redirect 301 /protezler/ https://medidentistanbul.com/hizmetler/protezler/
+Redirect 301 /seffaf-plaklar-invisalign/ https://medidentistanbul.com/hizmetler/seffaf-plaklar-invisalign/
+Redirect 301 /agiz-dis-ve-cene-cerrahisi/ https://medidentistanbul.com/hizmetler/agiz-dis-ve-cene-cerrahisi/
+Redirect 301 /cene-ve-dis-cerrahisi/ https://medidentistanbul.com/hizmetler/cene-ve-dis-cerrahisi/
+Redirect 301 /cene-eklemi-rahatsizliklari/ https://medidentistanbul.com/hizmetler/cene-eklemi-rahatsizliklari/
+Redirect 301 /periodontoloji-diseti-hastaliklari/ https://medidentistanbul.com/hizmetler/periodontoloji-diseti-hastaliklari/
+Redirect 301 /pedodonti-cocuk-dis-hekimligi/ https://medidentistanbul.com/hizmetler/pedodonti-cocuk-dis-hekimligi/
+Redirect 301 /konservatif-dis-tedavileri/ https://medidentistanbul.com/hizmetler/konservatif-dis-tedavileri/
+Redirect 301 /halitosis-agiz-kokusu/ https://medidentistanbul.com/hizmetler/halitosis-agiz-kokusu/
+Redirect 301 /genel-anestezi-ve-sedasyon/ https://medidentistanbul.com/hizmetler/genel-anestezi-ve-sedasyon/
+Redirect 301 /endodonti-kanal-tedavileri/ https://medidentistanbul.com/hizmetler/endodonti-kanal-tedavileri/
+Redirect 301 /dr-ahmet-celik/ https://medidentistanbul.com/doktorlar/dr-ahmet-celik/
+Redirect 301 /dr-elif-kara/ https://medidentistanbul.com/doktorlar/dr-elif-kara/
+Redirect 301 /dr-can-yildiz/ https://medidentistanbul.com/doktorlar/dr-can-yildiz/
+Redirect 301 /dr-asli-yilmaz/ https://medidentistanbul.com/doktorlar/dr-asli-yilmaz/
+Redirect 301 /musteri-yorumlari/ https://medidentistanbul.com/yorumlar/
+Redirect 301 /referanslar/ https://medidentistanbul.com/yorumlar/
+Redirect 301 /foto-galeri/ https://medidentistanbul.com/galeri/
+Redirect 301 /ss/ https://medidentistanbul.com/sss/
+Redirect 301 /randevu/ https://medidentistanbul.com/iletisim/
+Redirect 301 /randevu-al/ https://medidentistanbul.com/iletisim/
+Redirect 301 /uykuda-dis-tedavisi/ https://medidentistanbul.com/hizmetler/genel-anestezi-ve-sedasyon/
+Redirect 301 /dis-hekimi-istanbul/ https://medidentistanbul.com/hizmetler/implantoloji-implant-tedavisi/
+Redirect 301 /service/dental-care/ https://medidentistanbul.com/hizmetler/
+Redirect 301 /price_tables_categories/ https://medidentistanbul.com/hizmetler/
+Redirect 301 /geo/hollywoodlywood-smile-nedir/ https://medidentistanbul.com/geo/hollywood-smile-nedir/
+Redirect 301 /en/geo/hollywoodlywood-smile-package-istanbul/ https://medidentistanbul.com/en/geo/hollywood-smile-package-istanbul/
+Redirect 301 /de/geo/hollywoodlywood-smile-paket-istanbul/ https://medidentistanbul.com/de/geo/hollywood-smile-paket-istanbul/
+Redirect 301 /en/blog/hollywoodlywood-smile-turkey-package/ https://medidentistanbul.com/en/blog/hollywood-smile-turkey-package/
+Redirect 301 /blog/hollywoodlywood-smile-nedir-kimlere-uygun/ https://medidentistanbul.com/blog/hollywood-smile-nedir-kimlere-uygun/
+Redirect 301 /oral-implantoloji/ https://medidentistanbul.com/hizmetler/implantoloji-implant-tedavisi/
+Redirect 301 /hizmetler/oral-implantoloji/ https://medidentistanbul.com/hizmetler/implantoloji-implant-tedavisi/
+Redirect 301 /en/hizmetler/oral-implantoloji/ https://medidentistanbul.com/en/hizmetler/implantoloji-implant-tedavisi/
+Redirect 301 /de/hizmetler/oral-implantoloji/ https://medidentistanbul.com/de/hizmetler/implantoloji-implant-tedavisi/
+Redirect 301 /fr/hizmetler/oral-implantoloji/ https://medidentistanbul.com/fr/hizmetler/implantoloji-implant-tedavisi/
+Redirect 301 /ar/hizmetler/oral-implantoloji/ https://medidentistanbul.com/ar/hizmetler/implantoloji-implant-tedavisi/
+Redirect 301 /ru/hizmetler/oral-implantoloji/ https://medidentistanbul.com/ru/hizmetler/implantoloji-implant-tedavisi/
+
+# ---- Service-body mirror blogs → commercial service pages (301) ----
+Redirect 301 /blog/implant-tedavisi/ https://medidentistanbul.com/hizmetler/implantoloji-implant-tedavisi/
+Redirect 301 /blog/estetik-dis-tedavileri/ https://medidentistanbul.com/hizmetler/estetik-dis-hekimligi/
+Redirect 301 /blog/dis-beyazlatma-rehberi/ https://medidentistanbul.com/hizmetler/dis-beyazlatma/
+Redirect 301 /blog/dis-protezleri/ https://medidentistanbul.com/hizmetler/protezler/
+Redirect 301 /blog/profesyonel-dis-cekimi-agrisiz-guvenli/ https://medidentistanbul.com/hizmetler/agiz-dis-ve-cene-cerrahisi/
+Redirect 301 /blog/cene-ve-dis-cerrahisi-rehberi/ https://medidentistanbul.com/hizmetler/cene-ve-dis-cerrahisi/
+Redirect 301 /blog/periodontoloji-saglikli-dis-eti-temeli/ https://medidentistanbul.com/hizmetler/periodontoloji-diseti-hastaliklari/
+Redirect 301 /blog/cocuk-dis-hekimligi-korkusuz-ilk-muayene/ https://medidentistanbul.com/hizmetler/pedodonti-cocuk-dis-hekimligi/
+Redirect 301 /blog/bir-gunde-dis-tedavisi/ https://medidentistanbul.com/hizmetler/genel-anestezi-ve-sedasyon/
+Redirect 301 /blog/kanal-tedavisi-mikroskop-disi-kurtarmak/ https://medidentistanbul.com/hizmetler/endodonti-kanal-tedavileri/
+Redirect 301 /en/blog/dental-implant-treatment/ https://medidentistanbul.com/en/hizmetler/implantoloji-implant-tedavisi/
+Redirect 301 /en/blog/cosmetic-dentistry/ https://medidentistanbul.com/en/hizmetler/estetik-dis-hekimligi/
+Redirect 301 /en/blog/teeth-whitening/ https://medidentistanbul.com/en/hizmetler/dis-beyazlatma/
+Redirect 301 /en/blog/dentures/ https://medidentistanbul.com/en/hizmetler/protezler/
+Redirect 301 /en/blog/invisalign-clear-aligners-istanbul/ https://medidentistanbul.com/en/hizmetler/seffaf-plaklar-invisalign/
+Redirect 301 /en/blog/safe-tooth-extraction-istanbul/ https://medidentistanbul.com/en/hizmetler/agiz-dis-ve-cene-cerrahisi/
+Redirect 301 /en/blog/dental-and-maxillofacial-surgery/ https://medidentistanbul.com/en/hizmetler/cene-ve-dis-cerrahisi/
+Redirect 301 /en/blog/gum-health-periodontology-istanbul/ https://medidentistanbul.com/en/hizmetler/periodontoloji-diseti-hastaliklari/
+Redirect 301 /en/blog/pediatric-dentistry-istanbul-family-travel/ https://medidentistanbul.com/en/hizmetler/pedodonti-cocuk-dis-hekimligi/
+Redirect 301 /en/blog/dental-care-and-hygiene/ https://medidentistanbul.com/en/hizmetler/konservatif-dis-tedavileri/
+Redirect 301 /en/blog/same-day-dental-treatments/ https://medidentistanbul.com/en/hizmetler/genel-anestezi-ve-sedasyon/
+Redirect 301 /en/blog/microscopic-root-canal-istanbul/ https://medidentistanbul.com/en/hizmetler/endodonti-kanal-tedavileri/
+Redirect 301 /de/blog/implantatbehandlung/ https://medidentistanbul.com/de/hizmetler/implantoloji-implant-tedavisi/
+Redirect 301 /de/blog/aesthetische-zahnmedizin/ https://medidentistanbul.com/de/hizmetler/estetik-dis-hekimligi/
+Redirect 301 /de/blog/zahnaufhellung/ https://medidentistanbul.com/de/hizmetler/dis-beyazlatma/
+Redirect 301 /de/blog/zahnprothese/ https://medidentistanbul.com/de/hizmetler/protezler/
+Redirect 301 /de/blog/invisalign-aligner-istanbul/ https://medidentistanbul.com/de/hizmetler/seffaf-plaklar-invisalign/
+Redirect 301 /de/blog/zahnentfernung-istanbul-schmerzarm/ https://medidentistanbul.com/de/hizmetler/agiz-dis-ve-cene-cerrahisi/
+Redirect 301 /de/blog/mund-kiefer-gesichtschirurgie/ https://medidentistanbul.com/de/hizmetler/cene-ve-dis-cerrahisi/
+Redirect 301 /de/blog/zahnfleischgesundheit-parodontologie-istanbul/ https://medidentistanbul.com/de/hizmetler/periodontoloji-diseti-hastaliklari/
+Redirect 301 /de/blog/kinderzahnheilkunde-istanbul/ https://medidentistanbul.com/de/hizmetler/pedodonti-cocuk-dis-hekimligi/
+Redirect 301 /de/blog/zahnpflege-und-mundhygiene/ https://medidentistanbul.com/de/hizmetler/konservatif-dis-tedavileri/
+Redirect 301 /de/blog/taggleiche-behandlung/ https://medidentistanbul.com/de/hizmetler/genel-anestezi-ve-sedasyon/
+Redirect 301 /de/blog/wurzelbehandlung-mikroskop-istanbul/ https://medidentistanbul.com/de/hizmetler/endodonti-kanal-tedavileri/
+
+# ---- Caching & compression ----
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml
+</IfModule>
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg "access plus 1 month"
+  ExpiresByType image/png "access plus 1 month"
+  ExpiresByType text/css "access plus 1 week"
+  ExpiresByType application/javascript "access plus 1 week"
+</IfModule>
+
+ErrorDocument 404 /404.html
