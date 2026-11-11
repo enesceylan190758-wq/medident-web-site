@@ -527,6 +527,8 @@ export const i18n = {
     implantsCostPage: {
       eyebrow: "Dental Implants · Cost 2026",
       h1: "Dental Implants Turkey: Real Cost 2026",
+      // <title>: "Istanbul" arama ifadesi (dental implants istanbul) — H1 değişmez
+      metaTitle: "Dental Implants Istanbul, Turkey: Cost 2026",
       lead: "Real MediDent Istanbul prices for dental implants — from €400 per implant, no hidden fees. See the exact numbers, how the process works, and what to check before you book.",
       introTitle: "How much do dental implants cost in Turkey?",
       introText: "Implant prices in Turkey are usually a fraction of UK or German private fees because clinic rent, lab labour and staff costs are lower here — not because the materials are different. MediDent Istanbul uses the same internationally certified implant systems used across Western Europe. The table below is our real, current price list; your final quote is confirmed after a free photo or X-ray assessment, since bone volume and whether a graft is needed can change the plan.",
@@ -1199,6 +1201,8 @@ export const i18n = {
     implantsCostPage: {
       eyebrow: "Zahnimplantate · Kosten 2026",
       h1: "Zahnimplantate Türkei: Kosten 2026 im Überblick",
+      // <title>: "Istanbul" arama ifadesi (zahnimplantate istanbul) — H1 değişmez
+      metaTitle: "Zahnimplantate Istanbul, Türkei: Kosten 2026",
       lead: "Reale MediDent Istanbul Preise für Zahnimplantate — ab 400 € pro Implantat, ohne versteckte Kosten. Sehen Sie die genauen Zahlen, den Ablauf und worauf Sie vor der Buchung achten sollten.",
       introTitle: "Was kostet ein Zahnimplantat in der Türkei?",
       introText: "Implantatpreise in der Türkei liegen meist deutlich unter deutschen oder Schweizer Privatpreisen — nicht wegen anderer Materialien, sondern wegen niedrigerer Miet-, Labor- und Personalkosten. MediDent Istanbul verwendet dieselben international zertifizierten Implantatsysteme, die auch in Westeuropa eingesetzt werden. Die folgende Tabelle ist unsere reale, aktuelle Preisliste; Ihr endgültiges Angebot wird nach einer kostenlosen Foto- oder Röntgen-Einschätzung bestätigt, da Knochenvolumen und ein möglicher Knochenaufbau den Plan verändern können.",
