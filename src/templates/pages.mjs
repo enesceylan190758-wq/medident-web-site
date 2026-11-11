@@ -904,7 +904,7 @@ export function implantsCostPage(lang) {
 
   return {
     body,
-    title: `${p.h1} — ${site.brand}`,
+    title: `${p.metaTitle || p.h1} — ${site.brand}`,
     description: p.lead,
     publishedTime: publishedAt,
     modifiedTime: updatedAt,
