@@ -402,7 +402,7 @@ function writeLlmsTxt() {
   const txt = `# ${site.brand}
 
 > Dental clinic — smile design, implantology, cosmetic dentistry. Üsküdar Acıbadem, Istanbul.
-> Languages: Turkish (TR), English (EN), German (DE).
+> Languages: Turkish (TR), English (EN), German (DE), French (FR), Arabic (AR), Russian (RU).
 > Health tourism: airport transfer, hotel coordination, EN/DE support.
 > Focus: zirconia crowns, dental bonding, Hollywood Smile, implants, Invisalign, sedation.
 
@@ -414,7 +414,14 @@ function writeLlmsTxt() {
 - Blog: ${site.domain}/blog/ · ${site.domain}/en/blog/ · ${site.domain}/de/blog/
 - GEO Q&A: ${site.domain}/geo/ · ${site.domain}/en/geo/ · ${site.domain}/de/geo/
 - Contact: ${site.domain}/iletisim/ · ${site.domain}/en/iletisim/ · ${site.domain}/de/iletisim/
+- Implant cost: ${site.domain}/dis-implant-fiyat/ · ${site.domain}/en/dental-implants-turkey-cost/ · ${site.domain}/de/zahnimplantate-tuerkei-kosten/ · ${site.domain}/fr/prix-implants-dentaires-turquie/
+- Price list: ${site.domain}/en/turkey-teeth-price/ · ${site.domain}/de/preise/
 - WhatsApp: https://wa.me/${site.whatsappRaw}
+
+## Other languages
+- French: ${site.domain}/fr/ · ${site.domain}/fr/hizmetler/
+- Arabic: ${site.domain}/ar/ · ${site.domain}/ar/hizmetler/
+- Russian: ${site.domain}/ru/ · ${site.domain}/ru/hizmetler/
 
 ## Contact
 - Phone: ${site.phone}
