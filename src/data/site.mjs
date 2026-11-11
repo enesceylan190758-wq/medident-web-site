@@ -9,10 +9,11 @@ export const site = {
   basePath: previewBase.replace(/\/$/, ""),
   brand: "MediDent İstanbul",
   // Real clinic contact (Üsküdar branch as primary)
+  // tel: cep hattı — değiştirme. WhatsApp: santral (wa.me / form yönlendirme / schema).
   phone: "+90 549 119 08 19",
   phoneRaw: "+905491190819",
-  whatsapp: "+90 549 119 08 19",
-  whatsappRaw: "905491190819",
+  whatsapp: "+90 216 606 23 98",
+  whatsappRaw: "902166062398",
   email: "info@medidentistanbul.com",
   address: "Acıbadem, Acıbadem Cd. 195F, 34718 Üsküdar/İstanbul",
   addressShort: "Acıbadem, Üsküdar / İstanbul",
@@ -34,8 +35,9 @@ export const site = {
     gscVerify: "D1pF9pwynq5nBW7V0fFMFIvcgZuTc49glS3A18XsOvw",
     // Legacy WP GA4 measurement ID (active on medidentistanbul.com since ~2025)
     ga4: "G-WP6XMC87YB",
-    // Google Ads conversion tag (account 502-170-9821) — used by assets/js/tracking.js
-    googleAds: "AW-18418154075",
+    // İstanbul Dent conversion tracking ID = AW-346086325 (customer 5670078321).
+    // GTM Yeniden Pazarlama aynı ID; head yedek config.
+    googleAds: "AW-346086325",
   },
   // Estesof form integration point (plan faz 5).
   // endpoint doluysa site.js JSON POST atar; boşsa WhatsApp fallback.
@@ -43,6 +45,15 @@ export const site = {
   estesof: {
     endpoint: "", // ör. "https://panel.estesof.com/api/leads/xxxx"
     method: "POST",
+  },
+  // Form kaydı → Nefalix CRM (public uç; anahtar yok, CORS sadece medidentistanbul.com).
+  // JSON POST CORS preflight ister — tracking.js keepalive kullanmaz (Chrome keser).
+  // SADECE form gönderiminde (telefon dolu) JSON POST edilir; doğrudan WhatsApp
+  // tıklamaları CRM'e gitmez. Kesin URL: Nefalix-CRM #26 (docs/site-lead-ucu.md). LEAD_ENDPOINT= (boş) ile kapatılır.
+  // Ayarlamak: LEAD_ENDPOINT=<url> node build.mjs  (veya aşağıya yaz).
+  // Tahmini: https://crm.nefalix.com/api/public/site-lead
+  leadRecord: {
+    endpoint: process.env.LEAD_ENDPOINT ?? "https://crm.nefalix.com/api/public/site-lead",
   },
   rating: { value: "4.9", count: "1200" },
   languages: ["tr", "en", "de", "fr", "ar", "ru"],

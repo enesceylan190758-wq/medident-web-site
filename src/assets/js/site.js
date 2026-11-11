@@ -323,8 +323,32 @@
 
     if (ctaBtn) {
       ctaBtn.addEventListener("click", (e) => {
-        e.preventDefault();
         const { item, opt, sit } = updateResult();
+        const stayOnPage = calcCard.hasAttribute("data-calc-stay");
+
+        if (stayOnPage) {
+          // Ads landing sayfası: sayfadan çıkmaz, sayfa içi forma kaydırır
+          // (data-scroll-form document-level handler'ı bu tıklamayı da yakalar).
+          // Mümkünse iletişim formundaki tedavi alanını seçilenle eşleştirir.
+          e.preventDefault();
+          const treatSel = document.querySelector("[data-treatment-select]");
+          if (treatSel) {
+            let value = null;
+            if (sit === "existing-implants") value = "existing-implants";
+            else if (sit === "not-sure") value = "not-sure-plan";
+            else if (item && item.matchTitle) {
+              const opt2 = Array.from(treatSel.options).find((o) => o.textContent.trim() === item.matchTitle);
+              if (opt2) value = opt2.value;
+            }
+            if (value) {
+              treatSel.value = value;
+              treatSel.dispatchEvent(new Event("change", { bubbles: true }));
+            }
+          }
+          return;
+        }
+
+        e.preventDefault();
         const base = ctaBtn.getAttribute("data-quote-url") || ctaBtn.getAttribute("href");
         const params = new URLSearchParams();
         if (sit && sit !== "priced") {
@@ -405,32 +429,93 @@
     syncHint();
   }
 
-  // Contact form → Estesof endpoint (if configured) else WhatsApp fallback
+  // Contact form: kayıt (Sheet + varsa Estesof) HER ZAMAN sessizce denenir,
+  // WhatsApp da HER ZAMAN ref kodlu mesajla açılır — biri diğerinin
+  // fallback'i değil, ikisi birlikte olur.
   const form = $("[data-lead-form]");
   if (form) {
     const card = form.closest(".form-card");
     const cfg = window.__MD_FORM__ || {};
-    form.addEventListener("submit", async (e) => {
+    const attrKeys = ["gclid", "gbraid", "wbraid", "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "kw", "h", "ref"];
+    // Telefon: zorunlu + format (10–15 hane, opsiyonel +, boşluk/-/()/. serbest)
+    const phoneInput = form.querySelector("[name=phone]");
+    const phoneDigits = (v) => String(v || "").replace(/[\s().-]/g, "");
+    const phoneOk = (v) => /^\+?\d{10,15}$/.test(phoneDigits(v));
+    if (phoneInput) {
+      phoneInput.addEventListener("input", () => phoneInput.setCustomValidity(""));
+    }
+    let lastSubmitAt = 0; // çift gönderim koruması: aynı form 10 sn içinde ikinci kez gitmez
+    form.addEventListener("submit", (e) => {
       e.preventDefault();
+      if (Date.now() - lastSubmitAt < 10000) return;
+      if (phoneInput && !phoneOk(phoneInput.value)) {
+        phoneInput.setCustomValidity("Lütfen geçerli bir telefon numarası girin (örn. +90 5xx xxx xx xx).");
+        phoneInput.reportValidity();
+        return;
+      }
+      lastSubmitAt = Date.now();
+      const submitBtn = form.querySelector("[type=submit]");
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        setTimeout(() => { submitBtn.disabled = false; }, 10000);
+      }
       const fd = new FormData(form);
       const data = Object.fromEntries(fd.entries());
-      let ok = false;
-      if (cfg.endpoint) {
-        try {
-          const res = await fetch(cfg.endpoint, {
-            method: cfg.method || "POST",
-            headers: { "Content-Type": "application/json", Accept: "application/json" },
-            body: JSON.stringify({ ...data, source: "medidentistanbul.com", page: location.href }),
-          });
-          ok = res.ok;
-        } catch (_) {
-          ok = false;
-        }
+      const mdt = window.MDTrack || {};
+      const stored = (mdt.getStore && mdt.getStore()) || {};
+      const attribution = {};
+      attrKeys.forEach((k) => {
+        if (data[k]) attribution[k] = data[k];
+        else if (stored[k]) attribution[k] = stored[k];
+      });
+      const refCode = mdt.resolveRefCode ? mdt.resolveRefCode(attribution) : null;
+      const isBot = !!data.website; // honeypot dolu → sessizce yut, CRM'e/WhatsApp'a gitme
+      if (isBot) {
+        if (card) card.classList.add("is-sent");
+        return;
       }
-      if (!ok && cfg.whatsapp) {
+
+      // 1) CRM kaydı — sadece form, telefon dolu; yanıt beklenmez (WA yeni sekme)
+      if (mdt.recordLead) {
+        const treatSel0 = form.querySelector("[name=treatment]");
+        mdt.recordLead({
+          name: data.name || "",
+          phone: phoneDigits(data.phone),
+          email: data.email || "",
+          treatment: treatSel0?.selectedOptions?.[0]?.text || data.treatment || "",
+          message: data.message || "",
+          utm_source: attribution.utm_source || "",
+          utm_medium: attribution.utm_medium || "",
+          utm_campaign: attribution.utm_campaign || "",
+          utm_term: attribution.utm_term || "",
+          utm_content: attribution.utm_content || "",
+          gclid: attribution.gclid || "",
+          landing_page: stored.landing_page || location.href,
+          ref_code: refCode || "",
+          event_type: "form",
+          timestamp: new Date().toISOString(),
+          website: "",
+        });
+      }
+      if (cfg.endpoint) {
+        fetch(cfg.endpoint, {
+          method: cfg.method || "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({
+            ...data,
+            client: "medident",
+            source: attribution.utm_source || "medidentistanbul.com",
+            page: location.href,
+            attribution,
+          }),
+        }).catch(() => {});
+      }
+
+      // 2) WhatsApp — her zaman açılır, ham kelime/gclid değil sadece ref kodu
+      if (cfg.whatsapp) {
         const treatSel = form.querySelector("[name=treatment]");
         const treatLabel = treatSel?.selectedOptions?.[0]?.text || data.treatment || "";
-        const msg = [
+        let msg = [
           "Merhaba MediDent İstanbul,",
           `Ad: ${data.name || ""}`,
           `Telefon: ${data.phone || ""}`,
@@ -440,10 +525,23 @@
         ]
           .filter(Boolean)
           .join("\n");
+        if (mdt.appendRef) msg = mdt.appendRef(msg, refCode);
         window.open(`https://wa.me/${cfg.whatsapp}?text=${encodeURIComponent(msg)}`, "_blank");
-        ok = true;
       }
-      if (ok && card) card.classList.add("is-sent");
+      if (card) card.classList.add("is-sent");
     });
   }
+
+  // Sayfa içi forma kaydır (CTA "Form Bırak" / "İletişim formu"): sayfadan çıkarmaz, ilk alana odaklanır
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest && e.target.closest("[data-scroll-form]");
+    if (!a) return;
+    const target = document.getElementById("iletisim") || document.querySelector("[data-lead-form]");
+    if (!target) return;
+    e.preventDefault();
+    const reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    target.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    const first = target.querySelector("input[name=name]");
+    setTimeout(() => first && first.focus({ preventScroll: true }), reduce ? 0 : 600);
+  });
 })();

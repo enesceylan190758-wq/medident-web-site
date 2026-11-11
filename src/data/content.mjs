@@ -497,6 +497,7 @@ export const implantBrands = [
     key: "straumann",
     logo: "straumann.svg",
     titles: { tr: "Straumann", en: "Straumann", de: "Straumann", fr: "Straumann" },
+    origin: { tr: "İsviçre", en: "Switzerland", de: "Schweiz", fr: "Suisse" },
     desc: {
       tr: "İsviçre menşeli, implantoloji alanının öncü markalarından biri; Roxolid® malzeme ve SLActive® yüzey teknolojisiyle tanınır.",
       en: "A leading Swiss implantology brand, known for Roxolid® material and SLActive® surface technology.",
@@ -508,6 +509,7 @@ export const implantBrands = [
     key: "osstem",
     logo: "osstem.png",
     titles: { tr: "Osstem", en: "Osstem", de: "Osstem", fr: "Osstem" },
+    origin: { tr: "Güney Kore", en: "South Korea", de: "Südkorea", fr: "Corée du Sud" },
     desc: {
       tr: "Güney Kore merkezli, 70'ten fazla ülkede kullanılan, dünyanın en büyük implant üreticilerinden biridir.",
       en: "A South Korea–based manufacturer, used in over 70 countries and among the world's largest implant makers.",
@@ -520,6 +522,7 @@ export const implantBrands = [
     logo: "neodent.svg",
     logoDark: true,
     titles: { tr: "Neodent", en: "Neodent", de: "Neodent", fr: "Neodent" },
+    origin: { tr: "Brezilya", en: "Brazil", de: "Brasilien", fr: "Brésil" },
     desc: {
       tr: "2018'den beri Straumann Group bünyesinde üretilen, geniş klinik kullanım geçmişine sahip bir implant markasıdır.",
       en: "Manufactured under the Straumann Group since 2018, with a long clinical track record.",
@@ -531,6 +534,7 @@ export const implantBrands = [
     key: "implantswiss",
     logo: "implantswiss.svg",
     titles: { tr: "ImplantSwiss", en: "ImplantSwiss", de: "ImplantSwiss", fr: "ImplantSwiss" },
+    origin: { tr: "İsviçre", en: "Switzerland", de: "Schweiz", fr: "Suisse" },
     desc: {
       tr: "İsviçre hassasiyetiyle üretilen implant sistemidir.",
       en: "An implant system manufactured to Swiss precision standards.",

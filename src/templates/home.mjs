@@ -117,7 +117,7 @@ function clinicVideoSection(lang) {
   </section>`;
 }
 
-export function priceCalcSection(lang) {
+export function priceCalcSection(lang, { stayOnPage = false } = {}) {
   const c = i18n[lang].calc || i18n.en.calc;
   const treatmentOpts = priceCalc.map((p) => `<option value="${p.key}">${L(p.titles, lang)}</option>`).join("");
   const situationOpts = [
@@ -145,7 +145,7 @@ export function priceCalcSection(lang) {
         <h2 data-reveal style="margin:0 0 14px;">${c.title}</h2>
         <p data-reveal style="font-size:16px;line-height:1.62;color:var(--muted);margin:0;">${c.lead}</p>
       </div>
-      <div class="form-card" data-reveal data-calc>
+      <div class="form-card" data-reveal data-calc${stayOnPage ? ' data-calc-stay="1"' : ""}>
         <div class="form-stack">
           <label><span class="lbl">${c.situationLabel}</span><select data-calc-situation>${situationOpts}</select></label>
           <div class="form-grid" data-calc-priced-fields>
@@ -160,7 +160,7 @@ export function priceCalcSection(lang) {
           <p style="font-size:12.5px;color:var(--muted-2);margin:0;">${c.disclaimer}</p>
           <p style="font-size:12.5px;color:var(--muted-2);margin:0;">${c.hotelPolicy}</p>
             <div style="display:grid;gap:10px;" data-calc-actions>
-            <a href="${url(lang, "iletisim/")}" class="btn btn-primary btn-block" data-calc-cta data-quote-url="${url(lang, "iletisim/")}" data-cta-priced="${c.cta}" data-cta-plan="${c.ctaPlan}">${c.cta} ${icons.arrow()}</a>
+            <a href="${stayOnPage ? "#iletisim" : url(lang, "iletisim/")}"${stayOnPage ? " data-scroll-form" : ""} class="btn btn-primary btn-block" data-calc-cta data-quote-url="${url(lang, "iletisim/")}" data-cta-priced="${c.cta}" data-cta-plan="${c.ctaPlan}">${c.cta} ${icons.arrow()}</a>
             <a href="${waPhotos}" target="_blank" rel="noopener" class="btn btn-block" style="background:#25D366;color:#fff;display:none;" data-calc-wa>${icons.wa} ${c.ctaPhotos}</a>
           </div>
           <p style="font-size:12.5px;color:var(--muted-2);margin:0;text-align:center;">${c.photosHint}</p>
@@ -580,12 +580,13 @@ export function contactSection(lang, { heading = true } = {}) {
         <div data-reveal>
           <div class="form-card">
             <form class="form-main" data-lead-form>
+              <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">
               <h3>${t.formTitle}</h3>
               <p style="font-size:14px;color:var(--muted-2);margin:0 0 24px;">${t.formLead}</p>
               <div class="form-stack">
                 <div class="form-grid">
                   <label><span class="lbl">${t.formName}</span><input type="text" name="name" required placeholder="${t.formName}"></label>
-                  <label><span class="lbl">${t.formPhone}</span><input type="tel" name="phone" required placeholder="+90 ..."></label>
+                  <label><span class="lbl">${t.formPhone}</span><input type="tel" name="phone" required inputmode="tel" autocomplete="tel" minlength="10" placeholder="+90 ..."></label>
                 </div>
                 <label><span class="lbl">${t.formEmail}</span><input type="email" name="email" required placeholder="${t.emailPlaceholder || "name@example.com"}"></label>
                 <label><span class="lbl">${t.formTreatment}</span><select name="treatment" data-treatment-select>${treatments
