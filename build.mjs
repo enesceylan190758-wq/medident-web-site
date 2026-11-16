@@ -8,6 +8,7 @@ import { site, langPrefix } from "./src/data/site.mjs";
 import { services, doctors, legacyBlog } from "./src/data/content.mjs";
 import {
   resolveHreflangPaths,
+  unemittedBlogPaths,
   sitemapPriority,
   sitemapChangefreq,
   htmlLang,
@@ -121,6 +122,26 @@ function emit(lang, pathNoLang, rendered) {
 function build() {
   clean(DIST);
   serviceMirrorRedirects.length = 0;
+
+  // Ön geçiş: hizmet gövdesi aynası olan blog yazıları üretilmez (301 → hizmet).
+  // hreflang ve GEO iç linkleri bu 301'lenen adreslere işaret etmesin diye önceden hesaplanır.
+  unemittedBlogPaths.clear();
+  const mirrorTarget = new Map(); // "/en/blog/x/" → "/en/hizmetler/y/"
+  for (const lang of site.languages) {
+    const byLang = ARTICLES.filter((a) => a.lang === lang);
+    for (const s of services) {
+      const article = primaryArticleForService(byLang, s.slug);
+      if (article && SERVICE_BODY_MIRROR_SERVICES.has(s.slug)) {
+        unemittedBlogPaths.add(`${lang}:blog/${article.slug}/`);
+        mirrorTarget.set(url(lang, `blog/${article.slug}/`), url(lang, `hizmetler/${s.slug}/`));
+      }
+    }
+  }
+  for (const g of GEO_PACKS) {
+    for (const link of g.internal_links || []) {
+      if (link && mirrorTarget.has(link.href)) link.href = mirrorTarget.get(link.href);
+    }
+  }
 
   // Assets
   copyDir(path.join(__dirname, "src/assets/css"), path.join(DIST, "assets/css"));
@@ -236,14 +257,16 @@ function writeSitemap() {
             `    <xhtml:link rel="alternate" hreflang="${htmlLang[l]}" href="${absUrl(l, pathNoLang)}"/>`
         )
         .join("\n");
-      const xDefault = map.tr || map[p.lang] || p.path;
+      // x-default: TR karşılığı varsa o, yoksa sayfanın kendi dili (layout.mjs ile aynı kural).
+      // Eskiden TR öneki ile yazılıyordu → /preise/ gibi var olmayan adresler çıkıyordu.
+      const xDefaultHref = map.tr ? absUrl("tr", map.tr) : absUrl(p.lang, map[p.lang] || p.path);
       return `  <url>
     <loc>${p.loc}</loc>
     <lastmod>${today}</lastmod>
     <changefreq>${changefreq}</changefreq>
     <priority>${priority}</priority>
 ${xhtml}
-    <xhtml:link rel="alternate" hreflang="x-default" href="${absUrl("tr", xDefault)}"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="${xDefaultHref}"/>
   </url>`;
     })
     .join("\n");
