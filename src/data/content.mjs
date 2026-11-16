@@ -6,6 +6,9 @@ export const services = [
     image: "jun-8-3.jpg",
     home: true,
     titles: { tr: "İmplantoloji (İmplant Tedavisi)", en: "Implantology (Dental Implants)", de: "Implantologie (Zahnimplantate)", fr: "Implantologie (Implants dentaires)" },
+    // Zayıf kelimeler (seo_kelimeler): "dental implants istanbul", "zahnimplantate istanbul", "implant dentaire istanbul"
+    seoTitle: { en: "Dental Implants in Istanbul — Implantology", de: "Zahnimplantate in Istanbul — Implantologie", fr: "Implants dentaires à Istanbul — Implantologie" },
+    h1: { en: "Dental Implants in Istanbul", de: "Zahnimplantate in Istanbul", fr: "Implants dentaires à Istanbul" },
     short: {
       tr: "Tek veya çoklu eksik dişler için titanyum implantlarla doğal görünümlü sabit protezler.",
       en: "Titanium implants with natural-looking fixed restorations for one or multiple missing teeth.",
