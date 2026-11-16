@@ -379,7 +379,8 @@ export function servicePage(lang, service, article = null) {
   const heroImg = service.image
     ? `<figure style="margin:0 0 28px;border-radius:18px;overflow:hidden;aspect-ratio:16/9;background:var(--sand);"><img src="${asset(`/assets/img/${service.image}`)}" alt="${title}" width="1200" height="675" style="width:100%;height:100%;object-fit:cover;display:block;" loading="eager"></figure>`
     : "";
-  const body = `${pageHero(lang, t.servicesEyebrow, title, L(service.short, lang), crumbs)}
+  const h1 = (service.h1 && service.h1[lang]) || title;
+  const body = `${pageHero(lang, t.servicesEyebrow, h1, L(service.short, lang), crumbs)}
   <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container" style="max-width:860px;">
     ${heroImg}
     <div style="display:grid;grid-template-columns:1fr;gap:40px;">
@@ -420,9 +421,13 @@ export function servicePage(lang, service, article = null) {
     breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
   ];
   if (faqs.length) jsonld.push(faqSchema(faqs));
-  const pageTitle =
-    lang === "en" || lang === "de" || lang === "fr"
-      ? `${title} in Istanbul — ${site.brand}`
+  // SEO: anahtar kelime önde başlık (service.seoTitle) varsa onu kullan; FR'de "in" değil "à".
+  const cityIn = lang === "fr" ? "à Istanbul" : "in Istanbul";
+  const seoTitle = service.seoTitle && service.seoTitle[lang];
+  const pageTitle = seoTitle
+    ? `${seoTitle} — ${site.brand}`
+    : lang === "en" || lang === "de" || lang === "fr"
+      ? `${title} ${cityIn} — ${site.brand}`
       : `${title} — ${site.brand}`;
   return { body, title: pageTitle, description: L(service.meta, lang), image: ogImage, jsonld };
 }
