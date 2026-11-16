@@ -535,11 +535,18 @@ export function articlePage(lang, article, relatedServiceSlug) {
     { name: article.title, href: url(lang, "blog/" + article.slug + "/") },
   ];
   const svc = services.find((s) => s.slug === relatedServiceSlug);
-  // İç link: implant yazıları (DE/EN) maliyet sayfasına bağlanır — sayfa sıralamasına destek
+  // İç link: implant yazıları maliyet/fiyat sayfasına, zirkon yazıları fiyat sayfasına bağlanır
+  // (DE/EN implant → maliyet; TR implant → /dis-implant-fiyat/; DE/EN zirkon → fiyat listesi).
   const maliyetYolu = { de: "zahnimplantate-tuerkei-kosten/", en: "dental-implants-turkey-cost/" }[lang];
-  const maliyet = maliyetYolu && /implant/i.test(article.slug) && t.implantsCostPage?.h1
-    ? `<a class="btn btn-ghost" href="${url(lang, maliyetYolu)}">${t.implantsCostPage.h1} ${icons.arrowSm}</a>`
-    : "";
+  const fiyatLinki = (yol, etiket) => `<a class="btn btn-ghost" href="${url(lang, yol)}">${etiket} ${icons.arrowSm}</a>`;
+  let maliyet = "";
+  if (/implant/i.test(article.slug)) {
+    if (maliyetYolu && t.implantsCostPage?.h1) maliyet = fiyatLinki(maliyetYolu, t.implantsCostPage.h1);
+    else if (lang === "tr" && t.implantPricePage?.h1) maliyet = fiyatLinki("dis-implant-fiyat/", t.implantPricePage.h1);
+  } else if (/zirkon|zircon/i.test(article.slug)) {
+    const fiyatYolu = { de: "preise/", en: "turkey-teeth-price/" }[lang];
+    if (fiyatYolu && t.pricesPage?.h1) maliyet = fiyatLinki(fiyatYolu, t.pricesPage.h1);
+  }
   const cover = article.coverImage
     ? `<figure class="article-cover" style="margin:0 0 28px;"><img src="${asset(`/assets/img/${article.coverImage}`)}" alt="${article.title}" width="1536" height="1024" style="width:100%;height:auto;border-radius:18px;display:block;" loading="eager"></figure>`
     : "";
