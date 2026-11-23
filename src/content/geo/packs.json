@@ -47,7 +47,10 @@
     "publishedAt": "2026-07-29",
     "source": "seo-geo-plan-phase",
     "coverImage": "blog/blog-04-implant.jpg",
-    "author": "MediDent Istanbul Clinical Team"
+    "author": "MediDent Istanbul Clinical Team",
+    "reviewer": "Dt. Metin Demir",
+    "reviewedAt": "2026-11-23",
+    "updatedAt": "2026-11-23"
   },
   {
     "lang": "tr",
@@ -147,7 +150,10 @@
     "publishedAt": "2026-07-29",
     "source": "seo-geo-plan-phase",
     "coverImage": "blog/blog-01-zirkonyum.jpg",
-    "author": "MediDent Istanbul Clinical Team"
+    "author": "MediDent Istanbul Clinical Team",
+    "reviewer": "Dt. Feyzanur Gül Köker",
+    "reviewedAt": "2026-11-23",
+    "updatedAt": "2026-11-23"
   },
   {
     "lang": "tr",
@@ -247,7 +253,10 @@
     "publishedAt": "2026-07-29",
     "source": "seo-geo-plan-phase",
     "coverImage": "blog/blog-04-implant.jpg",
-    "author": "MediDent Istanbul Clinical Team"
+    "author": "MediDent Istanbul Clinical Team",
+    "reviewer": "Dt. Metin Demir",
+    "reviewedAt": "2026-11-23",
+    "updatedAt": "2026-11-23"
   },
   {
     "lang": "tr",
@@ -550,7 +559,11 @@
       }
     ],
     "publishedAt": "2026-07-23",
-    "source": "topic-pack-visual"
+    "source": "topic-pack-visual",
+    "reviewer": "Dt. Feyzanur Gül Köker",
+    "reviewedAt": "2026-11-23",
+    "author": "Dt. Feyzanur Gül Köker",
+    "updatedAt": "2026-11-23"
   },
   {
     "lang": "tr",
@@ -709,7 +722,11 @@
       }
     ],
     "publishedAt": "2026-07-23",
-    "source": "topic-pack-visual"
+    "source": "topic-pack-visual",
+    "reviewer": "Dt. Metin Demir",
+    "reviewedAt": "2026-11-23",
+    "author": "Dt. Metin Demir",
+    "updatedAt": "2026-11-23"
   },
   {
     "lang": "tr",
@@ -1080,7 +1097,11 @@
       }
     ],
     "publishedAt": "2026-07-23",
-    "source": "ende-tourism-pack"
+    "source": "ende-tourism-pack",
+    "reviewer": "Dt. Feyzanur Gül Köker",
+    "reviewedAt": "2026-11-23",
+    "author": "Dt. Feyzanur Gül Köker",
+    "updatedAt": "2026-11-23"
   },
   {
     "lang": "en",
@@ -1292,7 +1313,11 @@
       }
     ],
     "publishedAt": "2026-07-23",
-    "source": "ende-tourism-pack"
+    "source": "ende-tourism-pack",
+    "reviewer": "Dt. Metin Demir",
+    "reviewedAt": "2026-11-23",
+    "author": "Dt. Metin Demir",
+    "updatedAt": "2026-11-23"
   },
   {
     "lang": "en",
@@ -1610,7 +1635,11 @@
       }
     ],
     "publishedAt": "2026-07-23",
-    "source": "ende-tourism-pack"
+    "source": "ende-tourism-pack",
+    "reviewer": "Dt. Feyzanur Gül Köker",
+    "reviewedAt": "2026-11-23",
+    "author": "Dt. Feyzanur Gül Köker",
+    "updatedAt": "2026-11-23"
   },
   {
     "lang": "de",
@@ -1870,7 +1899,11 @@
       }
     ],
     "publishedAt": "2026-07-23",
-    "source": "ende-tourism-pack"
+    "source": "ende-tourism-pack",
+    "reviewer": "Dt. Metin Demir",
+    "reviewedAt": "2026-11-23",
+    "author": "Dt. Metin Demir",
+    "updatedAt": "2026-11-23"
   },
   {
     "lang": "de",
@@ -2180,7 +2213,11 @@
       }
     ],
     "source": "seo-ende-expand",
-    "publishedAt": "2026-07-23"
+    "publishedAt": "2026-07-23",
+    "reviewer": "Dt. Metin Demir",
+    "reviewedAt": "2026-11-23",
+    "author": "Dt. Metin Demir",
+    "updatedAt": "2026-11-23"
   },
   {
     "lang": "en",
@@ -2381,7 +2418,11 @@
       }
     ],
     "source": "seo-ende-expand",
-    "publishedAt": "2026-07-23"
+    "publishedAt": "2026-07-23",
+    "reviewer": "Dt. Metin Demir",
+    "reviewedAt": "2026-11-23",
+    "author": "Dt. Metin Demir",
+    "updatedAt": "2026-11-23"
   },
   {
     "lang": "de",
@@ -2422,7 +2463,11 @@
       }
     ],
     "source": "seo-ende-expand",
-    "publishedAt": "2026-07-23"
+    "publishedAt": "2026-07-23",
+    "reviewer": "Dt. Metin Demir",
+    "reviewedAt": "2026-11-23",
+    "author": "Dt. Metin Demir",
+    "updatedAt": "2026-11-23"
   },
   {
     "lang": "de",
@@ -2615,7 +2660,11 @@
       }
     ],
     "source": "seo-ende-expand",
-    "publishedAt": "2026-07-23"
+    "publishedAt": "2026-07-23",
+    "reviewer": "Dt. Metin Demir",
+    "reviewedAt": "2026-11-23",
+    "author": "Dt. Metin Demir",
+    "updatedAt": "2026-11-23"
   },
   {
     "lang": "en",
