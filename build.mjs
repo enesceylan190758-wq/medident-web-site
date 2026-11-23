@@ -5,6 +5,8 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { site, langPrefix } from "./src/data/site.mjs";
+import { i18n } from "./src/data/i18n.mjs";
+import { intlImplantPage } from "./src/templates/pages.mjs";
 import { services, doctors, legacyBlog } from "./src/data/content.mjs";
 import {
   resolveHreflangPaths,
@@ -39,6 +41,7 @@ import {
   implantPricePage,
   implantZirconiaTravelPage,
   implantAdPageDe,
+  implantAdPageFr,
 } from "./src/templates/pages.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -237,7 +240,13 @@ function build() {
     // Achtung: NICHT "zahnimplantate-tuerkei-kosten/" — das ist bereits die indexierte
     // implantsCostPage (siehe oben, seit c138a5f); eigene URL um Kollision zu vermeiden.
     if (lang === "de") emit(lang, "zahnimplantate-tuerkei-angebot/", implantAdPageDe(lang));
+    // FR reklam landing (FR/BE/CH Fransızca) — noindex, sitemap dışı.
+    if (lang === "fr") emit(lang, "implant-dentaire-turquie-offre/", implantAdPageFr(lang));
   }
+
+  // Kısmi dil IT — yalnız iki sayfa: reklam landing (noindex) + indexlenen fiyat sayfası.
+  emit("it", i18n.it.intlAdPage.slug, intlImplantPage("it", "intlAdPage"));
+  emit("it", i18n.it.intlSeoPage.slug, intlImplantPage("it", "intlSeoPage"));
 
   writeSitemap();
   writeRobots();

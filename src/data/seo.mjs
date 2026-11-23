@@ -7,6 +7,7 @@ export const hoursLocalized = {
   en: "Monday – Saturday: 09:00 – 18:00",
   de: "Montag – Samstag: 09:00 – 18:00",
   fr: "Lundi – Samedi : 09:00 – 18:00",
+  it: "Lunedì – Sabato: 09:00 – 18:00",
   ar: "الاثنين – السبت: 09:00 – 18:00",
   ru: "Понедельник – суббота: 09:00 – 18:00",
 };
@@ -308,8 +309,9 @@ export function resolveHreflangPaths(lang, pathNoLang) {
   }
 
   // Dental implants cost landing page — DE/EN only
-  if (p === "zahnimplantate-tuerkei-kosten" || p === "dental-implants-turkey-cost") {
-    return { de: "zahnimplantate-tuerkei-kosten/", en: "dental-implants-turkey-cost/" };
+  // + IT: /it/impianti-dentali-turchia-prezzi/ (kısmi dil, yalnız bu sayfa indexlenir)
+  if (p === "zahnimplantate-tuerkei-kosten" || p === "dental-implants-turkey-cost" || p === "impianti-dentali-turchia-prezzi") {
+    return { de: "zahnimplantate-tuerkei-kosten/", en: "dental-implants-turkey-cost/", it: "impianti-dentali-turchia-prezzi/" };
   }
 
   // Hollywood Smile package landing page — DE/EN only
