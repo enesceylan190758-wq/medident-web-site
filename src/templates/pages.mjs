@@ -1271,6 +1271,127 @@ export function implantAdPageDe(lang) {
   };
 }
 
+/**
+ * Page d'atterrissage publicitaire FR — `/fr/implant-dentaire-turquie-offre/`.
+ * Reklam trafiği (FR/BE/CH Fransızca, Meta + Google) için; noindex + sitemap dışı.
+ * Fiyatlar bot_settings.price_list'ten (tek kaynak). Hekim kartı ızgarası YOK —
+ * yalnız onaylı iki hekimin inceleme satırı. Önce/sonra görseli yok.
+ * DTR: ?h=implant | all-on-4 | zircone (yalnız whitelist).
+ */
+export function implantAdPageFr(lang) {
+  const t = i18n[lang];
+  const p = t.implantAdPageFr;
+  const slug = "implant-dentaire-turquie-offre/";
+  const crumbs = [crumbHome(lang), { name: p.eyebrow, href: url(lang, slug) }];
+  const wa = waHref("Bonjour, je souhaite un devis gratuit pour des implants / couronnes zircone (photo ou radio).");
+
+  const table = `<div style="overflow-x:auto;border-radius:16px;border:1px solid rgba(43,35,24,.1);">
+    <table style="width:100%;border-collapse:collapse;font-size:15px;">
+      <thead><tr style="background:var(--cream-2);">
+        <th style="text-align:left;padding:14px 18px;font-weight:700;color:var(--ink);">Traitement</th>
+        <th style="text-align:right;padding:14px 18px;font-weight:700;color:var(--ink);">Prix</th>
+      </tr></thead>
+      <tbody>
+        ${p.priceTable
+          .map(
+            (row, i) => `<tr style="${i % 2 ? "background:var(--cream);" : ""}border-top:1px solid rgba(43,35,24,.08);">
+          <td style="padding:14px 18px;color:var(--ink-soft);">${row.label}</td>
+          <td style="padding:14px 18px;text-align:right;font-weight:700;color:var(--ink);white-space:nowrap;">${row.price}</td>
+        </tr>`
+          )
+          .join("")}
+      </tbody>
+    </table>
+  </div>`;
+
+  const heroSection = `<section class="page-hero"><div class="container">
+    ${breadcrumb(lang, crumbs)}
+    <div class="eyebrow">${p.eyebrow}</div>
+    <h1 data-dtr-h1 style="font-size:clamp(32px,5vw,56px);margin:0 0 14px;max-width:860px;">${p.h1}</h1>
+    <p data-dtr-lead class="lead" style="max-width:680px;">${p.lead}</p>
+    <div style="display:flex;flex-wrap:wrap;gap:20px 28px;margin:22px 0 18px;align-items:flex-start;">
+      <div style="max-width:320px;">
+        <a data-dtr-cta href="${wa}" target="_blank" rel="noopener" class="btn" style="background:#25D366;color:#fff;padding:15px 28px;font-size:15.5px;">${icons.wa} ${p.ctaPrimary}</a>
+        <p style="font-size:13px;line-height:1.45;color:var(--muted-2);margin:8px 0 0;">${p.ctaPrimaryNote}</p>
+      </div>
+      <div style="max-width:300px;">
+        <a href="#iletisim" data-scroll-form class="btn btn-outline-red" style="padding:15px 28px;font-size:15.5px;">${p.ctaSecondary}</a>
+        <p style="font-size:13px;line-height:1.45;color:var(--muted-2);margin:8px 0 0;">${p.ctaSecondaryNote}</p>
+      </div>
+    </div>
+    <p style="font-size:13.5px;color:var(--muted-2);margin:0;"><span style="font-weight:700;color:var(--ink-soft);">${p.reviewTitle} :</span> ${p.reviewText}</p>
+  </div></section>`;
+
+  const coreBrands = implantBrands.filter((b) => ["straumann", "osstem", "neodent", "implantswiss"].includes(b.key));
+  const brandCards = coreBrands
+    .map(
+      (b) => `<div class="card" data-reveal style="padding:20px;">
+      ${b.origin ? `<div style="font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;">${L(b.origin, lang)}</div>` : ""}
+      <h4 style="margin:0 0 6px;font-size:16px;">${L(b.titles, lang)}</h4>
+      <p style="font-size:13.5px;line-height:1.55;color:var(--muted-2);margin:0;">${L(b.desc, lang)}</p>
+    </div>`
+    )
+    .join("");
+
+  const priceSection = `<section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">
+    ${landingInclusions(lang, p.inclusions)}
+    <h2 style="font-size:24px;margin:8px 0 20px;">${p.priceTitle}</h2>
+    ${table}
+    <p style="font-size:13px;color:var(--muted-2);margin:16px 0 32px;">${p.priceNote}</p>
+    <h2 style="font-size:22px;margin:0 0 14px;">${p.introTitle}</h2>
+    <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0 0 32px;">${p.introText}</p>
+    ${brandCards ? `<h2 style="font-size:22px;margin:0 0 6px;">${p.brandsTitle}</h2><p style="font-size:15px;color:var(--muted);margin:0 0 20px;">${p.brandsLead}</p><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">${brandCards}</div>` : ""}
+  </div></section>`;
+
+  const tripIntro = `<section class="section" style="padding-bottom:0;"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:24px;margin:0 0 10px;">${p.tripTitle}</h2>
+    <p style="font-size:16px;line-height:1.66;color:var(--muted);margin:0;">${p.tripLead}</p>
+  </div></section>`;
+  const zirconNote = `<section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">
+    <p style="font-size:15px;line-height:1.6;color:var(--muted);margin:0;border-left:3px solid var(--gold);padding:4px 0 4px 14px;">${p.zirconNote}</p>
+  </div></section>`;
+
+  const faqItem = (f) => `<div class="faq-item" data-faq-item><button class="faq-q" data-faq-toggle><span>${f.q}</span><span class="faq-icon"><span class="minus">${miniMinus}</span><span class="plus">${miniPlus}</span></span></button><div class="faq-a"><p style="margin:0;">${f.a}</p></div></div>`;
+
+  const dtrScript = `<script>(function(){
+    var V=${JSON.stringify(p.variants)};
+    var k=new URLSearchParams(location.search).get('h');
+    var v=k&&Object.prototype.hasOwnProperty.call(V,k)?V[k]:null;
+    if(!v)return;
+    var h1=document.querySelector('[data-dtr-h1]'); if(h1&&v.h1)h1.textContent=v.h1;
+    var lead=document.querySelector('[data-dtr-lead]'); if(lead&&v.lead)lead.textContent=v.lead;
+    var ctas=document.querySelectorAll('[data-dtr-cta]'); if(v.cta)ctas.forEach(function(el){var wa=el.querySelector('svg');el.textContent='';if(wa)el.appendChild(wa);el.appendChild(document.createTextNode(' '+v.cta));});
+    if(v.h1)document.title=v.h1+' — ${site.brand}';
+  })();</script>`;
+
+  const body = `${heroSection}
+  ${priceSection}
+  ${landingCtaBand(lang)}
+  ${tripIntro}
+  ${landingTripTimeline(lang, p.tripStages || [])}
+  ${zirconNote}
+  ${landingCtaBand(lang)}
+  <section class="section section-alt"><div class="container" style="max-width:820px;">
+    <h2 style="font-size:24px;margin:0 0 20px;">${p.faqTitle}</h2>
+    <div class="faq" data-reveal>${p.faqs.map(faqItem).join("")}</div>
+  </div></section>
+  ${contactSection(lang)}
+  ${dtrScript}`;
+
+  return {
+    body,
+    title: `${p.h1} — ${site.brand}`,
+    description: p.lead,
+    adLanding: true,
+    noindex: true,
+    jsonld: [
+      orgSchema(lang),
+      faqSchema(p.faqs),
+      breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
+    ],
+  };
+}
+
 /** Veneers commercial landing — DE (`porzellan-veneers-istanbul/`) + EN (`veneers-turkey/`). */
 export function veneersPage(lang) {
   const t = i18n[lang];
