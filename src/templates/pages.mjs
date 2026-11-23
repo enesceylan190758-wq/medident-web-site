@@ -562,8 +562,14 @@ export function articlePage(lang, article, relatedServiceSlug) {
   } else if (cover) {
     html = cover + html;
   }
+  // Hekim inceleme satırı — yalnız içerikte reviewer + reviewedAt doluysa (seo:approve / onaylı PR).
+  const updatedLabel = { tr: "Güncellendi", en: "Updated", de: "Aktualisiert", fr: "Mis à jour", ar: "تم التحديث", ru: "Обновлено" };
+  const reviewLine = article.reviewer
+    ? `<p class="article-review" style="font-size:13.5px;color:var(--muted-2);margin:0 0 24px;">${reviewedByLabel[lang] || reviewedByLabel.en}: <strong style="color:var(--ink-soft);">${article.reviewer}</strong>${article.reviewedAt ? ` · ${updatedLabel[lang] || updatedLabel.en}: <time datetime="${article.updatedAt || article.reviewedAt}">${article.updatedAt || article.reviewedAt}</time>` : ""}</p>`
+    : "";
   const body = `${pageHero(lang, t.nav.blog, article.title, "", crumbs)}
   <section class="section" style="padding-top:clamp(30px,4vw,48px);"><div class="container" style="max-width:820px;">
+    ${reviewLine}
     <article class="prose">${html}
       ${svc || maliyet ? `<p style="margin-top:28px;display:flex;flex-wrap:wrap;gap:12px;">${svc ? `<a class="btn btn-ghost" href="${url(lang, "hizmetler/" + svc.slug + "/")}">${L(svc.titles, lang)} ${icons.arrowSm}</a>` : ""}${maliyet}</p>` : ""}
       <div style="margin-top:24px;display:flex;flex-wrap:wrap;gap:12px;">
@@ -582,8 +588,12 @@ export function articlePage(lang, article, relatedServiceSlug) {
       description: article.excerpt,
       inLanguage: langBCP47[lang] || "en-US",
       datePublished: article.publishedAt || undefined,
+      dateModified: article.updatedAt || article.reviewedAt || undefined,
       image: ogImage,
-      author: { "@id": site.domain + "/#organization" },
+      author: article.author && article.author !== "MediDent Istanbul Clinical Team"
+        ? { "@type": "Person", name: article.author, worksFor: { "@id": site.domain + "/#organization" } }
+        : { "@id": site.domain + "/#organization" },
+      ...(article.reviewer ? { reviewedBy: { "@type": "Person", name: article.reviewer, worksFor: { "@id": site.domain + "/#organization" } } } : {}),
       publisher: { "@id": site.domain + "/#organization" },
       mainEntityOfPage: site.domain + url(lang, "blog/" + article.slug + "/"),
     },
