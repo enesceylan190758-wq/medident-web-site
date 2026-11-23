@@ -249,9 +249,9 @@ export const i18n = {
       zirconiaOnlyNote: "Sadece zirkonyum kaplama yaptıracaksanız tek geliş yeterlidir — kalış süreniz, ücretsiz değerlendirmeden sonra netleşir.",
       insuranceTitle: "Alman sağlık sigortası için fatura desteği",
       insuranceText: "Sigortanıza sunmanız için fatura ve tedavi planı veriyoruz; bunun ne kadarını karşılayacağı tamamen kendi sigorta poliçenize bağlıdır; karşılama oranını önceden sigortanıza sormanızı öneririz.",
-      doctorsTitle: "Tedavinizi kim inceliyor?",
-      implantReviewer: { name: "Dt. Metin Demir", title: "İmplantoloji Uzmanı" },
-      zirconiaReviewer: { name: "Dt. Feyzanur Gül Köker", title: "Protez Uzmanı" },
+      doctorsTitle: "Tedaviyi yapan hekimlerimiz",
+      implantReviewer: { name: "Dt. Metin Demir", title: "İmplant tedavileri" },
+      zirconiaReviewer: { name: "Dt. Feyzanur Gül Köker", title: "Zirkonyum ve protez tedavileri" },
       faqTitle: "Almanya'dan gelenler için sık sorulanlar",
       faqs: [
         { q: "İmplant için İstanbul'a kaç kez gelmem gerekir?", a: "Çoğu implant vakasında iki geliş planlanır: ilk gelişte implant yerleştirilir, kemikle kaynaşma için bir iyileşme süresi beklenir (genellikle birkaç ay), ikinci gelişte implant üstü sabit dişleriniz tamamlanır. İkinci geliş en az 6 gün sürer. Kesin süre ve tarihler, ücretsiz değerlendirme sonrası hekiminiz tarafından size özel planlanır." },

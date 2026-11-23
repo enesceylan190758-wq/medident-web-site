@@ -1252,9 +1252,7 @@ export function implantZirconiaTravelPage(lang) {
     publisher: { "@id": site.domain + "/#organization" },
     mainEntityOfPage: pageUrl,
     url: pageUrl,
-    reviewedBy: [p.implantReviewer, p.zirconiaReviewer]
-      .filter(Boolean)
-      .map((r) => ({ "@type": "Person", name: r.name, jobTitle: r.title })),
+    // reviewedBy bilinçli YOK: hekimler bu metni incelemedi; yalnız tedaviyi yapan hekimler gösterilir.
   };
 
   return {
