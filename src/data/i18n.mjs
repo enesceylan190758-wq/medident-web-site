@@ -1706,7 +1706,7 @@ export const i18n = {
         { label: "Couronne zircone (par dent)", price: "dès 180 €" },
         { label: "All-on-4 (par mâchoire)", price: "dès 3 450 €" },
         { label: "Réhabilitation complète haut + bas (10 à 12 implants)", price: "dès 6 900 €" },
-        { label: "Sédation consciente (option)", price: "450 €" },
+        { label: "Sédation consciente (option)", price: "dès 450 €" },
       ],
       priceNote: "Prix de départ en euros. Le montant exact dépend de votre situation clinique et figure sur votre devis écrit. Pour un ou quelques implants, l'hébergement est à votre charge ; nous vous conseillons volontiers des hôtels proches de la clinique (Üsküdar, rive asiatique d'Istanbul).",
       brandsTitle: "Les marques d'implants que nous posons",
