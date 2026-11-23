@@ -1928,7 +1928,7 @@ const itShared = {
     { label: "Corona in zirconio (per dente)", price: "da 180 €" },
     { label: "All-on-4 (per arcata)", price: "da 3 450 €" },
     { label: "Riabilitazione completa superiore + inferiore (10–12 impianti)", price: "da 6 900 €" },
-    { label: "Sedazione cosciente (facoltativa)", price: "450 €" },
+    { label: "Sedazione cosciente (facoltativa)", price: "da 450 €" },
   ],
   priceNote: "Prezzi di partenza in euro. L'importo esatto dipende dalla sua situazione clinica ed è indicato nel preventivo scritto. Per uno o pochi impianti l'alloggio è a carico del paziente; le consigliamo volentieri hotel vicini alla clinica (Üsküdar, sponda asiatica di Istanbul).",
   inclusions: [
@@ -2035,6 +2035,6 @@ i18n.it.intlSeoPage = {
     { q: "Quanto costa l'All-on-4 in Turchia?", a: "Da 3 450 € per arcata. La riabilitazione completa di entrambe le arcate con 10–12 impianti parte da 6 900 €, con hotel e transfer inclusi." },
     { q: "Quanti giorni servono per gli impianti a Istanbul?", a: "Due viaggi: circa 3 notti per l'intervento e, dopo qualche mese di guarigione, almeno 6 giorni per i denti definitivi." },
     { q: "Il prezzo può cambiare una volta arrivato in clinica?", a: "Il preventivo si basa sulle foto o sulla panoramica e viene confermato con la TAC 3D prima dell'intervento. Se la TAC mostra la necessità di un innesto osseo, la voce viene discussa con lei prima di procedere." },
-    { q: "La sedazione è inclusa?", a: "La sedazione cosciente è facoltativa e costa 450 €. Gli interventi si eseguono normalmente in anestesia locale." },
+    { q: "La sedazione è inclusa?", a: "La sedazione cosciente è facoltativa e parte da 450 €. Gli interventi si eseguono normalmente in anestesia locale." },
   ],
 };
