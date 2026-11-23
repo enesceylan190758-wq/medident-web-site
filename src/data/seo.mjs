@@ -11,6 +11,12 @@ export const hoursLocalized = {
   ru: "Понедельник – суббота: 09:00 – 18:00",
 };
 
+/**
+ * Üretilmeyen (hizmet sayfasına 301'lenen) blog yolları — "lang:blog/slug/".
+ * build.mjs doldurur; hreflang bu yollara alternate vermez (hedef 301 olur).
+ */
+export const unemittedBlogPaths = new Set();
+
 /** Blog topic groups → slugs per language (only emit hreflang when all present). */
 export const blogTopicGroups = [
   {
@@ -323,7 +329,7 @@ export function resolveHreflangPaths(lang, pathNoLang) {
     if (group) {
       const out = {};
       for (const l of site.languages) {
-        if (group[l]) out[l] = `blog/${group[l]}/`;
+        if (group[l] && !unemittedBlogPaths.has(`${l}:blog/${group[l]}/`)) out[l] = `blog/${group[l]}/`;
       }
       if (Object.keys(out).length) return out;
     }

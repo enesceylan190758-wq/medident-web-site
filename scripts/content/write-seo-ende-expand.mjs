@@ -470,7 +470,7 @@ const DE = [
       {
         h2: "Wann Zirkon?",
         body: [
-          "Bei frakturierten Zähnen, Brücken oder starkem Biss/Knirschen oft Vollkronen aus Zirkon.",
+          "Bei frakturierten Zähnen, Brücken oder starkem Biss/Knirschen oft Vollkronen aus Zirkon. Mehr dazu: <a href=\"/de/blog/zirkonkronen-tuerkei-kosten-ablauf-2026/\">Zirkonkronen in der Türkei — Kostenfaktoren &amp; Ablauf</a>.",
         ],
       },
     ],

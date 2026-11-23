@@ -33,6 +33,15 @@ const reviewedByLabel = {
 /** Clinic-confirmed reviewing doctor for commercial DE/EN landings (filled 2026-09-11). */
 const reviewingDoctor = doctors.find((d) => d.slug === "dr-ahmet-celik");
 
+/** EN iç link: "turkey teeth" rehberine (turkish teeth / turkey teeth aramaları) diğer EN sayfalardan bağlantı. */
+const TURKEY_TEETH_GUIDE = "geo/turkey-teeth-what-they-are-and-how-to-avoid-problems/";
+function turkeyTeethRelated(lang, selfPath = "") {
+  if (lang !== "en" || selfPath === TURKEY_TEETH_GUIDE) return "";
+  return `<section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">
+    <p style="font-size:15px;line-height:1.6;color:var(--muted);margin:0;border-left:3px solid var(--gold);padding:4px 0 4px 14px;">Planning treatment abroad? Read our guide <a href="${url("en", TURKEY_TEETH_GUIDE)}" style="color:var(--ink-soft);font-weight:700;text-decoration:underline;">Turkey teeth: what they are and how to avoid problems</a> before you book.</p>
+  </div></section>`;
+}
+
 /** Visible "medically reviewed by …" block with confirmed doctor name + title. */
 function reviewedByBlock(lang) {
   if (!reviewingDoctor) return "";
@@ -379,7 +388,8 @@ export function servicePage(lang, service, article = null) {
   const heroImg = service.image
     ? `<figure style="margin:0 0 28px;border-radius:18px;overflow:hidden;aspect-ratio:16/9;background:var(--sand);"><img src="${asset(`/assets/img/${service.image}`)}" alt="${title}" width="1200" height="675" style="width:100%;height:100%;object-fit:cover;display:block;" loading="eager"></figure>`
     : "";
-  const body = `${pageHero(lang, t.servicesEyebrow, title, L(service.short, lang), crumbs)}
+  const h1 = (service.h1 && service.h1[lang]) || title;
+  const body = `${pageHero(lang, t.servicesEyebrow, h1, L(service.short, lang), crumbs)}
   <section class="section" style="padding-top:clamp(40px,5vw,64px);"><div class="container" style="max-width:860px;">
     ${heroImg}
     <div style="display:grid;grid-template-columns:1fr;gap:40px;">
@@ -404,6 +414,7 @@ export function servicePage(lang, service, article = null) {
         .join("")}</div>
     </div>
   </div></section>
+  ${turkeyTeethRelated(lang)}
   ${contactSection(lang)}`;
   const ogImage = service.image ? site.domain + asset(`/assets/img/${service.image}`) : undefined;
   const jsonld = [
@@ -420,9 +431,13 @@ export function servicePage(lang, service, article = null) {
     breadcrumbSchema(crumbs.map((c) => ({ name: c.name, url: site.domain + c.href }))),
   ];
   if (faqs.length) jsonld.push(faqSchema(faqs));
-  const pageTitle =
-    lang === "en" || lang === "de" || lang === "fr"
-      ? `${title} in Istanbul — ${site.brand}`
+  // SEO: anahtar kelime önde başlık (service.seoTitle) varsa onu kullan; FR'de "in" değil "à".
+  const cityIn = lang === "fr" ? "à Istanbul" : "in Istanbul";
+  const seoTitle = service.seoTitle && service.seoTitle[lang];
+  const pageTitle = seoTitle
+    ? `${seoTitle} — ${site.brand}`
+    : lang === "en" || lang === "de" || lang === "fr"
+      ? `${title} ${cityIn} — ${site.brand}`
       : `${title} — ${site.brand}`;
   return { body, title: pageTitle, description: L(service.meta, lang), image: ogImage, jsonld };
 }
@@ -535,6 +550,18 @@ export function articlePage(lang, article, relatedServiceSlug) {
     { name: article.title, href: url(lang, "blog/" + article.slug + "/") },
   ];
   const svc = services.find((s) => s.slug === relatedServiceSlug);
+  // İç link: implant yazıları maliyet/fiyat sayfasına, zirkon yazıları fiyat sayfasına bağlanır
+  // (DE/EN implant → maliyet; TR implant → /dis-implant-fiyat/; DE/EN zirkon → fiyat listesi).
+  const maliyetYolu = { de: "zahnimplantate-tuerkei-kosten/", en: "dental-implants-turkey-cost/" }[lang];
+  const fiyatLinki = (yol, etiket) => `<a class="btn btn-ghost" href="${url(lang, yol)}">${etiket} ${icons.arrowSm}</a>`;
+  let maliyet = "";
+  if (/implant/i.test(article.slug)) {
+    if (maliyetYolu && t.implantsCostPage?.h1) maliyet = fiyatLinki(maliyetYolu, t.implantsCostPage.h1);
+    else if (lang === "tr" && t.implantPricePage?.h1) maliyet = fiyatLinki("dis-implant-fiyat/", t.implantPricePage.h1);
+  } else if (/zirkon|zircon/i.test(article.slug)) {
+    const fiyatYolu = { de: "preise/", en: "turkey-teeth-price/" }[lang];
+    if (fiyatYolu && t.pricesPage?.h1) maliyet = fiyatLinki(fiyatYolu, t.pricesPage.h1);
+  }
   const cover = article.coverImage
     ? `<figure class="article-cover" style="margin:0 0 28px;"><img src="${asset(`/assets/img/${article.coverImage}`)}" alt="${article.title}" width="1536" height="1024" style="width:100%;height:auto;border-radius:18px;display:block;" loading="eager"></figure>`
     : "";
@@ -548,13 +575,14 @@ export function articlePage(lang, article, relatedServiceSlug) {
   const body = `${pageHero(lang, t.nav.blog, article.title, "", crumbs)}
   <section class="section" style="padding-top:clamp(30px,4vw,48px);"><div class="container" style="max-width:820px;">
     <article class="prose">${html}
-      ${svc ? `<p style="margin-top:28px;"><a class="btn btn-ghost" href="${url(lang, "hizmetler/" + svc.slug + "/")}">${L(svc.titles, lang)} ${icons.arrowSm}</a></p>` : ""}
+      ${svc || maliyet ? `<p style="margin-top:28px;display:flex;flex-wrap:wrap;gap:12px;">${svc ? `<a class="btn btn-ghost" href="${url(lang, "hizmetler/" + svc.slug + "/")}">${L(svc.titles, lang)} ${icons.arrowSm}</a>` : ""}${maliyet}</p>` : ""}
       <div style="margin-top:24px;display:flex;flex-wrap:wrap;gap:12px;">
         <a href="${url(lang, "iletisim/")}" class="btn btn-primary">${t.bookNow} ${icons.arrow()}</a>
         <a href="${waHref()}" class="btn btn-ghost" target="_blank" rel="noopener">${icons.wa} WhatsApp</a>
       </div>
     </article>
   </div></section>
+  ${turkeyTeethRelated(lang)}
   ${contactSection(lang)}`;
   const ogImage = article.coverImage ? site.domain + asset(`/assets/img/${article.coverImage}`) : undefined;
   const jsonld = [
@@ -710,6 +738,7 @@ export function pricesPage(lang) {
     <h2 style="font-size:24px;margin:0 0 20px;">${p.faqTitle}</h2>
     <div class="faq" data-reveal>${p.faqs.map(faqItem).join("")}</div>
   </div></section>
+  ${turkeyTeethRelated(lang)}
   ${contactSection(lang)}`;
 
   return {
@@ -772,6 +801,7 @@ export function bondingPage(lang) {
     <h2 style="font-size:24px;margin:0 0 20px;">${p.faqTitle}</h2>
     <div class="faq" data-reveal>${p.faqs.map(faqItem).join("")}</div>
   </div></section>
+  ${turkeyTeethRelated(lang)}
   ${contactSection(lang)}`;
 
   return {
@@ -895,11 +925,12 @@ export function implantsCostPage(lang) {
     <div class="faq" data-reveal>${p.faqs.map(faqItem).join("")}</div>
   </div></section>
   ${landingCtaBand(lang)}
+  ${turkeyTeethRelated(lang)}
   ${contactSection(lang)}`;
 
   return {
     body,
-    title: `${p.h1} — ${site.brand}`,
+    title: `${p.metaTitle || p.h1} — ${site.brand}`,
     description: p.lead,
     publishedTime: publishedAt,
     modifiedTime: updatedAt,
@@ -1869,7 +1900,8 @@ export function geoPackPage(lang, pack) {
       ${pack.showConversionBand ? geoConversionBand(lang) : ""}
       <div style="margin-top:28px;display:flex;flex-wrap:wrap;gap:10px;">${links}</div>
     </article>
-  </div></section>`;
+  </div></section>
+  ${turkeyTeethRelated(lang, "geo/" + pack.slug + "/")}`;
   const authorNode = pack.author
     ? { "@type": "Person", name: pack.author }
     : { "@id": site.domain + "/#organization" };
