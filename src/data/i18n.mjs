@@ -1920,8 +1920,8 @@ i18n.it = {
 // Ortak İtalyanca blok: fiyat tablosu, süreç, markalar, hekim inceleme satırı (iki sayfa da kullanır).
 const itShared = {
   tableHead: ["Trattamento", "Prezzo"],
-  reviewTitle: "Contenuto rivisto dai nostri dentisti",
-  reviewText: "Parte su impianti e All-on-4 rivista dal <strong>Dt. Metin Demir</strong>; parte su corone in zirconio e protesi rivista dalla <strong>Dt.ssa Feyzanur Gül Köker</strong>.",
+  reviewTitle: "I nostri dentisti",
+  reviewText: "Impianti e All-on-4: <strong>Dt. Metin Demir</strong>; corone in zirconio e protesi: <strong>Dt.ssa Feyzanur Gül Köker</strong>.",
   priceTitle: "I nostri prezzi di partenza",
   priceTable: [
     { label: "Impianto dentale (per impianto)", price: "da 400 €" },
@@ -1986,7 +1986,6 @@ i18n.it.intlSeoPage = {
   noindex: false,
   publishedAt: "2026-11-23",
   updatedAt: "2026-11-23",
-  reviewer: "Dt. Metin Demir",
   waMessage: "Buongiorno, vorrei sapere il prezzo degli impianti per il mio caso (invio foto o panoramica).",
   metaTitle: "Impianti dentali in Turchia: prezzi 2026 e cosa è incluso",
   metaDescription: "Impianti dentali in Turchia da 400 € a impianto, All-on-4 da 3 450 € per arcata, corone in zirconio da 180 €. Cosa incide sul prezzo, quanti viaggi servono e come scegliere la clinica.",
