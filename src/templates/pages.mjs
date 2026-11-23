@@ -33,6 +33,15 @@ const reviewedByLabel = {
 /** Clinic-confirmed reviewing doctor for commercial DE/EN landings (filled 2026-09-11). */
 const reviewingDoctor = doctors.find((d) => d.slug === "dr-ahmet-celik");
 
+/** EN iç link: "turkey teeth" rehberine (turkish teeth / turkey teeth aramaları) diğer EN sayfalardan bağlantı. */
+const TURKEY_TEETH_GUIDE = "geo/turkey-teeth-what-they-are-and-how-to-avoid-problems/";
+function turkeyTeethRelated(lang, selfPath = "") {
+  if (lang !== "en" || selfPath === TURKEY_TEETH_GUIDE) return "";
+  return `<section class="section" style="padding-top:0;"><div class="container" style="max-width:820px;">
+    <p style="font-size:15px;line-height:1.6;color:var(--muted);margin:0;border-left:3px solid var(--gold);padding:4px 0 4px 14px;">Planning treatment abroad? Read our guide <a href="${url("en", TURKEY_TEETH_GUIDE)}" style="color:var(--ink-soft);font-weight:700;text-decoration:underline;">Turkey teeth: what they are and how to avoid problems</a> before you book.</p>
+  </div></section>`;
+}
+
 /** Visible "medically reviewed by …" block with confirmed doctor name + title. */
 function reviewedByBlock(lang) {
   if (!reviewingDoctor) return "";
@@ -405,6 +414,7 @@ export function servicePage(lang, service, article = null) {
         .join("")}</div>
     </div>
   </div></section>
+  ${turkeyTeethRelated(lang)}
   ${contactSection(lang)}`;
   const ogImage = service.image ? site.domain + asset(`/assets/img/${service.image}`) : undefined;
   const jsonld = [
@@ -572,6 +582,7 @@ export function articlePage(lang, article, relatedServiceSlug) {
       </div>
     </article>
   </div></section>
+  ${turkeyTeethRelated(lang)}
   ${contactSection(lang)}`;
   const ogImage = article.coverImage ? site.domain + asset(`/assets/img/${article.coverImage}`) : undefined;
   const jsonld = [
@@ -727,6 +738,7 @@ export function pricesPage(lang) {
     <h2 style="font-size:24px;margin:0 0 20px;">${p.faqTitle}</h2>
     <div class="faq" data-reveal>${p.faqs.map(faqItem).join("")}</div>
   </div></section>
+  ${turkeyTeethRelated(lang)}
   ${contactSection(lang)}`;
 
   return {
@@ -789,6 +801,7 @@ export function bondingPage(lang) {
     <h2 style="font-size:24px;margin:0 0 20px;">${p.faqTitle}</h2>
     <div class="faq" data-reveal>${p.faqs.map(faqItem).join("")}</div>
   </div></section>
+  ${turkeyTeethRelated(lang)}
   ${contactSection(lang)}`;
 
   return {
@@ -912,6 +925,7 @@ export function implantsCostPage(lang) {
     <div class="faq" data-reveal>${p.faqs.map(faqItem).join("")}</div>
   </div></section>
   ${landingCtaBand(lang)}
+  ${turkeyTeethRelated(lang)}
   ${contactSection(lang)}`;
 
   return {
@@ -1739,7 +1753,8 @@ export function geoPackPage(lang, pack) {
       ${pack.showConversionBand ? geoConversionBand(lang) : ""}
       <div style="margin-top:28px;display:flex;flex-wrap:wrap;gap:10px;">${links}</div>
     </article>
-  </div></section>`;
+  </div></section>
+  ${turkeyTeethRelated(lang, "geo/" + pack.slug + "/")}`;
   const authorNode = pack.author
     ? { "@type": "Person", name: pack.author }
     : { "@id": site.domain + "/#organization" };
