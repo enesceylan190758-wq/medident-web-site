@@ -1689,8 +1689,8 @@ export const i18n = {
       ctaPrimaryNote: "Une photo de votre sourire ou votre radio panoramique suffit. Un dentiste étudie votre cas et vous répond par écrit, sans engagement.",
       ctaSecondary: "Être rappelé(e)",
       ctaSecondaryNote: "Laissez votre numéro : un coordinateur patient vous rappelle en français, au moment qui vous convient.",
-      reviewTitle: "Contenu relu par nos dentistes",
-      reviewText: "Partie implants et All-on-4 relue par <strong>Dt. Metin Demir</strong> ; partie couronnes zircone et prothèses relue par <strong>Dt. Feyzanur Gül Köker</strong>.",
+      reviewTitle: "Vos dentistes",
+      reviewText: "Implants et All-on-4 : <strong>Dt. Metin Demir</strong> ; couronnes zircone et prothèses : <strong>Dt. Feyzanur Gül Köker</strong>.",
       introTitle: "Ce qui fait varier le prix",
       introText: "Trois éléments déterminent le montant final : le nombre d'implants ou de dents à traiter, la marque d'implant choisie, et l'état de votre os (une greffe osseuse ou un sinus lift est parfois nécessaire avant la pose). C'est pour cela que nous ne donnons pas de prix « au hasard » : le devis définitif est établi après l'examen de vos photos ou de votre radio, puis confirmé au scanner 3D à la clinique.",
       inclusions: [
