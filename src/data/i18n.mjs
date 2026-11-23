@@ -1680,6 +1680,91 @@ export const i18n = {
       { q: "Comment démarrer le processus à distance ?", a: "Quelques photos de vos dents suffisent. Nos dentistes préparent une pré-évaluation gratuite, un plan de traitement et un devis transparent." },
       { q: "Comment puis-je payer ?", a: "Nous proposons un prix transparent tout inclus, sans frais cachés. Votre coordinateur discutera des options de paiement." },
     ],
+    // Page d'atterrissage publicitaire FR (Meta/Google, FR/BE/CH) — noindex. Prix = price_list (bot_settings).
+    implantAdPageFr: {
+      eyebrow: "Implants & couronnes en Turquie",
+      h1: "Implants dentaires en Turquie : le prix, sans mauvaise surprise",
+      lead: "Implant dès 400 €, couronne zircone dès 180 € par dent, All-on-4 dès 3 450 € par mâchoire. Envoyez une photo ou une radio sur WhatsApp : vous recevez un plan de traitement écrit et chiffré avant de réserver votre vol.",
+      ctaPrimary: "Recevoir mon devis gratuit",
+      ctaPrimaryNote: "Une photo de votre sourire ou votre radio panoramique suffit. Un dentiste étudie votre cas et vous répond par écrit, sans engagement.",
+      ctaSecondary: "Être rappelé(e)",
+      ctaSecondaryNote: "Laissez votre numéro : un coordinateur patient vous rappelle en français, au moment qui vous convient.",
+      reviewTitle: "Contenu relu par nos dentistes",
+      reviewText: "Partie implants et All-on-4 relue par <strong>Dt. Metin Demir</strong> ; partie couronnes zircone et prothèses relue par <strong>Dt. Feyzanur Gül Köker</strong>.",
+      introTitle: "Ce qui fait varier le prix",
+      introText: "Trois éléments déterminent le montant final : le nombre d'implants ou de dents à traiter, la marque d'implant choisie, et l'état de votre os (une greffe osseuse ou un sinus lift est parfois nécessaire avant la pose). C'est pour cela que nous ne donnons pas de prix « au hasard » : le devis définitif est établi après l'examen de vos photos ou de votre radio, puis confirmé au scanner 3D à la clinique.",
+      inclusions: [
+        "Scanner 3D et planification numérique de la pose",
+        "Implants de marques reconnues (Straumann, Osstem, Neodent, ImplantSwiss)",
+        "Hôtel et transferts aéroport–hôtel–clinique pour les traitements complets (All-on-4, réhabilitation complète)",
+        "Accompagnement en français avant, pendant et après le séjour",
+        "Plan de traitement et devis écrits avant votre départ",
+      ],
+      priceTitle: "Nos tarifs de départ",
+      priceTable: [
+        { label: "Implant dentaire (par implant)", price: "dès 400 €" },
+        { label: "Couronne zircone (par dent)", price: "dès 180 €" },
+        { label: "All-on-4 (par mâchoire)", price: "dès 3 450 €" },
+        { label: "Réhabilitation complète haut + bas (10 à 12 implants)", price: "dès 6 900 €" },
+        { label: "Sédation consciente (option)", price: "450 €" },
+      ],
+      priceNote: "Prix de départ en euros. Le montant exact dépend de votre situation clinique et figure sur votre devis écrit. Pour un ou quelques implants, l'hébergement est à votre charge ; nous vous conseillons volontiers des hôtels proches de la clinique (Üsküdar, rive asiatique d'Istanbul).",
+      brandsTitle: "Les marques d'implants que nous posons",
+      brandsLead: "Les mêmes systèmes certifiés que dans les cabinets en France, en Belgique ou en Suisse.",
+      tripTitle: "Combien de temps rester à Istanbul ?",
+      tripLead: "Un traitement implantaire se fait en deux séjours, car l'implant doit s'intégrer à l'os avant la pose des dents définitives.",
+      tripStages: [
+        { t: "Avant le départ", d: "Vous envoyez photos ou radio sur WhatsApp. Nous vous renvoyons un plan de traitement écrit et chiffré, puis nous organisons les dates avec vous." },
+        { t: "1er séjour : environ 3 nuits", d: "Scanner 3D, pose des implants sous anesthésie locale (sédation possible) et, si votre os le permet, bridge provisoire fixe." },
+        { t: "Cicatrisation chez vous", d: "L'implant s'intègre à l'os pendant quelques mois. Votre coordinateur reste joignable sur WhatsApp pendant toute cette période." },
+        { t: "2e séjour : au moins 6 jours", d: "Empreintes, essayage puis pose des couronnes ou du bridge définitif en zircone, avec contrôle avant votre retour." },
+      ],
+      zirconNote: "Vous venez uniquement pour des couronnes zircone, sans implant ? Comptez en général 5 à 7 jours sur place, en un seul séjour.",
+      faqTitle: "Vos questions sur les implants en Turquie",
+      faqs: [
+        {
+          q: "Combien coûte un implant dentaire en Turquie chez MediDent ?",
+          a: "À partir de 400 € par implant. Le prix final dépend du nombre d'implants, de la marque et de votre os ; il est fixé par écrit après l'examen de vos photos ou de votre radio.",
+        },
+        {
+          q: "Combien coûte un All-on-4 ?",
+          a: "À partir de 3 450 € par mâchoire. Pour le haut et le bas avec 10 à 12 implants, la réhabilitation complète démarre à 6 900 €, hôtel et transferts compris.",
+        },
+        {
+          q: "Combien de fois dois-je venir à Istanbul ?",
+          a: "Deux fois pour des implants : un premier séjour d'environ 3 nuits pour la pose, puis, après la cicatrisation, un second séjour d'au moins 6 jours pour les dents définitives. Pour des couronnes zircone seules, un séjour de 5 à 7 jours suffit généralement.",
+        },
+        {
+          q: "Pourquoi est-ce moins cher qu'en France, en Belgique ou en Suisse ?",
+          a: "Les loyers, les salaires et les coûts de fonctionnement sont plus bas à Istanbul. Les implants et les matériaux, eux, sont les mêmes marques certifiées que chez vous.",
+        },
+        {
+          q: "Est-ce que je parlerai français sur place ?",
+          a: "Oui : nos coordinateurs patients et interprètes vous accompagnent en français, du premier message jusqu'au suivi après votre retour.",
+        },
+        {
+          q: "Que se passe-t-il après mon retour ?",
+          a: "Vous repartez avec un plan de suivi écrit. Votre coordinateur reste disponible sur WhatsApp pour vos questions, et les contrôles sont prévus lors de votre second séjour.",
+        },
+      ],
+      variants: {
+        implant: {
+          h1: "Implants dentaires en Turquie : le prix, sans mauvaise surprise",
+          lead: "Implant dès 400 € à Istanbul. Envoyez une photo ou une radio sur WhatsApp : vous recevez un devis écrit avant de réserver votre vol.",
+          cta: "Recevoir mon devis gratuit",
+        },
+        "all-on-4": {
+          h1: "All-on-4 en Turquie : dès 3 450 € par mâchoire",
+          lead: "Des dents fixes sur 4 implants, hôtel et transferts compris. Devis écrit après examen de votre radio, sans engagement.",
+          cta: "Recevoir mon devis All-on-4",
+        },
+        zircone: {
+          h1: "Couronnes zircone en Turquie : dès 180 € par dent",
+          lead: "Couronnes zircone réalisées à Istanbul en 5 à 7 jours en général. Envoyez une photo pour recevoir votre devis écrit.",
+          cta: "Recevoir mon devis zircone",
+        },
+      },
+    },
     landingUi: {
       resultsEyebrow: "Résultats",
       resultsTitle: "Résultats réels de nos patients",
