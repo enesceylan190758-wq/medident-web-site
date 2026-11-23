@@ -271,6 +271,26 @@ export const services = [
   },
 ];
 
+// İtalyanca hizmet adları (kısmi dil IT: menü/form/altbilgi).
+const serviceTitlesIt = {
+  "implantoloji-implant-tedavisi": "Implantologia (impianti dentali)",
+  "estetik-dis-hekimligi": "Odontoiatria estetica",
+  "dis-beyazlatma": "Sbiancamento dentale",
+  "protezler": "Protesi dentarie",
+  "seffaf-plaklar-invisalign": "Allineatori trasparenti / Invisalign",
+  "agiz-dis-ve-cene-cerrahisi": "Chirurgia orale e maxillo-facciale",
+  "cene-ve-dis-cerrahisi": "Chirurgia dentale e mascellare",
+  "cene-eklemi-rahatsizliklari": "Disturbi dell'ATM",
+  "periodontoloji-diseti-hastaliklari": "Parodontologia (gengive)",
+  "pedodonti-cocuk-dis-hekimligi": "Odontoiatria pediatrica",
+  "konservatif-dis-tedavileri": "Odontoiatria conservativa",
+  "halitosis-agiz-kokusu": "Alitosi (alito cattivo)",
+  "genel-anestezi-ve-sedasyon": "Anestesia generale e sedazione",
+  "endodonti-kanal-tedavileri": "Endodonzia (devitalizzazione)"
+};
+for (const s of services) if (serviceTitlesIt[s.slug]) s.titles.it = serviceTitlesIt[s.slug];
+
+
 // Extra homepage cards that map onto existing service pages
 export const homeCards = [
   { service: "estetik-dis-hekimligi", titles: { tr: "Gülüş Tasarımı", en: "Smile Design", de: "Smile Design", fr: "Design du sourire" }, short: { tr: "Yüz hatlarınıza özel, dijital planlamayla tasarlanan doğal ve dengeli gülüşler.", en: "Natural, balanced smiles designed digitally for your face.", de: "Natürliche, ausgewogene Lächeln – digital auf Ihr Gesicht abgestimmt.", fr: "Sourires naturels et équilibrés, conçus numériquement pour votre visage." }, icon: "smile" },
