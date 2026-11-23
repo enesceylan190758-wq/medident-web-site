@@ -40,6 +40,7 @@ import {
   allOn4Page,
   implantPricePage,
   implantAdPageDe,
+  implantAdPageFr,
 } from "./src/templates/pages.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -235,6 +236,8 @@ function build() {
     // Achtung: NICHT "zahnimplantate-tuerkei-kosten/" — das ist bereits die indexierte
     // implantsCostPage (siehe oben, seit c138a5f); eigene URL um Kollision zu vermeiden.
     if (lang === "de") emit(lang, "zahnimplantate-tuerkei-angebot/", implantAdPageDe(lang));
+    // FR reklam landing (FR/BE/CH Fransızca) — noindex, sitemap dışı.
+    if (lang === "fr") emit(lang, "implant-dentaire-turquie-offre/", implantAdPageFr(lang));
   }
 
   // Kısmi dil IT — yalnız iki sayfa: reklam landing (noindex) + indexlenen fiyat sayfası.
