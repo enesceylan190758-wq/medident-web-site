@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 
 import { site, langPrefix } from "./src/data/site.mjs";
 import { i18n } from "./src/data/i18n.mjs";
+import { intlImplantPage } from "./src/templates/pages.mjs";
 import { services, doctors, legacyBlog } from "./src/data/content.mjs";
 import {
   resolveHreflangPaths,
@@ -39,7 +40,6 @@ import {
   allOn4Page,
   implantPricePage,
   implantAdPageDe,
-  intlImplantPage,
 } from "./src/templates/pages.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
