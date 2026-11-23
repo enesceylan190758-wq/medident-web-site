@@ -23,6 +23,8 @@ export const url = (lang, path = "") => {
   return full === "" || full === site.basePath ? `${site.basePath || ""}/` || "/" : full;
 };
 
+// Kısmi dillerde (IT) menü/altbilgi bağlantıları EN sayfalarına gider (IT karşılıkları yok).
+const navLang = (lang) => (site.languages.includes(lang) ? lang : "en");
 export const absUrl = (lang, path = "") => site.domain + url(lang, path);
 
 // Head with per-page SEO + hreflang alternates + tracking.
@@ -140,14 +142,14 @@ function langSwitch(lang, path) {
 function navLinks(lang) {
   const n = i18n[lang].nav;
   const links = [
-    [n.services, url(lang, "hizmetler/")],
-    [n.doctors, url(lang, "doktorlar/")],
-    [n.about, url(lang, "hakkimizda/")],
+    [n.services, url(navLang(lang), "hizmetler/")],
+    [n.doctors, url(navLang(lang), "doktorlar/")],
+    [n.about, url(navLang(lang), "hakkimizda/")],
   ];
-  if (lang === "de") links.push([i18n.de.pricesPage.eyebrow, url(lang, "preise/")]);
-  if (lang === "en") links.push([i18n.en.pricesPage.eyebrow, url(lang, "turkey-teeth-price/")]);
-  if (lang === "fr") links.push([i18n.fr.pricesPage.eyebrow, url(lang, "prix-implants-dentaires-turquie/")]);
-  links.push([n.gallery, url(lang, "galeri/")], [n.blog, url(lang, "blog/")], [n.contact, url(lang, "iletisim/")]);
+  if (lang === "de") links.push([i18n.de.pricesPage.eyebrow, url(navLang(lang), "preise/")]);
+  if (lang === "en") links.push([i18n.en.pricesPage.eyebrow, url(navLang(lang), "turkey-teeth-price/")]);
+  if (lang === "fr") links.push([i18n.fr.pricesPage.eyebrow, url(navLang(lang), "prix-implants-dentaires-turquie/")]);
+  links.push([n.gallery, url(navLang(lang), "galeri/")], [n.blog, url(navLang(lang), "blog/")], [n.contact, url(navLang(lang), "iletisim/")]);
   return links;
 }
 
@@ -156,12 +158,12 @@ function header(lang, path, adLanding) {
   const links = navLinks(lang);
   // Ads SKAG landing sayfalarında (adLanding) header CTA'sı da ziyaretçiyi sayfadan çıkarmaz,
   // sayfa içi lead formuna kaydırır (Google Ads: whatsapp_click var, form dönüşümü kayboluyordu).
-  const ctaHref = adLanding ? "#iletisim" : url(lang, "iletisim/");
+  const ctaHref = adLanding ? "#iletisim" : url(navLang(lang), "iletisim/");
   const ctaAttr = adLanding ? ` data-scroll-form` : "";
   return `${topbar(lang)}
   <header class="site-header">
     <div class="header-inner">
-      <a href="${url(lang, "")}" class="logo" aria-label="${site.brand}"><img src="${asset("/assets/img/logo.png")}" alt="${site.brand}" width="150" height="44"></a>
+      <a href="${url(navLang(lang), "")}" class="logo" aria-label="${site.brand}"><img src="${asset("/assets/img/logo.png")}" alt="${site.brand}" width="150" height="44"></a>
       <nav class="nav">
         ${links.map(([label, href]) => `<a href="${href}">${label}</a>`).join("\n        ")}
       </nav>
@@ -206,19 +208,19 @@ function footer(lang) {
       <div>
         <div class="footer-col-title">${t.footerServices}</div>
         <div class="footer-links">
-          ${homeServices.map((s) => `<a href="${url(lang, "hizmetler/" + s.slug + "/")}">${L(s.titles, lang)}</a>`).join("\n          ")}
+          ${homeServices.map((s) => `<a href="${url(navLang(lang), "hizmetler/" + s.slug + "/")}">${L(s.titles, lang)}</a>`).join("\n          ")}
         </div>
       </div>
       <div>
         <div class="footer-col-title">${t.footerCorp}</div>
         <div class="footer-links">
-          <a href="${url(lang, "hakkimizda/")}">${t.nav.about}</a>
-          <a href="${url(lang, "doktorlar/")}">${t.nav.doctors}</a>
-          <a href="${url(lang, "yorumlar/")}">${t.nav.reviews}</a>
-          <a href="${url(lang, "galeri/")}">${t.nav.gallery}</a>
-          <a href="${url(lang, "blog/")}">${t.nav.blog}</a>
-          <a href="${url(lang, "geo/")}">GEO</a>
-          <a href="${url(lang, "sss/")}">${t.nav.faq}</a>
+          <a href="${url(navLang(lang), "hakkimizda/")}">${t.nav.about}</a>
+          <a href="${url(navLang(lang), "doktorlar/")}">${t.nav.doctors}</a>
+          <a href="${url(navLang(lang), "yorumlar/")}">${t.nav.reviews}</a>
+          <a href="${url(navLang(lang), "galeri/")}">${t.nav.gallery}</a>
+          <a href="${url(navLang(lang), "blog/")}">${t.nav.blog}</a>
+          <a href="${url(navLang(lang), "geo/")}">GEO</a>
+          <a href="${url(navLang(lang), "sss/")}">${t.nav.faq}</a>
         </div>
       </div>
       <div>
@@ -234,8 +236,8 @@ function footer(lang) {
     <div class="footer-bottom">
       <span>© ${new Date().getFullYear()} ${site.brand}. ${t.rights}</span>
       <div style="display:flex;gap:22px;">
-        <a href="${url(lang, "gizlilik/")}">${t.privacy}</a>
-        ${lang === "tr" ? `<a href="${url(lang, "kvkk/")}">${t.kvkk}</a>` : ""}
+        <a href="${url(navLang(lang), "gizlilik/")}">${t.privacy}</a>
+        ${lang === "tr" ? `<a href="${url(navLang(lang), "kvkk/")}">${t.kvkk}</a>` : ""}
       </div>
     </div>
   </footer>`;

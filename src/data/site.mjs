@@ -70,13 +70,16 @@ export const site = {
 };
 
 // Language -> URL prefix. TR lives at root; others under /en, /de, /ar, /ru.
-export const langPrefix = { tr: "", en: "/en", de: "/de", fr: "/fr", ar: "/ar", ru: "/ru" };
-export const htmlLang = { tr: "tr", en: "en", de: "de", fr: "fr", ar: "ar", ru: "ru" };
+export const langPrefix = { tr: "", en: "/en", de: "/de", fr: "/fr", ar: "/ar", ru: "/ru", it: "/it" };
+// Kısmi diller: tam site üretilmez, yalnız belirli landing/SEO sayfaları (IT: reklam + fiyat sayfası).
+export const partialLangs = ["it"];
+export const htmlLang = { tr: "tr", en: "en", de: "de", fr: "fr", ar: "ar", ru: "ru", it: "it" };
 export const ogLocale = {
   tr: "tr_TR",
   en: "en_US",
   de: "de_DE",
   fr: "fr_FR",
+  it: "it_IT",
   ar: "ar_SA",
   ru: "ru_RU",
 };

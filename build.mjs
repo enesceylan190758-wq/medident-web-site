@@ -5,6 +5,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { site, langPrefix } from "./src/data/site.mjs";
+import { i18n } from "./src/data/i18n.mjs";
 import { services, doctors, legacyBlog } from "./src/data/content.mjs";
 import {
   resolveHreflangPaths,
@@ -38,6 +39,7 @@ import {
   allOn4Page,
   implantPricePage,
   implantAdPageDe,
+  intlImplantPage,
 } from "./src/templates/pages.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -234,6 +236,10 @@ function build() {
     // implantsCostPage (siehe oben, seit c138a5f); eigene URL um Kollision zu vermeiden.
     if (lang === "de") emit(lang, "zahnimplantate-tuerkei-angebot/", implantAdPageDe(lang));
   }
+
+  // Kısmi dil IT — yalnız iki sayfa: reklam landing (noindex) + indexlenen fiyat sayfası.
+  emit("it", i18n.it.intlAdPage.slug, intlImplantPage("it", "intlAdPage"));
+  emit("it", i18n.it.intlSeoPage.slug, intlImplantPage("it", "intlSeoPage"));
 
   writeSitemap();
   writeRobots();

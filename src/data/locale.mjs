@@ -10,6 +10,7 @@ export const langBCP47 = {
   en: "en-US",
   de: "de-DE",
   fr: "fr-FR",
+  it: "it-IT",
   ar: "ar-SA",
   ru: "ru-RU",
 };
@@ -58,6 +59,7 @@ export const uiBits = {
     en: "Not sure yet",
     de: "Noch unsicher",
     fr: "Pas encore sûr(e)",
+    it: "Non sono ancora sicuro/a",
     ar: "لست متأكدًا بعد",
     ru: "Пока не уверен(а)",
   },
