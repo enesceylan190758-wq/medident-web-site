@@ -153,7 +153,7 @@ export const i18n = {
     ],
     implantPricePage: {
       eyebrow: "Fiyat Bilgisi",
-      h1: "Diş İmplant Fiyatı",
+      h1: "İstanbul Diş İmplant Fiyatları",
       lead: "Diş implant fiyatı, marka ve implant adedine göre değişir — MediDent İstanbul'da tek implant 400 €'dan başlar. Kesin fiyat için ücretsiz foto değerlendirme yeterli.",
       ctaPrimary: "Ücretsiz Değerlendirme İste",
       ctaPrimaryNote: "Fotoğrafını veya röntgenini WhatsApp'tan gönder, 24 saat içinde ücretsiz ön değerlendirme ve yazılı tedavi planı al.",
