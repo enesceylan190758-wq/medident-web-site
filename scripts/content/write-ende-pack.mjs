@@ -563,7 +563,7 @@ const DE = [
     service: "estetik-dis-hekimligi",
     bucket: "kategori",
     title: "Zirkonkronen in der Türkei 2026: Kostenfaktoren, CAD/CAM & natürliche Ästhetik",
-    meta: "Zirkonkronen in Istanbul: CAD/CAM-Ablauf, Preisfaktoren und Zahntourismus bei MediDent Istanbul.",
+    meta: "Zirkonkronen in der Türkei: CAD/CAM-Ablauf, Preisfaktoren und Zahntourismus nach Istanbul — bei MediDent Istanbul.",
     question: "Was sind Zirkonkronen und warum Istanbul?",
     direct:
       "Zirkonkronen sind metallfreie Restaurationen aus hochfestem Zirkonoxid, digital gefräst (CAD/CAM) und natürlich lichtdurchlässig. Bei MediDent Istanbul (Üsküdar Acıbadem) erhalten Patienten aus Deutschland und der EU nach Untersuchung und Scan einen klaren Plan — oft in einem kurzen Aufenthalt.",
